@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hibou &amp; Mots — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment-0:#FFFBF3;
+    --parchment-100:#FFF4E2;
+    --parchment-200:#F5E6C8;
+    --border-tan:#E8D4A8;
+    --ink-900:#2B2250;
+    --ink-600:#5B5480;
+    --ink-300:#B4AECF;
+    --indigo-900:#1C1638;
+    --amber-100:#FCE8C6;
+    --amber-300:#FBE0AE;
+    --amber-600:#E8932E;
+    --amber-700:#B8650F;
+    --amber-900:#5C3A0C;
+    --green-100:#E3EEDC;
+    --green-600:#6B9B5E;
+    --green-800:#2F4A27;
+    --coral-100:#F7E0D5;
+    --coral-600:#D9603D;
+    --coral-900:#5C2210;
+    --violet-100:#E6DEF7;
+    --violet-600:#7C5BC4;
+    --violet-900:#2E1F57;
+    --radius-sm:8px;
+    --radius-md:14px;
+    --radius-lg:20px;
+    --radius-pill:999px;
+    --shadow-card:0 2px 0 var(--border-tan);
+    --font-display:'Baloo 2', sans-serif;
+    --font-body:'Atkinson Hyperlegible', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--parchment-100);
+    color:var(--ink-900);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    padding:0 0 80px;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+  .top{
+    background:var(--indigo-900);
+    color:var(--parchment-0);
+    padding:40px 0;
+    margin-bottom:56px;
+  }
+  .top h1{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:38px;
+    margin:0 0 6px;
+    color:var(--amber-300);
+  }
+  .top p{margin:0;color:var(--ink-300);font-size:15px;max-width:640px;}
+  section{margin-bottom:64px;}
+  h2{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:24px;
+    margin:0 0 6px;
+    color:var(--ink-900);
+  }
+  .section-note{color:var(--ink-600);font-size:14.5px;margin:0 0 24px;max-width:680px;}
+  .divider{border:none;border-top:1px solid var(--border-tan);margin:64px 0 0;}
+
+  /* ===== Color swatches ===== */
+  .swatch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
+  .swatch{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border-tan);background:var(--parchment-0);}
+  .swatch .fill{height:64px;}
+  .swatch .label{padding:10px 12px;}
+  .swatch .name{font-weight:700;font-size:13.5px;display:block;}
+  .swatch .hex{font-size:12px;color:var(--ink-600);font-family:monospace;}
+
+  /* ===== Typography ===== */
+  .type-row{display:flex;align-items:baseline;gap:18px;padding:14px 0;border-bottom:1px solid var(--border-tan);}
+  .type-row:last-child{border-bottom:none;}
+  .type-meta{width:160px;flex-shrink:0;font-size:12.5px;color:var(--ink-600);}
+  .type-meta b{display:block;color:var(--ink-900);font-size:13px;}
+  .t-display-xl{font-family:var(--font-display);font-weight:800;font-size:40px;}
+  .t-display-lg{font-family:var(--font-display);font-weight:700;font-size:28px;}
+  .t-display-md{font-family:var(--font-display);font-weight:600;font-size:20px;}
+  .t-body{font-family:var(--font-body);font-weight:400;font-size:17px;}
+  .t-body-sm{font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--ink-600);}
+  .t-label{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.02em;}
+
+  /* ===== Buttons ===== */
+  .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+  .btn{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:15px;
+    border-radius:var(--radius-pill);
+    padding:13px 26px;
+    border:none;
+    cursor:pointer;
+    transition:transform .12s ease;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn:focus-visible{outline:3px solid var(--violet-600);outline-offset:2px;}
+  .btn-primary{background:var(--amber-600);color:var(--ink-900);}
+  .btn-primary:hover{background:#D9852A;}
+  .btn-secondary{background:var(--indigo-900);color:var(--amber-300);}
+  .btn-secondary:hover{background:#241C46;}
+  .btn-ghost{background:transparent;color:var(--ink-900);border:2px solid var(--ink-900);}
+  .btn-ghost:hover{background:var(--parchment-0);}
+  .btn-sm{padding:9px 18px;font-size:13.5px;}
+  .btn[disabled]{background:var(--ink-300);color:#fff;cursor:not-allowed;}
+
+  /* ===== Pills / badges ===== */
+  .pill{
+    display:inline-flex;align-items:center;gap:6px;
+    border-radius:var(--radius-pill);
+    padding:6px 14px;
+    font-weight:700;font-size:13px;font-family:var(--font-body);
+  }
+  .pill-facile{background:var(--green-100);color:var(--green-800);}
+  .pill-moyen{background:var(--amber-100);color:var(--amber-900);}
+  .pill-difficile{background:var(--coral-100);color:var(--coral-900);}
+  .pill-geant{background:var(--violet-100);color:var(--violet-900);}
+  .tag{background:var(--parchment-200);color:var(--ink-900);border-radius:var(--radius-sm);padding:4px 10px;font-size:12.5px;font-weight:700;}
+
+  /* ===== Cards ===== */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
+  .card{
+    background:var(--parchment-0);
+    border:1px solid var(--border-tan);
+    border-radius:var(--radius-lg);
+    padding:18px;
+    box-shadow:var(--shadow-card);
+  }
+  .card h3{font-family:var(--font-display);font-size:17px;margin:8px 0 4px;}
+  .card p{font-size:13.5px;color:var(--ink-600);margin:0;}
+  .card .icon-circle{
+    width:44px;height:44px;border-radius:50%;background:var(--amber-100);
+    display:flex;align-items:center;justify-content:center;font-size:20px;
+  }
+  .card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
+
+  .level-card{display:flex;gap:14px;align-items:flex-start;}
+  .level-num{
+    font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--amber-700);
+    background:var(--amber-100);border-radius:50%;width:38px;height:38px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+
+  /* ===== Puzzle grid demo ===== */
+  .demo-area{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;}
+  .grid-card{background:var(--parchment-0);border:1px solid var(--border-tan);border-radius:var(--radius-lg);padding:20px;}
+  .pgrid{display:grid;grid-template-columns:repeat(6,40px);grid-template-rows:repeat(6,40px);gap:3px;margin-bottom:14px;}
+  .cell{
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-body);font-weight:700;font-size:16px;
+    background:var(--parchment-100);
+    border-radius:6px;
+    color:var(--ink-900);
+    cursor:pointer;
+    user-select:none;
+    transition:background .15s, transform .15s;
+  }
+  .cell:hover{background:var(--parchment-200);}
+  .cell.selected{background:var(--violet-100);color:var(--violet-900);}
+  .cell.found{
+    background:var(--amber-600);
+    color:var(--ink-900);
+    animation:glow .5s ease;
+  }
+  @keyframes glow{
+    0%{transform:scale(1);box-shadow:0 0 0 rgba(232,147,46,0);}
+    40%{transform:scale(1.15);box-shadow:0 0 14px 4px rgba(232,147,46,.55);}
+    100%{transform:scale(1);box-shadow:0 0 0 rgba(232,147,46,0);}
+  }
+  .spark{position:absolute;font-size:14px;color:var(--amber-700);pointer-events:none;animation:spark-up .7s ease forwards;}
+  @keyframes spark-up{
+    0%{opacity:1;transform:translateY(0) scale(.6);}
+    100%{opacity:0;transform:translateY(-26px) scale(1.3);}
+  }
+  .pgrid-wrap{position:relative;}
+  .wordlist{display:flex;flex-wrap:wrap;gap:8px;}
+  .word-chip{
+    padding:5px 12px;border-radius:var(--radius-pill);
+    background:var(--parchment-200);font-weight:700;font-size:13px;
+    text-decoration:none;color:var(--ink-900);
+  }
+  .word-chip.done{background:var(--green-100);color:var(--green-800);text-decoration:line-through;}
+  .demo-note{max-width:220px;font-size:13.5px;color:var(--ink-600);padding-top:8px;}
+  .demo-note b{color:var(--ink-900);}
+
+  /* ===== Form elements ===== */
+  .chip-select{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{
+    padding:8px 16px;border-radius:var(--radius-pill);
+    border:2px solid var(--border-tan);background:var(--parchment-0);
+    font-weight:700;font-size:13.5px;cursor:pointer;color:var(--ink-900);
+  }
+  .chip.active{background:var(--violet-600);border-color:var(--violet-600);color:#fff;}
+  .segmented{display:inline-flex;background:var(--parchment-0);border:1px solid var(--border-tan);border-radius:var(--radius-pill);padding:4px;}
+  .segmented button{
+    border:none;background:transparent;padding:8px 18px;border-radius:var(--radius-pill);
+    font-weight:700;font-size:13.5px;color:var(--ink-600);cursor:pointer;font-family:var(--font-body);
+  }
+  .segmented button.active{background:var(--ink-900);color:var(--amber-300);}
+  .toggle{display:inline-flex;align-items:center;gap:10px;cursor:pointer;}
+  .switch{width:42px;height:24px;border-radius:var(--radius-pill);background:var(--ink-300);position:relative;transition:background .15s;}
+  .switch.on{background:var(--green-600);}
+  .switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s;}
+  .switch.on::after{left:21px;}
+  textarea, input[type=text]{
+    font-family:var(--font-body);font-size:14.5px;width:100%;
+    border:1px solid var(--border-tan);border-radius:var(--radius-sm);
+    padding:10px 12px;background:var(--parchment-0);color:var(--ink-900);
+  }
+  textarea:focus, input:focus{outline:2px solid var(--violet-600);}
+
+  /* ===== Footer / newsletter ===== */
+  .footer-demo{background:var(--indigo-900);border-radius:var(--radius-lg);padding:28px;color:var(--parchment-0);}
+  .footer-demo input{flex:1;}
+  .footer-demo .row{margin-top:12px;}
+
+  /* ===== Scale refs ===== */
+  .scale-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+  .scale-box{background:var(--amber-600);}
+  .scale-label{font-size:13px;color:var(--ink-600);width:140px;font-family:monospace;}
+
+  .icon{font-family:var(--font-body);}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <h1>Hibou &amp; Mots</h1>
+    <p>Design system — direction "veillée au clair de lune" : parchemin chaleureux, encre de nuit, lueur de miel. Construit pour la lisibilité (Atkinson Hyperlegible) autant que pour le jeu (Baloo 2).</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <h2>Couleurs</h2>
+    <p class="section-note">Le fond parchemin (#FFF4E2) est confirmé sur le site existant. Le reste du système est construit autour : encre de nuit pour le texte et les surfaces sombres, miel pour l'action principale, et une échelle de difficulté qui va du vert (facile) au violet profond (géant) — un nuancier qui reste dans la famille "nuit étoilée" plutôt qu'un arc-en-ciel générique.</p>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="fill" style="background:var(--parchment-100)"></div><div class="label"><span class="name">Parchemin</span><span class="hex">#FFF4E2 — confirmé</span></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--parchment-0)"></div><div class="label"><span class="name">Parchemin clair</span><span class="hex">#FFFBF3 — cartes</span></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--indigo-900)"></div><div class="label"><span class="name">Nuit</span><span class="hex">#1C1638 — footer, texte fort</span></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--ink-900)"></div><div class="label"><span class="name">Encre</span><span class="hex">#2B2250 — texte principal</span></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--amber-600)"></div><div class="label"><span class="name">Miel</span><span class="hex">#E8932E — CTA principal</span></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--green-600)"></div><div class="label"><span class="name">Mousse</span><span class="hex">#6B9B5E — Facile, succès</span></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--coral-600)"></div><div class="label"><span class="name">Corail</span><span class="hex">#D9603D — Difficile</span></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--violet-600)"></div><div class="label"><span class="name">Crépuscule</span><span class="hex">#7C5BC4 — Géant, focus</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Typographie</h2>
+    <p class="section-note">Baloo 2 porte la personnalité ludique sur les titres et les boutons. Atkinson Hyperlegible — conçue pour la basse vision — porte tout le texte de lecture : un choix d'accessibilité délibéré, pas un faire-valoir neutre, cohérent avec le mode grand-format prévu pour les seniors.</p>
+    <div class="type-row"><div class="type-meta"><b>Display XL</b>Baloo 2 / 800 / 40px — H1</div><div class="t-display-xl">Apprends en jouant</div></div>
+    <div class="type-row"><div class="type-meta"><b>Display Lg</b>Baloo 2 / 700 / 28px — H2</div><div class="t-display-lg">Explore nos catégories</div></div>
+    <div class="type-row"><div class="type-meta"><b>Display Md</b>Baloo 2 / 600 / 20px — H3, titres de carte</div><div class="t-display-md">Les Animaux de la Ferme</div></div>
+    <div class="type-row"><div class="type-meta"><b>Corps</b>Atkinson Hyperlegible / 400 / 17px</div><div class="t-body">Clique sur la première puis la dernière lettre d'un mot pour le trouver dans la grille.</div></div>
+    <div class="type-row"><div class="type-meta"><b>Corps secondaire</b>Atkinson Hyperlegible / 400 / 14px</div><div class="t-body-sm">10 × 10 · 10 mots · Facile</div></div>
+    <div class="type-row"><div class="type-meta"><b>Étiquette</b>Atkinson Hyperlegible / 700 / 13px</div><div class="t-label">NOUVELLE GRILLE</div></div>
+  </section>
+
+  <section>
+    <h2>Boutons</h2>
+    <p class="section-note">Règle d'accessibilité testée : le texte blanc sur fond miel échoue le contraste AA (2.43:1) — le bouton principal utilise donc du texte encre foncée sur miel (5.97:1), pas du blanc. C'est la règle, pas une exception ponctuelle.</p>
+    <div class="row">
+      <button class="btn btn-primary">Jouer gratuitement</button>
+      <button class="btn btn-secondary">Créer ma grille</button>
+      <button class="btn btn-ghost">Voir tous les PDF</button>
+      <button class="btn btn-primary btn-sm">Imprimer</button>
+      <button class="btn btn-primary" disabled>Indisponible</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Badges de difficulté</h2>
+    <p class="section-note">Quatre niveaux, quatre couleurs distinctes — jamais de texte noir générique sur fond coloré, toujours la teinte la plus sombre de la même famille.</p>
+    <div class="row">
+      <span class="pill pill-facile">Facile</span>
+      <span class="pill pill-moyen">Moyen</span>
+      <span class="pill pill-difficile">Difficile</span>
+      <span class="pill pill-geant">Géant</span>
+      <span class="tag">Animaux</span>
+      <span class="tag">12,4k vues</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cartes</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="icon-circle">🦊</div>
+        <h3>Les Animaux</h3>
+        <p>Chat, lion, dauphin et toute la ménagerie.</p>
+        <div class="card-foot"><span class="tag">48 grilles</span></div>
+      </div>
+      <div class="card">
+        <span class="tag">Espace</span>
+        <h3>Le Système Solaire</h3>
+        <p>MARS · VENUS · SATURNE · TERRE</p>
+        <div class="card-foot">
+          <span class="pill pill-moyen">Moyen</span>
+          <button class="btn btn-primary btn-sm">Jouer</button>
+        </div>
+      </div>
+      <div class="card level-card">
+        <div class="level-num">02</div>
+        <div>
+          <h3 style="margin-top:0">CP – CE1</h3>
+          <p>6–8 ans · Grilles 8×8, vocabulaire de lecture du quotidien.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Grille interactive — l'instant signature</h2>
+    <p class="section-note">Plutôt que des confettis génériques, l'instant de réussite reprend le thème nuit/hibou : la trouvaille s'illumine couleur miel et de petites étincelles montent, comme une lueur sous la lune. Essayez : sélectionnez deux cases adjacentes formant "HIBOU" ou "JEU" (démo simplifiée).</p>
+    <div class="demo-area">
+      <div class="grid-card">
+        <div class="pgrid-wrap">
+          <div class="pgrid" id="demoGrid"></div>
+        </div>
+        <div class="wordlist" id="demoWords"></div>
+      </div>
+      <div class="demo-note"><b>Pourquoi cette animation ?</b><br>Elle renforce l'identité "Hibou" à l'endroit le plus rejoué de tout le produit — la micro-interaction la plus vue doit porter la marque, pas un effet par défaut.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Éléments de formulaire</h2>
+    <div class="card" style="max-width:520px;">
+      <p class="t-label" style="margin-bottom:8px;">THÈMES RAPIDES</p>
+      <div class="chip-select" style="margin-bottom:18px;">
+        <button class="chip active">Animaux</button>
+        <button class="chip">Fruits</button>
+        <button class="chip">Couleurs</button>
+        <button class="chip">École</button>
+      </div>
+      <p class="t-label" style="margin-bottom:8px;">TAILLE DE LA GRILLE</p>
+      <div class="segmented" style="margin-bottom:18px;">
+        <button class="active">Petit 8×8</button>
+        <button>Moyen 11×11</button>
+        <button>Grand 14×14</button>
+      </div>
+      <label class="toggle" style="margin-bottom:18px;">
+        <div class="switch on"></div>
+        <span class="t-body-sm">Inclure les diagonales</span>
+      </label>
+      <p class="t-label" style="margin-bottom:8px;">TES MOTS</p>
+      <textarea rows="2">CHAT, CHIEN, LION, ZEBRE, TIGRE</textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pied de page / capture newsletter</h2>
+    <div class="footer-demo">
+      <p class="t-display-md" style="color:var(--amber-300);margin:0;">Hibou&amp;Mots</p>
+      <p class="t-body-sm" style="color:var(--ink-300);">Reçois 5 nouvelles grilles par semaine</p>
+      <div class="row">
+        <input type="text" placeholder="ton-email@exemple.fr" style="background:#241C46;border-color:#3A3162;color:#fff;">
+        <button class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Échelle de rayon</h2>
+    <div class="scale-row"><div class="scale-box" style="width:60px;height:24px;border-radius:8px;"></div><span class="scale-label">--radius-sm · 8px</span></div>
+    <div class="scale-row"><div class="scale-box" style="width:60px;height:24px;border-radius:14px;"></div><span class="scale-label">--radius-md · 14px</span></div>
+    <div class="scale-row"><div class="scale-box" style="width:60px;height:24px;border-radius:20px;"></div><span class="scale-label">--radius-lg · 20px</span></div>
+    <div class="scale-row"><div class="scale-box" style="width:60px;height:24px;border-radius:999px;"></div><span class="scale-label">--radius-pill · boutons</span></div>
+  </section>
+
+</div>
+
+<script>
+const layout = ["HIBOULIRE","NOJEUECOL","TMOTSXYZA","RFAEIOUQW","ELIVREZNT","SJAEROVIL"];
+// Two findable demo words placed horizontally for simplicity
+const words = [
+  {word:"HIBOU", row:0, startCol:0, endCol:4},
+  {word:"JEU", row:1, startCol:2, endCol:4}
+];
+const gridEl = document.getElementById('demoGrid');
+const wordsEl = document.getElementById('demoWords');
+let cells = [];
+let selecting = null;
+
+words.forEach(w=>{
+  const chip = document.createElement('span');
+  chip.className='word-chip';
+  chip.textContent=w.word;
+  chip.id='chip-'+w.word;
+  wordsEl.appendChild(chip);
+});
+
+for(let r=0;r<6;r++){
+  for(let c=0;c<6;c++){
+    const div=document.createElement('div');
+    div.className='cell';
+    div.textContent=layout[r][c];
+    div.dataset.r=r; div.dataset.c=c;
+    div.addEventListener('click',()=>handleClick(div,r,c));
+    gridEl.appendChild(div);
+    cells.push(div);
+  }
+}
+
+function handleClick(div,r,c){
+  if(div.classList.contains('found')) return;
+  if(!selecting){
+    selecting={r,c,div};
+    div.classList.add('selected');
+    return;
+  }
+  const match = words.find(w=>
+    ((w.row===selecting.r && w.row===r && Math.min(selecting.c,c)===w.startCol && Math.max(selecting.c,c)===w.endCol))
+  );
+  selecting.div.classList.remove('selected');
+  if(match){
+    for(let cc=match.startCol; cc<=match.endCol; cc++){
+      const cell = cells.find(x=>+x.dataset.r===match.row && +x.dataset.c===cc);
+      cell.classList.add('found');
+      spawnSpark(cell);
+    }
+    const chip = document.getElementById('chip-'+match.word);
+    if(chip) chip.classList.add('done');
+  }
+  selecting=null;
+}
+
+function spawnSpark(cell){
+  const rect = cell.getBoundingClientRect();
+  const gridRect = gridEl.getBoundingClientRect();
+  const s = document.createElement('div');
+  s.className='spark'; s.textContent='✦';
+  s.style.left = (rect.left-gridRect.left+10)+'px';
+  s.style.top = (rect.top-gridRect.top)+'px';
+  document.querySelector('.pgrid-wrap').appendChild(s);
+  setTimeout(()=>s.remove(),700);
+}
+</script>
+
+</body>
+</html>

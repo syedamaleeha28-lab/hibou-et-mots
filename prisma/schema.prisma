@@ -1,0 +1,229 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CategoryType {
+  GRADE
+  THEME
+  SEASONAL
+  DIFFICULTY
+  AUDIENCE
+  PRESS_BRAND
+  COMBO
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum AdminRole {
+  ADMIN
+  EDITOR
+}
+
+model Grade {
+  id              String     @id @default(cuid())
+  slug            String     @unique
+  name            String
+  ageRange        String     @map("age_range")
+  order           Int
+  defaultGridSize Int        @map("default_grid_size")
+  seoTitle        String?    @map("seo_title")
+  metaDescription String?    @map("meta_description")
+  introText       String?    @map("intro_text") @db.Text
+  puzzles         Puzzle[]
+  categories      Category[]
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+
+  @@map("grades")
+}
+
+model Theme {
+  id              String      @id @default(cuid())
+  slug            String      @unique
+  name            String
+  group           String
+  iconUrl         String?     @map("icon_url")
+  isSeasonal      Boolean     @default(false) @map("is_seasonal")
+  activeDateStart String?     @map("active_date_start")
+  activeDateEnd   String?     @map("active_date_end")
+  seoTitle        String?     @map("seo_title")
+  metaDescription String?     @map("meta_description")
+  introText       String?     @map("intro_text") @db.Text
+  wordBank        ThemeWord[]
+  puzzles         Puzzle[]
+  categories      Category[]
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  @@map("themes")
+}
+
+model ThemeWord {
+  id            String @id @default(cuid())
+  themeId       String @map("theme_id")
+  theme         Theme  @relation(fields: [themeId], references: [id], onDelete: Cascade)
+  word          String
+  length        Int
+  minGradeOrder Int    @map("min_grade_order")
+
+  @@index([themeId])
+  @@map("theme_words")
+}
+
+model Difficulty {
+  id           String     @id @default(cuid())
+  slug         String     @unique
+  name         String
+  gridSizeMin  Int        @map("grid_size_min")
+  gridSizeMax  Int        @map("grid_size_max")
+  wordCountMin Int        @map("word_count_min")
+  wordCountMax Int        @map("word_count_max")
+  directions   String[]
+  puzzles      Puzzle[]
+  categories   Category[]
+
+  @@map("difficulties")
+}
+
+model PressBrand {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  name            String
+  description     String?   @db.Text
+  logoUrl         String?   @map("logo_url")
+  seoTitle        String?   @map("seo_title")
+  metaDescription String?   @map("meta_description")
+  category        Category?
+
+  @@map("press_brands")
+}
+
+model Category {
+  id                 String           @id @default(cuid())
+  type               CategoryType
+  slug               String           @unique
+  parentCategoryId   String?          @map("parent_category_id")
+  parentCategory     Category?        @relation("CategoryHierarchy", fields: [parentCategoryId], references: [id])
+  childCategories    Category[]       @relation("CategoryHierarchy")
+  gradeId            String?          @map("grade_id")
+  grade              Grade?           @relation(fields: [gradeId], references: [id])
+  themeId            String?          @map("theme_id")
+  theme              Theme?           @relation(fields: [themeId], references: [id])
+  difficultyId       String?          @map("difficulty_id")
+  difficulty         Difficulty?      @relation(fields: [difficultyId], references: [id])
+  pressBrandId       String?          @unique @map("press_brand_id")
+  pressBrand         PressBrand?      @relation(fields: [pressBrandId], references: [id])
+  seoTitle           String           @map("seo_title")
+  metaDescription    String           @map("meta_description")
+  h1                 String
+  introText          String           @map("intro_text") @db.Text
+  faqJson            Json?            @map("faq_json")
+  status             ContentStatus    @default(DRAFT)
+  minPuzzleThreshold Int              @default(4) @map("min_puzzle_threshold")
+  puzzles            CategoryPuzzle[]
+  createdAt          DateTime         @default(now()) @map("created_at")
+  updatedAt          DateTime         @updatedAt @map("updated_at")
+
+  @@index([type])
+  @@index([status])
+  @@map("categories")
+}
+
+model Puzzle {
+  id              String           @id @default(cuid())
+  slug            String           @unique
+  title           String
+  gridData        Json             @map("grid_data")
+  wordList        Json             @map("word_list")
+  solutionData    Json             @map("solution_data")
+  size            Int
+  difficultyId    String           @map("difficulty_id")
+  difficulty      Difficulty       @relation(fields: [difficultyId], references: [id])
+  gradeId         String?          @map("grade_id")
+  grade           Grade?           @relation(fields: [gradeId], references: [id])
+  themeId         String?          @map("theme_id")
+  theme           Theme?           @relation(fields: [themeId], references: [id])
+  language        String           @default("fr")
+  status          ContentStatus    @default(DRAFT)
+  largePrint      Boolean          @default(false) @map("large_print")
+  pdfUrl          String?          @map("pdf_url")
+  thumbnailUrl    String?          @map("thumbnail_url")
+  viewCount       Int              @default(0) @map("view_count")
+  printCount      Int              @default(0) @map("print_count")
+  metaTitle       String?          @map("meta_title")
+  metaDescription String?          @map("meta_description")
+  categories      CategoryPuzzle[]
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  @@index([slug])
+  @@index([themeId])
+  @@index([gradeId])
+  @@index([difficultyId])
+  @@index([status])
+  @@map("puzzles")
+}
+
+model CategoryPuzzle {
+  categoryId String   @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  puzzleId   String   @map("puzzle_id")
+  puzzle     Puzzle   @relation(fields: [puzzleId], references: [id], onDelete: Cascade)
+
+  @@id([categoryId, puzzleId])
+  @@index([categoryId])
+  @@index([puzzleId])
+  @@map("category_puzzles")
+}
+
+model Redirect {
+  id        String   @id @default(cuid())
+  fromPath  String   @unique @map("from_path")
+  toPath    String   @map("to_path")
+  type      Int      @default(301)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("redirects")
+}
+
+model SeoMetaOverride {
+  id                String  @id @default(cuid())
+  path              String  @unique
+  title             String?
+  metaDescription   String? @map("meta_description")
+  ogImage           String? @map("og_image")
+  canonicalOverride String? @map("canonical_override")
+
+  @@map("seo_meta_overrides")
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  eventType String   @map("event_type")
+  puzzleId  String?  @map("puzzle_id")
+  sessionId String   @map("session_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([puzzleId])
+  @@index([eventType])
+  @@map("analytics_events")
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         AdminRole @default(EDITOR)
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  @@map("admin_users")
+}

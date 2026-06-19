@@ -1,154 +1,112 @@
-export type Cell = { r: number; c: number }
+import { fillEmptyCells } from "./alphabet"
+import { createEmptyGrid, tryPlaceWordRandom } from "./place"
+import { prepareWords } from "./normalize"
+import { buildSolutionData, buildWordList } from "./solution"
+import { validatePuzzle } from "./validate"
+import { PuzzleGenerationError } from "./errors"
+import { createRng } from "./rng"
+import type { GenerateOptions, PuzzleResult } from "./types"
 
-export type Placement = {
-  word: string
-  cells: Cell[]
-}
+const DEFAULT_MAX_ATTEMPTS = 100
+const DEFAULT_MAX_SIZE = 25
+const DEFAULT_TIME_BUDGET_MS = 5000
 
-export type Grid = {
-  letters: string[][]
-  placements: Placement[]
-  size: number
-}
+export function generatePuzzle(options: GenerateOptions): PuzzleResult {
+  const {
+    words: rawWords,
+    directions,
+    maxAttemptsPerWord = DEFAULT_MAX_ATTEMPTS,
+    maxSize = DEFAULT_MAX_SIZE,
+    simplifyAccents = true,
+    timeBudgetMs = DEFAULT_TIME_BUDGET_MS,
+    seed,
+  } = options
 
-const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-/** Deterministic PRNG (mulberry32) so a seed yields a stable grid. */
-function mulberry32(seed: number) {
-  let a = seed >>> 0
-  return function () {
-    a |= 0
-    a = (a + 0x6d2b79f5) | 0
-    let t = Math.imul(a ^ (a >>> 15), 1 | a)
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  if (!rawWords.length) {
+    throw new PuzzleGenerationError("EMPTY_WORD_LIST", "La liste de mots est vide.")
   }
-}
 
-const DIRECTIONS = [
-  { dr: 0, dc: 1 },
-  { dr: 1, dc: 0 },
-  { dr: 1, dc: 1 },
-  { dr: -1, dc: 1 },
-  { dr: 0, dc: -1 },
-  { dr: -1, dc: 0 },
-  { dr: -1, dc: -1 },
-  { dr: 1, dc: -1 },
-]
+  const rng = createRng(seed)
+  const startedAt = Date.now()
 
-/** Normalise a French word: strip accents, uppercase, letters only. */
-export function normalizeWord(input: string): string {
-  return input
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toUpperCase()
-    .replace(/[^A-Z]/g, "")
-}
+  let size = options.size ?? 8
+  if (size < 2) size = 2
 
-function randomLetter(rng: () => number): string {
-  return ALPHABET[Math.floor(rng() * ALPHABET.length)]
-}
-
-function shuffle<T>(arr: T[], rng: () => number): T[] {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
-
-/**
- * Generate a word-search grid. Allows diagonals and reverse directions.
- * Returns the filled grid plus the coordinates of each placed word.
- * Pass a seed for a deterministic (SSR-stable) result.
- */
-export function generateGrid(
-  rawWords: string[],
-  size: number,
-  allowDiagonals = true,
-  seed = 1,
-): Grid {
-  const rng = mulberry32(seed)
-  const words = Array.from(
-    new Set(
-      rawWords
-        .map(normalizeWord)
-        .filter((w) => w.length >= 2 && w.length <= size),
-    ),
-  ).sort((a, b) => b.length - a.length)
-
-  const letters: (string | null)[][] = Array.from({ length: size }, () =>
-    Array.from({ length: size }, () => null),
-  )
-  const placements: Placement[] = []
-  const dirs = allowDiagonals
-    ? DIRECTIONS
-    : DIRECTIONS.slice(0, 2).concat(DIRECTIONS.slice(4, 6))
-
-  for (const word of words) {
-    let placed = false
-    const positions: Cell[] = []
-    for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) positions.push({ r, c })
-
-    for (const start of shuffle(positions, rng)) {
-      if (placed) break
-      for (const dir of shuffle(dirs, rng)) {
-        const cells: Cell[] = []
-        let ok = true
-        for (let i = 0; i < word.length; i++) {
-          const r = start.r + dir.dr * i
-          const c = start.c + dir.dc * i
-          if (r < 0 || r >= size || c < 0 || c >= size) {
-            ok = false
-            break
-          }
-          const existing = letters[r][c]
-          if (existing !== null && existing !== word[i]) {
-            ok = false
-            break
-          }
-          cells.push({ r, c })
-        }
-        if (ok) {
-          cells.forEach((cell, i) => {
-            letters[cell.r][cell.c] = word[i]
-          })
-          placements.push({ word, cells })
-          placed = true
-          break
-        }
-      }
+  while (size <= maxSize) {
+    if (Date.now() - startedAt > timeBudgetMs) {
+      throw new PuzzleGenerationError(
+        "TIME_BUDGET_EXCEEDED",
+        `Dépassement du budget temps (${timeBudgetMs} ms) lors de la génération.`,
+      )
     }
+
+    const prepared = prepareWords(rawWords, simplifyAccents, size)
+    if (!prepared.length) {
+      size += 1
+      continue
+    }
+
+    const grid = createEmptyGrid(size)
+    const placements = []
+    let failed = false
+
+    for (const word of prepared) {
+      if (Date.now() - startedAt > timeBudgetMs) {
+        throw new PuzzleGenerationError(
+          "TIME_BUDGET_EXCEEDED",
+          `Dépassement du budget temps (${timeBudgetMs} ms) lors du placement.`,
+        )
+      }
+
+      const placement = tryPlaceWordRandom(
+        grid,
+        word,
+        directions,
+        size,
+        maxAttemptsPerWord,
+        rng,
+      )
+
+      if (!placement) {
+        failed = true
+        break
+      }
+
+      placements.push(placement)
+    }
+
+    if (!failed) {
+      const filled = fillEmptyCells(grid, rng)
+      const wordList = buildWordList(placements, simplifyAccents)
+      const solutionData = buildSolutionData(placements, size, simplifyAccents)
+
+      const result: PuzzleResult = {
+        grid: filled,
+        size,
+        placements,
+        wordList,
+        solutionData,
+        warnings: [],
+      }
+
+      const report = validatePuzzle(result)
+      result.warnings = report.warnings
+
+      if (!report.valid) {
+        throw new PuzzleGenerationError(
+          "PLACEMENT_FAILED",
+          `Grille invalide après génération: ${report.errors.map((e) => e.code).join(", ")}`,
+        )
+      }
+
+      return result
+    }
+
+    size += 1
   }
 
-  const filled: string[][] = letters.map((row) =>
-    row.map((cell) => cell ?? randomLetter(rng)),
+  throw new PuzzleGenerationError(
+    "PLACEMENT_FAILED",
+    `Impossible de placer tous les mots (taille max ${maxSize} atteinte).`,
   )
-
-  return { letters: filled, placements, size }
-}
-
-/** Returns the straight line of cells between two points, or null if not aligned. */
-export function lineBetween(a: Cell, b: Cell): Cell[] | null {
-  const dr = b.r - a.r
-  const dc = b.c - a.c
-  const isLine = dr === 0 || dc === 0 || Math.abs(dr) === Math.abs(dc)
-  if (!isLine) return null
-  const steps = Math.max(Math.abs(dr), Math.abs(dc))
-  const sr = Math.sign(dr)
-  const sc = Math.sign(dc)
-  const cells: Cell[] = []
-  for (let i = 0; i <= steps; i++) {
-    cells.push({ r: a.r + sr * i, c: a.c + sc * i })
-  }
-  return cells
-}
-
-export function cellsEqual(a: Cell[], b: Cell[]): boolean {
-  if (a.length !== b.length) return false
-  const sameForward = a.every((cell, i) => cell.r === b[i].r && cell.c === b[i].c)
-  const rev = [...b].reverse()
-  const sameReverse = a.every((cell, i) => cell.r === rev[i].r && cell.c === rev[i].c)
-  return sameForward || sameReverse
 }

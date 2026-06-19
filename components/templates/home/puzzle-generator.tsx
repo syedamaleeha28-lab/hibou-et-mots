@@ -5,7 +5,13 @@ import { Check, Printer, RefreshCw, Shuffle, Wand2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { WordGrid } from "@/components/puzzle/word-grid"
 import { SectionHeading } from "@/components/layout/section-heading"
-import { generateGrid, normalizeWord } from "@/lib/puzzle-engine"
+import {
+  generatePuzzle,
+  normalizeWord,
+  puzzleResultToLegacyGrid,
+  resolveGenerateOptions,
+  type DifficultySlug,
+} from "@/lib/puzzle-engine"
 import { cn } from "@/lib/utils"
 
 const PRESETS: { label: string; words: string }[] = [
@@ -15,16 +21,16 @@ const PRESETS: { label: string; words: string }[] = [
   { label: "École", words: "CRAYON, CAHIER, REGLE, GOMME, LIVRE, STYLO, TABLE, COLLE" },
 ]
 
-const SIZES = [
-  { label: "Petit", value: 8 },
-  { label: "Moyen", value: 11 },
-  { label: "Grand", value: 14 },
+const DIFFICULTIES: { label: string; slug: DifficultySlug; hint: string }[] = [
+  { label: "Facile", slug: "facile", hint: "8×8" },
+  { label: "Moyen", slug: "moyen", hint: "10×10" },
+  { label: "Difficile", slug: "difficile", hint: "12–15" },
 ]
 
 export function PuzzleGenerator() {
   const [raw, setRaw] = useState(PRESETS[0].words)
-  const [size, setSize] = useState(11)
-  const [diagonals, setDiagonals] = useState(true)
+  const [difficulty, setDifficulty] = useState<DifficultySlug>("moyen")
+  const [largePrint, setLargePrint] = useState(false)
   const [seed, setSeed] = useState(1)
   const [found, setFound] = useState<string[]>([])
 
@@ -34,19 +40,32 @@ export function PuzzleGenerator() {
         new Set(
           raw
             .split(/[\n,]+/)
-            .map(normalizeWord)
-            .filter((w) => w.length >= 2 && w.length <= size),
+            .map((w) => normalizeWord(w))
+            .filter((w) => w.length >= 2),
         ),
       ),
-    [raw, size],
+    [raw],
   )
+
+  const puzzleResult = useMemo(() => {
+    if (words.length === 0) return null
+    try {
+      const base = resolveGenerateOptions({ difficulty, words, seed })
+      return generatePuzzle({ ...base, words, seed })
+    } catch {
+      return null
+    }
+  }, [words, difficulty, seed])
 
   const grid = useMemo(
-    () => generateGrid(words, size, diagonals, seed),
-    [words, size, diagonals, seed],
+    () => (puzzleResult ? puzzleResultToLegacyGrid(puzzleResult) : null),
+    [puzzleResult],
   )
 
-  const placedWords = useMemo(() => grid.placements.map((p) => p.word), [grid])
+  const placedWords = useMemo(
+    () => puzzleResult?.wordList.map((w) => w.word) ?? [],
+    [puzzleResult],
+  )
 
   function regenerate() {
     setFound([])
@@ -111,24 +130,24 @@ export function PuzzleGenerator() {
               placeholder="CHAT, CHIEN, LION..."
             />
             <p className="text-xs font-semibold text-muted-foreground">
-              {words.length} mot{words.length > 1 ? "s" : ""} · max {size}{" "}
-              lettres par mot
+              {words.length} mot{words.length > 1 ? "s" : ""}
+              {puzzleResult ? ` · grille ${puzzleResult.size}×${puzzleResult.size}` : ""}
             </p>
           </div>
 
           <div className="flex flex-col gap-2">
             <span className="font-heading text-sm font-extrabold uppercase tracking-wide text-muted-foreground">
-              Taille de la grille
+              Difficulté
             </span>
             <div className="flex gap-2">
-              {SIZES.map((s) => {
-                const active = size === s.value
+              {DIFFICULTIES.map((d) => {
+                const active = difficulty === d.slug
                 return (
                   <button
-                    key={s.value}
+                    key={d.slug}
                     type="button"
                     onClick={() => {
-                      setSize(s.value)
+                      setDifficulty(d.slug)
                       setFound([])
                     }}
                     className={cn(
@@ -138,10 +157,8 @@ export function PuzzleGenerator() {
                         : "border-border bg-background text-foreground hover:border-primary/40",
                     )}
                   >
-                    {s.label}
-                    <span className="block text-xs font-bold opacity-70">
-                      {s.value}×{s.value}
-                    </span>
+                    {d.label}
+                    <span className="block text-xs font-bold opacity-70">{d.hint}</span>
                   </button>
                 )
               })}
@@ -150,25 +167,22 @@ export function PuzzleGenerator() {
 
           <label className="flex cursor-pointer items-center justify-between rounded-2xl bg-muted px-4 py-3">
             <span className="font-bold text-foreground">
-              Inclure les diagonales
+              Grand format / haute lisibilité
             </span>
             <button
               type="button"
               role="switch"
-              aria-checked={diagonals}
-              onClick={() => {
-                setDiagonals((v) => !v)
-                setFound([])
-              }}
+              aria-checked={largePrint}
+              onClick={() => setLargePrint((v) => !v)}
               className={cn(
                 "relative h-7 w-12 rounded-full transition-colors",
-                diagonals ? "bg-primary" : "bg-border",
+                largePrint ? "bg-primary" : "bg-border",
               )}
             >
               <span
                 className={cn(
                   "absolute top-1 h-5 w-5 rounded-full bg-card transition-all",
-                  diagonals ? "left-6" : "left-1",
+                  largePrint ? "left-6" : "left-1",
                 )}
               />
             </button>
@@ -194,7 +208,7 @@ export function PuzzleGenerator() {
         </div>
 
         <div className="flex flex-col gap-5 rounded-3xl border border-border bg-card p-6 shadow-sm">
-          {placedWords.length === 0 ? (
+          {placedWords.length === 0 || !grid ? (
             <div className="flex flex-1 flex-col items-center justify-center gap-3 py-16 text-center">
               <Wand2 className="size-10 text-muted-foreground" />
               <p className="font-heading text-lg font-extrabold text-foreground">
@@ -218,8 +232,9 @@ export function PuzzleGenerator() {
 
               <div className="flex justify-center overflow-x-auto">
                 <WordGrid
-                  key={`${size}-${seed}-${diagonals}-${words.join(",")}`}
+                  key={`${difficulty}-${seed}-${largePrint}-${words.join(",")}`}
                   grid={grid}
+                  largePrint={largePrint}
                   onWordFound={(w) => setFound((prev) => [...prev, w])}
                   className="w-full max-w-xl"
                 />

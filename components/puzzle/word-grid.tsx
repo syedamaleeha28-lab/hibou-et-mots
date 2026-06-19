@@ -8,6 +8,8 @@ type WordGridProps = {
   grid: Grid
   /** When true, the grid is just for display (no interaction). */
   readOnly?: boolean
+  /** Grand format / haute lisibilité — cellules ~×1.4, contraste renforcé. */
+  largePrint?: boolean
   onWordFound?: (word: string) => void
   className?: string
 }
@@ -16,7 +18,13 @@ function key(cell: Cell) {
   return `${cell.r}-${cell.c}`
 }
 
-export function WordGrid({ grid, readOnly = false, onWordFound, className }: WordGridProps) {
+export function WordGrid({
+  grid,
+  readOnly = false,
+  largePrint = false,
+  onWordFound,
+  className,
+}: WordGridProps) {
   const [start, setStart] = useState<Cell | null>(null)
   const [hover, setHover] = useState<Cell | null>(null)
   const [foundCells, setFoundCells] = useState<Set<string>>(new Set())
@@ -57,7 +65,8 @@ export function WordGrid({ grid, readOnly = false, onWordFound, className }: Wor
   return (
     <div
       className={cn(
-        "inline-grid select-none gap-0.5 rounded-2xl bg-card p-2 shadow-sm sm:gap-1 sm:p-3",
+        "inline-grid select-none rounded-2xl bg-card p-2 shadow-sm",
+        largePrint ? "gap-1 p-3 sm:gap-1.5 sm:p-4" : "gap-0.5 sm:gap-1 sm:p-3",
         className,
       )}
       style={{ gridTemplateColumns: `repeat(${grid.size}, minmax(0, 1fr))` }}
@@ -78,11 +87,17 @@ export function WordGrid({ grid, readOnly = false, onWordFound, className }: Wor
               onClick={() => handleCellClick(cell)}
               onMouseEnter={() => start && setHover(cell)}
               className={cn(
-                "flex aspect-square items-center justify-center rounded-md text-[10px] font-bold uppercase transition-colors sm:rounded-lg sm:text-sm md:text-base",
-                "min-w-[18px]",
+                "flex aspect-square items-center justify-center font-bold uppercase transition-colors",
+                largePrint
+                  ? "min-w-[26px] rounded-lg border border-border bg-background text-sm sm:text-base md:text-xl"
+                  : "min-w-[18px] rounded-md text-[10px] sm:rounded-lg sm:text-sm md:text-base",
                 isFound && "bg-leaf text-leaf-foreground",
                 !isFound && isSelected && "bg-accent text-accent-foreground",
-                !isFound && !isSelected && "bg-muted/60 text-foreground hover:bg-secondary/20",
+                !isFound &&
+                  !isSelected &&
+                  (largePrint
+                    ? "bg-background text-foreground hover:bg-muted"
+                    : "bg-muted/60 text-foreground hover:bg-secondary/20"),
                 readOnly && "cursor-default",
               )}
               aria-label={`Lettre ${letter}`}

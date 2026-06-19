@@ -1,1 +1,1 @@
-/** SchemaJsonLd, FaqAccordion — Phase E */
+export { SchemaJsonLd } from "./schema-json-ld"

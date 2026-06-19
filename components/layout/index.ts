@@ -1,3 +1,8 @@
+export { BreadcrumbTrail, type BreadcrumbTrailProps } from "./breadcrumb-trail"
+export { MainShell } from "./main-shell"
+export { MegaMenu } from "./mega-menu"
+export { MobileBottomNav } from "./mobile-bottom-nav"
+export { MobileNavDrawer } from "./mobile-nav-drawer"
 export { SectionHeading } from "./section-heading"
 export { SiteFooter } from "./site-footer"
 export { SiteHeader } from "./site-header"

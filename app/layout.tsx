@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Baloo_2, Nunito } from 'next/font/google'
+import { MainShell } from '@/components/layout'
 import './globals.css'
 
 const baloo = Baloo_2({
@@ -54,7 +55,7 @@ export default function RootLayout({
       className={`${baloo.variable} ${nunito.variable} bg-background`}
     >
       <body className="font-sans antialiased">
-        {children}
+        <MainShell>{children}</MainShell>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

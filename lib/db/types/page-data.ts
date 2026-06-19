@@ -119,6 +119,7 @@ export type PuzzlePageData = {
   grade?: { slug: string; name: string }
   theme?: { slug: string; name: string }
   pdfUrl?: string
+  thumbnailUrl?: string
   metaTitle?: string
   metaDescription?: string
   canonicalPath: string

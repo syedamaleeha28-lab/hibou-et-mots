@@ -1,4 +1,11 @@
 export {
+  buildCanonicalPath,
+  buildCanonicalUrl,
+  isIndexableCanonicalPath,
+  normalizePath,
+  stripTrackingParams,
+} from "./canonical"
+export {
   ROUTES,
   absoluteUrl,
   comboPath,
@@ -25,12 +32,21 @@ export {
 } from "./breadcrumbs"
 export {
   buildCategoryMetadata,
+  buildHomeMetadata,
   buildPuzzleMetadata,
+  buildStaticPageMetadata,
+  lookupSeoMetaOverride,
+  openGraphMetadata,
+  robotsMetadata,
+  type SeoOverride,
 } from "./metadata"
 export {
   computeIsIndexable,
+  isSitemapEligibleCategory,
+  isSitemapEligiblePuzzle,
   robotsDirective,
   robotsMetaContent,
+  shouldNoindexPath,
   type IndexableInput,
   type RobotsDirective,
   type RobotsPageType,
@@ -58,9 +74,31 @@ export {
   buildCreativeWorkSchema,
   buildFaqPageSchema,
   buildItemListSchema,
+  buildSchemaGraph,
+  buildBreadcrumbSchemaGraph,
+  buildCategoryPageSchemaGraph,
+  buildPuzzlePageSchemaGraph,
+  toSchemaGraphNode,
   type CategorySchemaPayload,
   type CreativeWorkSchema,
   type FaqPageSchema,
   type ItemListSchema,
   type PuzzleSchemaPayload,
 } from "./schema"
+export {
+  buildImageUrlSetXml,
+  buildSitemapIndexXml,
+  buildUrlSetXml,
+  getCategorySitemapEntries,
+  getImageSitemapEntries,
+  getPublishedPuzzleCount,
+  getPuzzleSitemapBatchCount,
+  getPuzzleSitemapEntries,
+  getSitemapIndexLocations,
+  getStaticSitemapEntries,
+  puzzleSitemapSegmentPath,
+  sitemapResponse,
+  SITEMAP_SEGMENT_PATHS,
+  type SitemapImageEntry,
+  type SitemapUrlEntry,
+} from "./sitemap"

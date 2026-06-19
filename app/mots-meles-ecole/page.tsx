@@ -18,7 +18,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const params = await searchParams
   const page = parsePage(params?.page)
   const category = await resolveEcoleHubPageData(page)
-  return buildCategoryMetadata(category, page)
+  return await buildCategoryMetadata(category, page)
 }
 
 export default async function EcoleHubPage({ searchParams }: PageProps) {

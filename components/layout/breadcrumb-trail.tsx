@@ -7,16 +7,18 @@ import { cn } from "@/lib/utils"
 export type BreadcrumbTrailProps = {
   items: BreadcrumbItem[]
   className?: string
+  /** When false, breadcrumb JSON-LD is omitted (page-level @graph handles it). */
+  includeSchema?: boolean
 }
 
-export function BreadcrumbTrail({ items, className }: BreadcrumbTrailProps) {
+export function BreadcrumbTrail({ items, className, includeSchema = true }: BreadcrumbTrailProps) {
   if (items.length === 0) return null
 
   const schema = buildBreadcrumbListSchema(items)
 
   return (
     <>
-      <SchemaJsonLd data={schema} />
+      {includeSchema && <SchemaJsonLd data={schema} />}
       <nav aria-label="Fil d'Ariane" className={cn("text-sm", className)}>
         <ol className="flex flex-wrap items-center gap-1.5">
           {items.map((item, index) => {

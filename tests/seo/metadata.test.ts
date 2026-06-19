@@ -56,8 +56,8 @@ describe("indexability", () => {
 })
 
 describe("buildCategoryMetadata", () => {
-  it("returns canonical and robots for non-indexable categories", () => {
-    const metadata = buildCategoryMetadata(
+  it("returns canonical and robots for non-indexable categories", async () => {
+    const metadata = await buildCategoryMetadata(
       { ...baseCategory, isIndexable: false },
       1,
       "https://example.test",

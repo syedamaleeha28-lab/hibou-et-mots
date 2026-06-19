@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params
   const puzzle = await resolvePuzzlePageData(slug)
   if (!puzzle) return {}
-  return buildPuzzleMetadata(puzzle)
+  return await buildPuzzleMetadata(puzzle)
 }
 
 export default async function PuzzlePage({ params }: PageProps) {

@@ -26,6 +26,7 @@ export type RobotsDirective = {
 export function robotsDirective(input: {
   pageType: RobotsPageType
   isIndexable?: boolean
+  isPublished?: boolean
   page?: number
   noindexPaginationFrom?: number
 }): RobotsDirective {
@@ -40,7 +41,29 @@ export function robotsDirective(input: {
     if ((input.page ?? 1) >= noindexFrom) return { index: false, follow: true }
   }
 
+  if (input.pageType === "puzzle" && input.isPublished === false) {
+    return { index: false, follow: true }
+  }
+
   return { index: true, follow: true }
+}
+
+export function isSitemapEligibleCategory(input: IndexableInput): boolean {
+  return computeIsIndexable(input)
+}
+
+export function isSitemapEligiblePuzzle(status: IndexableInput["status"]): boolean {
+  return status === "PUBLISHED"
+}
+
+export function shouldNoindexPath(path: string): boolean {
+  const normalized = path.startsWith("/") ? path : `/${path}`
+  return (
+    normalized.startsWith("/recherche/") ||
+    normalized.startsWith("/generateur-mots-meles/resultat/") ||
+    normalized.startsWith("/admin/") ||
+    normalized.startsWith("/api/")
+  )
 }
 
 export function robotsMetaContent(directive: RobotsDirective): string | undefined {

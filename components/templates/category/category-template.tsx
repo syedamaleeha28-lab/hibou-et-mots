@@ -1,6 +1,7 @@
 import type { CategoryPageData } from "@/lib/db/types/page-data"
 import { BreadcrumbTrail } from "@/components/layout/breadcrumb-trail"
 import { SchemaJsonLd } from "@/components/seo"
+import { buildCategoryPageSchemaGraph } from "@/lib/seo/schema"
 import { shouldShowComboParentLinks } from "@/lib/seo/linking"
 import { CategoryIntro } from "./category-intro"
 import { SubCategoryLinks } from "./sub-category-links"
@@ -17,14 +18,14 @@ export type CategoryTemplateProps = {
 }
 
 export function CategoryTemplate({ category }: CategoryTemplateProps) {
-  const schemaEntries = [category.schema.itemList, category.schema.faqPage].filter(Boolean)
+  const schemaGraph = buildCategoryPageSchemaGraph(category)
 
   return (
     <div className="bg-background">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <SchemaJsonLd data={schemaEntries as Record<string, unknown>[]} />
+        <SchemaJsonLd data={schemaGraph} />
 
-        <BreadcrumbTrail items={category.breadcrumbs} className="mb-6" />
+        <BreadcrumbTrail items={category.breadcrumbs} className="mb-6" includeSchema={false} />
 
         <div className="flex flex-col gap-10 lg:gap-14">
           <CategoryIntro category={category} />

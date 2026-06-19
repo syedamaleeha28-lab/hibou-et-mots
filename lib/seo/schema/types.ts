@@ -33,6 +33,9 @@ export type CreativeWorkSchema = {
   inLanguage: string
   genre?: string
   educationalLevel?: string
+  learningResourceType?: string
+  isAccessibleForFree?: boolean
+  image?: string
 }
 
 export type CategorySchemaPayload = {

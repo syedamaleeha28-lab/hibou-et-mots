@@ -8,6 +8,7 @@ export function buildCreativeWorkSchema(
     "title" | "canonicalPath" | "metaDescription" | "theme" | "grade" | "difficulty"
   >,
   siteUrl?: string,
+  thumbnailUrl?: string,
 ): CreativeWorkSchema {
   return {
     "@context": "https://schema.org",
@@ -16,7 +17,16 @@ export function buildCreativeWorkSchema(
     description: puzzle.metaDescription,
     url: absoluteUrl(puzzle.canonicalPath, siteUrl),
     inLanguage: "fr-FR",
+    learningResourceType: "puzzle",
+    isAccessibleForFree: true,
     genre: puzzle.theme?.name,
     educationalLevel: puzzle.grade?.name,
+    ...(thumbnailUrl
+      ? {
+          image: thumbnailUrl.startsWith("http")
+            ? thumbnailUrl
+            : absoluteUrl(thumbnailUrl, siteUrl),
+        }
+      : {}),
   }
 }

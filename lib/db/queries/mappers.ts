@@ -267,6 +267,7 @@ export function mapPuzzleToPageData(
     grade: puzzle.grade ?? undefined,
     theme: puzzle.theme ?? undefined,
     pdfUrl: puzzle.pdfUrl ?? undefined,
+    thumbnailUrl: puzzle.thumbnailUrl ?? undefined,
     metaTitle: puzzle.metaTitle ?? undefined,
     metaDescription: puzzle.metaDescription ?? undefined,
     canonicalPath,
@@ -279,7 +280,11 @@ export function mapPuzzleToPageData(
   return {
     ...pageData,
     schema: {
-      creativeWork: buildCreativeWorkSchema(pageData),
+      creativeWork: buildCreativeWorkSchema(
+        pageData,
+        undefined,
+        puzzle.thumbnailUrl ?? undefined,
+      ),
       faqPage: buildFaqPageSchema(faqJson),
     },
   }

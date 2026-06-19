@@ -21,7 +21,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const page = parsePage(query?.page)
   const category = await resolveThemeCategoryPageData(theme, page)
   if (!category) return {}
-  return buildCategoryMetadata(category, page)
+  return await buildCategoryMetadata(category, page)
 }
 
 export default async function ThemeCategoryPage({ params, searchParams }: PageProps) {

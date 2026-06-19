@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
-import { resolveEcoleHubPageData } from "@/lib/db/queries/category-resolvers"
+import { ROUTES } from "@/lib/seo/routes"
+import { resolveStaticSupportCategoryPageData } from "@/lib/db/queries/category-resolvers"
 import {
   categoryGenerateMetadata,
   parseCategoryPage,
@@ -16,17 +17,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const params = await searchParams
   const page = parseCategoryPage(params?.page)
-  const category = await resolveEcoleHubPageData(page)
+  const category = await resolveStaticSupportCategoryPageData(ROUTES.application, page)
   return categoryGenerateMetadata(category, page)
 }
 
-export default async function EcoleHubPage({
+export default async function ApplicationPage({
   searchParams,
 }: {
   searchParams?: CategorySearchParams
 }) {
   const params = await searchParams
   const page = parseCategoryPage(params?.page)
-  const category = await resolveEcoleHubPageData(page)
+  const category = await resolveStaticSupportCategoryPageData(ROUTES.application, page)
   return renderCategoryPage(category, page)
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import { resolveThemeCategoryPageData } from "@/lib/db/queries/category-resolvers"
-import { themeStaticParams } from "@/lib/app/category-route-params"
+import { resolvePressBrandCategoryPageData } from "@/lib/db/queries/category-resolvers"
+import { pressBrandStaticParams } from "@/lib/app/category-route-params"
 import {
   categoryGenerateMetadata,
   parseCategoryPage,
@@ -11,26 +11,26 @@ import {
 export const revalidate = 3600
 
 export function generateStaticParams() {
-  return themeStaticParams()
+  return pressBrandStaticParams()
 }
 
 type PageProps = {
-  params: Promise<{ theme: string }>
+  params: Promise<{ brand: string }>
   searchParams?: CategorySearchParams
 }
 
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
-  const { theme } = await params
+  const { brand } = await params
   const query = await searchParams
   const page = parseCategoryPage(query?.page)
-  const category = await resolveThemeCategoryPageData(theme, page)
+  const category = await resolvePressBrandCategoryPageData(brand, page)
   return categoryGenerateMetadata(category, page)
 }
 
-export default async function ThemeCategoryPage({ params, searchParams }: PageProps) {
-  const { theme } = await params
+export default async function PressBrandCategoryPage({ params, searchParams }: PageProps) {
+  const { brand } = await params
   const query = await searchParams
   const page = parseCategoryPage(query?.page)
-  const category = await resolveThemeCategoryPageData(theme, page)
+  const category = await resolvePressBrandCategoryPageData(brand, page)
   return renderCategoryPage(category, page)
 }

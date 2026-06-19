@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import { resolveThemeCategoryPageData } from "@/lib/db/queries/category-resolvers"
-import { themeStaticParams } from "@/lib/app/category-route-params"
+import { resolveSeasonalCategoryPageData } from "@/lib/db/queries/category-resolvers"
+import { seasonalStaticParams } from "@/lib/app/category-route-params"
 import {
   categoryGenerateMetadata,
   parseCategoryPage,
@@ -11,7 +11,7 @@ import {
 export const revalidate = 3600
 
 export function generateStaticParams() {
-  return themeStaticParams()
+  return seasonalStaticParams()
 }
 
 type PageProps = {
@@ -23,14 +23,14 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const { theme } = await params
   const query = await searchParams
   const page = parseCategoryPage(query?.page)
-  const category = await resolveThemeCategoryPageData(theme, page)
+  const category = await resolveSeasonalCategoryPageData(theme, page)
   return categoryGenerateMetadata(category, page)
 }
 
-export default async function ThemeCategoryPage({ params, searchParams }: PageProps) {
+export default async function SeasonalCategoryPage({ params, searchParams }: PageProps) {
   const { theme } = await params
   const query = await searchParams
   const page = parseCategoryPage(query?.page)
-  const category = await resolveThemeCategoryPageData(theme, page)
+  const category = await resolveSeasonalCategoryPageData(theme, page)
   return renderCategoryPage(category, page)
 }

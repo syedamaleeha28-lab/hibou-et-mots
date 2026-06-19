@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
-import { resolveEcoleHubPageData } from "@/lib/db/queries/category-resolvers"
+import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
+import { resolveHubCategoryPageData } from "@/lib/db/queries/category-resolvers"
 import {
   categoryGenerateMetadata,
   parseCategoryPage,
@@ -16,17 +17,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const params = await searchParams
   const page = parseCategoryPage(params?.page)
-  const category = await resolveEcoleHubPageData(page)
+  const category = await resolveHubCategoryPageData(HUB_CATEGORY_SLUGS.presse, page)
   return categoryGenerateMetadata(category, page)
 }
 
-export default async function EcoleHubPage({
+export default async function PresseHubPage({
   searchParams,
 }: {
   searchParams?: CategorySearchParams
 }) {
   const params = await searchParams
   const page = parseCategoryPage(params?.page)
-  const category = await resolveEcoleHubPageData(page)
+  const category = await resolveHubCategoryPageData(HUB_CATEGORY_SLUGS.presse, page)
   return renderCategoryPage(category, page)
 }

@@ -48,6 +48,68 @@ export async function getCategoryByThemeSlug(
   })
 }
 
+export async function getCategoryByGradeSlug(
+  gradeSlug: string,
+): Promise<CategoryRecord | null> {
+  return prisma.category.findFirst({
+    where: {
+      type: "GRADE",
+      grade: { slug: gradeSlug },
+    },
+    include: categoryInclude,
+  })
+}
+
+export async function getCategoryBySeasonalThemeSlug(
+  themeSlug: string,
+): Promise<CategoryRecord | null> {
+  return prisma.category.findFirst({
+    where: {
+      type: "SEASONAL",
+      theme: { slug: themeSlug },
+    },
+    include: categoryInclude,
+  })
+}
+
+export async function getCategoryByDifficultySlug(
+  levelSlug: string,
+): Promise<CategoryRecord | null> {
+  return prisma.category.findFirst({
+    where: {
+      type: "DIFFICULTY",
+      difficulty: { slug: levelSlug },
+    },
+    include: categoryInclude,
+  })
+}
+
+export async function getCategoryByPressBrandSlug(
+  brandSlug: string,
+): Promise<CategoryRecord | null> {
+  return prisma.category.findFirst({
+    where: {
+      type: "PRESS_BRAND",
+      pressBrand: { slug: brandSlug },
+    },
+    include: categoryInclude,
+  })
+}
+
+export async function getComboCategory(
+  gradeSlug: string,
+  themeSlug: string,
+): Promise<CategoryRecord | null> {
+  return prisma.category.findFirst({
+    where: {
+      type: "COMBO",
+      grade: { slug: gradeSlug },
+      theme: { slug: themeSlug },
+    },
+    include: categoryInclude,
+  })
+}
+
 export async function getCategoryPageData(
   slug: string,
   page = 1,

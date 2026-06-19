@@ -1,14 +1,14 @@
 import { generatePuzzle, ALL_DIRECTIONS } from "@/lib/puzzle-engine"
-import type { CategoryPageData, PuzzleCardData, PuzzlePageData } from "@/lib/db/types/page-data"
-import { gradeSeed } from "@/prisma/seed/grades"
+import type { PuzzleCardData, PuzzlePageData } from "@/lib/db/types/page-data"
+import { PILOT_PUZZLE_SLUG } from "@/lib/db/adapters/category-constants"
 import {
-  mapCategoryToPageData,
-  mapPuzzleToPageData,
-  type CategoryRecord,
-} from "@/lib/db/queries/mappers"
-import { gradePath, themePath } from "@/lib/seo/routes"
+  mockAnimauxCategoryPageData,
+  mockEcoleHubPageData,
+} from "@/lib/db/adapters/mock-categories"
+import { mapPuzzleToPageData } from "@/lib/db/queries/mappers"
+import { mockCategoryRecord } from "@/lib/db/adapters/mock-utils"
 
-export const PILOT_PUZZLE_SLUG = "animaux-facile-01"
+export { PILOT_PUZZLE_SLUG, mockEcoleHubPageData, mockAnimauxCategoryPageData }
 
 const ANIMAL_WORDS = ["CHAT", "CHIEN", "OISEAU", "LAPIN", "LION", "TIGRE", "OURS", "LOUP"]
 
@@ -19,31 +19,6 @@ const generated = generatePuzzle({
   simplifyAccents: true,
   seed: 42,
 })
-
-function mockCategoryRecord(
-  overrides: Partial<CategoryRecord> &
-    Pick<CategoryRecord, "type" | "slug" | "h1" | "seoTitle" | "metaDescription" | "introText">,
-): CategoryRecord {
-  const now = new Date()
-  return {
-    id: `mock-${overrides.slug}`,
-    parentCategoryId: null,
-    gradeId: overrides.grade?.id ?? null,
-    themeId: overrides.theme?.id ?? null,
-    difficultyId: null,
-    pressBrandId: null,
-    grade: overrides.grade ?? null,
-    theme: overrides.theme ?? null,
-    difficulty: null,
-    pressBrand: null,
-    faqJson: null,
-    status: "PUBLISHED",
-    minPuzzleThreshold: 4,
-    createdAt: now,
-    updatedAt: now,
-    ...overrides,
-  }
-}
 
 function buildMockPuzzleCards(prefix: string, count = 6): PuzzleCardData[] {
   return Array.from({ length: count }, (_, index) => {
@@ -60,96 +35,6 @@ function buildMockPuzzleCards(prefix: string, count = 6): PuzzleCardData[] {
       wordCount: ANIMAL_WORDS.length,
       viewCount: 100 - index * 10,
     }
-  })
-}
-
-const mockEcoleSubCategories = gradeSeed.map((grade) => ({
-  id: `mock-grade-${grade.slug}`,
-  label: grade.name,
-  href: gradePath(grade.slug),
-  description: grade.introText.slice(0, 120),
-  puzzleCount: 12,
-  badge: grade.slug.toUpperCase(),
-}))
-
-const mockAnimauxRelated = [
-  {
-    id: "mock-theme-sport",
-    label: "Mots mêlés Sport",
-    href: themePath("sport"),
-    description: "Football, natation, athlétisme…",
-    puzzleCount: 8,
-  },
-  {
-    id: "mock-theme-nature",
-    label: "Mots mêlés Nature",
-    href: themePath("nature"),
-    description: "Forêt, rivière, montagne…",
-    puzzleCount: 6,
-  },
-]
-
-export function mockEcoleHubPageData(page = 1): CategoryPageData {
-  const category = mockCategoryRecord({
-    type: "GRADE",
-    slug: "hub-ecole",
-    h1: "Mots mêlés École — Grilles par niveau scolaire",
-    seoTitle: "Mots mêlés École — CP, CE1, CM2 gratuits à imprimer",
-    metaDescription:
-      "Des mots mêlés gratuits pour chaque niveau scolaire : maternelle, CP, CE1, CE2, CM1, CM2 et 6e. PDF à imprimer et grilles en ligne.",
-    introText:
-      "Retrouve des mots mêlés adaptés à chaque classe, du CP au CM2. Des grilles calibrées pour le vocabulaire scolaire, prêtes à imprimer ou à jouer en ligne.",
-  })
-
-  const puzzles = buildMockPuzzleCards("ecole", 6)
-
-  return mapCategoryToPageData(category, puzzles, {
-    page,
-    subCategories: mockEcoleSubCategories,
-    relatedCategories: [
-      {
-        id: "mock-theme-animaux",
-        label: "Mots mêlés Animaux",
-        href: themePath("animaux"),
-        description: "Grilles sur les animaux domestiques et sauvages.",
-        puzzleCount: 6,
-      },
-    ],
-  })
-}
-
-export function mockAnimauxCategoryPageData(page = 1): CategoryPageData {
-  const category = mockCategoryRecord({
-    type: "THEME",
-    slug: "animaux",
-    h1: "Mots mêlés Animaux — Grilles gratuites",
-    seoTitle: "Mots mêlés Animaux — Grilles gratuites à imprimer",
-    metaDescription:
-      "Des mots mêlés sur le thème des animaux : chat, chien, lion, tigre… Grilles gratuites à imprimer et à jouer en ligne.",
-    introText:
-      "Explore des grilles de mots mêlés sur le thème des animaux, parfaites pour enrichir le vocabulaire des enfants en s'amusant.",
-    theme: {
-      id: "mock-theme-animaux",
-      slug: "animaux",
-      name: "Animaux",
-      group: "Nature & Animaux",
-      iconUrl: null,
-      isSeasonal: false,
-      activeDateStart: null,
-      activeDateEnd: null,
-      seoTitle: null,
-      metaDescription: null,
-      introText: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  })
-
-  const puzzles = buildMockPuzzleCards("animaux", 6)
-
-  return mapCategoryToPageData(category, puzzles, {
-    page,
-    relatedCategories: mockAnimauxRelated,
   })
 }
 

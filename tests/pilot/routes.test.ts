@@ -49,8 +49,13 @@ describe("pilot resolvers", () => {
     expect(page?.canonicalPath).toBe("/mots-meles-thematiques/animaux/")
   })
 
-  it("returns null for non-pilot themes without DB", async () => {
+  it("returns sport mock for theme seed slug without DB", async () => {
     const page = await resolveThemeCategoryPageData("sport")
+    expect(page?.canonicalPath).toBe("/mots-meles-thematiques/sport/")
+  })
+
+  it("returns null for unknown themes without DB", async () => {
+    const page = await resolveThemeCategoryPageData("unknown-theme")
     expect(page).toBeNull()
   })
 

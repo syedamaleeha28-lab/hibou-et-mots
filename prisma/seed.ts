@@ -3,10 +3,18 @@ import { difficultySeed } from "./seed/difficulties"
 import { gradeSeed } from "./seed/grades"
 import { themeWordSeed } from "./seed/theme-words"
 import { themeSeed } from "./seed/themes"
+import {
+  CATEGORY_SEED_DEFINITIONS,
+  clearContentSeed,
+  seedCategories,
+  seedPressBrands,
+} from "./seed/categories"
+import { buildPuzzlePlan, seedPuzzles } from "./seed/puzzles"
+import { buildOfflineCoverageSummary, buildSeedCoverageReport } from "./seed/report"
 
 const prisma = new PrismaClient()
 
-async function main() {
+async function seedReferenceData() {
   console.log("Seeding reference data…")
 
   for (const grade of gradeSeed) {
@@ -91,7 +99,48 @@ async function main() {
     }
   }
   console.log(`  ✓ ${wordCount} theme words`)
+}
 
+async function seedContentData() {
+  const offline = buildOfflineCoverageSummary()
+  console.log("Seeding MVP content…")
+  console.log(
+    `  · plan: ${offline.plannedCategories} categories, ${offline.plannedPuzzles} puzzles, ${offline.plannedUrls} URLs`,
+  )
+
+  if (process.env.SEED_RESET_CONTENT === "1") {
+    console.log("  · resetting existing content (categories, puzzles, links)")
+    await clearContentSeed(prisma)
+  }
+
+  await seedPressBrands(prisma)
+  console.log(`  ✓ press brands`)
+
+  const categoryIdBySlug = await seedCategories(prisma)
+  console.log(`  ✓ ${CATEGORY_SEED_DEFINITIONS.length} categories`)
+
+  const { puzzleCount, linkCount } = await seedPuzzles(prisma, categoryIdBySlug)
+  console.log(`  ✓ ${puzzleCount} puzzles (${buildPuzzlePlan().length} planned)`)
+  console.log(`  ✓ ${linkCount} category–puzzle links`)
+
+  try {
+    const report = await buildSeedCoverageReport(prisma)
+    console.log("Content seed report:")
+    console.log(`  · categories: ${report.categoryCount}`)
+    console.log(`  · puzzles: ${report.puzzleCount}`)
+    console.log(`  · indexable categories: ${report.indexableCategoryUrls}`)
+    console.log(`  · puzzle URLs: ${report.puzzleUrls}`)
+    console.log(`  · total URLs: ${report.totalGeneratedUrls}`)
+    console.log(`  · MVP clusters: ${report.mvpClustersCovered}/${report.mvpClustersTotal}`)
+    console.log(`  · categories below threshold: ${report.indexableCategoriesBelowThreshold}`)
+  } catch (error) {
+    console.warn("  · coverage report skipped:", error instanceof Error ? error.message : error)
+  }
+}
+
+async function main() {
+  await seedReferenceData()
+  await seedContentData()
   console.log("Seed complete.")
 }
 

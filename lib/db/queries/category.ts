@@ -12,6 +12,7 @@ import {
   type CategoryRecord,
 } from "./mappers"
 import { resolveCategoryPath } from "@/lib/seo/routes"
+import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 
 export type { CategoryPageData } from "@/lib/db/types/page-data"
 export {
@@ -27,6 +28,17 @@ const categoryInclude = {
   theme: true,
   difficulty: true,
   pressBrand: true,
+} as const
+
+const categoryIncludeWithCounts = {
+  ...categoryInclude,
+  _count: {
+    select: {
+      puzzles: {
+        where: { puzzle: { status: "PUBLISHED" } },
+      },
+    },
+  },
 } as const
 
 export async function getCategoryBySlug(slug: string): Promise<CategoryRecord | null> {
@@ -149,7 +161,7 @@ export async function listSubCategories(
       parentCategoryId,
       status: "PUBLISHED",
     },
-    include: categoryInclude,
+    include: categoryIncludeWithCounts,
     orderBy: { slug: "asc" },
   })
 
@@ -165,17 +177,160 @@ export async function listSubCategories(
       pressBrand: child.pressBrand,
     }),
     description: child.introText.slice(0, 120),
-    puzzleCount: 0,
+    puzzleCount: child._count.puzzles,
     badge: child.grade?.name,
   }))
 }
 
+function mapCategoryToRelatedLink(
+  category: CategoryRecord & { _count?: { puzzles: number } },
+): CategoryPageData["relatedCategories"][number] {
+  return {
+    id: category.id,
+    label: category.h1,
+    href: resolveCategoryPath({
+      type: category.type as CategoryType,
+      slug: category.slug,
+      grade: category.grade,
+      theme: category.theme,
+      difficulty: category.difficulty,
+      pressBrand: category.pressBrand,
+    }),
+    description: category.metaDescription.slice(0, 120),
+    puzzleCount: category._count?.puzzles ?? 0,
+  }
+}
+
+const HUB_SLUG_LIST = Object.values(HUB_CATEGORY_SLUGS)
+
 export async function listRelatedCategories(
   categoryId: string,
 ): Promise<CategoryPageData["relatedCategories"]> {
-  void categoryId
-  // Phase C seed + linking algorithm will populate related categories.
-  return []
+  const category = await prisma.category.findUnique({
+    where: { id: categoryId },
+    include: categoryInclude,
+  })
+  if (!category) return []
+
+  const hub = isCategoryHub(category)
+
+  if (hub || HUB_SLUG_LIST.includes(category.slug as (typeof HUB_SLUG_LIST)[number])) {
+    const siblings = await prisma.category.findMany({
+      where: {
+        slug: { in: HUB_SLUG_LIST.filter((slug) => slug !== category.slug) },
+        status: "PUBLISHED",
+      },
+      include: categoryIncludeWithCounts,
+      take: 4,
+    })
+    return siblings.map(mapCategoryToRelatedLink)
+  }
+
+  switch (category.type) {
+    case "GRADE": {
+      if (!category.grade) return []
+      const adjacentOrders = [category.grade.order - 1, category.grade.order + 1].filter(
+        (order) => order >= 0,
+      )
+      const related = await prisma.category.findMany({
+        where: {
+          type: "GRADE",
+          gradeId: { not: null },
+          grade: { order: { in: adjacentOrders } },
+          status: "PUBLISHED",
+        },
+        include: categoryIncludeWithCounts,
+        take: 2,
+      })
+      const themes = await prisma.category.findMany({
+        where: { type: "THEME", themeId: { not: null }, status: "PUBLISHED" },
+        include: categoryIncludeWithCounts,
+        orderBy: { slug: "asc" },
+        take: 2,
+      })
+      return [...related, ...themes].map(mapCategoryToRelatedLink)
+    }
+    case "THEME":
+    case "SEASONAL": {
+      if (!category.theme) return []
+      const siblings = await prisma.category.findMany({
+        where: {
+          type: category.type,
+          themeId: { not: null },
+          theme: { group: category.theme.group },
+          id: { not: category.id },
+          status: "PUBLISHED",
+        },
+        include: categoryIncludeWithCounts,
+        take: 4,
+      })
+      return siblings.map(mapCategoryToRelatedLink)
+    }
+    case "DIFFICULTY": {
+      const siblings = await prisma.category.findMany({
+        where: {
+          type: "DIFFICULTY",
+          difficultyId: { not: null },
+          id: { not: category.id },
+          status: "PUBLISHED",
+        },
+        include: categoryIncludeWithCounts,
+        orderBy: { slug: "asc" },
+        take: 3,
+      })
+      return siblings.map(mapCategoryToRelatedLink)
+    }
+    case "COMBO": {
+      if (!category.grade || !category.theme) return []
+      const parents = await prisma.category.findMany({
+        where: {
+          OR: [
+            { type: "GRADE", gradeId: category.gradeId ?? undefined },
+            {
+              type: category.theme.isSeasonal ? "SEASONAL" : "THEME",
+              themeId: category.themeId ?? undefined,
+            },
+          ],
+          status: "PUBLISHED",
+        },
+        include: categoryIncludeWithCounts,
+      })
+      return parents.map(mapCategoryToRelatedLink)
+    }
+    case "AUDIENCE": {
+      const audienceSlugs = ["enfants", "adultes", "seniors"]
+      if (audienceSlugs.includes(category.slug)) {
+        const siblings = await prisma.category.findMany({
+          where: {
+            type: "AUDIENCE",
+            slug: { in: audienceSlugs.filter((slug) => slug !== category.slug) },
+            status: "PUBLISHED",
+          },
+          include: categoryIncludeWithCounts,
+        })
+        return siblings.map(mapCategoryToRelatedLink)
+      }
+      const hubs = await prisma.category.findMany({
+        where: { slug: { in: [HUB_CATEGORY_SLUGS.gratuits, HUB_CATEGORY_SLUGS.ecole] }, status: "PUBLISHED" },
+        include: categoryIncludeWithCounts,
+      })
+      return hubs.map(mapCategoryToRelatedLink)
+    }
+    case "PRESS_BRAND": {
+      const siblings = await prisma.category.findMany({
+        where: {
+          type: "PRESS_BRAND",
+          id: { not: category.id },
+          status: "PUBLISHED",
+        },
+        include: categoryIncludeWithCounts,
+        take: 3,
+      })
+      return siblings.map(mapCategoryToRelatedLink)
+    }
+    default:
+      return []
+  }
 }
 
 export async function listCategoryPuzzles(

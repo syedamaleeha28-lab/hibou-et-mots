@@ -87,6 +87,15 @@ const AUDIENCE_SLUG_PATHS: Record<string, string> = {
   seniors: ROUTES.seniors,
 }
 
+const STATIC_SUPPORT_SLUG_PATHS: Record<string, string> = {
+  pedagogie: ROUTES.pedagogie,
+  personnages: ROUTES.personnages,
+  application: ROUTES.application,
+  solutions: ROUTES.solutions,
+  "jeux-magazines": ROUTES.jeuxMagazines,
+  "ressources-enseignants": ROUTES.ressources,
+}
+
 /** DB-driven category → canonical path (single source of truth). */
 export function resolveCategoryPath(input: CategoryPathInput): string {
   const hubPath = HUB_SLUG_PATHS[input.slug]
@@ -104,7 +113,11 @@ export function resolveCategoryPath(input: CategoryPathInput): string {
         ? difficultyPath(input.difficulty.slug)
         : ROUTES.difficulteHub
     case "AUDIENCE":
-      return AUDIENCE_SLUG_PATHS[input.slug] ?? `/mots-meles-${input.slug}/`
+      return (
+        AUDIENCE_SLUG_PATHS[input.slug] ??
+        STATIC_SUPPORT_SLUG_PATHS[input.slug] ??
+        `/mots-meles-${input.slug}/`
+      )
     case "PRESS_BRAND":
       return input.pressBrand
         ? pressBrandPath(input.pressBrand.slug)

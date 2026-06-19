@@ -1,5 +1,7 @@
 /** Canonical public paths — PRD §8, trailing slash enforced via next.config. */
 
+import type { CategoryType } from "@/lib/db/types/page-data"
+
 export const ROUTES = {
   home: "/",
   gratuits: "/mots-meles-gratuits/",
@@ -58,4 +60,65 @@ export function absoluteUrl(path: string, siteUrl = process.env.NEXT_PUBLIC_SITE
   const base = siteUrl.replace(/\/$/, "")
   const normalized = path.startsWith("/") ? path : `/${path}`
   return `${base}${normalized}`
+}
+
+export type CategoryPathInput = {
+  type: CategoryType
+  slug: string
+  grade?: { slug: string } | null
+  theme?: { slug: string } | null
+  difficulty?: { slug: string } | null
+  pressBrand?: { slug: string } | null
+}
+
+const HUB_SLUG_PATHS: Record<string, string> = {
+  "hub-gratuits": ROUTES.gratuits,
+  "hub-imprimer": ROUTES.imprimer,
+  "hub-ecole": ROUTES.ecoleHub,
+  "hub-fetes": ROUTES.fetesHub,
+  "hub-thematiques": ROUTES.thematiquesHub,
+  "hub-difficulte": ROUTES.difficulteHub,
+  "hub-presse": ROUTES.presseHub,
+}
+
+const AUDIENCE_SLUG_PATHS: Record<string, string> = {
+  enfants: ROUTES.enfants,
+  adultes: ROUTES.adultes,
+  seniors: ROUTES.seniors,
+}
+
+/** DB-driven category → canonical path (single source of truth). */
+export function resolveCategoryPath(input: CategoryPathInput): string {
+  const hubPath = HUB_SLUG_PATHS[input.slug]
+  if (hubPath) return hubPath
+
+  switch (input.type) {
+    case "GRADE":
+      return input.grade ? gradePath(input.grade.slug) : ROUTES.ecoleHub
+    case "THEME":
+      return input.theme ? themePath(input.theme.slug) : ROUTES.thematiquesHub
+    case "SEASONAL":
+      return input.theme ? seasonalPath(input.theme.slug) : ROUTES.fetesHub
+    case "DIFFICULTY":
+      return input.difficulty
+        ? difficultyPath(input.difficulty.slug)
+        : ROUTES.difficulteHub
+    case "AUDIENCE":
+      return AUDIENCE_SLUG_PATHS[input.slug] ?? `/mots-meles-${input.slug}/`
+    case "PRESS_BRAND":
+      return input.pressBrand
+        ? pressBrandPath(input.pressBrand.slug)
+        : ROUTES.presseHub
+    case "COMBO":
+      if (input.grade && input.theme) {
+        return comboPath(input.grade.slug, input.theme.slug)
+      }
+      return ROUTES.ecoleHub
+    default:
+      return ROUTES.home
+  }
+}
+
+export function resolvePuzzlePath(slug: string): string {
+  return puzzlePath(slug)
 }

@@ -6,12 +6,12 @@ import { useState } from "react"
 import type { PuzzlePageData } from "@/lib/db/types/page-data"
 import { Button } from "@/components/ui/button"
 import { ROUTES } from "@/lib/seo"
-import { categoryBackLinkLabel, generatorCtaHref } from "@/lib/seo/linking"
+import { categoryBackLinkLabel } from "@/lib/seo/linking"
 
 type PuzzleActionBarProps = {
   puzzle: Pick<
     PuzzlePageData,
-    "pdfUrl" | "theme" | "parentCategories" | "canonicalPath"
+    "id" | "pdfUrl" | "theme" | "parentCategories" | "canonicalPath"
   >
   onRevealSolution?: () => void
 }
@@ -23,6 +23,7 @@ export function PuzzleActionBar({ puzzle, onRevealSolution }: PuzzleActionBarPro
     primaryCategory?.type ?? "THEME",
     puzzle.theme?.name,
   )
+  const downloadHref = puzzle.pdfUrl ?? `/api/pdf/${puzzle.id}/`
 
   function handleReveal() {
     setSolutionVisible(true)
@@ -41,22 +42,15 @@ export function PuzzleActionBar({ puzzle, onRevealSolution }: PuzzleActionBarPro
           Imprimer
         </Button>
 
-        {puzzle.pdfUrl ? (
-          <Button
-            nativeButton={false}
-            variant="outline"
-            className="rounded-full font-extrabold"
-            render={<a href={puzzle.pdfUrl} download />}
-          >
-            <Download className="size-4" />
-            Télécharger le PDF
-          </Button>
-        ) : (
-          <Button type="button" variant="outline" className="rounded-full font-extrabold" disabled>
-            <Download className="size-4" />
-            PDF bientôt disponible
-          </Button>
-        )}
+        <Button
+          nativeButton={false}
+          variant="outline"
+          className="rounded-full font-extrabold"
+          render={<a href={downloadHref} download={Boolean(puzzle.pdfUrl)} />}
+        >
+          <Download className="size-4" />
+          Télécharger le PDF
+        </Button>
 
         <Button
           type="button"

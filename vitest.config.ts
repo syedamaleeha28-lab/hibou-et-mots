@@ -7,6 +7,9 @@ export default defineConfig({
     include: ["tests/**/*.test.ts"],
     testTimeout: 120_000,
   },
+  esbuild: {
+    jsx: "automatic",
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "."),

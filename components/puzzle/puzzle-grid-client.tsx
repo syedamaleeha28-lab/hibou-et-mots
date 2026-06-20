@@ -11,13 +11,18 @@ type PuzzleGridClientProps = {
   grid: string[][]
   solutionData: SolutionData
   largePrint?: boolean
+  readOnly?: boolean
+  onWordFound?: (word: string) => void
   className?: string
 }
 
 export function PuzzleGridClient({
+  puzzleId,
   grid,
   solutionData,
   largePrint = false,
+  readOnly = false,
+  onWordFound,
   className,
 }: PuzzleGridClientProps) {
   const legacyGrid = useMemo(
@@ -26,8 +31,14 @@ export function PuzzleGridClient({
   )
 
   return (
-    <div className={cn("relative", className)}>
-      <WordGrid grid={legacyGrid} largePrint={largePrint} />
+    <div className={cn("relative touch-none", className)}>
+      <WordGrid
+        key={puzzleId}
+        grid={legacyGrid}
+        largePrint={largePrint}
+        readOnly={readOnly}
+        onWordFound={onWordFound}
+      />
     </div>
   )
 }

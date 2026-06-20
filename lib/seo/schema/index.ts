@@ -7,6 +7,11 @@ export {
   buildCategoryPageSchemaGraph,
   buildPuzzlePageSchemaGraph,
 } from "./page-schemas"
+export {
+  buildHomePageSchemaGraph,
+  buildOrganizationSchema,
+  buildWebSiteSchema,
+} from "./home"
 export type {
   CategorySchemaPayload,
   CreativeWorkSchema,

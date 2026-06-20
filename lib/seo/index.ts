@@ -79,6 +79,9 @@ export {
   buildBreadcrumbSchemaGraph,
   buildCategoryPageSchemaGraph,
   buildPuzzlePageSchemaGraph,
+  buildHomePageSchemaGraph,
+  buildWebSiteSchema,
+  buildOrganizationSchema,
   toSchemaGraphNode,
   type CategorySchemaPayload,
   type CreativeWorkSchema,
@@ -103,3 +106,5 @@ export {
   type SitemapImageEntry,
   type SitemapUrlEntry,
 } from "./sitemap"
+export { validateLinkGraph, validateLinkGraphFromData } from "./link-graph/validate"
+export type { LinkGraphReport, LinkGraphIssue } from "./link-graph/types"

@@ -48,9 +48,4 @@
     "typescript": "5.7.3",
     "vitest": "^3.2.6"
   },
-  "pnpm": {
-    "overrides": {
-      "hono": "4.12.25"
-    }
-  }
 }

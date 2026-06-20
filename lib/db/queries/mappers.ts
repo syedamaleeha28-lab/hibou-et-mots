@@ -30,8 +30,11 @@ import {
   resolveCategoryPath,
   resolvePuzzlePath,
 } from "@/lib/seo/routes"
+import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 import { buildBreadcrumbs } from "@/lib/seo/breadcrumbs"
 import { selectRelatedPuzzles } from "@/lib/seo/related-puzzles"
+
+const HUB_CATEGORY_SLUG_SET = new Set<string>(Object.values(HUB_CATEGORY_SLUGS))
 
 export type CategoryRecord = Prisma.CategoryGetPayload<{
   include: {
@@ -102,10 +105,17 @@ export function paginatePuzzles(
   }
 }
 
-export function isCategoryHub(category: Pick<CategoryRecord, "type" | "gradeId" | "themeId" | "difficultyId">): boolean {
+export function isCategoryHub(
+  category: Pick<
+    CategoryRecord,
+    "slug" | "type" | "gradeId" | "themeId" | "difficultyId" | "pressBrandId"
+  >,
+): boolean {
+  if (HUB_CATEGORY_SLUG_SET.has(category.slug)) return true
   if (category.type === "GRADE") return !category.gradeId
   if (category.type === "THEME" || category.type === "SEASONAL") return !category.themeId
   if (category.type === "DIFFICULTY") return !category.difficultyId
+  if (category.type === "PRESS_BRAND") return !category.pressBrandId
   return false
 }
 
@@ -163,6 +173,7 @@ export function mapCategoryToPageData(
       type: category.type as CategoryType,
       h1: category.h1,
       canonicalPath,
+      isHub: hub,
       grade: category.grade ?? undefined,
       theme: category.theme ?? undefined,
       difficulty: category.difficulty ?? undefined,

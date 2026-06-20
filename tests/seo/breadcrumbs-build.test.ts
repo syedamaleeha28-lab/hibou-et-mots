@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest"
-import { buildCategoryBreadcrumbs, buildPuzzleBreadcrumbs } from "@/lib/seo/breadcrumbs"
+import {
+  buildBreadcrumbListSchema,
+  buildCategoryBreadcrumbs,
+  buildPuzzleBreadcrumbs,
+} from "@/lib/seo/breadcrumbs"
+import { buildCategoryPageSchemaGraph } from "@/lib/seo/schema/page-schemas"
 import { gradePath, ROUTES } from "@/lib/seo/routes"
+import { mockHubCategoryPageData } from "@/lib/db/adapters/mock-categories"
+import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 
 describe("buildCategoryBreadcrumbs", () => {
   it("builds grade trail", () => {
@@ -24,6 +31,44 @@ describe("buildCategoryBreadcrumbs", () => {
     })
 
     expect(trail.map((item) => item.label)).toEqual(["Accueil", "École", "CE1", "Noël"])
+  })
+
+  it("builds flat trail for top-level hub pages without silo parent", () => {
+    const gratuits = buildCategoryBreadcrumbs({
+      type: "AUDIENCE",
+      isHub: true,
+      h1: "Mots mêlés gratuits — Toutes les grilles",
+      canonicalPath: ROUTES.gratuits,
+    })
+
+    expect(gratuits.map((item) => item.label)).toEqual([
+      "Accueil",
+      "Mots mêlés gratuits — Toutes les grilles",
+    ])
+    expect(gratuits.some((item) => item.label === "École")).toBe(false)
+
+    const imprimer = buildCategoryBreadcrumbs({
+      type: "AUDIENCE",
+      isHub: true,
+      h1: "Mots mêlés à imprimer — PDF gratuits",
+      canonicalPath: ROUTES.imprimer,
+    })
+
+    expect(imprimer.some((item) => item.label === "École")).toBe(false)
+  })
+
+  it("builds flat trail for silo hub pages", () => {
+    const ecole = buildCategoryBreadcrumbs({
+      type: "GRADE",
+      isHub: true,
+      h1: "Mots mêlés École — Grilles par niveau scolaire",
+      canonicalPath: ROUTES.ecoleHub,
+    })
+
+    expect(ecole.map((item) => item.label)).toEqual([
+      "Accueil",
+      "Mots mêlés École — Grilles par niveau scolaire",
+    ])
   })
 })
 
@@ -55,5 +100,35 @@ describe("buildPuzzleBreadcrumbs", () => {
 
     expect(trail[0]?.label).toBe("Accueil")
     expect(trail.at(-1)?.label).toBe("Grille libre")
+  })
+})
+
+describe("hub category breadcrumbs and schema", () => {
+  it("excludes École from gratuits hub mock page", () => {
+    const page = mockHubCategoryPageData(HUB_CATEGORY_SLUGS.gratuits)
+
+    expect(page.breadcrumbs.map((item) => item.label)).toEqual([
+      "Accueil",
+      "Mots mêlés gratuits — Toutes les grilles",
+    ])
+    expect(page.breadcrumbs.some((item) => item.label === "École")).toBe(false)
+  })
+
+  it("mirrors UI breadcrumbs in BreadcrumbList schema", () => {
+    const page = mockHubCategoryPageData(HUB_CATEGORY_SLUGS.gratuits)
+    const schema = buildCategoryPageSchemaGraph(page)
+    const breadcrumbNode = (schema["@graph"] as Array<Record<string, unknown>>).find(
+      (node) => node["@type"] === "BreadcrumbList",
+    )
+
+    expect(breadcrumbNode).toBeDefined()
+    expect(
+      (breadcrumbNode?.itemListElement as Array<{ name: string }>).map((item) => item.name),
+    ).toEqual(["Accueil", "Mots mêlés gratuits — Toutes les grilles"])
+
+    const listSchema = buildBreadcrumbListSchema(page.breadcrumbs)
+    expect(listSchema.itemListElement).toHaveLength(2)
+    expect(listSchema.itemListElement[0]?.name).toBe("Accueil")
+    expect(listSchema.itemListElement[1]?.name).toBe("Mots mêlés gratuits — Toutes les grilles")
   })
 })

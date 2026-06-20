@@ -5,6 +5,7 @@ import {
   mockAnimauxCategoryPageData,
   mockEcoleHubPageData,
 } from "@/lib/db/adapters/mock-categories"
+import { getSeedPuzzlesForCategory } from "@/lib/db/adapters/puzzle-catalog"
 import { mapPuzzleToPageData } from "@/lib/db/queries/mappers"
 import { mockCategoryRecord } from "@/lib/db/adapters/mock-utils"
 
@@ -20,22 +21,8 @@ const generated = generatePuzzle({
   seed: 42,
 })
 
-function buildMockPuzzleCards(prefix: string, count = 6): PuzzleCardData[] {
-  return Array.from({ length: count }, (_, index) => {
-    const n = String(index + 1).padStart(2, "0")
-    const slug = index === 0 ? PILOT_PUZZLE_SLUG : `${prefix}-facile-${n}`
-    return {
-      id: `mock-puzzle-${slug}`,
-      slug,
-      title: `Mots mêlés ${prefix} ${n}`,
-      href: `/mots-meles/${slug}/`,
-      difficulty: { slug: "facile", name: "Facile" },
-      theme: { slug: "animaux", name: "Animaux" },
-      size: generated.size,
-      wordCount: ANIMAL_WORDS.length,
-      viewCount: 100 - index * 10,
-    }
-  })
+function buildMockPuzzleCards(categorySlug: string, count = 6): PuzzleCardData[] {
+  return getSeedPuzzlesForCategory(categorySlug, count)
 }
 
 export function mockAnimauxPuzzlePageData(): PuzzlePageData {

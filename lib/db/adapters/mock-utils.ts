@@ -1,23 +1,10 @@
 import type { PuzzleCardData } from "@/lib/db/types/page-data"
 import type { CategoryRecord } from "@/lib/db/queries/mappers"
-import { PILOT_PUZZLE_SLUG } from "@/lib/db/adapters/category-constants"
+import { getSeedPuzzlesForCategory } from "@/lib/db/adapters/puzzle-catalog"
 
-/** Static placeholder puzzle cards — no puzzle engine calls. */
-export function staticMockPuzzleCards(prefix: string, count = 6): PuzzleCardData[] {
-  return Array.from({ length: count }, (_, index) => {
-    const n = String(index + 1).padStart(2, "0")
-    const slug = index === 0 && prefix === "animaux" ? PILOT_PUZZLE_SLUG : `${prefix}-facile-${n}`
-    return {
-      id: `mock-puzzle-${slug}`,
-      slug,
-      title: `Mots mêlés ${prefix} ${n}`,
-      href: `/mots-meles/${slug}/`,
-      difficulty: { slug: "facile", name: "Facile" },
-      size: 10,
-      wordCount: 8,
-      viewCount: 100 - index * 10,
-    }
-  })
+/** Seed-backed puzzle cards for a category slug (only slugs that exist after db seed). */
+export function staticMockPuzzleCards(categorySlug: string, count = 6): PuzzleCardData[] {
+  return getSeedPuzzlesForCategory(categorySlug, count)
 }
 
 export function mockCategoryRecord(

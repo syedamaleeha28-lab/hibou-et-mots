@@ -108,7 +108,7 @@ function hubRelatedLinks(): RelatedCategoryLink[] {
 
 const HUB_DEFINITIONS = {
   [HUB_CATEGORY_SLUGS.gratuits]: {
-    type: "GRADE" as const,
+    type: "AUDIENCE" as const,
     h1: "Mots mêlés gratuits — Toutes les grilles",
     seoTitle: "Mots mêlés gratuits — Imprimer et jouer en ligne",
     metaDescription:
@@ -120,7 +120,7 @@ const HUB_DEFINITIONS = {
     subCategories: [...themeSubCategories.slice(0, 6), ...gradeSubCategories.slice(0, 4)],
   },
   [HUB_CATEGORY_SLUGS.imprimer]: {
-    type: "GRADE" as const,
+    type: "AUDIENCE" as const,
     h1: "Mots mêlés à imprimer — PDF gratuits",
     seoTitle: "Mots mêlés à imprimer — Grilles PDF gratuites",
     metaDescription:

@@ -20,7 +20,11 @@ describe("category mock fixtures", () => {
   it("builds hub pages with breadcrumbs and subcategories", () => {
     const page = mockHubCategoryPageData(HUB_CATEGORY_SLUGS.gratuits)
     expect(page.canonicalPath).toBe("/mots-meles-gratuits/")
-    expect(page.breadcrumbs.length).toBeGreaterThan(1)
+    expect(page.breadcrumbs.map((item) => item.label)).toEqual([
+      "Accueil",
+      "Mots mêlés gratuits — Toutes les grilles",
+    ])
+    expect(page.breadcrumbs.some((item) => item.label === "École")).toBe(false)
     expect(page.subCategories.length).toBeGreaterThan(0)
     expect(page.schema.faqPage).toBeDefined()
     expect(page.schema.itemList.numberOfItems).toBeGreaterThan(0)

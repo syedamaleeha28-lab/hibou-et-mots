@@ -30,7 +30,7 @@ export type CategorySeedDefinition = {
 const HUB_DEFINITIONS: CategorySeedDefinition[] = [
   {
     slug: HUB_CATEGORY_SLUGS.gratuits,
-    type: "GRADE",
+    type: "AUDIENCE",
     h1: "Mots mêlés gratuits — Toutes les grilles",
     seoTitle: "Mots mêlés gratuits — Imprimer et jouer en ligne",
     metaDescription:
@@ -41,7 +41,7 @@ const HUB_DEFINITIONS: CategorySeedDefinition[] = [
   },
   {
     slug: HUB_CATEGORY_SLUGS.imprimer,
-    type: "GRADE",
+    type: "AUDIENCE",
     h1: "Mots mêlés à imprimer — PDF gratuits",
     seoTitle: "Mots mêlés à imprimer — Grilles PDF gratuites",
     metaDescription:

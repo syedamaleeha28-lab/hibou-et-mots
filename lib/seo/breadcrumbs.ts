@@ -53,6 +53,7 @@ type CategoryBreadcrumbInput = {
   type: CategoryType
   h1: string
   canonicalPath: string
+  isHub?: boolean
   grade?: { slug: string; name: string }
   theme?: { slug: string; name: string; isSeasonal?: boolean }
   difficulty?: { slug: string; name: string }
@@ -90,12 +91,13 @@ function siloForCategoryType(type: CategoryType): { label: string; href: string 
 
 export function buildCategoryBreadcrumbs(category: CategoryBreadcrumbInput): BreadcrumbItem[] {
   const items: BreadcrumbItem[] = [{ label: "Accueil", href: "/" }]
-  const silo = siloForCategoryType(category.type)
 
-  if (category.type === "AUDIENCE") {
+  if (category.isHub || category.type === "AUDIENCE") {
     items.push({ label: category.h1, href: category.canonicalPath })
     return items
   }
+
+  const silo = siloForCategoryType(category.type)
 
   if (silo) items.push(silo)
 

@@ -4,6 +4,8 @@ import { SchemaJsonLd } from "@/components/seo"
 import { buildCategoryPageSchemaGraph } from "@/lib/seo/schema"
 import { shouldShowComboParentLinks } from "@/lib/seo/linking"
 import { CategoryIntro } from "./category-intro"
+import { CategoryPhase1Sections } from "./category-phase1-sections"
+import { CategoryPhase2Sections } from "./category-phase2-sections"
 import { SubCategoryLinks } from "./sub-category-links"
 import { ComboParentLinks } from "./combo-parent-links"
 import { PuzzleCardGrid } from "./puzzle-card-grid"
@@ -29,6 +31,10 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
         <div className="flex flex-col gap-10 lg:gap-14">
           <CategoryIntro category={category} />
+
+          <CategoryPhase1Sections slug={category.slug} />
+
+          <CategoryPhase2Sections slug={category.slug} />
 
           {shouldShowComboParentLinks(category.type) && category.comboParentLinks && (
             <ComboParentLinks links={category.comboParentLinks} />

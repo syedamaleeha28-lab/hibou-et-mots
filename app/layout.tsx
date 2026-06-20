@@ -16,9 +16,9 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-  title: 'Hibou & Mots — Mots mêlés éducatifs pour enfants',
+  title: 'Hibou & Mots — Mots mêlés gratuits à imprimer et jouer en ligne',
   description:
-    'Des centaines de mots mêlés en français pour les enfants de 5 à 14 ans. Catégories amusantes, niveaux scolaires, PDF à imprimer et générateur de grilles en ligne.',
+    'Des mots mêlés en français pour la maternelle, le primaire, le collège, les adultes et les seniors. Grilles à imprimer, générateur et jeu en ligne gratuits.',
   generator: 'v0.app',
   icons: {
     icon: [

@@ -1,7 +1,9 @@
+import Link from "next/link"
 import { Download, FileText, Printer, School } from "lucide-react"
 import { pdfPacks } from "@/lib/content"
 import { colorClasses } from "@/lib/colors"
 import { Button } from "@/components/ui/button"
+import { ROUTES } from "@/lib/seo/routes"
 
 const perks = [
   { icon: Printer, label: "Prêt à imprimer en A4" },
@@ -21,9 +23,8 @@ export function PrintablePdfs() {
             Des PDF gratuits pour la maison et l&apos;école
           </h2>
           <p className="text-lg leading-relaxed text-muted-foreground text-pretty">
-            Parents et enseignants peuvent télécharger des cahiers complets de
-            mots mêlés, prêts à imprimer, avec les solutions sur la dernière
-            page.
+            Parents et enseignants peuvent télécharger des grilles de mots mêlés prêtes à imprimer,
+            avec les solutions sur la dernière page — format A4, noir et blanc.
           </p>
 
           <ul className="flex flex-col gap-3">
@@ -39,7 +40,9 @@ export function PrintablePdfs() {
 
           <Button
             size="lg"
+            nativeButton={false}
             className="mt-2 w-fit rounded-full bg-primary font-extrabold text-primary-foreground hover:bg-primary/90"
+            render={<Link href={ROUTES.imprimer} />}
           >
             <Download className="size-5" />
             Voir tous les PDF
@@ -50,8 +53,9 @@ export function PrintablePdfs() {
           {pdfPacks.map((pack) => {
             const c = colorClasses[pack.color]
             return (
-              <div
+              <Link
                 key={pack.title}
+                href={ROUTES.imprimer}
                 className="group flex flex-col gap-4 rounded-3xl border border-border bg-card p-5 transition-all hover:-translate-y-1 hover:shadow-lg"
               >
                 <div
@@ -67,14 +71,7 @@ export function PrintablePdfs() {
                     {pack.pages} pages · {pack.level}
                   </p>
                 </div>
-                <Button
-                  variant="outline"
-                  className="rounded-full border-2 font-extrabold hover:bg-muted"
-                >
-                  <Download className="size-4" />
-                  Télécharger
-                </Button>
-              </div>
+              </Link>
             )
           })}
         </div>

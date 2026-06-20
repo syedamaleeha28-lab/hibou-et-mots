@@ -12,7 +12,10 @@ import {
   buildCreativeWorkSchema,
   buildFaqPageSchema,
   buildItemListSchema,
+  buildLinksItemListSchema,
 } from "@/lib/seo/schema"
+import { gradePath } from "@/lib/seo/routes"
+import { gradeSeed } from "@/prisma/seed/grades"
 import {
   computeIsIndexable,
   type IndexableInput,
@@ -184,7 +187,16 @@ export function mapCategoryToPageData(
         })
       : undefined
 
-  const itemList = buildItemListSchema(category.h1, paginated.items)
+  const itemList =
+    category.slug === "hub-ecole"
+      ? buildLinksItemListSchema(
+          "Niveaux scolaires — Mots mêlés École",
+          gradeSeed.map((grade) => ({
+            name: grade.name,
+            href: gradePath(grade.slug),
+          })),
+        )
+      : buildItemListSchema(category.h1, paginated.items)
 
   return {
     id: category.id,
@@ -284,6 +296,9 @@ export function mapPuzzleToPageData(
         pageData,
         undefined,
         puzzle.thumbnailUrl ?? undefined,
+        {
+          parentCategorySlugs: puzzle.categories.map((cp) => cp.category.slug),
+        },
       ),
       faqPage: buildFaqPageSchema(faqJson),
     },

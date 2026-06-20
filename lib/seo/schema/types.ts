@@ -36,6 +36,10 @@ export type CreativeWorkSchema = {
   learningResourceType?: string
   isAccessibleForFree?: boolean
   image?: string
+  audience?: {
+    "@type": "Audience"
+    audienceType: string
+  }
 }
 
 export type CategorySchemaPayload = {

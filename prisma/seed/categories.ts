@@ -6,6 +6,7 @@ import {
   MVP_PRESS_BRANDS,
 } from "@/lib/db/adapters/category-constants"
 import { difficultySeed } from "./difficulties"
+import { getPhase1Faq, getPhase1Intro } from "@/lib/content/phase1"
 import { faqPlaceholderFor } from "./faq"
 import { gradeSeed } from "./grades"
 import { themeSeed } from "./themes"
@@ -328,11 +329,14 @@ export async function seedCategories(prisma: PrismaClient): Promise<Map<string, 
   const categoryIdBySlug = new Map<string, string>()
 
   for (const def of CATEGORY_SEED_DEFINITIONS) {
-    const faqJson = faqPlaceholderFor(def.type, {
-      isHub: def.isHub,
-      isSeasonal: def.type === "SEASONAL",
-      isStaticSupport: def.isStaticSupport,
-    })
+    const faqJson =
+      getPhase1Faq(def.slug) ??
+      faqPlaceholderFor(def.type, {
+        isHub: def.isHub,
+        isSeasonal: def.type === "SEASONAL",
+        isStaticSupport: def.isStaticSupport,
+      })
+    const introText = getPhase1Intro(def.slug) ?? def.introText
 
     const record = await prisma.category.upsert({
       where: { slug: def.slug },
@@ -342,7 +346,7 @@ export async function seedCategories(prisma: PrismaClient): Promise<Map<string, 
         h1: def.h1,
         seoTitle: def.seoTitle,
         metaDescription: def.metaDescription,
-        introText: def.introText,
+        introText,
         faqJson,
         status: "PUBLISHED",
         minPuzzleThreshold: 4,
@@ -356,7 +360,7 @@ export async function seedCategories(prisma: PrismaClient): Promise<Map<string, 
         h1: def.h1,
         seoTitle: def.seoTitle,
         metaDescription: def.metaDescription,
-        introText: def.introText,
+        introText,
         faqJson,
         status: "PUBLISHED",
         gradeId: def.gradeSlug ? gradeIdBySlug.get(def.gradeSlug) : null,

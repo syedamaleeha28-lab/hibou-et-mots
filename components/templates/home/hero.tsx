@@ -1,18 +1,20 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import Link from "next/link"
 import Image from "next/image"
-import { Check, Sparkles, Star } from "lucide-react"
+import { Check, Play, Sparkles, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { WordGrid } from "@/components/puzzle/word-grid"
 import { generateGrid } from "@/lib/puzzle-engine"
+import { ROUTES } from "@/lib/seo/routes"
 
 const HERO_WORDS = ["HIBOU", "LIVRE", "MOTS", "JEU", "ECOLE", "LIRE"]
 
 const stats = [
-  { value: "1 200+", label: "grilles gratuites" },
-  { value: "50 000+", label: "enfants joueurs" },
-  { value: "100%", label: "en français" },
+  { value: "120+", label: "grilles publiées" },
+  { value: "15", label: "thèmes" },
+  { value: "100%", label: "gratuit" },
 ]
 
 export function Hero() {
@@ -28,7 +30,7 @@ export function Hero() {
         <div className="flex flex-col items-start gap-6">
           <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-bold text-accent-foreground">
             <Star className="size-4 fill-current" />
-            Le n°1 des mots mêlés éducatifs
+            Mots mêlés gratuits en français
           </span>
 
           <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground text-balance sm:text-5xl lg:text-6xl">
@@ -37,9 +39,8 @@ export function Hero() {
           </h1>
 
           <p className="max-w-md text-lg leading-relaxed text-muted-foreground text-pretty">
-            Des centaines de grilles colorées pour les enfants de 5 à 14 ans.
-            Joue en ligne, crée tes propres puzzles ou imprime-les pour la
-            classe et la maison.
+            Des grilles pour la maternelle, le primaire, le collège, les adultes et les seniors.
+            Joue en ligne, imprime un PDF ou crée ta propre grille.
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -47,18 +48,19 @@ export function Hero() {
               size="lg"
               nativeButton={false}
               className="rounded-full bg-primary text-base font-extrabold text-primary-foreground hover:bg-primary/90"
-              render={<a href="#puzzles" />}
+              render={<Link href={ROUTES.jouer} />}
             >
-              <Sparkles className="size-5" />
-              Commencer à jouer
+              <Play className="size-5 fill-current" />
+              Jouer en ligne
             </Button>
             <Button
               size="lg"
               variant="outline"
               nativeButton={false}
               className="rounded-full border-2 border-foreground/15 bg-card text-base font-extrabold hover:bg-muted"
-              render={<a href="#generateur" />}
+              render={<Link href={ROUTES.generateur} />}
             >
+              <Sparkles className="size-5" />
               Créer ma grille
             </Button>
           </div>
@@ -69,9 +71,7 @@ export function Hero() {
                 <dt className="font-heading text-2xl font-extrabold text-foreground">
                   {s.value}
                 </dt>
-                <dd className="text-sm font-semibold text-muted-foreground">
-                  {s.label}
-                </dd>
+                <dd className="text-sm font-semibold text-muted-foreground">{s.label}</dd>
               </div>
             ))}
           </dl>
@@ -91,9 +91,7 @@ export function Hero() {
 
           <div className="rounded-[2rem] border-2 border-card bg-card p-4 shadow-xl sm:p-6 sm:pt-20">
             <div className="mb-4 flex items-center justify-between">
-              <p className="font-heading text-lg font-extrabold text-foreground">
-                Essaie&nbsp;!
-              </p>
+              <p className="font-heading text-lg font-extrabold text-foreground">Essaie&nbsp;!</p>
               <span className="rounded-full bg-leaf/15 px-3 py-1 text-xs font-bold text-leaf">
                 {found.length} / {HERO_WORDS.length} trouvés
               </span>

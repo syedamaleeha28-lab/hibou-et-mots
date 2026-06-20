@@ -21,9 +21,16 @@ export function CategoryIntro({ category }: CategoryIntroProps) {
         {category.h1}
       </h1>
       <div className="rounded-2xl border border-border bg-card/80 p-5 sm:p-6">
-        <p className="text-base leading-relaxed text-foreground/90 sm:text-lg">
-          {category.introText}
-        </p>
+        <div className="flex flex-col gap-4">
+          {category.introText.split("\n\n").map((paragraph) => (
+            <p
+              key={paragraph.slice(0, 48)}
+              className="text-base leading-relaxed text-foreground/90 sm:text-lg"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
         <div className="mt-4 flex flex-wrap gap-2">
           <span className="rounded-full bg-muted px-3 py-1 text-xs font-extrabold text-muted-foreground">
             {category.puzzleCount} grilles

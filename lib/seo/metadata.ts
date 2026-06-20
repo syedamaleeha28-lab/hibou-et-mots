@@ -143,7 +143,7 @@ export async function buildHomeMetadata(siteUrl?: string): Promise<Metadata> {
   const title = override?.title ?? "Hibou&Mots — Mots mêlés gratuits à imprimer et jouer en ligne"
   const description =
     override?.metaDescription ??
-    "Des mots mêlés gratuits en français pour les enfants, les enseignants et toute la famille. Grilles à imprimer, thèmes variés et générateur en ligne."
+    "Des mots mêlés gratuits en français pour les enfants, les enseignants, les adultes et les seniors. Grilles à imprimer, thèmes variés et générateur en ligne."
 
   return {
     title,

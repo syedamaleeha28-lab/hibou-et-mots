@@ -1,4 +1,8 @@
 import { ROUTES, absoluteUrl } from "@/lib/seo/routes"
+import { HOME_FAQ } from "@/lib/content/phase1"
+import { getPopularPuzzleListItems } from "@/lib/home/popular-puzzle-links"
+import { buildFaqPageSchema } from "./faq-page"
+import { buildLinksItemListSchema } from "./item-list"
 import { buildSchemaGraph } from "./graph"
 
 const SITE_NAME = "Hibou&Mots"
@@ -46,5 +50,16 @@ export function buildOrganizationSchema(siteUrl?: string) {
 }
 
 export function buildHomePageSchemaGraph(siteUrl?: string): Record<string, unknown> {
-  return buildSchemaGraph([buildWebSiteSchema(siteUrl), buildOrganizationSchema(siteUrl)])
+  const faqPage = buildFaqPageSchema(HOME_FAQ)
+  const popularPuzzlesList = buildLinksItemListSchema(
+    "Puzzles populaires Hibou&Mots",
+    getPopularPuzzleListItems(),
+    siteUrl,
+  )
+  return buildSchemaGraph([
+    buildWebSiteSchema(siteUrl),
+    buildOrganizationSchema(siteUrl),
+    popularPuzzlesList,
+    ...(faqPage ? [faqPage] : []),
+  ])
 }

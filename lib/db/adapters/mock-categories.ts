@@ -26,6 +26,15 @@ import {
   mockThemeRecord,
   staticMockPuzzleCards,
 } from "@/lib/db/adapters/mock-utils"
+import { getPhase1Faq, getPhase1Intro } from "@/lib/content/phase1"
+
+function phase1Intro(slug: string, fallback: string): string {
+  return getPhase1Intro(slug) ?? fallback
+}
+
+function phase1Faq(slug: string) {
+  return getPhase1Faq(slug) ?? undefined
+}
 
 const gradeSubCategories: SubCategoryLink[] = gradeSeed.map((grade) => ({
   id: `mock-grade-${grade.slug}`,
@@ -104,8 +113,10 @@ const HUB_DEFINITIONS = {
     seoTitle: "Mots mêlés gratuits — Imprimer et jouer en ligne",
     metaDescription:
       "Des centaines de mots mêlés gratuits à imprimer ou à jouer en ligne pour les enfants, les enseignants et toute la famille.",
-    introText:
+    introText: phase1Intro(
+      HUB_CATEGORY_SLUGS.gratuits,
       "Parcourez notre bibliothèque de mots mêlés 100 % gratuits : par thème, par niveau scolaire ou par difficulté.",
+    ),
     subCategories: [...themeSubCategories.slice(0, 6), ...gradeSubCategories.slice(0, 4)],
   },
   [HUB_CATEGORY_SLUGS.imprimer]: {
@@ -114,8 +125,10 @@ const HUB_DEFINITIONS = {
     seoTitle: "Mots mêlés à imprimer — Grilles PDF gratuites",
     metaDescription:
       "Téléchargez et imprimez des mots mêlés gratuits en PDF, adaptés aux enfants et aux enseignants.",
-    introText:
+    introText: phase1Intro(
+      HUB_CATEGORY_SLUGS.imprimer,
       "Des grilles prêtes à imprimer pour la maison ou la classe, classées par thème et par niveau scolaire.",
+    ),
     subCategories: [...themeSubCategories.slice(0, 4), ...difficultySubCategories.slice(0, 3)],
   },
   [HUB_CATEGORY_SLUGS.ecole]: {
@@ -124,8 +137,10 @@ const HUB_DEFINITIONS = {
     seoTitle: "Mots mêlés École — CP, CE1, CM2 gratuits à imprimer",
     metaDescription:
       "Des mots mêlés gratuits pour chaque niveau scolaire : maternelle, CP, CE1, CE2, CM1, CM2 et 6e.",
-    introText:
+    introText: phase1Intro(
+      HUB_CATEGORY_SLUGS.ecole,
       "Retrouve des mots mêlés adaptés à chaque classe, du CP au CM2. Des grilles calibrées pour le vocabulaire scolaire.",
+    ),
     subCategories: gradeSubCategories,
   },
   [HUB_CATEGORY_SLUGS.fetes]: {
@@ -176,8 +191,10 @@ const AUDIENCE_DEFINITIONS = {
     seoTitle: "Mots mêlés Enfants — Grilles gratuites à imprimer",
     metaDescription:
       "Des mots mêlés gratuits pour les enfants : grilles ludiques, vocabulaire adapté et PDF à imprimer.",
-    introText:
+    introText: phase1Intro(
+      "enfants",
       "Des grilles amusantes et éducatives pour les enfants, du CP au CM2, à imprimer ou à jouer en ligne.",
+    ),
     subCategories: gradeSubCategories,
   },
   adultes: {
@@ -266,6 +283,7 @@ function buildHubMock(slug: keyof typeof HUB_DEFINITIONS, page = 1): CategoryPag
     seoTitle: def.seoTitle,
     metaDescription: def.metaDescription,
     introText: def.introText,
+    faqJson: phase1Faq(slug) ?? null,
   })
 
   return mapCategoryToPageData(category, staticMockPuzzleCards(slug, 6), {
@@ -463,6 +481,7 @@ export function mockAudienceCategoryPageData(
     seoTitle: def.seoTitle,
     metaDescription: def.metaDescription,
     introText: def.introText,
+    faqJson: phase1Faq(audienceSlug) ?? null,
   })
 
   return mapCategoryToPageData(category, staticMockPuzzleCards(audienceSlug, 6), {

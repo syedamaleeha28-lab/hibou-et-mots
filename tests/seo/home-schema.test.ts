@@ -28,11 +28,13 @@ describe("home schema", () => {
     expect(organization.logo).toBe(`${SITE}/icon.svg`)
   })
 
-  it("composes homepage @graph with website and organization", () => {
+  it("composes homepage @graph with website, organization, popular puzzles and FAQ", () => {
     const graph = buildHomePageSchemaGraph(SITE)
     const nodes = graph["@graph"] as Array<Record<string, unknown>>
 
     expect(nodes.some((node) => node["@type"] === "WebSite")).toBe(true)
     expect(nodes.some((node) => node["@type"] === "Organization")).toBe(true)
+    expect(nodes.some((node) => node["@type"] === "ItemList")).toBe(true)
+    expect(nodes.some((node) => node["@type"] === "FAQPage")).toBe(true)
   })
 })

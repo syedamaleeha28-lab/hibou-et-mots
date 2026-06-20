@@ -3,6 +3,11 @@ import {
   FeaturedCategories,
   GradeLevels,
   Hero,
+  HomeChooseGridSection,
+  HomeFaq,
+  HomePedagogySection,
+  HomeSeoIntro,
+  HomeSiloLinks,
   PopularPuzzles,
   PrintablePdfs,
   PuzzleGenerator,
@@ -22,11 +27,16 @@ export default function Home() {
     <>
       <SchemaJsonLd data={schemaGraph} />
       <Hero />
+      <HomeSeoIntro />
+      <HomeSiloLinks />
       <FeaturedCategories />
       <PopularPuzzles />
+      <HomePedagogySection />
+      <HomeChooseGridSection />
       <GradeLevels />
       <PrintablePdfs />
       <PuzzleGenerator />
+      <HomeFaq />
     </>
   )
 }

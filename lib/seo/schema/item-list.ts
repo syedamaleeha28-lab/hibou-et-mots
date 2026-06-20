@@ -7,16 +7,28 @@ export function buildItemListSchema(
   puzzles: PuzzleCardData[],
   siteUrl?: string,
 ): ItemListSchema {
+  return buildLinksItemListSchema(
+    name,
+    puzzles.map((puzzle) => ({ name: puzzle.title, href: puzzle.href })),
+    siteUrl,
+  )
+}
+
+export function buildLinksItemListSchema(
+  name: string,
+  items: Array<{ name: string; href: string }>,
+  siteUrl?: string,
+): ItemListSchema {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name,
-    numberOfItems: puzzles.length,
-    itemListElement: puzzles.map((puzzle, index) => ({
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: absoluteUrl(puzzle.href, siteUrl),
-      name: puzzle.title,
+      url: absoluteUrl(item.href, siteUrl),
+      name: item.name,
     })),
   }
 }

@@ -1,8 +1,9 @@
+import Link from "next/link"
 import { Play, Users } from "lucide-react"
 import { popularPuzzles, type Difficulty } from "@/lib/content"
+import { popularPuzzleHref } from "@/lib/home/popular-puzzle-links"
 import { colorClasses } from "@/lib/colors"
 import { SectionHeading } from "@/components/layout/section-heading"
-import { Button } from "@/components/ui/button"
 
 const difficultyStyle: Record<Difficulty, string> = {
   Facile: "bg-leaf/15 text-leaf",
@@ -17,12 +18,13 @@ export function PopularPuzzles() {
         <SectionHeading
           eyebrow="Tendances"
           title="Les puzzles les plus populaires"
-          description="Les grilles préférées des enfants cette semaine. Clique sur jouer et c'est parti !"
+          description="Des grilles publiées à jouer en ligne ou à imprimer."
         />
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {popularPuzzles.map((p) => {
             const c = colorClasses[p.color]
+            const href = popularPuzzleHref(p.title)
             return (
               <article
                 key={p.title}
@@ -60,10 +62,13 @@ export function PopularPuzzles() {
                     </span>
                   </div>
 
-                  <Button className="rounded-full bg-foreground font-extrabold text-background hover:bg-foreground/90">
+                  <Link
+                    href={href}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-4 py-2.5 text-sm font-extrabold text-background hover:bg-foreground/90"
+                  >
                     <Play className="size-4 fill-current" />
                     Jouer
-                  </Button>
+                  </Link>
                 </div>
               </article>
             )

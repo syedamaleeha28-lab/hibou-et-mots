@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Sparkles } from "lucide-react"
+import { Printer, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ROUTES } from "@/lib/seo"
 import { generatorCtaHref } from "@/lib/seo/linking"
@@ -36,6 +36,15 @@ export function CategoryCta({ themeSlug }: CategoryCtaProps) {
             render={<Link href={ROUTES.jouer} />}
           >
             Jouer en ligne
+          </Button>
+          <Button
+            nativeButton={false}
+            variant="outline"
+            className="rounded-full font-extrabold"
+            render={<Link href={ROUTES.imprimer} />}
+          >
+            <Printer className="size-4" />
+            Imprimer
           </Button>
         </div>
       </div>

@@ -34,6 +34,7 @@ export {
   buildCategoryMetadata,
   buildHomeMetadata,
   buildPuzzleMetadata,
+  buildSearchMetadata,
   buildStaticPageMetadata,
   lookupSeoMetaOverride,
   openGraphMetadata,

@@ -193,3 +193,43 @@ export async function buildStaticPageMetadata(input: {
     }),
   }
 }
+
+export async function buildSearchMetadata(
+  input: { query: string; page: number },
+  siteUrl?: string,
+): Promise<Metadata> {
+  const path = "/recherche/"
+  const override = await lookupSeoMetaOverride(path)
+  const robots = robotsDirective({ pageType: "search" })
+  const trimmedQuery = input.query.trim()
+
+  const title =
+    override?.title ??
+    (trimmedQuery
+      ? `Recherche « ${trimmedQuery} » — Hibou&Mots`
+      : "Rechercher des mots mêlés — Hibou&Mots")
+  const description =
+    override?.metaDescription ??
+    "Recherchez des grilles de mots mêlés par titre, thème, niveau scolaire, difficulté ou catégorie."
+
+  return {
+    title: input.page > 1 ? `${title} — Page ${input.page}` : title,
+    description,
+    alternates: {
+      canonical: buildCanonicalUrl({
+        path,
+        siteUrl,
+        override: override?.canonicalOverride,
+      }),
+    },
+    ...robotsMetadata(robots),
+    openGraph: openGraphMetadata({
+      title,
+      description,
+      canonicalPath: path,
+      siteUrl,
+      type: "website",
+      image: override?.ogImage,
+    }),
+  }
+}

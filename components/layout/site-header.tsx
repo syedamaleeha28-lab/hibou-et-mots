@@ -1,18 +1,45 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Menu, Search, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MegaMenu } from "@/components/layout/mega-menu"
 import { MobileNavDrawer } from "@/components/layout/mobile-nav-drawer"
-import { headerMegaMenus, headerPrimaryLinks } from "@/lib/navigation"
+import {
+  createDelayedClose,
+  headerMegaMenus,
+  headerPrimaryLinks,
+  MEGA_MENU_CLOSE_DELAY_MS,
+} from "@/lib/navigation"
 import { ROUTES } from "@/lib/seo"
 
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openMenuId, setOpenMenuId] = useState<string | null>(null)
+  const menuCloseRef = useRef(
+    createDelayedClose(MEGA_MENU_CLOSE_DELAY_MS, () => setOpenMenuId(null)),
+  )
+
+  useEffect(() => {
+    const closer = menuCloseRef.current
+    return () => closer.dispose()
+  }, [])
+
+  const openMenu = (menuId: string) => {
+    menuCloseRef.current.cancel()
+    setOpenMenuId(menuId)
+  }
+
+  const scheduleMenuClose = () => {
+    menuCloseRef.current.schedule()
+  }
+
+  const closeMenuImmediately = () => {
+    menuCloseRef.current.cancel()
+    setOpenMenuId(null)
+  }
 
   return (
     <>
@@ -40,8 +67,9 @@ export function SiteHeader() {
                 key={panel.id}
                 panel={panel}
                 isOpen={openMenuId === panel.id}
-                onOpen={() => setOpenMenuId(panel.id)}
-                onClose={() => setOpenMenuId(null)}
+                onOpen={() => openMenu(panel.id)}
+                onScheduleClose={scheduleMenuClose}
+                onClose={closeMenuImmediately}
               />
             ))}
             {headerPrimaryLinks.map((link) => (

@@ -9,18 +9,29 @@ type MegaMenuProps = {
   panel: MegaMenuPanel
   isOpen: boolean
   onOpen: () => void
+  /** Delayed close for pointer leave — keeps menu open while moving between trigger and panel. */
+  onScheduleClose: () => void
+  /** Immediate close for link navigation and explicit dismiss. */
   onClose: () => void
 }
 
-export function MegaMenu({ panel, isOpen, onOpen, onClose }: MegaMenuProps) {
+export function MegaMenu({
+  panel,
+  isOpen,
+  onOpen,
+  onScheduleClose,
+  onClose,
+}: MegaMenuProps) {
   return (
     <div
       className="relative"
       onMouseEnter={onOpen}
-      onMouseLeave={onClose}
+      onMouseLeave={onScheduleClose}
       onFocus={onOpen}
       onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) onClose()
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+          onScheduleClose()
+        }
       }}
     >
       <button
@@ -44,54 +55,61 @@ export function MegaMenu({ panel, isOpen, onOpen, onClose }: MegaMenuProps) {
 
       {isOpen && (
         <div
-          className="absolute left-0 top-full z-50 mt-2 min-w-[min(100vw-2rem,720px)] rounded-2xl border border-border bg-card p-5 shadow-xl"
-          role="menu"
+          className="absolute left-0 top-full z-[60] min-w-[min(100vw-2rem,720px)]"
+          role="presentation"
         >
-          {panel.featured && panel.featured.length > 0 && (
-            <div className="mb-4 flex flex-wrap gap-2 border-b border-border pb-4">
-              {panel.featured.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="rounded-xl bg-primary/10 px-4 py-2 transition-colors hover:bg-primary/15"
-                  role="menuitem"
-                  onClick={onClose}
-                >
-                  <span className="block font-heading text-sm font-extrabold text-foreground">
-                    {link.label}
-                  </span>
-                  {link.description && (
-                    <span className="text-xs font-semibold text-muted-foreground">
-                      {link.description}
+          {/* Invisible bridge — preserves visual gap without breaking hover (replaces mt-2). */}
+          <div className="h-2" aria-hidden />
+          <div
+            className="rounded-2xl border border-border bg-card p-5 shadow-xl"
+            role="menu"
+          >
+            {panel.featured && panel.featured.length > 0 && (
+              <div className="mb-4 flex flex-wrap gap-2 border-b border-border pb-4">
+                {panel.featured.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="rounded-xl bg-primary/10 px-4 py-2 transition-colors hover:bg-primary/15"
+                    role="menuitem"
+                    onClick={onClose}
+                  >
+                    <span className="block font-heading text-sm font-extrabold text-foreground">
+                      {link.label}
                     </span>
-                  )}
-                </Link>
+                    {link.description && (
+                      <span className="text-xs font-semibold text-muted-foreground">
+                        {link.description}
+                      </span>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {panel.sections.map((section) => (
+                <div key={section.title}>
+                  <p className="mb-2 font-heading text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+                    {section.title}
+                  </p>
+                  <ul className="flex flex-col gap-1">
+                    {section.links.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          className="block rounded-lg px-2 py-1.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+                          role="menuitem"
+                          onClick={onClose}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
             </div>
-          )}
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {panel.sections.map((section) => (
-              <div key={section.title}>
-                <p className="mb-2 font-heading text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
-                  {section.title}
-                </p>
-                <ul className="flex flex-col gap-1">
-                  {section.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="block rounded-lg px-2 py-1.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
-                        role="menuitem"
-                        onClick={onClose}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
         </div>
       )}

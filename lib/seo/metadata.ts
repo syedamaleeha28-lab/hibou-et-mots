@@ -3,6 +3,11 @@ import { prisma } from "@/lib/db/client"
 import type { CategoryPageData, PuzzlePageData } from "@/lib/db/types/page-data"
 import { buildCanonicalPath, buildCanonicalUrl, normalizePath } from "./canonical"
 import { robotsDirective, robotsMetaContent, type RobotsDirective } from "./indexability"
+import {
+  DEFAULT_OG_IMAGE_HEIGHT,
+  DEFAULT_OG_IMAGE_WIDTH,
+  resolveOgImageUrl,
+} from "./og-image"
 
 const SITE_NAME = "Hibou&Mots"
 
@@ -43,6 +48,8 @@ export function openGraphMetadata(input: {
   image?: string | null
 }): Metadata["openGraph"] {
   const url = buildCanonicalUrl({ path: input.canonicalPath, siteUrl: input.siteUrl })
+  const imageUrl = resolveOgImageUrl({ override: input.image, siteUrl: input.siteUrl })
+
   return {
     title: input.title,
     description: input.description,
@@ -50,7 +57,14 @@ export function openGraphMetadata(input: {
     siteName: SITE_NAME,
     locale: "fr_FR",
     type: input.type ?? "website",
-    ...(input.image ? { images: [{ url: input.image }] } : {}),
+    images: [
+      {
+        url: imageUrl,
+        width: DEFAULT_OG_IMAGE_WIDTH,
+        height: DEFAULT_OG_IMAGE_HEIGHT,
+        alt: SITE_NAME,
+      },
+    ],
   }
 }
 

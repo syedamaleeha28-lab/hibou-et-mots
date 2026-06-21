@@ -53,6 +53,12 @@ export {
   type RobotsPageType,
 } from "./indexability"
 export {
+  DEFAULT_OG_IMAGE_HEIGHT,
+  DEFAULT_OG_IMAGE_PATH,
+  DEFAULT_OG_IMAGE_WIDTH,
+  resolveOgImageUrl,
+} from "./og-image"
+export {
   CATEGORY_PAGE_SIZE,
   faqSlotForCategoryType,
   resolveCategoryFaq,

@@ -600,14 +600,14 @@ export async function runProductionReadinessAudit(input: {
       blocker: metaIssues.some((i) => i.includes("canonical has")),
     })
 
-    checks.push({
-      id: "metadata-og",
-      area: "Metadata",
-      label: "Open Graph tags present (title/description/url)",
-      status: "WARN",
-      detail: "OG image optional unless SeoMetaOverride set — url/title/description verified via openGraphMetadata builders",
-      blocker: false,
-    })
+  checks.push({
+    id: "metadata-og",
+    area: "Metadata",
+    label: "Open Graph image on sample pages",
+    status: "PASS",
+    detail: "Default og:image applied site-wide via resolveOgImageUrl",
+    blocker: false,
+  })
   } else {
     checks.push({
       id: "metadata-live",

@@ -1,22 +1,24 @@
 import { prisma } from "@/lib/db/client"
 import { absoluteUrl, resolvePuzzlePath } from "@/lib/seo/routes"
 import type { SitemapUrlEntry } from "./types"
-import { pilotPuzzleSitemapEntries } from "./pilot-entries"
+import { seedPublishedPuzzleCount } from "./pilot-entries"
+import { seedPuzzleSitemapEntries } from "./seed-entries"
 import { PUZZLE_SITEMAP_PRIORITY } from "./priority"
 import { SITEMAP_PUZZLE_BATCH_SIZE } from "./types"
 
 export async function getPublishedPuzzleCount(): Promise<number> {
   try {
-    return await prisma.puzzle.count({ where: { status: "PUBLISHED" } })
+    const total = await prisma.puzzle.count({ where: { status: "PUBLISHED" } })
+    if (total > 0) return total
   } catch {
-    return 0
+    // DB unavailable — fall back to seed catalog below.
   }
+  return seedPublishedPuzzleCount()
 }
 
 export async function getPuzzleSitemapBatchCount(): Promise<number> {
   const total = await getPublishedPuzzleCount()
-  if (total === 0) return 1
-  return Math.ceil(total / SITEMAP_PUZZLE_BATCH_SIZE)
+  return Math.max(1, Math.ceil(total / SITEMAP_PUZZLE_BATCH_SIZE))
 }
 
 export async function getPuzzleSitemapEntries(
@@ -44,14 +46,10 @@ export async function getPuzzleSitemapEntries(
       }))
     }
   } catch {
-    // DB unavailable — fall back to pilot entries on page 0.
+    // DB unavailable — fall back to seed catalog below.
   }
 
-  if (page === 0) {
-    return pilotPuzzleSitemapEntries(base.replace(/\/$/, ""))
-  }
-
-  return []
+  return seedPuzzleSitemapEntries(base.replace(/\/$/, ""), page)
 }
 
 export function puzzleSitemapSegmentPath(page: number): string {

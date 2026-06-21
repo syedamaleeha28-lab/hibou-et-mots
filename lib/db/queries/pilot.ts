@@ -1,6 +1,6 @@
-import type { CategoryPageData, PuzzlePageData } from "@/lib/db/types/page-data"
-import { PILOT_PUZZLE_SLUG } from "@/lib/db/adapters/category-constants"
-import { mockAnimauxPuzzlePageData } from "@/lib/db/adapters/mock-pilot"
+import type { PuzzlePageData } from "@/lib/db/types/page-data"
+import { isKnownSeedPuzzleSlug } from "@/lib/db/adapters/puzzle-catalog"
+import { mockPuzzlePageDataFromSeed } from "@/lib/db/adapters/mock-puzzle-seed"
 import { getPuzzlePageData } from "./puzzle"
 
 export {
@@ -28,13 +28,13 @@ async function tryDb<T>(fn: () => Promise<T | null>): Promise<T | null> {
   }
 }
 
-/** Pilot: /mots-meles/{slug}/ */
+/** /mots-meles/{slug}/ — DB first, then deterministic seed mock for catalog slugs. */
 export async function resolvePuzzlePageData(slug: string): Promise<PuzzlePageData | null> {
   const fromDb = await tryDb(() => getPuzzlePageData(slug))
   if (fromDb) return fromDb
 
-  if (slug === PILOT_PUZZLE_SLUG) {
-    return mockAnimauxPuzzlePageData()
+  if (isKnownSeedPuzzleSlug(slug)) {
+    return mockPuzzlePageDataFromSeed(slug)
   }
 
   return null

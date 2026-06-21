@@ -1,118 +1,13 @@
-import { generatePuzzle, ALL_DIRECTIONS } from "@/lib/puzzle-engine"
-import type { PuzzleCardData, PuzzlePageData } from "@/lib/db/types/page-data"
+import type { PuzzlePageData } from "@/lib/db/types/page-data"
 import { PILOT_PUZZLE_SLUG } from "@/lib/db/adapters/category-constants"
 import {
   mockAnimauxCategoryPageData,
   mockEcoleHubPageData,
 } from "@/lib/db/adapters/mock-categories"
-import { getSeedPuzzlesForCategory } from "@/lib/db/adapters/puzzle-catalog"
-import { mapPuzzleToPageData } from "@/lib/db/queries/mappers"
-import { mockCategoryRecord } from "@/lib/db/adapters/mock-utils"
+import { mockPuzzlePageDataFromSeed } from "@/lib/db/adapters/mock-puzzle-seed"
 
 export { PILOT_PUZZLE_SLUG, mockEcoleHubPageData, mockAnimauxCategoryPageData }
 
-const ANIMAL_WORDS = ["CHAT", "CHIEN", "OISEAU", "LAPIN", "LION", "TIGRE", "OURS", "LOUP"]
-
-const generated = generatePuzzle({
-  words: ANIMAL_WORDS,
-  size: 10,
-  directions: [...ALL_DIRECTIONS],
-  simplifyAccents: true,
-  seed: 42,
-})
-
-function buildMockPuzzleCards(categorySlug: string, count = 6): PuzzleCardData[] {
-  return getSeedPuzzlesForCategory(categorySlug, count)
-}
-
 export function mockAnimauxPuzzlePageData(): PuzzlePageData {
-  const now = new Date()
-  const puzzleRecord = {
-    id: "mock-puzzle-animaux-facile-01",
-    slug: PILOT_PUZZLE_SLUG,
-    title: "Animaux de la ferme",
-    gridData: generated.grid,
-    wordList: generated.wordList,
-    solutionData: generated.solutionData,
-    size: generated.size,
-    difficultyId: "mock-diff-facile",
-    gradeId: null,
-    themeId: "mock-theme-animaux",
-    language: "fr",
-    status: "PUBLISHED" as const,
-    largePrint: false,
-    pdfUrl: null,
-    thumbnailUrl: null,
-    viewCount: 128,
-    printCount: 0,
-    metaTitle: "Mots mêlés Animaux — Animaux de la ferme",
-    metaDescription:
-      "Jouez et imprimez ce mots mêlés gratuit sur le thème des animaux. Grille 10×10, difficulté facile.",
-    createdAt: now,
-    updatedAt: now,
-    difficulty: {
-      id: "mock-diff-facile",
-      slug: "facile",
-      name: "Facile",
-      gridSizeMin: 8,
-      gridSizeMax: 12,
-      wordCountMin: 6,
-      wordCountMax: 10,
-      directions: ["HORIZONTAL", "VERTICAL"],
-    },
-    grade: null,
-    theme: {
-      id: "mock-theme-animaux",
-      slug: "animaux",
-      name: "Animaux",
-      group: "Nature & Animaux",
-      iconUrl: null,
-      isSeasonal: false,
-      activeDateStart: null,
-      activeDateEnd: null,
-      seoTitle: null,
-      metaDescription: null,
-      introText: null,
-      createdAt: now,
-      updatedAt: now,
-    },
-    categories: [
-      {
-        categoryId: "mock-animaux",
-        puzzleId: "mock-puzzle-animaux-facile-01",
-        category: mockCategoryRecord({
-          type: "THEME",
-          slug: "animaux",
-          h1: "Mots mêlés Animaux",
-          seoTitle: "Mots mêlés Animaux",
-          metaDescription: "Animaux",
-          introText: "Animaux",
-          theme: {
-            id: "mock-theme-animaux",
-            slug: "animaux",
-            name: "Animaux",
-            group: "Nature & Animaux",
-            iconUrl: null,
-            isSeasonal: false,
-            activeDateStart: null,
-            activeDateEnd: null,
-            seoTitle: null,
-            metaDescription: null,
-            introText: null,
-            createdAt: now,
-            updatedAt: now,
-          },
-        }),
-      },
-    ],
-  }
-
-  const relatedCandidates = buildMockPuzzleCards("animaux", 6).map((card) => ({
-    ...card,
-    themeId: "mock-theme-animaux",
-    gradeId: null,
-    difficultyId: "mock-diff-facile",
-  }))
-
-  return mapPuzzleToPageData(puzzleRecord, relatedCandidates)
+  return mockPuzzlePageDataFromSeed(PILOT_PUZZLE_SLUG)!
 }

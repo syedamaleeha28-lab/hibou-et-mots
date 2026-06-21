@@ -1,51 +1,10 @@
 /**
- * Audit puzzle hrefs shown on homepage + category resolvers vs DB / seed catalog.
+ * Audit puzzle hrefs shown on homepage + category resolvers.
  * Usage: npx tsx scripts/audit-puzzle-links.ts
  */
-import { popularPuzzles } from "@/lib/content"
-import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
-import { getSeedPuzzlePlan, isKnownSeedPuzzleSlug } from "@/lib/db/adapters/puzzle-catalog"
-import { popularPuzzleHref } from "@/lib/home/popular-puzzle-links"
+import { auditRenderedPuzzleLinks } from "@/lib/audit/puzzle-links"
 import { prisma } from "@/lib/db/client"
-import {
-  resolveAudienceCategoryPageData,
-  resolveEcoleHubPageData,
-  resolveGradeCategoryPageData,
-  resolveHubCategoryPageData,
-  resolveSeasonalCategoryPageData,
-  resolveThemeCategoryPageData,
-} from "@/lib/db/queries/category-resolvers"
-import { MVP_SEASONAL_THEME_SLUGS } from "@/lib/db/adapters/category-constants"
-import { gradeSeed } from "@/prisma/seed/grades"
-import { themeSeed } from "@/prisma/seed/themes"
-
-type LinkRecord = {
-  source: string
-  href: string
-  slug: string
-  inSeed: boolean
-  inDb: boolean
-}
-
-function slugFromHref(href: string): string {
-  const match = href.match(/\/mots-meles\/([^/]+)\/?$/)
-  return match?.[1] ?? ""
-}
-
-async function collectCategoryLinks(
-  source: string,
-  loader: () => Promise<{ puzzles: { items: { href: string; slug: string }[] } } | null>,
-): Promise<LinkRecord[]> {
-  const page = await loader()
-  if (!page) return []
-  return page.puzzles.items.map((item) => ({
-    source,
-    href: item.href,
-    slug: item.slug,
-    inSeed: false,
-    inDb: false,
-  }))
-}
+import { getSeedPuzzlePlan } from "@/lib/db/adapters/puzzle-catalog"
 
 async function main() {
   const seedSlugs = new Set(getSeedPuzzlePlan().map((s) => s.slug))
@@ -60,113 +19,46 @@ async function main() {
     console.warn("DB unavailable:", error)
   }
 
-  const records: LinkRecord[] = []
+  const { records, working, missingSeed, unresolved, categoriesWithUnresolved } =
+    await auditRenderedPuzzleLinks()
 
-  for (const puzzle of popularPuzzles) {
-    const href = popularPuzzleHref(puzzle.title)
-    const slug = slugFromHref(href)
-    records.push({
-      source: `homepage:popular:${puzzle.title}`,
-      href,
-      slug,
-      inSeed: seedSlugs.has(slug),
-      inDb: dbSlugs.has(slug),
-    })
-  }
-
-  const hubSlugs = Object.values(HUB_CATEGORY_SLUGS)
-  for (const hub of hubSlugs) {
-    records.push(
-      ...(await collectCategoryLinks(`hub:${hub}`, () => resolveHubCategoryPageData(hub, 1))),
-    )
-  }
-
-  records.push(
-    ...(await collectCategoryLinks("hub:ecole-resolver", () => resolveEcoleHubPageData(1))),
-  )
-
-  for (const grade of gradeSeed) {
-    records.push(
-      ...(await collectCategoryLinks(`grade:${grade.slug}`, () =>
-        resolveGradeCategoryPageData(grade.slug, 1),
-      )),
-    )
-  }
-
-  for (const theme of themeSeed.filter((t) => t.isSeasonal)) {
-    records.push(
-      ...(await collectCategoryLinks(`seasonal:${theme.slug}`, () =>
-        resolveSeasonalCategoryPageData(theme.slug, 1),
-      )),
-    )
-  }
-
-  for (const theme of themeSeed.filter((t) => !t.isSeasonal).slice(0, 6)) {
-    records.push(
-      ...(await collectCategoryLinks(`theme:${theme.slug}`, () =>
-        resolveThemeCategoryPageData(theme.slug, 1),
-      )),
-    )
-  }
-
-  records.push(
-    ...(await collectCategoryLinks("audience:enfants", () =>
-      resolveAudienceCategoryPageData("enfants", 1),
-    )),
-  )
-
-  for (const record of records) {
-    record.inSeed = isKnownSeedPuzzleSlug(record.slug)
-    record.inDb = dbSlugs.has(record.slug)
-  }
-
-  const unique = new Map<string, LinkRecord>()
-  for (const r of records) {
-    unique.set(`${r.source}|${r.slug}`, r)
-  }
-  const all = [...unique.values()]
-
-  const working = all.filter((r) => r.inDb || (r.inSeed && dbSlugs.size === 0))
-  const missingDb = all.filter((r) => dbSlugs.size > 0 && !r.inDb)
-  const brokenSlugs = all.filter((r) => !r.inSeed)
-  const categoriesWith404s = new Map<string, string[]>()
-
-  for (const r of missingDb) {
-    const cat = r.source.split(":")[0] + (r.source.includes(":") ? ":" + r.source.split(":")[1] : "")
-    const list = categoriesWith404s.get(cat) ?? []
-    list.push(r.slug)
-    categoriesWith404s.set(cat, list)
-  }
+  const uniqueSlugs = new Set(records.map((r) => r.slug))
 
   console.log("\n=== PUZZLE LINK AUDIT ===\n")
-  console.log(`Total linked puzzles: ${all.length}`)
-  console.log(`Unique slugs: ${new Set(all.map((r) => r.slug)).size}`)
+  console.log(`Total linked puzzles: ${records.length}`)
+  console.log(`Unique slugs: ${uniqueSlugs.size}`)
+  console.log(`Resolvable pages: ${working.length}`)
   console.log(`DB published puzzles: ${dbSlugs.size}`)
   console.log(`Seed catalog puzzles: ${seedSlugs.size}`)
 
-  console.log("\n--- Working (in DB) ---")
-  for (const r of working.filter((x) => x.inDb)) {
-    console.log(`  OK  ${r.slug}  <- ${r.source}`)
+  console.log("\n--- Working puzzle URLs ---")
+  for (const r of working) {
+    const dbFlag = dbSlugs.has(r.slug) ? "db" : "seed-mock"
+    console.log(`  OK  ${r.slug}  <- ${r.source}  (${dbFlag})`)
   }
 
-  console.log("\n--- Missing in DB (linked but no record) ---")
-  for (const r of missingDb) {
-    console.log(`  MISS ${r.slug}  <- ${r.source}  (seed=${r.inSeed})`)
+  console.log("\n--- Missing puzzle URLs (not in seed catalog) ---")
+  for (const r of missingSeed) {
+    console.log(`  BAD  ${r.slug}  <- ${r.source}`)
   }
 
-  console.log("\n--- Broken slugs (not in seed catalog) ---")
-  for (const r of brokenSlugs) {
-    console.log(`  BAD  ${r.slug}  <- ${r.source}  (db=${r.inDb})`)
+  console.log("\n--- Unresolved puzzle pages ---")
+  for (const r of unresolved) {
+    console.log(`  404  ${r.slug}  <- ${r.source}  (seed=${r.inSeed})`)
   }
 
-  console.log("\n--- Categories pointing to missing puzzles ---")
-  for (const [cat, slugs] of categoriesWith404s) {
-    console.log(`  ${cat}: ${[...new Set(slugs)].join(", ")}`)
+  console.log("\n--- Categories generating invalid slugs ---")
+  if (categoriesWithUnresolved.size === 0) {
+    console.log("  none")
+  } else {
+    for (const [cat, slugs] of categoriesWithUnresolved) {
+      console.log(`  ${cat}: ${[...new Set(slugs)].join(", ")}`)
+    }
   }
 
   await prisma.$disconnect()
 
-  if (missingDb.length > 0 || brokenSlugs.length > 0) {
+  if (missingSeed.length > 0 || unresolved.length > 0) {
     process.exitCode = 1
   }
 }

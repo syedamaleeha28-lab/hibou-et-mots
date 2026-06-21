@@ -1,4 +1,4 @@
-import { ROUTES, absoluteUrl } from "@/lib/seo/routes"
+import { ROUTES, absoluteUrl, DEFAULT_SITE_URL } from "@/lib/seo/routes"
 import { HOME_FAQ } from "@/lib/content/phase1"
 import { getPopularPuzzleListItems } from "@/lib/home/popular-puzzle-links"
 import { buildFaqPageSchema } from "./faq-page"
@@ -8,7 +8,7 @@ import { buildSchemaGraph } from "./graph"
 const SITE_NAME = "Hibou&Mots"
 
 export function buildWebSiteSchema(siteUrl?: string) {
-  const base = (siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr").replace(
+  const base = (siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL).replace(
     /\/$/,
     "",
   )
@@ -34,7 +34,7 @@ export function buildWebSiteSchema(siteUrl?: string) {
 }
 
 export function buildOrganizationSchema(siteUrl?: string) {
-  const base = (siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr").replace(
+  const base = (siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL).replace(
     /\/$/,
     "",
   )

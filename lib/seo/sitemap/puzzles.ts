@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db/client"
-import { absoluteUrl, resolvePuzzlePath } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL, resolvePuzzlePath } from "@/lib/seo/routes"
 import type { SitemapUrlEntry } from "./types"
 import { seedPublishedPuzzleCount } from "./pilot-entries"
 import { seedPuzzleSitemapEntries } from "./seed-entries"
@@ -25,7 +25,7 @@ export async function getPuzzleSitemapEntries(
   page: number,
   siteUrl?: string,
 ): Promise<SitemapUrlEntry[]> {
-  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr"
+  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
   const skip = page * SITEMAP_PUZZLE_BATCH_SIZE
 
   try {

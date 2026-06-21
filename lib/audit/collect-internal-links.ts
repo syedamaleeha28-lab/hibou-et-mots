@@ -19,6 +19,7 @@ import { categoryPathFromDefinition } from "@/lib/seo/link-graph/paths"
 import { getStaticSitemapEntries } from "@/lib/seo/sitemap/static"
 import { seedCategorySitemapPaths, seedPuzzleSitemapPaths } from "@/lib/seo/sitemap/seed-entries"
 import {
+  DEFAULT_SITE_URL,
   ROUTES,
   gradePath,
   puzzlePath,
@@ -335,7 +336,7 @@ export async function collectPuzzlePageLinks(
   return links
 }
 
-export function collectSitemapLinks(siteUrl = "https://hibou-et-mots.fr"): InternalLinkRef[] {
+export function collectSitemapLinks(siteUrl = DEFAULT_SITE_URL): InternalLinkRef[] {
   const links: InternalLinkRef[] = []
 
   for (const entry of getStaticSitemapEntries(siteUrl)) {

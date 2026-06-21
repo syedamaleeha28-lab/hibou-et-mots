@@ -6,6 +6,7 @@ import { resolveInternalPath } from "@/lib/audit/resolve-internal-path"
 import { popularPuzzleHref } from "@/lib/home/popular-puzzle-links"
 import { popularPuzzles } from "@/lib/content"
 import { MVP_SEASONAL_THEME_SLUGS } from "@/lib/db/adapters/category-constants"
+import { DEFAULT_SITE_URL } from "@/lib/seo/routes"
 import { seedCategorySitemapPaths, seedPuzzleSitemapPaths } from "@/lib/seo/sitemap/seed-entries"
 import { getStaticSitemapEntries } from "@/lib/seo/sitemap/static"
 
@@ -54,7 +55,7 @@ describe("internal link integrity", () => {
   })
 
   it("resolves every static and seed sitemap URL", async () => {
-    const siteUrl = "https://hibou-et-mots.fr"
+    const siteUrl = DEFAULT_SITE_URL
     const paths = [
       ...getStaticSitemapEntries(siteUrl).map((entry) => new URL(entry.loc).pathname),
       ...seedCategorySitemapPaths(),

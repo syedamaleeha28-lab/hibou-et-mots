@@ -1,4 +1,4 @@
-import { absoluteUrl, ROUTES } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL, ROUTES } from "@/lib/seo/routes"
 import type { SitemapUrlEntry } from "./types"
 import { priorityForStaticPage } from "./priority"
 
@@ -32,7 +32,7 @@ const NOINDEX_STATIC_PATHS = new Set<string>([
 ])
 
 export function getStaticSitemapEntries(siteUrl?: string): SitemapUrlEntry[] {
-  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr"
+  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
   const now = new Date()
 
   return STATIC_PATHS.filter((path) => !NOINDEX_STATIC_PATHS.has(path)).map((path) => ({

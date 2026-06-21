@@ -56,7 +56,14 @@ export function pressBrandPath(slug: string): string {
   return `/mots-meles-journaux-magazines/${slug}/`
 }
 
-export function absoluteUrl(path: string, siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr"): string {
+export const DEFAULT_SITE_URL = "https://hibou-et-mots.com"
+
+export const CONTACT_EMAIL = "contact@hibou-et-mots.com"
+
+export function absoluteUrl(
+  path: string,
+  siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
+): string {
   const base = siteUrl.replace(/\/$/, "")
   const normalized = path.startsWith("/") ? path : `/${path}`
   return `${base}${normalized}`

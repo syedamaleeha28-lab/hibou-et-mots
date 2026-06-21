@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/db/client"
-import { absoluteUrl, resolvePuzzlePath } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL, resolvePuzzlePath } from "@/lib/seo/routes"
 import type { SitemapImageEntry } from "./types"
 
 export async function getImageSitemapEntries(siteUrl?: string): Promise<SitemapImageEntry[]> {
-  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr"
+  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
 
   try {
     const puzzles = await prisma.puzzle.findMany({

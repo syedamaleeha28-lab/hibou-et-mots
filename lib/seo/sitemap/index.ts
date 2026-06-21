@@ -1,4 +1,4 @@
-import { absoluteUrl } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL } from "@/lib/seo/routes"
 import { getPuzzleSitemapBatchCount, puzzleSitemapSegmentPath } from "./puzzles"
 
 export const SITEMAP_SEGMENT_PATHS = {
@@ -8,7 +8,7 @@ export const SITEMAP_SEGMENT_PATHS = {
 } as const
 
 export async function getSitemapIndexLocations(siteUrl?: string): Promise<string[]> {
-  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr"
+  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
   const batchCount = await getPuzzleSitemapBatchCount()
 
   return [

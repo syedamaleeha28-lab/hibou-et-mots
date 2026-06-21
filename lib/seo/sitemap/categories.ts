@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/db/client"
 import type { CategoryType } from "@/lib/db/types/page-data"
 import { isCategoryHub } from "@/lib/db/queries/mappers"
-import { absoluteUrl, resolveCategoryPath } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL, resolveCategoryPath } from "@/lib/seo/routes"
 import { computeIsIndexable } from "@/lib/seo/indexability"
 import type { SitemapUrlEntry } from "./types"
 import { pilotCategorySitemapEntries } from "./pilot-entries"
@@ -15,7 +15,7 @@ const categoryInclude = {
 } as const
 
 export async function getCategorySitemapEntries(siteUrl?: string): Promise<SitemapUrlEntry[]> {
-  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr"
+  const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
 
   try {
     const categories = await prisma.category.findMany({

@@ -4,9 +4,9 @@ import {
   buildOrganizationSchema,
   buildWebSiteSchema,
 } from "@/lib/seo/schema/home"
-import { ROUTES } from "@/lib/seo/routes"
+import { DEFAULT_SITE_URL, ROUTES } from "@/lib/seo/routes"
 
-const SITE = "https://hibou-et-mots.fr"
+const SITE = DEFAULT_SITE_URL
 
 describe("home schema", () => {
   it("builds WebSite with SearchAction", () => {

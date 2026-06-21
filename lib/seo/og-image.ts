@@ -1,4 +1,4 @@
-import { absoluteUrl } from "./routes"
+import { absoluteUrl, DEFAULT_SITE_URL } from "./routes"
 
 /** Site-wide default Open Graph image (1200×630). */
 export const DEFAULT_OG_IMAGE_PATH = "/og-default.png"
@@ -10,7 +10,7 @@ export function resolveOgImageUrl(input?: {
   override?: string | null
   siteUrl?: string
 }): string {
-  const siteUrl = input?.siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr"
+  const siteUrl = input?.siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
   const override = input?.override?.trim()
 
   if (override) {

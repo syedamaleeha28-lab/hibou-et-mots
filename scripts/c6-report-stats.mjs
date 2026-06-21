@@ -3,6 +3,7 @@ import { buildPuzzlePlan } from "../prisma/seed/puzzles.ts"
 import { buildPlannedUrlSet } from "../prisma/seed/report.ts"
 import { themeSeed } from "../prisma/seed/themes.ts"
 import { getStaticSitemapEntries } from "../lib/seo/sitemap/static.ts"
+import { DEFAULT_SITE_URL } from "../lib/seo/routes.ts"
 import { computeIsIndexable } from "../lib/seo/indexability.ts"
 import { resolveCategoryPath } from "../lib/seo/routes.ts"
 
@@ -63,7 +64,7 @@ const belowThreshold = CATEGORY_SEED_DEFINITIONS.filter((def) => {
 }))
 
 const indexableCategories = CATEGORY_SEED_DEFINITIONS.length - belowThreshold.length
-const staticSitemap = getStaticSitemapEntries("https://hibou-et-mots.fr").length
+const staticSitemap = getStaticSitemapEntries(DEFAULT_SITE_URL).length
 const projectedSitemapTotal =
   staticSitemap + indexableCategories + plan.length
 

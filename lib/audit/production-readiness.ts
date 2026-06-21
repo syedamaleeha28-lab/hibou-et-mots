@@ -18,7 +18,7 @@ import {
   GENERATOR_FEATURE_LIST,
   ONLINE_PLAY_FEATURE_LIST,
 } from "@/lib/seo/schema"
-import { absoluteUrl, ROUTES } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL, resolveCategoryPath, ROUTES } from "@/lib/seo/routes"
 import {
   getCategorySitemapEntries,
   getImageSitemapEntries,
@@ -30,7 +30,6 @@ import {
 import { seedCategorySitemapPaths } from "@/lib/seo/sitemap/seed-entries"
 import { CATEGORY_SEED_DEFINITIONS } from "@/prisma/seed/categories"
 import { computeIsIndexable } from "@/lib/seo/indexability"
-import { resolveCategoryPath } from "@/lib/seo/routes"
 import { buildPuzzlePlan } from "@/prisma/seed/puzzles"
 import { GENERATOR_FAQ, ONLINE_PLAY_FAQ } from "@/lib/content/phase1"
 
@@ -71,7 +70,7 @@ export type ProductionReadinessReport = {
   liveServer: boolean
 }
 
-const PRODUCTION_DOMAIN = "hibou-et-mots.fr"
+const PRODUCTION_DOMAIN = "hibou-et-mots.com"
 const BLOCKED_DOMAINS = ["localhost", "vercel.app", "127.0.0.1"]
 
 const ROADMAP_PAGES: Array<{
@@ -277,7 +276,7 @@ export async function runProductionReadinessAudit(input: {
   siteUrl?: string
 } = {}): Promise<ProductionReadinessReport> {
   const rootDir = input.rootDir ?? process.cwd()
-  const siteUrl = input.siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? `https://${PRODUCTION_DOMAIN}`
+  const siteUrl = input.siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
   const baseUrl = input.baseUrl ?? "http://localhost:3456"
   const checks: AuditCheck[] = []
   const liveServer = await probeLiveServer(baseUrl)

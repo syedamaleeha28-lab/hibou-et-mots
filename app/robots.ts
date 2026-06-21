@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next"
-import { absoluteUrl } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL } from "@/lib/seo/routes"
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://hibou-et-mots.fr"
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
 
   return {
     rules: [

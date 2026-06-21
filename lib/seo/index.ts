@@ -8,6 +8,8 @@ export {
 export {
   ROUTES,
   absoluteUrl,
+  CONTACT_EMAIL,
+  DEFAULT_SITE_URL,
   comboPath,
   difficultyPath,
   gradePath,

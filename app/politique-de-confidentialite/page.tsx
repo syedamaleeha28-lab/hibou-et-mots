@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { LegalPageTemplate, LEGAL_PAGES } from "@/components/templates/legal/legal-page-template"
 import { buildStaticPageMetadata } from "@/lib/seo/metadata"
+import { CONTACT_EMAIL } from "@/lib/seo/routes"
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildStaticPageMetadata({
@@ -35,7 +36,7 @@ export default function ConfidentialitePage() {
       <p>
         Vous pouvez demander l&apos;accès, la rectification ou la suppression de vos données en
         écrivant à{" "}
-        <a href="mailto:contact@hibou-et-mots.fr">contact@hibou-et-mots.fr</a>.
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
     </LegalPageTemplate>
   )

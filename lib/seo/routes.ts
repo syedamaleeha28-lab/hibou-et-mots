@@ -58,7 +58,15 @@ export function pressBrandPath(slug: string): string {
 
 export const DEFAULT_SITE_URL = "https://hibou-et-mots.com"
 
-export const CONTACT_EMAIL = "contact@hibou-et-mots.com"
+export const CONTACT_EMAIL = "hibou.et.mots@gmail.com"
+
+export const SOCIAL_PROFILES = {
+  instagram: "https://www.instagram.com/hibou.et.mots/",
+  x: "https://x.com/hibouetmots",
+  pinterest: "https://pin.it/5J8yqtESq",
+} as const
+
+export const SOCIAL_PROFILE_URLS = Object.values(SOCIAL_PROFILES)
 
 export function absoluteUrl(
   path: string,

@@ -1,4 +1,10 @@
-import { ROUTES, absoluteUrl, DEFAULT_SITE_URL } from "@/lib/seo/routes"
+import {
+  CONTACT_EMAIL,
+  ROUTES,
+  SOCIAL_PROFILE_URLS,
+  absoluteUrl,
+  DEFAULT_SITE_URL,
+} from "@/lib/seo/routes"
 import { HOME_FAQ } from "@/lib/content/phase1"
 import { getPopularPuzzleListItems } from "@/lib/home/popular-puzzle-links"
 import { buildFaqPageSchema } from "./faq-page"
@@ -46,6 +52,8 @@ export function buildOrganizationSchema(siteUrl?: string) {
     name: SITE_NAME,
     url: homeUrl,
     logo: absoluteUrl("/icon.svg", base),
+    email: CONTACT_EMAIL,
+    sameAs: [...SOCIAL_PROFILE_URLS],
   }
 }
 

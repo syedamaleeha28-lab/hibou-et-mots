@@ -21,11 +21,17 @@ describe("home schema", () => {
     )
   })
 
-  it("builds Organization with logo", () => {
+  it("builds Organization with logo, email and social profiles", () => {
     const organization = buildOrganizationSchema(SITE) as Record<string, unknown>
 
     expect(organization["@type"]).toBe("Organization")
     expect(organization.logo).toBe(`${SITE}/icon.svg`)
+    expect(organization.email).toBe("hibou.et.mots@gmail.com")
+    expect(organization.sameAs).toEqual([
+      "https://www.instagram.com/hibou.et.mots/",
+      "https://x.com/hibouetmots",
+      "https://pin.it/5J8yqtESq",
+    ])
   })
 
   it("composes homepage @graph with website, organization, popular puzzles and FAQ", () => {

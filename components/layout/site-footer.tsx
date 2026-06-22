@@ -1,9 +1,28 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Heart, Mail, Sparkles } from "lucide-react"
+import { InstagramIcon, PinterestIcon, XIcon } from "@/components/icons/social-icons"
 import { Button } from "@/components/ui/button"
 import { footerLegalLinks, footerSiloColumns } from "@/lib/navigation"
-import { ROUTES } from "@/lib/seo"
+import { CONTACT_EMAIL, ROUTES, SOCIAL_PROFILES } from "@/lib/seo"
+
+const socialLinks = [
+  {
+    href: SOCIAL_PROFILES.instagram,
+    label: "Suivez Hibou&Mots sur Instagram",
+    Icon: InstagramIcon,
+  },
+  {
+    href: SOCIAL_PROFILES.x,
+    label: "Suivez Hibou&Mots sur X",
+    Icon: XIcon,
+  },
+  {
+    href: SOCIAL_PROFILES.pinterest,
+    label: "Suivez Hibou&Mots sur Pinterest",
+    Icon: PinterestIcon,
+  },
+] as const
 
 export function SiteFooter() {
   return (
@@ -27,6 +46,21 @@ export function SiteFooter() {
               Des mots mêlés gratuits à imprimer et à jouer en ligne — pour les enfants,
               les enseignants et toute la famille.
             </p>
+
+            <div className="flex items-center gap-3">
+              {socialLinks.map(({ href, label, Icon }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-background/10 text-background/80 transition-colors hover:bg-background/20 hover:text-background"
+                >
+                  <Icon className="size-5" />
+                </a>
+              ))}
+            </div>
 
             <div className="mt-2 flex flex-col gap-2">
               <p className="text-sm font-bold">Reçois 5 nouvelles grilles par semaine</p>
@@ -92,6 +126,21 @@ export function SiteFooter() {
                 </ul>
               </div>
             ))}
+
+            <div className="flex flex-col gap-3">
+              <h3 className="font-heading text-sm font-extrabold uppercase tracking-wide text-background/60">
+                Contact
+              </h3>
+              <p className="text-sm font-semibold text-background/80">
+                E-mail :{" "}
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="transition-colors hover:text-background"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+              </p>
+            </div>
 
             <div className="flex flex-col gap-3">
               <h3 className="font-heading text-sm font-extrabold uppercase tracking-wide text-background/60">

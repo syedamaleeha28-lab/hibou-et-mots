@@ -9,6 +9,8 @@ export {
   ROUTES,
   absoluteUrl,
   CONTACT_EMAIL,
+  SOCIAL_PROFILES,
+  SOCIAL_PROFILE_URLS,
   DEFAULT_SITE_URL,
   comboPath,
   difficultyPath,

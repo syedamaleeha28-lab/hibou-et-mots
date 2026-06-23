@@ -17,6 +17,7 @@ import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
 import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { shouldShowAuthorAttribution } from "@/lib/content/author"
+import { PedagogieEditorial } from "@/components/templates/pedagogie/pedagogie-editorial"
 
 export type CategoryTemplateProps = {
   category: CategoryPageData
@@ -41,6 +42,8 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           <CategoryPhase1Sections slug={category.slug} />
 
           <CategoryPhase2Sections slug={category.slug} />
+
+          {category.slug === "pedagogie" && <PedagogieEditorial />}
 
           <CategoryExploreLinks category={category} />
 

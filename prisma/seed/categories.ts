@@ -7,6 +7,7 @@ import {
 } from "@/lib/db/adapters/category-constants"
 import { difficultySeed } from "./difficulties"
 import { getCategoryFaq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
+import { PEDAGOGIE_INTRO, PEDAGOGIE_META_DESCRIPTION } from "@/lib/content/pedagogie"
 import { getThemeMetaDescription } from "@/lib/content/themes"
 import { gradeSeed } from "./grades"
 import { themeSeed } from "./themes"
@@ -198,11 +199,9 @@ const STATIC_SUPPORT_DEFINITIONS: CategorySeedDefinition[] = [
     slug: "pedagogie",
     type: "AUDIENCE",
     h1: "Pédagogie des mots mêlés",
-    seoTitle: "Pédagogie des mots mêlés — Ressources pour enseignants",
-    metaDescription:
-      "Comment utiliser les mots mêlés en classe : conseils pédagogiques, niveaux scolaires et activités.",
-    introText:
-      "Guide pratique pour intégrer les mots mêlés dans vos séances : lecture, vocabulaire et mémorisation.",
+    seoTitle: "Pédagogie des mots mêlés — Guide pour enseignants et parents",
+    metaDescription: PEDAGOGIE_META_DESCRIPTION,
+    introText: PEDAGOGIE_INTRO,
     isStaticSupport: true,
   },
   {

@@ -39,6 +39,7 @@ import {
 import { resolvePuzzlePageData } from "@/lib/db/queries/pilot"
 import { getCategoryExploreLinks } from "@/lib/seo/linking/category-explore-links"
 import { generatorCtaHref } from "@/lib/seo/linking"
+import { PEDAGOGIE_EDUCATIONAL_LINKS } from "@/lib/content/pedagogie"
 import { normalizeInternalHref } from "@/lib/audit/resolve-internal-path"
 import { CATEGORY_SEED_DEFINITIONS } from "@/prisma/seed/categories"
 import { difficultySeed } from "@/prisma/seed/difficulties"
@@ -253,6 +254,12 @@ export function collectToolPageLinks(): InternalLinkRef[] {
   )
 }
 
+export function collectPedagogieEditorialLinks(): InternalLinkRef[] {
+  return PEDAGOGIE_EDUCATIONAL_LINKS.map((link) =>
+    linkRef(link.href, `pedagogie:editorial:${link.label}`, "static-support"),
+  )
+}
+
 export async function collectCategoryPageLinks(): Promise<InternalLinkRef[]> {
   const links: InternalLinkRef[] = []
 
@@ -406,6 +413,7 @@ export async function collectInternalLinksForMap(): Promise<InternalLinkRef[]> {
     collectFooterLinks(),
     collectHomepageLinks(),
     collectToolPageLinks(),
+    collectPedagogieEditorialLinks(),
     await collectCategoryPageLinks(),
   ]
 
@@ -432,6 +440,7 @@ export async function collectAllInternalLinks(): Promise<InternalLinkRef[]> {
     collectFooterLinks(),
     collectHomepageLinks(),
     collectToolPageLinks(),
+    collectPedagogieEditorialLinks(),
     await collectCategoryPageLinks(),
     await collectPuzzlePageLinks(),
     collectSitemapLinks(),

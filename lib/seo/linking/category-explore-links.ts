@@ -28,6 +28,7 @@ const DEDICATED_EDITORIAL_SLUGS = new Set([
   "hub-imprimer",
   "hub-ecole",
   "enfants",
+  "pedagogie",
 ])
 
 export function hasDedicatedEditorialLinks(slug: string): boolean {

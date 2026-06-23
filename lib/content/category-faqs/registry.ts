@@ -1,4 +1,5 @@
 import type { FaqItem } from "@/lib/db/types/page-data"
+import { PEDAGOGIE_FAQ } from "@/lib/content/pedagogie"
 
 /** Page-specific FAQ blocks keyed by category slug — no shared templates. */
 export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
@@ -534,23 +535,7 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
         "Oui, activez le mode grand format puis imprimez le PDF Seniors en A4, corrigé inclus.",
     },
   ],
-  pedagogie: [
-    {
-      question: "Que trouve-t-on sur la page Pédagogie des mots mêlés ?",
-      answer:
-        "La rubrique Pédagogie explique comment intégrer les mots mêlés en classe : lecture, vocabulaire et mémorisation.",
-    },
-    {
-      question: "Ces conseils pédagogiques sont-ils gratuits ?",
-      answer:
-        "Oui, l'ensemble des ressources liées à la page Pédagogie est accessible sans inscription ni frais.",
-    },
-    {
-      question: "La page Pédagogie propose-t-elle des grilles par niveau ?",
-      answer:
-        "Oui, la page Pédagogie renvoie vers les rubriques École et Enfants pour choisir une grille calibrée après lecture du guide pédagogique.",
-    },
-  ],
+  pedagogie: PEDAGOGIE_FAQ,
   personnages: [
     {
       question: "Qui est Hibou sur la page Personnages ?",

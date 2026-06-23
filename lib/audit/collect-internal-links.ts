@@ -39,6 +39,7 @@ import {
 import { resolvePuzzlePageData } from "@/lib/db/queries/pilot"
 import { getCategoryExploreLinks } from "@/lib/seo/linking/category-explore-links"
 import { generatorCtaHref } from "@/lib/seo/linking"
+import { ADULTES_HUB_LINKS } from "@/lib/content/adultes"
 import { PEDAGOGIE_EDUCATIONAL_LINKS } from "@/lib/content/pedagogie"
 import { SENIORS_HUB_LINKS } from "@/lib/content/seniors"
 import { normalizeInternalHref } from "@/lib/audit/resolve-internal-path"
@@ -267,6 +268,12 @@ export function collectSeniorsEditorialLinks(): InternalLinkRef[] {
   )
 }
 
+export function collectAdultesEditorialLinks(): InternalLinkRef[] {
+  return ADULTES_HUB_LINKS.map((link) =>
+    linkRef(link.href, `adultes:editorial:${link.label}`, "audience"),
+  )
+}
+
 export async function collectCategoryPageLinks(): Promise<InternalLinkRef[]> {
   const links: InternalLinkRef[] = []
 
@@ -422,6 +429,7 @@ export async function collectInternalLinksForMap(): Promise<InternalLinkRef[]> {
     collectToolPageLinks(),
     collectPedagogieEditorialLinks(),
     collectSeniorsEditorialLinks(),
+    collectAdultesEditorialLinks(),
     await collectCategoryPageLinks(),
   ]
 
@@ -450,6 +458,7 @@ export async function collectAllInternalLinks(): Promise<InternalLinkRef[]> {
     collectToolPageLinks(),
     collectPedagogieEditorialLinks(),
     collectSeniorsEditorialLinks(),
+    collectAdultesEditorialLinks(),
     await collectCategoryPageLinks(),
     await collectPuzzlePageLinks(),
     collectSitemapLinks(),

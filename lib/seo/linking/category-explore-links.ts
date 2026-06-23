@@ -30,6 +30,7 @@ const DEDICATED_EDITORIAL_SLUGS = new Set([
   "enfants",
   "pedagogie",
   "seniors",
+  "adultes",
 ])
 
 export function hasDedicatedEditorialLinks(slug: string): boolean {

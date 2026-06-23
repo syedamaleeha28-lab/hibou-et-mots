@@ -7,6 +7,7 @@ import {
 } from "@/lib/db/adapters/category-constants"
 import { difficultySeed } from "./difficulties"
 import { getCategoryFaq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
+import { ADULTES_INTRO, ADULTES_META_DESCRIPTION } from "@/lib/content/adultes"
 import { PEDAGOGIE_INTRO, PEDAGOGIE_META_DESCRIPTION } from "@/lib/content/pedagogie"
 import { SENIORS_INTRO, SENIORS_META_DESCRIPTION } from "@/lib/content/seniors"
 import { getThemeMetaDescription } from "@/lib/content/themes"
@@ -178,10 +179,8 @@ const AUDIENCE_DEFINITIONS: CategorySeedDefinition[] = [
     type: "AUDIENCE",
     h1: "Mots mêlés Adultes",
     seoTitle: "Mots mêlés Adultes — Grilles gratuites",
-    metaDescription:
-      "Des mots mêlés pour adultes : grilles plus exigeantes, thèmes variés, gratuites à imprimer.",
-    introText:
-      "Entraîne ton vocabulaire avec des mots mêlés conçus pour les adultes, du niveau moyen au difficile.",
+    metaDescription: ADULTES_META_DESCRIPTION,
+    introText: ADULTES_INTRO,
   },
   {
     slug: "seniors",

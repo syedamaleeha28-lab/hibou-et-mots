@@ -1,4 +1,5 @@
 import type { FaqItem } from "@/lib/db/types/page-data"
+import { ADULTES_FAQ } from "@/lib/content/adultes"
 import { PEDAGOGIE_FAQ } from "@/lib/content/pedagogie"
 import { SENIORS_FAQ } from "@/lib/content/seniors"
 
@@ -502,23 +503,7 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
         "Oui, chaque PDF Enfants est gratuit en A4, idéal pour une distribution en classe ou un devoir maison.",
     },
   ],
-  adultes: [
-    {
-      question: "En quoi les grilles Adultes diffèrent-elles des grilles enfants ?",
-      answer:
-        "La page Mots mêlés Adultes propose des listes plus denses, des grilles plus grandes et un vocabulaire plus exigeant.",
-    },
-    {
-      question: "Quelle difficulté choisir sur la rubrique Adultes ?",
-      answer:
-        "Commencez par Moyen sur la page Adultes si vous reprenez l'habitude, puis passez à Difficile ou Géant.",
-    },
-    {
-      question: "Peut-on jouer en ligne sur la page Adultes ?",
-      answer:
-        "Oui, chaque grille Adultes se joue dans le navigateur ou s'imprime en PDF avec corrigé.",
-    },
-  ],
+  adultes: ADULTES_FAQ,
   seniors: SENIORS_FAQ,
   pedagogie: PEDAGOGIE_FAQ,
   personnages: [

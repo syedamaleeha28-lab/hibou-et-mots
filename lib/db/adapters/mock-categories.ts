@@ -383,8 +383,11 @@ export function mockSeasonalCategoryPageData(themeSlug: string, page = 1): Categ
     slug: theme.slug,
     h1: `Mots mêlés ${theme.name}`,
     seoTitle: `Mots mêlés ${theme.name} — Grilles gratuites`,
-    metaDescription: `Des mots mêlés ${theme.name} gratuits à imprimer et à jouer en ligne.`,
-    introText: seasonalCategoryIntro(theme.name),
+    metaDescription:
+      getThemeMetaDescription(theme.slug) ??
+      `Des mots mêlés ${theme.name} gratuits à imprimer et à jouer en ligne.`,
+    introText: getPhase1Intro(theme.slug) ?? seasonalCategoryIntro(theme.name),
+    faqJson: getPhase1Faq(theme.slug) ?? null,
     theme: themeRecord,
   })
 

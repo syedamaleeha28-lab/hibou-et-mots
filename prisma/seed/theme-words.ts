@@ -289,6 +289,25 @@ const rawWords: ThemeWordSeed[] = [
     ["meteo", "METEOROLOGIE", 6],
   ].map(([s, w, g]) => entry(s as ThemeSlug, w as string, g as number)),
 
+  // Corps humain
+  ...[
+    ["corps-humain", "TETE", 0],
+    ["corps-humain", "MAIN", 0],
+    ["corps-humain", "PIED", 0],
+    ["corps-humain", "BRAS", 1],
+    ["corps-humain", "JAMBE", 2],
+    ["corps-humain", "OEIL", 1],
+    ["corps-humain", "OREILLE", 3],
+    ["corps-humain", "NEZ", 1],
+    ["corps-humain", "BOUCHE", 2],
+    ["corps-humain", "COEUR", 3],
+    ["corps-humain", "ESTOMAC", 4],
+    ["corps-humain", "PEAU", 2],
+    ["corps-humain", "CHEVEU", 2],
+    ["corps-humain", "DENT", 1],
+    ["corps-humain", "DOIGT", 2],
+  ].map(([s, w, g]) => entry(s as ThemeSlug, w as string, g as number)),
+
   // Pays du monde
   ...[
     ["pays-du-monde", "FRANCE", 2],

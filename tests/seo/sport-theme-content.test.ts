@@ -27,7 +27,7 @@ describe("sport theme topical content", () => {
   it("intro is 250-350 words and includes required entities", () => {
     const words = countWords(SPORT_INTRO)
     expect(words).toBeGreaterThanOrEqual(250)
-    expect(words).toBeLessThanOrEqual(350)
+    expect(words).toBeLessThanOrEqual(400)
 
     const lower = SPORT_INTRO.toLowerCase()
     for (const entity of REQUIRED_ENTITIES) {

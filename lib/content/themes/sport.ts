@@ -1,4 +1,5 @@
 import type { FaqItem } from "@/lib/db/types/page-data"
+import { ROUTES, gradePath, themePath } from "@/lib/seo/routes"
 
 /** Unique editorial intro for /mots-meles-thematiques/sport/ (~300 words). */
 export const SPORT_INTRO = [
@@ -38,3 +39,14 @@ export const SPORT_FAQ: FaqItem[] = [
       "Oui, les séries alternent disciplines d'équipe — football, rugby, handball, basket — et sports individuels — tennis, natation, vélo, athlétisme.",
   },
 ]
+
+export const SPORT_EXPLORE_LINK_LABELS = [
+  { href: themePath("football"), label: "Mots mêlés Football", hint: "Lexique spécialisé autour du ballon rond" },
+  { href: gradePath("ce1"), label: "Mots mêlés CE1", hint: "Vocabulaire du sport adapté au cycle 2" },
+  { href: ROUTES.enfants, label: "Mots mêlés Enfants", hint: "Toutes les grilles pour les 3–12 ans" },
+  { href: ROUTES.imprimer, label: "Mots mêlés à imprimer", hint: "PDF A4 avec corrigé pour la classe ou la maison" },
+  { href: ROUTES.jouer, label: "Jouer en ligne", hint: "Partie immédiate sans impression" },
+  { href: ROUTES.generateur, label: "Générateur de grilles", hint: "Composez votre propre liste de mots sportifs" },
+  { href: ROUTES.ecoleHub, label: "Mots mêlés École", hint: "Parcours par niveau de la maternelle à la 6e" },
+  { href: themePath("fruits"), label: "Thème Fruits", hint: "Variez avec un autre thème du quotidien" },
+] as const

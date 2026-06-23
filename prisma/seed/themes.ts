@@ -113,6 +113,14 @@ export const themeSeed = [
     activeDateEnd: null,
   },
   {
+    slug: "corps-humain",
+    name: "Corps humain",
+    group: "Famille & Quotidien",
+    isSeasonal: false,
+    activeDateStart: null,
+    activeDateEnd: null,
+  },
+  {
     slug: "pays-du-monde",
     name: "Pays du Monde",
     group: "Monde & Voyage",

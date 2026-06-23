@@ -1,8 +1,9 @@
 import type { FaqItem } from "@/lib/db/types/page-data"
+import { ROUTES, comboPath, gradePath, seasonalPath } from "@/lib/seo/routes"
 
 /** Unique editorial intro for /mots-meles-fetes-saisons/noel/ (~300 words). */
 export const NOEL_INTRO = [
-  "Le thème Noël de Hibou&Mots rassemble des mots mêlés gratuits et des jeux de mots cachés Noël pour faire vivre le vocabulaire de Noël en français. Chaque grille propose une chasse aux lettres festive : le Père Noël survole les toits dans son traîneau, tiré par des rennes ; plus bas, le sapin brille de guirlandes et de bougies, entouré de cadeaux. Les lutins préparent la tournée pendant que le bonhomme de neige veille au jardin — autant de mots familiers que les enfants retrouvent dans albums, chants et fenêtres illuminées.",
+  "Le thème Noël de Hibou&Mots rassemble des mots mêlés gratuits et des jeux de mots cachés Noël pour faire vivre le vocabulaire de Noël en français. Chaque grille propose une chasse aux lettres festive : le Père Noël survole les toits dans son traîneau, tiré par des rennes ; plus bas, le sapin brille de guirlandes, de bougies et d'une étoile au sommet, entouré de cadeaux. Les lutins préparent la tournée pendant que le bonhomme de neige veille au jardin — autant de mots familiers que les enfants retrouvent dans albums, chants et fenêtres illuminées.",
   "Les listes s'intègrent à une activité de Noël calme, en classe comme pendant les vacances scolaires. Ouvrir une case du calendrier de l'Avent peut précéder une petite grille ; un repas de réveillon se conclut par une partie entre cousins. Trouver un mot caché fixe la forme du mot entier et consolide la lecture sans gommer la magie des fêtes. Maternelle et CP commencent par des grilles courtes en grandes lettres ; le CE1 et le CE2 progressent avec des diagonales et un vocabulaire plus riche.",
   "En décembre, les enseignants impriment les PDF pour la dernière semaine avant les congés ; les familles les glissent dans un cahier d'activités ou les proposent après la décoration du sapin. Chaque puzzle se joue en ligne ou s'exporte en PDF A4 avec corrigé, en noir et blanc pour une impression économique. Les thèmes voisins — Père Noël, atelier des lutins, marché de Noël — varient d'une grille à l'autre pour éviter la répétition mécanique.",
   "Hibou&Mots reste entièrement gratuit, sans compte obligatoire. Si vous souhaitez croiser fête et niveau scolaire, explorez les grilles CE1 × Noël ou choisissez une difficulté facile, moyenne ou difficile selon l'âge. Le vocabulaire de Noël devient ainsi un fil léger entre programme de français et ambiance des fêtes, du premier jour de l'Avent au réveillon du 24 décembre.",
@@ -38,3 +39,14 @@ export const NOEL_FAQ: FaqItem[] = [
       "Oui, croisez le thème avec un niveau — par exemple CE1 × Noël — pour une liste calibrée à la classe, ou choisissez une difficulté facile pour les plus jeunes.",
   },
 ]
+
+export const NOEL_EXPLORE_LINK_LABELS = [
+  { href: comboPath("ce1", "noel"), label: "Mots mêlés CE1 × Noël", hint: "Vocabulaire de Noël calibré pour le CE1" },
+  { href: gradePath("cp"), label: "Mots mêlés CP", hint: "Grilles adaptées aux premières classes" },
+  { href: ROUTES.fetesHub, label: "Fêtes & Saisons", hint: "Halloween, Pâques, Carnaval et plus" },
+  { href: seasonalPath("halloween"), label: "Mots mêlés Halloween", hint: "Autre fête saisonnière populaire" },
+  { href: ROUTES.imprimer, label: "Mots mêlés à imprimer", hint: "PDF A4 avec corrigé pour les vacances scolaires" },
+  { href: ROUTES.jouer, label: "Jouer en ligne", hint: "Partie immédiate sans préparation" },
+  { href: ROUTES.generateur, label: "Générateur de grilles", hint: "Composez votre propre liste de mots de Noël" },
+  { href: ROUTES.enfants, label: "Mots mêlés Enfants", hint: "Toutes les grilles pour les 3–12 ans" },
+] as const

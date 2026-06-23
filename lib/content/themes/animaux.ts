@@ -1,4 +1,5 @@
 import type { FaqItem } from "@/lib/db/types/page-data"
+import { ROUTES, gradePath, themePath } from "@/lib/seo/routes"
 
 /** Unique editorial intro for /mots-meles-thematiques/animaux/ (~300 words). */
 export const ANIMAUX_INTRO = [
@@ -38,3 +39,14 @@ export const ANIMAUX_FAQ: FaqItem[] = [
       "Oui, croisez le thème Animaux avec un niveau — maternelle, CP, CE1 — via les pages École ou choisissez une difficulté facile sur la rubrique Animaux.",
   },
 ]
+
+export const ANIMAUX_EXPLORE_LINK_LABELS = [
+  { href: gradePath("maternelle"), label: "Mots mêlés Maternelle", hint: "Grilles courtes pour les premiers jeux de mots cachés" },
+  { href: gradePath("cp"), label: "Mots mêlés CP", hint: "Vocabulaire animaux adapté au cycle 2" },
+  { href: ROUTES.enfants, label: "Mots mêlés Enfants", hint: "Toutes les grilles pour les 3–12 ans" },
+  { href: ROUTES.imprimer, label: "Mots mêlés à imprimer", hint: "PDF A4 avec corrigé pour la classe ou la maison" },
+  { href: ROUTES.jouer, label: "Jouer en ligne", hint: "Partie immédiate sans impression" },
+  { href: ROUTES.generateur, label: "Générateur de grilles", hint: "Composez votre propre liste d'animaux" },
+  { href: ROUTES.ecoleHub, label: "Mots mêlés École", hint: "Parcours par niveau de la maternelle à la 6e" },
+  { href: themePath("sport"), label: "Thème Sport", hint: "Variez avec un autre champ lexical" },
+] as const

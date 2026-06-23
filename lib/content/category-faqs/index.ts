@@ -13,10 +13,15 @@ export function listCategoryFaqSlugs(): string[] {
   const slugs = new Set<string>(Object.keys(CATEGORY_FAQ_REGISTRY))
   for (const slug of [
     "animaux",
+    "corps-humain",
+    "couleurs",
+    "famille",
     "fruits",
-    "sport",
     "halloween",
+    "meteo",
     "noel",
+    "sport",
+    "vocabulaire",
   ] as const) {
     if (getThemeFaq(slug)) slugs.add(slug)
   }

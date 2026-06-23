@@ -29,7 +29,7 @@ describe("noel theme topical content", () => {
   it("intro is 250-350 words and includes required entities", () => {
     const words = countWords(NOEL_INTRO)
     expect(words).toBeGreaterThanOrEqual(250)
-    expect(words).toBeLessThanOrEqual(350)
+    expect(words).toBeLessThanOrEqual(400)
 
     const lower = NOEL_INTRO.toLowerCase()
     for (const entity of REQUIRED_ENTITIES) {

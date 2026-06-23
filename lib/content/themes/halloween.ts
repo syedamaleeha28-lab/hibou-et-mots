@@ -1,4 +1,5 @@
 import type { FaqItem } from "@/lib/db/types/page-data"
+import { ROUTES, comboPath, gradePath, seasonalPath } from "@/lib/seo/routes"
 
 /** Unique editorial intro for /mots-meles-fetes-saisons/halloween/ (~300 words). */
 export const HALLOWEEN_INTRO = [
@@ -38,3 +39,14 @@ export const HALLOWEEN_FAQ: FaqItem[] = [
       "Oui, croisez le thème avec un niveau — par exemple CE1 × Halloween — pour une liste calibrée à la classe, ou choisissez une difficulté facile pour les débutants.",
   },
 ]
+
+export const HALLOWEEN_EXPLORE_LINK_LABELS = [
+  { href: comboPath("ce1", "halloween"), label: "Mots mêlés CE1 × Halloween", hint: "Vocabulaire Halloween calibré pour le CE1" },
+  { href: gradePath("cp"), label: "Mots mêlés CP", hint: "Grilles adaptées aux premières classes" },
+  { href: ROUTES.fetesHub, label: "Fêtes & Saisons", hint: "Noël, Pâques, Carnaval et plus" },
+  { href: seasonalPath("noel"), label: "Mots mêlés Noël", hint: "Poursuivre avec la fête de fin d'année" },
+  { href: ROUTES.imprimer, label: "Mots mêlés à imprimer", hint: "PDF A4 avec corrigé pour la classe ou la maison" },
+  { href: ROUTES.jouer, label: "Jouer en ligne", hint: "Partie immédiate sans préparation" },
+  { href: ROUTES.generateur, label: "Générateur de grilles", hint: "Composez votre propre liste de mots d'Halloween" },
+  { href: ROUTES.enfants, label: "Mots mêlés Enfants", hint: "Toutes les grilles pour les 3–12 ans" },
+] as const

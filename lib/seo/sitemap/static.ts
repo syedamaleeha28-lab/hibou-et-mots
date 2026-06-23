@@ -23,13 +23,11 @@ const STATIC_PATHS: string[] = [
   ROUTES.mentionsLegales,
   ROUTES.confidentialite,
   ROUTES.contact,
-]
-
-const NOINDEX_STATIC_PATHS = new Set<string>([
-  ROUTES.recherche,
   ROUTES.jouer,
   ROUTES.generateur,
-])
+]
+
+const NOINDEX_STATIC_PATHS = new Set<string>([ROUTES.recherche])
 
 export function getStaticSitemapEntries(siteUrl?: string): SitemapUrlEntry[] {
   const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL

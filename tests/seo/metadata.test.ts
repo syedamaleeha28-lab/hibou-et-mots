@@ -56,7 +56,7 @@ describe("indexability", () => {
 })
 
 describe("buildCategoryMetadata", () => {
-  it("returns canonical and robots for non-indexable categories", async () => {
+  it("returns canonical and index robots for public category pages", async () => {
     const metadata = await buildCategoryMetadata(
       { ...baseCategory, isIndexable: false },
       1,
@@ -64,6 +64,6 @@ describe("buildCategoryMetadata", () => {
     )
 
     expect(metadata.alternates?.canonical).toBe("https://example.test/mots-meles-ecole/ce1/")
-    expect(metadata.robots).toBe("noindex, follow")
+    expect(metadata.robots).toEqual({ index: true, follow: true })
   })
 })

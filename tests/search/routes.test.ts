@@ -23,7 +23,7 @@ describe("search routes", () => {
     })
 
     const metadata = await buildSearchMetadata({ query: "animaux", page: 1 })
-    expect(metadata.robots).toBe("noindex, follow")
+    expect(metadata.robots).toEqual({ index: false, follow: true })
     expect(metadata.title).toContain("animaux")
   })
 })

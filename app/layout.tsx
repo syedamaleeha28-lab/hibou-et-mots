@@ -19,7 +19,11 @@ export const metadata: Metadata = {
   title: 'Hibou & Mots — Mots mêlés gratuits à imprimer et jouer en ligne',
   description:
     'Des mots mêlés en français pour la maternelle, le primaire, le collège, les adultes et les seniors. Grilles à imprimer, générateur et jeu en ligne gratuits.',
-  generator: 'v0.app',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
   icons: {
     icon: [
       {

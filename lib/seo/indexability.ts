@@ -37,7 +37,7 @@ export function robotsDirective(input: {
   }
 
   if (input.pageType === "category") {
-    if (input.isIndexable === false) return { index: false, follow: true }
+    // Paginated category pages only — thin categories remain crawlable (sitemap gating is separate).
     if ((input.page ?? 1) >= noindexFrom) return { index: false, follow: true }
   }
 

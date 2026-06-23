@@ -35,8 +35,12 @@ export async function lookupSeoMetaOverride(path: string): Promise<SeoOverride |
 }
 
 export function robotsMetadata(directive: RobotsDirective): Pick<Metadata, "robots"> {
-  const content = robotsMetaContent(directive)
-  return content ? { robots: content } : {}
+  return {
+    robots: {
+      index: directive.index,
+      follow: directive.follow,
+    },
+  }
 }
 
 export function openGraphMetadata(input: {
@@ -165,6 +169,7 @@ export async function buildHomeMetadata(siteUrl?: string): Promise<Metadata> {
     alternates: {
       canonical: buildCanonicalUrl({ path, siteUrl, override: override?.canonicalOverride }),
     },
+    ...robotsMetadata({ index: true, follow: true }),
     openGraph: openGraphMetadata({
       title,
       description,

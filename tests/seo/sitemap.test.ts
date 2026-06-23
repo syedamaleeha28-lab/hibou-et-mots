@@ -38,6 +38,8 @@ describe("static sitemap entries", () => {
     const locs = entries.map((entry) => entry.loc)
     expect(locs.some((loc) => loc.endsWith("/"))).toBe(true)
     expect(locs.some((loc) => loc.includes("mots-meles-ecole"))).toBe(true)
+    expect(locs.some((loc) => loc.includes("generateur-mots-meles"))).toBe(true)
+    expect(locs.some((loc) => loc.includes("jouer-mots-meles-en-ligne"))).toBe(true)
     expect(locs.some((loc) => loc.includes("recherche"))).toBe(false)
   })
 })

@@ -27,6 +27,7 @@ import {
   staticMockPuzzleCards,
 } from "@/lib/db/adapters/mock-utils"
 import { getPhase1Faq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
+import { getThemeMetaDescription } from "@/lib/content/themes"
 
 function phase1Intro(slug: string, fallback: string): string {
   return getPhase1Intro(slug) ?? fallback
@@ -348,8 +349,11 @@ export function mockThemeCategoryPageData(themeSlug: string, page = 1): Category
     slug: theme.slug,
     h1: `Mots mêlés ${theme.name}`,
     seoTitle: `Mots mêlés ${theme.name} — Grilles gratuites à imprimer`,
-    metaDescription: `Des mots mêlés gratuits sur le thème ${theme.name}, à imprimer et à jouer en ligne.`,
-    introText: themeCategoryIntro(theme.name),
+    metaDescription:
+      getThemeMetaDescription(theme.slug) ??
+      `Des mots mêlés gratuits sur le thème ${theme.name}, à imprimer et à jouer en ligne.`,
+    introText: getPhase1Intro(theme.slug) ?? themeCategoryIntro(theme.name),
+    faqJson: getPhase1Faq(theme.slug) ?? null,
     theme: themeRecord,
   })
 

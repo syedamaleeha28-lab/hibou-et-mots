@@ -7,6 +7,7 @@ import {
 } from "@/lib/db/adapters/category-constants"
 import { difficultySeed } from "./difficulties"
 import { getPhase1Faq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
+import { getThemeMetaDescription } from "@/lib/content/themes"
 import { faqPlaceholderFor } from "./faq"
 import { gradeSeed } from "./grades"
 import { themeSeed } from "./themes"
@@ -127,8 +128,10 @@ const THEME_DEFINITIONS: CategorySeedDefinition[] = themeSeed
     themeSlug: theme.slug,
     h1: `Mots mêlés ${theme.name}`,
     seoTitle: `Mots mêlés ${theme.name} — Grilles gratuites à imprimer`,
-    metaDescription: `Des mots mêlés gratuits sur le thème ${theme.name}, à imprimer et à jouer en ligne.`,
-    introText: themeCategoryIntro(theme.name),
+    metaDescription:
+      getThemeMetaDescription(theme.slug) ??
+      `Des mots mêlés gratuits sur le thème ${theme.name}, à imprimer et à jouer en ligne.`,
+    introText: getPhase1Intro(theme.slug) ?? themeCategoryIntro(theme.name),
   }))
 
 const SEASONAL_DEFINITIONS: CategorySeedDefinition[] = themeSeed

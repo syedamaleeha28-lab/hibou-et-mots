@@ -1,4 +1,5 @@
 import type { FaqItem } from "@/lib/db/types/page-data"
+import { getThemeFaq } from "../themes"
 
 /** Phase 1 Critical — page-specific FAQs (Sprint 1). */
 export const PHASE1_FAQS: Record<string, FaqItem[]> = {
@@ -78,5 +79,5 @@ export const PHASE1_FAQS: Record<string, FaqItem[]> = {
 }
 
 export function getPhase1Faq(slug: string): FaqItem[] | undefined {
-  return PHASE1_FAQS[slug]
+  return getThemeFaq(slug) ?? PHASE1_FAQS[slug]
 }

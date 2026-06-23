@@ -1,5 +1,7 @@
 /** Phase 1 Critical — expanded intro copy (paragraphs joined with \n\n). */
 
+import { getThemeIntro } from "../themes"
+
 export const PHASE1_INTROS: Record<string, string> = {
   "hub-gratuits":
     "Toutes les grilles de mots mêlés proposées sur Hibou&Mots sont gratuites, sans limite et sans création de compte. Que vous cherchiez une grille à imprimer pour occuper un enfant pendant les vacances, un exercice de vocabulaire pour la classe, ou un moment de détente entre adultes, vous trouverez ici des centaines de puzzles en français, classés par âge, thème et niveau de difficulté.\n\nGratuit ne veut pas dire limité : le jeu en ligne, l'export PDF avec corrigé et le générateur de grilles personnalisées sont inclus sans palier payant. Aucune publicité intrusive ne vient perturber la partie — libre accès, téléchargement illimité, sans inscription.",
@@ -23,7 +25,7 @@ export function seasonalCategoryIntro(themeName: string): string {
 }
 
 export function getPhase1Intro(slug: string): string | undefined {
-  return PHASE1_INTROS[slug]
+  return getThemeIntro(slug) ?? PHASE1_INTROS[slug]
 }
 
 export function countWords(text: string): number {

@@ -6,6 +6,7 @@ import { shouldShowComboParentLinks } from "@/lib/seo/linking"
 import { CategoryIntro } from "./category-intro"
 import { CategoryPhase1Sections } from "./category-phase1-sections"
 import { CategoryPhase2Sections } from "./category-phase2-sections"
+import { CategoryThemeSections } from "./category-theme-sections"
 import { SubCategoryLinks } from "./sub-category-links"
 import { ComboParentLinks } from "./combo-parent-links"
 import { PuzzleCardGrid } from "./puzzle-card-grid"
@@ -31,6 +32,8 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
         <div className="flex flex-col gap-10 lg:gap-14">
           <CategoryIntro category={category} />
+
+          <CategoryThemeSections slug={category.slug} />
 
           <CategoryPhase1Sections slug={category.slug} />
 

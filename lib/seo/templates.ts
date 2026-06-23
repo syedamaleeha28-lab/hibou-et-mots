@@ -1,4 +1,5 @@
 import type { CategoryType, FaqItem } from "@/lib/db/types/page-data"
+import { getCategoryFaq } from "@/lib/content/category-faqs"
 
 type FaqTemplateSlot = "grade" | "theme" | "combo" | "difficulty" | "audience" | "hub" | "seasonal" | "press"
 
@@ -129,11 +130,14 @@ export function faqSlotForCategoryType(type: CategoryType, isHub: boolean): FaqT
 }
 
 export function resolveCategoryFaq(
+  slug: string,
   type: CategoryType,
   storedFaq: FaqItem[] | null | undefined,
   isHub: boolean,
 ): FaqItem[] {
   if (storedFaq && storedFaq.length > 0) return storedFaq
+  const specific = getCategoryFaq(slug)
+  if (specific) return specific
   return FAQ_TEMPLATES[faqSlotForCategoryType(type, isHub)]
 }
 

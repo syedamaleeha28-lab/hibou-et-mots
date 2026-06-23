@@ -47,9 +47,10 @@ describe("selectRelatedPuzzles", () => {
 })
 
 describe("faq templates", () => {
-  it("returns placeholders when DB faq is empty", () => {
-    const faq = resolveCategoryFaq("GRADE", [], false)
+  it("returns slug-specific FAQs when DB faq is empty", () => {
+    const faq = resolveCategoryFaq("cp", "GRADE", null, false)
     expect(faq.length).toBeGreaterThan(0)
+    expect(faq.some((item) => item.answer.toLowerCase().includes("cp"))).toBe(true)
     expect(resolvePuzzleFaq(null).length).toBeGreaterThan(0)
   })
 })

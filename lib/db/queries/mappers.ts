@@ -159,6 +159,7 @@ export function mapCategoryToPageData(
   })
 
   const faqJson = resolveCategoryFaq(
+    category.slug,
     category.type as CategoryType,
     category.faqJson as CategoryPageData["faqJson"] | null,
     hub,

@@ -15,22 +15,22 @@ export const HALLOWEEN_FAQ: FaqItem[] = [
   {
     question: "Quels mots d'Halloween figurent dans les grilles ?",
     answer:
-      "Les listes mêlent le lexique d'octobre : citrouille, fantôme, sorcière, vampire, chauve-souris, monstre, bonbons, déguisement, araignée ou squelette, selon la grille choisie.",
+      "Les listes Halloween mêlent le lexique d'octobre : citrouille, fantôme, sorcière, vampire, chauve-souris, monstre, bonbons, déguisement, araignée ou squelette, selon la grille choisie.",
   },
   {
     question: "Quand utiliser ces mots cachés Halloween en classe ?",
     answer:
-      "Idéal en octobre, avant la Toussaint : activité calme après un atelier déguisement, échauffement avant une histoire d'automne ou fiche à distribuer lors de la dernière semaine avant les vacances.",
+      "Idéal en octobre sur la page Halloween : activité calme après un atelier déguisement ou fiche à distribuer avant la Toussaint.",
   },
   {
     question: "Ces grilles conviennent-elles aux plus jeunes ?",
     answer:
-      "Oui : commencez par des grilles faciles en grandes lettres en maternelle ou CP. Les mots restent ludiques — citrouille, bonbons, fantôme — sans vocabulaire trop anxiogène sur chaque fiche.",
+      "Oui : commencez par des grilles Halloween faciles en maternelle ou CP — citrouille, bonbons, fantôme — sans vocabulaire trop anxiogène.",
   },
   {
     question: "Peut-on jouer en ligne ou imprimer les mots mêlés Halloween ?",
     answer:
-      "Les deux modes sont disponibles : partie immédiate dans le navigateur, ou téléchargement PDF A4 avec corrigé pour la maison et la classe.",
+      "Les deux modes sont disponibles sur la rubrique Halloween : partie en ligne ou PDF A4 avec corrigé pour la maison et la classe.",
   },
   {
     question: "Existe-t-il des grilles Halloween par niveau scolaire ?",

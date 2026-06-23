@@ -25,12 +25,12 @@ export const FRUITS_FAQ: FaqItem[] = [
   {
     question: "À quel niveau proposer ces mots mêlés fruits ?",
     answer:
-      "Dès la maternelle avec des grilles courtes ; le CP et le CE1 accueillent des mots plus longs comme ananas, mangue ou pastèque, avec des diagonales progressives.",
+      "Dès la maternelle avec des grilles Fruits courtes ; le CP et le CE1 accueillent ananas, mangue ou pastèque, avec un vocabulaire fruits plus riche.",
   },
   {
     question: "Peut-on jouer en ligne ou imprimer les grilles Fruits ?",
     answer:
-      "Les deux modes sont disponibles : partie immédiate dans le navigateur, ou téléchargement PDF A4 avec corrigé pour la maison et la classe.",
+      "Les deux modes sont disponibles sur la rubrique Fruits : partie en ligne ou PDF A4 avec corrigé pour la maison et la classe.",
   },
   {
     question: "Le vocabulaire fruits inclut-il des fruits exotiques ?",

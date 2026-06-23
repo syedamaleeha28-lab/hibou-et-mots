@@ -20,7 +20,7 @@ export const ANIMAUX_FAQ: FaqItem[] = [
   {
     question: "À quel niveau proposer des mots cachés animaux ?",
     answer:
-      "Dès la maternelle avec des grilles courtes en grandes lettres ; le vocabulaire s'étoffe au CP et au CE1, puis les diagonales conviennent aux élèves du primaire qui lisent déjà couramment.",
+      "Dès la maternelle avec des grilles Animaux courtes en grandes lettres ; le vocabulaire animaux s'étoffe au CP et au CE1, puis les diagonales conviennent aux élèves du primaire.",
   },
   {
     question: "Comment utiliser ce thème comme activité éducative en classe ?",
@@ -30,11 +30,11 @@ export const ANIMAUX_FAQ: FaqItem[] = [
   {
     question: "Peut-on imprimer ou jouer en ligne les mots mêlés Animaux ?",
     answer:
-      "Les deux : ouvrez une grille dans le navigateur pour une partie immédiate, ou téléchargez le PDF A4 avec solution pour la maison ou la classe.",
+      "Les deux : ouvrez une grille Animaux dans le navigateur pour une partie immédiate, ou téléchargez le PDF A4 avec solution depuis la rubrique Animaux.",
   },
   {
     question: "Existe-t-il des grilles Animaux par niveau scolaire ?",
     answer:
-      "Oui, croisez ce thème avec un niveau — maternelle, CP, CE1 — via les pages École ou choisissez une difficulté facile, moyenne ou difficile selon l'âge de l'enfant.",
+      "Oui, croisez le thème Animaux avec un niveau — maternelle, CP, CE1 — via les pages École ou choisissez une difficulté facile sur la rubrique Animaux.",
   },
 ]

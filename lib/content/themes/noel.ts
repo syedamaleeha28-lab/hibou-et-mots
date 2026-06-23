@@ -25,12 +25,12 @@ export const NOEL_FAQ: FaqItem[] = [
   {
     question: "Ces grilles conviennent-elles aux vacances scolaires à la maison ?",
     answer:
-      "Oui : imprimez plusieurs PDF pour occuper les journées sans écran, compléter un calendrier de l'Avent ou animer un goûter de réveillon entre cousins.",
+      "Oui : imprimez plusieurs PDF Noël pour occuper les vacances scolaires, compléter un calendrier de l'Avent ou animer un goûter de réveillon.",
   },
   {
     question: "Peut-on jouer en ligne ou imprimer les mots mêlés Noël ?",
     answer:
-      "Les deux modes sont disponibles : partie immédiate dans le navigateur, ou téléchargement PDF A4 avec corrigé pour la maison et la classe.",
+      "Les deux modes sont disponibles sur la rubrique Noël : partie en ligne ou PDF A4 avec corrigé pour la maison et la classe.",
   },
   {
     question: "Existe-t-il des grilles Noël par niveau scolaire ?",

@@ -26,7 +26,8 @@ import {
   mockThemeRecord,
   staticMockPuzzleCards,
 } from "@/lib/db/adapters/mock-utils"
-import { getPhase1Faq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
+import { getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
+import { getCategoryFaq } from "@/lib/content/category-faqs"
 import { getThemeMetaDescription } from "@/lib/content/themes"
 
 function phase1Intro(slug: string, fallback: string): string {
@@ -34,7 +35,7 @@ function phase1Intro(slug: string, fallback: string): string {
 }
 
 function phase1Faq(slug: string) {
-  return getPhase1Faq(slug) ?? undefined
+  return getCategoryFaq(slug) ?? undefined
 }
 
 const gradeSubCategories: SubCategoryLink[] = gradeSeed.map((grade) => ({
@@ -316,6 +317,7 @@ export function mockGradeCategoryPageData(gradeSlug: string, page = 1): Category
     seoTitle: grade.seoTitle,
     metaDescription: grade.metaDescription,
     introText: grade.introText,
+    faqJson: getCategoryFaq(grade.slug) ?? null,
     grade: mockGradeRecord({
       slug: grade.slug,
       name: grade.name,
@@ -353,7 +355,7 @@ export function mockThemeCategoryPageData(themeSlug: string, page = 1): Category
       getThemeMetaDescription(theme.slug) ??
       `Des mots mêlés gratuits sur le thème ${theme.name}, à imprimer et à jouer en ligne.`,
     introText: getPhase1Intro(theme.slug) ?? themeCategoryIntro(theme.name),
-    faqJson: getPhase1Faq(theme.slug) ?? null,
+    faqJson: getCategoryFaq(theme.slug) ?? null,
     theme: themeRecord,
   })
 
@@ -387,7 +389,7 @@ export function mockSeasonalCategoryPageData(themeSlug: string, page = 1): Categ
       getThemeMetaDescription(theme.slug) ??
       `Des mots mêlés ${theme.name} gratuits à imprimer et à jouer en ligne.`,
     introText: getPhase1Intro(theme.slug) ?? seasonalCategoryIntro(theme.name),
-    faqJson: getPhase1Faq(theme.slug) ?? null,
+    faqJson: getCategoryFaq(theme.slug) ?? null,
     theme: themeRecord,
   })
 
@@ -410,6 +412,7 @@ export function mockDifficultyCategoryPageData(levelSlug: string, page = 1): Cat
     seoTitle: `Mots mêlés ${level.name} — Grilles gratuites`,
     metaDescription: `Des mots mêlés de difficulté ${level.name.toLowerCase()} à imprimer gratuitement.`,
     introText: `Sélection de grilles ${level.name.toLowerCase()} pour progresser à votre rythme.`,
+    faqJson: getCategoryFaq(level.slug) ?? null,
     difficulty: mockDifficultyRecord(level),
   })
 
@@ -445,6 +448,7 @@ export function mockComboCategoryPageData(
     seoTitle: `Mots mêlés ${grade.name} ${theme.name} — Grilles gratuites`,
     metaDescription: `Mots mêlés ${grade.name} sur le thème ${theme.name}, gratuits à imprimer et à jouer en ligne.`,
     introText: `Grilles croisant le niveau ${grade.name} et le thème ${theme.name}, idéales pour une activité ciblée.`,
+    faqJson: getCategoryFaq(`${grade.slug}-${theme.slug}`) ?? null,
     grade: gradeRecord,
     theme: themeRecord,
   })
@@ -510,6 +514,7 @@ export function mockPressBrandCategoryPageData(brandSlug: string, page = 1): Cat
     seoTitle: `Mots mêlés ${brand.name} — Grilles gratuites`,
     metaDescription: `Des mots mêlés inspirés de ${brand.name}, gratuits à jouer en ligne.`,
     introText: `Retrouvez le style des grilles de ${brand.name} en version web et PDF.`,
+    faqJson: getCategoryFaq(brand.slug) ?? null,
     pressBrand: {
       id: `mock-press-${brand.slug}`,
       slug: brand.slug,
@@ -541,6 +546,7 @@ export function mockStaticSupportCategoryPageData(
     seoTitle: def.seoTitle,
     metaDescription: def.metaDescription,
     introText: def.introText,
+    faqJson: getCategoryFaq(def.slug) ?? null,
   })
 
   const base = mapCategoryToPageData(category, staticMockPuzzleCards(def.slug, 4), {

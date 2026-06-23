@@ -15,7 +15,7 @@ export const SPORT_FAQ: FaqItem[] = [
   {
     question: "Quelles disciplines figurent dans les grilles Sport ?",
     answer:
-      "Les listes mêlent football, basket, tennis, natation, vélo, rugby, gymnastique, athlétisme, handball ou course, selon la grille choisie.",
+      "Les listes sport mêlent football, basket, tennis, natation, vélo, rugby, gymnastique, athlétisme, handball ou course, selon la grille choisie.",
   },
   {
     question: "Comment utiliser ce thème en éducation physique ?",
@@ -25,12 +25,12 @@ export const SPORT_FAQ: FaqItem[] = [
   {
     question: "Ces mots mêlés conviennent-ils aux plus jeunes ?",
     answer:
-      "Oui : commencez par des grilles faciles avec football, vélo ou course ; les mots plus longs — gymnastique, athlétisme — arrivent progressivement au CE1 et au CE2.",
+      "Oui : commencez par des grilles Sport faciles avec football, vélo ou course ; gymnastique et athlétisme arrivent progressivement au CE1 et au CE2.",
   },
   {
     question: "Peut-on jouer en ligne ou imprimer les grilles Sport ?",
     answer:
-      "Les deux modes sont disponibles : partie immédiate dans le navigateur, ou téléchargement PDF A4 avec corrigé pour la maison et la classe.",
+      "Les deux modes sont disponibles sur la rubrique Sport : partie en ligne ou PDF A4 avec corrigé pour la maison et la classe.",
   },
   {
     question: "Le thème Sport couvre-t-il les sports collectifs et individuels ?",

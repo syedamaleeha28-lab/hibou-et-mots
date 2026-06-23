@@ -6,9 +6,8 @@ import {
   MVP_PRESS_BRANDS,
 } from "@/lib/db/adapters/category-constants"
 import { difficultySeed } from "./difficulties"
-import { getPhase1Faq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
+import { getCategoryFaq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
 import { getThemeMetaDescription } from "@/lib/content/themes"
-import { faqPlaceholderFor } from "./faq"
 import { gradeSeed } from "./grades"
 import { themeSeed } from "./themes"
 
@@ -334,13 +333,10 @@ export async function seedCategories(prisma: PrismaClient): Promise<Map<string, 
   const categoryIdBySlug = new Map<string, string>()
 
   for (const def of CATEGORY_SEED_DEFINITIONS) {
-    const faqJson =
-      getPhase1Faq(def.slug) ??
-      faqPlaceholderFor(def.type, {
-        isHub: def.isHub,
-        isSeasonal: def.type === "SEASONAL",
-        isStaticSupport: def.isStaticSupport,
-      })
+    const faqJson = getCategoryFaq(def.slug)
+    if (!faqJson) {
+      throw new Error(`Missing category FAQ for slug: ${def.slug}`)
+    }
     const introText = getPhase1Intro(def.slug) ?? def.introText
 
     const record = await prisma.category.upsert({

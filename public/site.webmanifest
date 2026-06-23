@@ -1,0 +1,21 @@
+{
+  "name": "Hibou&Mots",
+  "short_name": "Hibou&Mots",
+  "description": "Mots mêlés gratuits à imprimer et jouer en ligne",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#FFF4E2",
+  "background_color": "#FFF4E2",
+  "display": "standalone",
+  "lang": "fr"
+}

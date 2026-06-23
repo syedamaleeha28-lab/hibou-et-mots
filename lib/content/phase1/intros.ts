@@ -17,11 +17,11 @@ export const PHASE1_INTROS: Record<string, string> = {
 }
 
 export function themeCategoryIntro(themeName: string): string {
-  return `Explore des grilles de mots mêlés sur le thème ${themeName} : un jeu de mots cachés pour enrichir le vocabulaire en s'amusant.`
+  return `Explore des grilles de mots mêlés sur le thème ${themeName} : un jeu de mots cachés et puzzle de mots pour enrichir le vocabulaire en s'amusant. Chaque grille de lettres se joue en ligne ou s'imprime gratuitement.`
 }
 
 export function seasonalCategoryIntro(themeName: string): string {
-  return `Des grilles festives de mots mêlés sur le thème ${themeName} — jeux de mots cachés pour la maison ou la classe.`
+  return `Des grilles festives de mots mêlés sur le thème ${themeName} — jeux de mots cachés et puzzles de mots pour la maison ou la classe, un jeu de lettres calme à partager en famille.`
 }
 
 export function getPhase1Intro(slug: string): string | undefined {

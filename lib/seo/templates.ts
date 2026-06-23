@@ -1,5 +1,6 @@
 import type { CategoryType, FaqItem } from "@/lib/db/types/page-data"
 import { getCategoryFaq } from "@/lib/content/category-faqs"
+import { PUZZLE_SYNONYM_PHRASE } from "@/lib/content/synonym-phrases"
 
 type FaqTemplateSlot = "grade" | "theme" | "combo" | "difficulty" | "audience" | "hub" | "seasonal" | "press"
 
@@ -8,7 +9,7 @@ const FAQ_TEMPLATES: Record<FaqTemplateSlot, FaqItem[]> = {
     {
       question: "Pour quel niveau scolaire sont ces mots mêlés ?",
       answer:
-        "Ces grilles sont conçues pour le niveau indiqué sur la page, avec un vocabulaire et une taille de grille adaptés aux élèves de cette classe.",
+        "Ces grilles de lettres sont conçues pour le niveau indiqué sur la page, avec un vocabulaire et une taille de puzzle de mots adaptés aux élèves de cette classe.",
     },
     {
       question: "Puis-je imprimer ces mots mêlés gratuitement ?",
@@ -66,7 +67,7 @@ const FAQ_TEMPLATES: Record<FaqTemplateSlot, FaqItem[]> = {
     {
       question: "Quelle difficulté choisir ?",
       answer:
-        "Facile pour débuter, Moyen pour un peu de challenge, Difficile pour les experts, et Géant pour les très grandes grilles.",
+        "Facile pour débuter ce jeu de lettres, Moyen pour un word search intermédiaire, Difficile pour les experts, et Géant pour les très grandes grilles de mots cachés.",
     },
     {
       question: "La difficulté change-t-elle la taille de la grille ?",
@@ -78,7 +79,7 @@ const FAQ_TEMPLATES: Record<FaqTemplateSlot, FaqItem[]> = {
     {
       question: "Ces mots mêlés sont-ils adaptés à mon public ?",
       answer:
-        "Chaque page cible un public précis — enfants, adultes ou seniors — avec un vocabulaire et une présentation adaptés.",
+        "Chaque page cible un public précis — enfants, adultes ou seniors — avec un vocabulaire et une grille de lettres adaptés à ce jeu de mots cachés.",
     },
     {
       question: "Puis-je jouer en ligne ou imprimer ?",
@@ -90,7 +91,7 @@ const FAQ_TEMPLATES: Record<FaqTemplateSlot, FaqItem[]> = {
     {
       question: "Combien de grilles gratuites proposez-vous ?",
       answer:
-        "Notre bibliothèque grandit chaque semaine avec de nouvelles grilles à imprimer et à jouer en ligne, toutes gratuites.",
+        "Notre bibliothèque grandit chaque semaine avec de nouveaux puzzles de mots et grilles de lettres à imprimer ou à jouer en ligne, tous gratuits.",
     },
     {
       question: "Comment trouver un mots mêlés par niveau ou par thème ?",
@@ -147,7 +148,7 @@ export function resolvePuzzleFaq(storedFaq: FaqItem[] | null | undefined): FaqIt
     {
       question: "Comment jouer à ce mots mêlés ?",
       answer:
-        "Trouvez tous les mots cachés dans la grille. Les mots peuvent être lus horizontalement, verticalement ou en diagonale, dans les deux sens.",
+        `${PUZZLE_SYNONYM_PHRASE} Les mots peuvent être lus horizontalement, verticalement ou en diagonale, dans les deux sens.`,
     },
     {
       question: "Puis-je imprimer cette grille ?",

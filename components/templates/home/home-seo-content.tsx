@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ROUTES } from "@/lib/seo/routes"
+import { HOME_SYNONYM_PHRASE } from "@/lib/content/synonym-phrases"
 import { SectionHeading } from "@/components/layout/section-heading"
 
 export function HomeSeoIntro() {
@@ -8,7 +8,7 @@ export function HomeSeoIntro() {
       <SectionHeading
         eyebrow="Découvrir"
         title="Des mots mêlés gratuits pour toute la famille"
-        description="Hibou&Mots réunit des grilles en français pour l'école, les thèmes du quotidien et les fêtes de l'année — du CP à la 6e, et aussi pour les adultes et les seniors."
+        description={`Hibou&Mots réunit des grilles en français pour l'école, les thèmes du quotidien et les fêtes de l'année — du CP à la 6e, et aussi pour les adultes et les seniors. ${HOME_SYNONYM_PHRASE}`}
       />
       <div className="mt-8 flex flex-col gap-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
         <p>

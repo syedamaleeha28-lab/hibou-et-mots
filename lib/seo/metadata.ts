@@ -8,6 +8,7 @@ import {
   DEFAULT_OG_IMAGE_WIDTH,
   resolveOgImageUrl,
 } from "./og-image"
+import { HOME_SYNONYM_PHRASE } from "@/lib/content/synonym-phrases"
 
 const SITE_NAME = "Hibou&Mots"
 
@@ -161,7 +162,7 @@ export async function buildHomeMetadata(siteUrl?: string): Promise<Metadata> {
   const title = override?.title ?? "Hibou&Mots — Mots mêlés gratuits à imprimer et jouer en ligne"
   const description =
     override?.metaDescription ??
-    "Des mots mêlés gratuits en français pour les enfants, les enseignants, les adultes et les seniors. Grilles à imprimer, thèmes variés et générateur en ligne."
+    `${HOME_SYNONYM_PHRASE} Grilles à imprimer, thèmes variés et générateur en ligne.`
 
   return {
     title,

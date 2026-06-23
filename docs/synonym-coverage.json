@@ -1,0 +1,816 @@
+{
+  "generatedAt": "2026-06-23T19:26:23.955Z",
+  "auditedPageCount": 50,
+  "synonymTotals": {
+    "mots-meles": 50,
+    "mots-caches": 50,
+    "grille-lettres": 50,
+    "jeu-lettres": 50,
+    "puzzle-mots": 50,
+    "word-search": 50
+  },
+  "pagesMissingSynonyms": [],
+  "pagesWithWeakCoverage": [],
+  "pages": [
+    {
+      "path": "/",
+      "slug": "home",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/application-mots-meles/",
+      "slug": "application",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/generateur-mots-meles/",
+      "slug": "generateur",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/jeux-magazines-mots-meles/",
+      "slug": "jeux-magazines",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/jouer-mots-meles-en-ligne/",
+      "slug": "jouer",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-a-imprimer/",
+      "slug": "hub-imprimer",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-adultes/",
+      "slug": "adultes",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-difficulte/",
+      "slug": "hub-difficulte",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-difficulte/difficile/",
+      "slug": "difficile",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-difficulte/facile/",
+      "slug": "facile",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-difficulte/geant/",
+      "slug": "geant",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-difficulte/moyen/",
+      "slug": "moyen",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/",
+      "slug": "hub-ecole",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/6e/",
+      "slug": "6e",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/ce1/",
+      "slug": "ce1",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/ce1/halloween/",
+      "slug": "ce1-halloween",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/ce1/noel/",
+      "slug": "ce1-noel",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/ce2/",
+      "slug": "ce2",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/cm1/",
+      "slug": "cm1",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/cm2/",
+      "slug": "cm2",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/cp/",
+      "slug": "cp",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/maternelle/",
+      "slug": "maternelle",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-enfants/",
+      "slug": "enfants",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/",
+      "slug": "hub-fetes",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/carnaval/",
+      "slug": "carnaval",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/ete/",
+      "slug": "ete",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/halloween/",
+      "slug": "halloween",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/noel/",
+      "slug": "noel",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/paques/",
+      "slug": "paques",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/rentree/",
+      "slug": "rentree",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-gratuits/",
+      "slug": "hub-gratuits",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-journaux-magazines/",
+      "slug": "hub-presse",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-journaux-magazines/la-croix/",
+      "slug": "la-croix",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-journaux-magazines/ouest-france/",
+      "slug": "ouest-france",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-journaux-magazines/sud-ouest/",
+      "slug": "sud-ouest",
+      "isImportant": false,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-pedagogie/",
+      "slug": "pedagogie",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-personnages/",
+      "slug": "personnages",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-seniors/",
+      "slug": "seniors",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/",
+      "slug": "hub-thematiques",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/animaux/",
+      "slug": "animaux",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/couleurs/",
+      "slug": "couleurs",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/famille/",
+      "slug": "famille",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/football/",
+      "slug": "football",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/fruits/",
+      "slug": "fruits",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/meteo/",
+      "slug": "meteo",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/pays-du-monde/",
+      "slug": "pays-du-monde",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/sport/",
+      "slug": "sport",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-thematiques/vocabulaire/",
+      "slug": "vocabulaire",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/ressources-enseignants-mots-meles/",
+      "slug": "ressources-enseignants",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    },
+    {
+      "path": "/solutions-regles-mots-meles/",
+      "slug": "solutions",
+      "isImportant": true,
+      "present": [
+        "mots-meles",
+        "mots-caches",
+        "grille-lettres",
+        "jeu-lettres",
+        "puzzle-mots",
+        "word-search"
+      ],
+      "missing": [],
+      "secondaryCount": 5,
+      "status": "complete"
+    }
+  ]
+}

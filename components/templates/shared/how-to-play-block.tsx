@@ -1,5 +1,5 @@
 import { MousePointerClick, Printer, Search } from "lucide-react"
-import { SectionHeading } from "@/components/layout/section-heading"
+import { HOW_TO_PLAY_SYNONYM_DESCRIPTION } from "@/lib/content/synonym-phrases"
 
 export function HowToPlayBlock() {
   const steps = [
@@ -11,7 +11,7 @@ export function HowToPlayBlock() {
     {
       icon: MousePointerClick,
       title: "Sélectionne les lettres",
-      text: "Les mots peuvent être horizontaux, verticaux ou diagonaux, dans les deux sens.",
+      text: "Chaque mot caché peut être horizontal, vertical ou diagonal — une grille de lettres classique.",
     },
     {
       icon: Printer,
@@ -26,7 +26,7 @@ export function HowToPlayBlock() {
         align="left"
         eyebrow="Comment jouer"
         title="3 étapes pour réussir"
-        description="Une méthode simple pour les enfants, les enseignants et toute la famille."
+        description={HOW_TO_PLAY_SYNONYM_DESCRIPTION}
       />
       <ol className="mt-8 grid gap-4 sm:grid-cols-3">
         {steps.map((step, index) => {

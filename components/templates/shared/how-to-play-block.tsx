@@ -1,4 +1,5 @@
 import { MousePointerClick, Printer, Search } from "lucide-react"
+import { SectionHeading } from "@/components/layout/section-heading"
 import { HOW_TO_PLAY_SYNONYM_DESCRIPTION } from "@/lib/content/synonym-phrases"
 
 export function HowToPlayBlock() {

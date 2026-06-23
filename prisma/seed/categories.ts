@@ -9,6 +9,7 @@ import { difficultySeed } from "./difficulties"
 import { getCategoryFaq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
 import { ADULTES_INTRO, ADULTES_META_DESCRIPTION } from "@/lib/content/adultes"
 import { PEDAGOGIE_INTRO, PEDAGOGIE_META_DESCRIPTION } from "@/lib/content/pedagogie"
+import { RESSOURCES_ENSEIGNANTS_INTRO } from "@/lib/content/educational-entities"
 import { SENIORS_INTRO, SENIORS_META_DESCRIPTION } from "@/lib/content/seniors"
 import { getThemeMetaDescription } from "@/lib/content/themes"
 import { gradeSeed } from "./grades"
@@ -249,9 +250,8 @@ const STATIC_SUPPORT_DEFINITIONS: CategorySeedDefinition[] = [
     h1: "Ressources enseignants — Mots mêlés",
     seoTitle: "Ressources enseignants mots mêlés",
     metaDescription:
-      "Ressources gratuites pour les enseignants : grilles, fiches et idées d'activités autour des mots mêlés.",
-    introText:
-      "Des ressources prêtes à l'emploi pour animer vos cours avec des mots mêlés par niveau et par thème.",
+      "Ressources gratuites pour les enseignants : grilles, fiches et idées d'activités autour des mots mêlés et du vocabulaire scolaire.",
+    introText: RESSOURCES_ENSEIGNANTS_INTRO,
     isStaticSupport: true,
   },
 ]

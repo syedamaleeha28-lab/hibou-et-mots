@@ -3,12 +3,12 @@ import { ROUTES, gradePath } from "@/lib/seo/routes"
 
 /** Authority hub intro for /mots-meles-pedagogie/ */
 export const PEDAGOGIE_INTRO = [
-  "Les mots mêlés occupent une place singulière dans l'apprentissage du français au primaire : ils transforment une liste de vocabulaire en chasse aux lettres, sans l'effort perçu d'une fiche d'exercices classique. Cette page rassemble les repères pédagogiques pour enseignants et parents — bienfaits cognitifs, progression par niveau du CP au CM2, usages en classe et à la maison — avec des liens directs vers les grilles calibrées pour chaque cycle.",
-  "Hibou&Mots propose des puzzles gratuits, imprimables en PDF avec corrigé ou jouables en ligne, pensés pour accompagner la lecture, l'orthographe et le développement du vocabulaire. Que vous prépariez une séance de français, un devoir maison ou un moment calme le week-end, vous trouverez ici le cadre pédagogique pour choisir la bonne grille et en tirer le maximum pour vos élèves ou vos enfants.",
+  "Les mots mêlés occupent une place singulière dans l'apprentissage du français au primaire : ils transforment une liste de vocabulaire scolaire en chasse aux lettres, sans l'effort perçu d'une fiche d'exercices classique. Cette page rassemble les repères pédagogiques pour enseignants et parents — alignés sur les cycles de l'Éducation nationale, du Cycle 1 au Cycle 3 — avec des liens directs vers les grilles calibrées pour chaque classe.",
+  "Hibou&Mots propose des puzzles gratuits, imprimables en PDF avec corrigé ou jouables en ligne, pensés pour accompagner l'apprentissage de la lecture, l'orthographe et la compréhension écrite. Que vous prépariez une séance de français, un devoir maison ou un moment calme le week-end, vous trouverez ici le cadre pédagogique pour choisir la bonne grille et en tirer le maximum pour vos élèves ou vos enfants.",
 ].join("\n\n")
 
 export const PEDAGOGIE_META_DESCRIPTION =
-  "Guide pédagogique des mots mêlés : bienfaits, vocabulaire, lecture, orthographe, concentration et repérage visuel. Conseils pour la classe et la maison, du CP au CM2."
+  "Guide pédagogique des mots mêlés : cycles Éducation nationale, vocabulaire scolaire, apprentissage de la lecture et compréhension écrite. Conseils pour la classe et la maison, du CP au CM2."
 
 export const PEDAGOGIE_FAQ: FaqItem[] = [
   {
@@ -69,7 +69,7 @@ export const PEDAGOGIE_SECTIONS: PedagogieSection[] = [
     id: "lecture",
     title: "Améliorer la lecture grâce au repérage dans la grille",
     paragraphs: [
-      "Trouver un mot dans une grille oblige à le lire comme une unité, pas seulement à le décoder syllabe par syllabe. L'enfant parcourt les lettres dans l'ordre, parfois en sens inverse, et doit reconnaître la chaîne complète — une compétence proche de la lecture fluide de mots outils au CP et du repérage rapide de morphèmes au cycle 3.",
+      "Trouver un mot dans une grille oblige à le lire comme une unité, pas seulement à le décoder syllabe par syllabe. L'enfant parcourt les lettres dans l'ordre, parfois en sens inverse, et doit reconnaître la chaîne complète — une compétence proche de la lecture fluide de mots outils au CP et du repérage rapide de morphèmes au Cycle 3.",
       "Les premières années du primaire bénéficient de listes courtes et de grilles compactes. Un élève de CP qui cherche « chat » ou « maison » dans une grille 8×8 travaille la correspondance graphème-phonème sans surcharge visuelle. Plus tard, des mots plus longs et des directions variées sollicitent la lecture silencieuse et la relecture contrôlée.",
       "Associez la grille à une phase de lecture à voix haute : l'adulte lit un mot de la liste, l'enfant le cherche. Ce binôme renforce l'écoute et la correspondance oral-écrit. En classe, projetez la liste pendant que les élèves travaillent sur papier pour soutenir ceux qui peinent encore sur le décodage.",
     ],

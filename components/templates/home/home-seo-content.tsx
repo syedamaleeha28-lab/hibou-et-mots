@@ -59,8 +59,8 @@ export function HomePedagogySection() {
         <p className="mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground">
           Trouver un mot caché dans la grille oblige l&apos;enfant à mémoriser sa forme visuelle
           complète, ce qui complète la lecture syllabique et la dictée. En classe comme à la maison,
-          c&apos;est une activité calme qui convient aux cycles 2 et 3 du primaire et prépare
-          progressivement le vocabulaire exigé au collège.
+          c&apos;est une activité calme qui convient aux cycles 2 et 3 du primaire, soutient
+          l&apos;apprentissage de la lecture et enrichit le vocabulaire scolaire sans surcharge.
         </p>
       </div>
     </section>

@@ -1,0 +1,231 @@
+{
+  "generatedAt": "2026-06-23T19:32:01.016Z",
+  "auditedPageCount": 12,
+  "entityTotals": {
+    "education-nationale": 3,
+    "cycle-1": 4,
+    "cycle-2": 5,
+    "cycle-3": 5,
+    "apprentissage-lecture": 6,
+    "vocabulaire-scolaire": 9,
+    "comprehension-ecrite": 5
+  },
+  "corpusMissingEntities": [],
+  "pagesWithWeakCoverage": [],
+  "pages": [
+    {
+      "path": "/",
+      "slug": "home-pedagogy",
+      "pageType": "snippet",
+      "present": [
+        "apprentissage-lecture",
+        "vocabulaire-scolaire"
+      ],
+      "missing": [
+        "education-nationale",
+        "cycle-1",
+        "cycle-2",
+        "cycle-3",
+        "comprehension-ecrite"
+      ],
+      "entityCount": 2,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/",
+      "slug": "hub-ecole",
+      "pageType": "hub",
+      "present": [
+        "education-nationale",
+        "cycle-1",
+        "cycle-2",
+        "cycle-3",
+        "apprentissage-lecture",
+        "vocabulaire-scolaire",
+        "comprehension-ecrite"
+      ],
+      "missing": [],
+      "entityCount": 7,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/6e/",
+      "slug": "6e",
+      "pageType": "grade",
+      "present": [
+        "vocabulaire-scolaire"
+      ],
+      "missing": [
+        "education-nationale",
+        "cycle-1",
+        "cycle-2",
+        "cycle-3",
+        "apprentissage-lecture",
+        "comprehension-ecrite"
+      ],
+      "entityCount": 1,
+      "status": "adequate"
+    },
+    {
+      "path": "/mots-meles-ecole/ce1/",
+      "slug": "ce1",
+      "pageType": "grade",
+      "present": [
+        "cycle-2",
+        "vocabulaire-scolaire"
+      ],
+      "missing": [
+        "education-nationale",
+        "cycle-1",
+        "cycle-3",
+        "apprentissage-lecture",
+        "comprehension-ecrite"
+      ],
+      "entityCount": 2,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/ce2/",
+      "slug": "ce2",
+      "pageType": "grade",
+      "present": [
+        "cycle-2",
+        "comprehension-ecrite"
+      ],
+      "missing": [
+        "education-nationale",
+        "cycle-1",
+        "cycle-3",
+        "apprentissage-lecture",
+        "vocabulaire-scolaire"
+      ],
+      "entityCount": 2,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/cm1/",
+      "slug": "cm1",
+      "pageType": "grade",
+      "present": [
+        "cycle-3",
+        "vocabulaire-scolaire"
+      ],
+      "missing": [
+        "education-nationale",
+        "cycle-1",
+        "cycle-2",
+        "apprentissage-lecture",
+        "comprehension-ecrite"
+      ],
+      "entityCount": 2,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/cm2/",
+      "slug": "cm2",
+      "pageType": "grade",
+      "present": [
+        "cycle-3",
+        "comprehension-ecrite"
+      ],
+      "missing": [
+        "education-nationale",
+        "cycle-1",
+        "cycle-2",
+        "apprentissage-lecture",
+        "vocabulaire-scolaire"
+      ],
+      "entityCount": 2,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/cp/",
+      "slug": "cp",
+      "pageType": "grade",
+      "present": [
+        "cycle-2",
+        "apprentissage-lecture"
+      ],
+      "missing": [
+        "education-nationale",
+        "cycle-1",
+        "cycle-3",
+        "vocabulaire-scolaire",
+        "comprehension-ecrite"
+      ],
+      "entityCount": 2,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-ecole/maternelle/",
+      "slug": "maternelle",
+      "pageType": "grade",
+      "present": [
+        "cycle-1",
+        "vocabulaire-scolaire"
+      ],
+      "missing": [
+        "education-nationale",
+        "cycle-2",
+        "cycle-3",
+        "apprentissage-lecture",
+        "comprehension-ecrite"
+      ],
+      "entityCount": 2,
+      "status": "complete"
+    },
+    {
+      "path": "/mots-meles-enfants/",
+      "slug": "enfants",
+      "pageType": "hub",
+      "present": [
+        "cycle-1",
+        "cycle-3",
+        "apprentissage-lecture",
+        "vocabulaire-scolaire"
+      ],
+      "missing": [
+        "education-nationale",
+        "cycle-2",
+        "comprehension-ecrite"
+      ],
+      "entityCount": 4,
+      "status": "adequate"
+    },
+    {
+      "path": "/mots-meles-pedagogie/",
+      "slug": "pedagogie",
+      "pageType": "hub",
+      "present": [
+        "education-nationale",
+        "cycle-1",
+        "cycle-2",
+        "cycle-3",
+        "apprentissage-lecture",
+        "vocabulaire-scolaire",
+        "comprehension-ecrite"
+      ],
+      "missing": [],
+      "entityCount": 7,
+      "status": "complete"
+    },
+    {
+      "path": "/ressources-enseignants-mots-meles/",
+      "slug": "ressources-enseignants",
+      "pageType": "support",
+      "present": [
+        "education-nationale",
+        "apprentissage-lecture",
+        "vocabulaire-scolaire",
+        "comprehension-ecrite"
+      ],
+      "missing": [
+        "cycle-1",
+        "cycle-2",
+        "cycle-3"
+      ],
+      "entityCount": 4,
+      "status": "adequate"
+    }
+  ]
+}

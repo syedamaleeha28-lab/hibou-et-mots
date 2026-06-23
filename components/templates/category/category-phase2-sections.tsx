@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
+import { ECOLE_CYCLE_BLOCKS, ECOLE_HUB_CYCLE_INTRO, type EducationalCycleBlock } from "@/lib/content/educational-entities"
 import { ROUTES, gradePath, seasonalPath, themePath } from "@/lib/seo/routes"
 import { gradeSeed } from "@/prisma/seed/grades"
 
@@ -387,6 +388,12 @@ function EcolePhase2() {
   const cycle3 = gradeSeed.filter((g) => ["cm1", "cm2"].includes(g.slug))
   const college = gradeSeed.filter((g) => g.slug === "6e")
 
+  const cycleLinks: Record<EducationalCycleBlock["id"], typeof cycle1> = {
+    "cycle-1": cycle1,
+    "cycle-2": cycle2,
+    "cycle-3": cycle3,
+  }
+
   return (
     <>
       <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
@@ -394,65 +401,26 @@ function EcolePhase2() {
           align="left"
           eyebrow="Cycles"
           title="Des grilles alignées sur les cycles scolaires"
-          description="Maternelle, primaire et début de collège — chaque cycle a ses propres attentes en vocabulaire et en taille de grille."
+          description={ECOLE_HUB_CYCLE_INTRO}
         />
 
         <div className="mt-6 flex flex-col gap-6">
-          <div>
-            <h3 className="font-heading text-lg font-extrabold text-foreground">Cycle 1 — Éveil et découverte</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              En maternelle, les grilles courtes en grandes lettres favorisent le premier contact avec
-              l&apos;écrit. Les mots restent très courts ; l&apos;objectif est le plaisir de
-              retrouver une forme connue, pas la vitesse. Les enseignants s&apos;en servent pour
-              introduire le vocabulaire de la classe, les prénoms ou les thèmes de la semaine sans
-              imposer une lecture fluide immédiate.
-            </p>
-            <InternalLinks
-              links={cycle1.map((g) => ({
-                href: gradePath(g.slug),
-                label: `Grilles ${g.name}`,
-              }))}
-            />
-          </div>
-
-          <div>
-            <h3 className="font-heading text-lg font-extrabold text-foreground">
-              Cycle 2 — Apprentissages fondamentaux
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Du CP au CE2, les grilles accompagnent la lecture fluide et le vocabulaire thématique
-              (animaux, saison, classe). Les diagonales apparaissent progressivement ; les listes
-              reprennent des mots outils et des champs lexicaux du programme de français. En CP et
-              CE1, privilégiez des listes courtes liées à la lecture quotidienne ; au CE2, allongez
-              les mots et autorisez les directions croisées pour consolider l&apos;orthographe
-              visuelle.
-            </p>
-            <InternalLinks
-              links={cycle2.map((g) => ({
-                href: gradePath(g.slug),
-                label: `Mots mêlés ${g.name}`,
-              }))}
-            />
-          </div>
-
-          <div>
-            <h3 className="font-heading text-lg font-extrabold text-foreground">
-              Cycle 3 — Consolidation au primaire
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              En CM1 et CM2, les grilles deviennent plus denses : mots plus longs, directions
-              variées, vocabulaire de culture générale. Idéal pour une activité de fin de séance ou
-              un devoir maison ciblé sur un thème de la semaine. Les élèves peuvent comparer leurs
-              stratégies de recherche (horizontal d&apos;abord, puis diagonales) et chronométrer
-              leurs progrès sur plusieurs séances.
-            </p>
-            <InternalLinks
-              links={cycle3.map((g) => ({
-                href: gradePath(g.slug),
-                label: `Mots mêlés ${g.name}`,
-              }))}
-            />
-          </div>
+          {ECOLE_CYCLE_BLOCKS.map((block) => (
+            <div key={block.id}>
+              <h3 className="font-heading text-lg font-extrabold text-foreground">{block.title}</h3>
+              {block.paragraphs.map((paragraph) => (
+                <p key={paragraph.slice(0, 48)} className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {paragraph}
+                </p>
+              ))}
+              <InternalLinks
+                links={cycleLinks[block.id].map((g) => ({
+                  href: gradePath(g.slug),
+                  label: block.id === "cycle-1" ? `Grilles ${g.name}` : `Mots mêlés ${g.name}`,
+                }))}
+              />
+            </div>
+          ))}
 
           <div>
             <h3 className="font-heading text-lg font-extrabold text-foreground">Collège — 6e</h3>

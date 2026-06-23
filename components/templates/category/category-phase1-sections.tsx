@@ -104,8 +104,8 @@ function ImprimerSections() {
         Imprimer par thème ou par niveau
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-        Retrouvez des PDF prêts à imprimer classés par école, par fête de l&apos;année ou parmi
-        toutes les grilles gratuites du catalogue.
+        Retrouvez des PDF prêts à imprimer — mots mêlés et jeux de mots cachés — classés par école,
+        par fête de l&apos;année ou parmi toutes les grilles gratuites du catalogue.
       </p>
       <InternalLinks
         links={[

@@ -187,8 +187,9 @@ function ImprimerPhase2() {
           Tous les cahiers Hibou&Mots sont exportés en <strong className="text-foreground">PDF</strong>,
           pensés pour une impression <strong className="text-foreground">A4</strong> en{" "}
           <strong className="text-foreground">noir et blanc</strong>, avec le{" "}
-          <strong className="text-foreground">corrigé</strong> sur la page suivante. Voici les
-          thématiques les plus demandées :
+          <strong className="text-foreground">corrigé</strong> sur la page suivante. Chaque fichier
+          propose un jeu de mots cachés à retrouver dans la grille — voici les thématiques les plus
+          demandées :
         </p>
         <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
           <li>

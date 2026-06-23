@@ -23,8 +23,9 @@ export function GeneratorEditorial() {
           />
           <div className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Le générateur transforme votre propre liste de mots en grille prête à jouer. Contrairement
-              à un modèle figé, vous contrôlez le vocabulaire : mots de la semaine, prénoms,
+              Le générateur transforme votre propre liste de mots en grille de mots mêlés prête à
+              jouer — un jeu de mots cachés que vous personnalisez entièrement. Contrairement à un
+              modèle figé, vous contrôlez le vocabulaire : mots de la semaine, prénoms,
               thématique de projet ou liste de révision avant un contrôle. L&apos;aperçu en direct
               montre la grille générée instantanément ; vous ajustez la taille, la difficulté et les
               directions jusqu&apos;à obtenir le bon niveau.

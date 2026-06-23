@@ -22,7 +22,7 @@ const FAQ_PLACEHOLDERS: Record<FaqTemplateSlot, FaqItem[]> = {
     {
       question: "Comment trouver un mots mêlés par niveau ou par thème ?",
       answer:
-        "Parcourez les sous-catégories ci-dessous ou utilisez la recherche pour trouver rapidement la grille idéale.",
+        "Parcourez les sous-catégories ci-dessous ou utilisez la recherche pour trouver rapidement la grille de mots cachés idéale.",
     },
   ],
   grade: [
@@ -40,7 +40,7 @@ const FAQ_PLACEHOLDERS: Record<FaqTemplateSlot, FaqItem[]> = {
     {
       question: "Quels mots trouve-t-on dans ces grilles ?",
       answer:
-        "Les mots sont liés au thème de la page pour rendre le jeu plus amusant et éducatif.",
+        "Les mots sont liés au thème de la page pour rendre le jeu de mots cachés plus amusant et éducatif.",
     },
     {
       question: "Ces mots mêlés conviennent-ils aux enfants ?",

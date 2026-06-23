@@ -38,7 +38,7 @@ export function HomePedagogySection() {
           description="Un jeu qui renforce la lecture, l'orthographe et le repérage visuel — au primaire comme au collège."
         />
         <p className="mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          Trouver un mot dans la grille oblige l&apos;enfant à mémoriser sa forme visuelle
+          Trouver un mot caché dans la grille oblige l&apos;enfant à mémoriser sa forme visuelle
           complète, ce qui complète la lecture syllabique et la dictée. En classe comme à la maison,
           c&apos;est une activité calme qui convient aux cycles 2 et 3 du primaire et prépare
           progressivement le vocabulaire exigé au collège.

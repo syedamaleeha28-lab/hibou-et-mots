@@ -39,8 +39,9 @@ export function Hero() {
           </h1>
 
           <p className="max-w-md text-lg leading-relaxed text-muted-foreground text-pretty">
-            Des grilles pour la maternelle, le primaire, le collège, les adultes et les seniors.
-            Joue en ligne, imprime un PDF ou crée ta propre grille.
+            Des grilles de mots mêlés — jeux de mots cachés — pour la maternelle, le primaire, le
+            collège, les adultes et les seniors. Joue en ligne, imprime un PDF ou crée ta propre
+            grille.
           </p>
 
           <div className="flex flex-wrap items-center gap-3">

@@ -6,7 +6,7 @@ export const GENERATOR_FAQ: FaqItem[] = [
   {
     question: "Puis-je utiliser n'importe quels mots ?",
     answer:
-      "Oui, vous pouvez saisir librement vos propres mots. Le générateur place ensuite la liste dans une grille adaptée à la taille choisie.",
+      "Oui, vous pouvez saisir librement vos propres mots. Le générateur place ensuite la liste dans une grille de mots mêlés — un jeu de mots cachés — adaptée à la taille choisie.",
   },
   {
     question: "La grille générée peut-elle être imprimée ?",
@@ -56,6 +56,6 @@ export const HOME_FAQ: FaqItem[] = [
   {
     question: "Comment sont créées les grilles ?",
     answer:
-      "Les grilles du catalogue sont générées par notre moteur de puzzle puis vérifiées avant publication ; le générateur public permet aussi de créer des grilles personnalisées à la volée.",
+      "Les grilles du catalogue sont générées par notre moteur de puzzle puis vérifiées avant publication ; le générateur public permet aussi de créer des jeux de mots cachés personnalisés à la volée.",
   },
 ]

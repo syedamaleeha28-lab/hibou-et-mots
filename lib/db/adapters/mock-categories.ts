@@ -26,7 +26,7 @@ import {
   mockThemeRecord,
   staticMockPuzzleCards,
 } from "@/lib/db/adapters/mock-utils"
-import { getPhase1Faq, getPhase1Intro } from "@/lib/content/phase1"
+import { getPhase1Faq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
 
 function phase1Intro(slug: string, fallback: string): string {
   return getPhase1Intro(slug) ?? fallback
@@ -160,7 +160,7 @@ const HUB_DEFINITIONS = {
     metaDescription:
       "Explorez nos mots mêlés par thème : animaux, sport, vocabulaire, famille et bien d'autres sujets.",
     introText:
-      "Choisis un thème et découvre des grilles de mots mêlés adaptées aux enfants et aux adultes.",
+      "Choisis un thème et découvre des grilles de mots mêlés — jeux de mots cachés adaptés aux enfants et aux adultes.",
     subCategories: themeSubCategories,
   },
   [HUB_CATEGORY_SLUGS.difficulte]: {
@@ -349,7 +349,7 @@ export function mockThemeCategoryPageData(themeSlug: string, page = 1): Category
     h1: `Mots mêlés ${theme.name}`,
     seoTitle: `Mots mêlés ${theme.name} — Grilles gratuites à imprimer`,
     metaDescription: `Des mots mêlés gratuits sur le thème ${theme.name}, à imprimer et à jouer en ligne.`,
-    introText: `Explore des grilles de mots mêlés sur le thème ${theme.name}, parfaites pour enrichir le vocabulaire en s'amusant.`,
+    introText: themeCategoryIntro(theme.name),
     theme: themeRecord,
   })
 
@@ -380,7 +380,7 @@ export function mockSeasonalCategoryPageData(themeSlug: string, page = 1): Categ
     h1: `Mots mêlés ${theme.name}`,
     seoTitle: `Mots mêlés ${theme.name} — Grilles gratuites`,
     metaDescription: `Des mots mêlés ${theme.name} gratuits à imprimer et à jouer en ligne.`,
-    introText: `Des grilles festives sur le thème ${theme.name} pour la maison ou la classe.`,
+    introText: seasonalCategoryIntro(theme.name),
     theme: themeRecord,
   })
 

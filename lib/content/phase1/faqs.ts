@@ -38,7 +38,7 @@ export const PHASE1_FAQS: Record<string, FaqItem[]> = {
     {
       question: "Puis-je imprimer plusieurs grilles en une fois pour la classe ?",
       answer:
-        "Oui, parcourez une catégorie thématique ou scolaire et téléchargez autant de grilles que nécessaire pour vos élèves.",
+        "Oui, parcourez une catégorie thématique ou scolaire et téléchargez autant de mots mêlés — jeux de mots cachés — que nécessaire pour vos élèves.",
     },
   ],
   enfants: [

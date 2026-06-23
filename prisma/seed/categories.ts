@@ -6,7 +6,7 @@ import {
   MVP_PRESS_BRANDS,
 } from "@/lib/db/adapters/category-constants"
 import { difficultySeed } from "./difficulties"
-import { getPhase1Faq, getPhase1Intro } from "@/lib/content/phase1"
+import { getPhase1Faq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
 import { faqPlaceholderFor } from "./faq"
 import { gradeSeed } from "./grades"
 import { themeSeed } from "./themes"
@@ -80,7 +80,7 @@ const HUB_DEFINITIONS: CategorySeedDefinition[] = [
     metaDescription:
       "Explorez nos mots mêlés par thème : animaux, sport, vocabulaire, famille et bien d'autres sujets.",
     introText:
-      "Choisis un thème et découvre des grilles de mots mêlés adaptées aux enfants et aux adultes.",
+      "Choisis un thème et découvre des grilles de mots mêlés — jeux de mots cachés adaptés aux enfants et aux adultes.",
     isHub: true,
   },
   {
@@ -128,7 +128,7 @@ const THEME_DEFINITIONS: CategorySeedDefinition[] = themeSeed
     h1: `Mots mêlés ${theme.name}`,
     seoTitle: `Mots mêlés ${theme.name} — Grilles gratuites à imprimer`,
     metaDescription: `Des mots mêlés gratuits sur le thème ${theme.name}, à imprimer et à jouer en ligne.`,
-    introText: `Explore des grilles de mots mêlés sur le thème ${theme.name}, parfaites pour enrichir le vocabulaire en s'amusant.`,
+    introText: themeCategoryIntro(theme.name),
   }))
 
 const SEASONAL_DEFINITIONS: CategorySeedDefinition[] = themeSeed
@@ -141,7 +141,7 @@ const SEASONAL_DEFINITIONS: CategorySeedDefinition[] = themeSeed
     h1: `Mots mêlés ${theme.name}`,
     seoTitle: `Mots mêlés ${theme.name} — Grilles gratuites`,
     metaDescription: `Des mots mêlés ${theme.name} gratuits à imprimer et à jouer en ligne.`,
-    introText: `Des grilles festives sur le thème ${theme.name} pour la maison ou la classe.`,
+    introText: seasonalCategoryIntro(theme.name),
     isHub: false,
   }))
 

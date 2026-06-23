@@ -5,9 +5,11 @@ import {
   Hero,
   HomeChooseGridSection,
   HomeFaq,
+  HomePedagogicalApproachSection,
   HomePedagogySection,
   HomeSeoIntro,
   HomeSiloLinks,
+  HomeSynonymDifferenceSection,
   PopularPuzzles,
   PrintablePdfs,
   PuzzleGenerator,
@@ -29,10 +31,12 @@ export default function Home() {
       <SchemaJsonLd data={schemaGraph} />
       <Hero />
       <HomeSeoIntro />
+      <HomeSynonymDifferenceSection />
       <HomeSiloLinks />
       <FeaturedCategories />
       <PopularPuzzles />
       <HomePedagogySection />
+      <HomePedagogicalApproachSection />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AuthorAttribution />
       </div>

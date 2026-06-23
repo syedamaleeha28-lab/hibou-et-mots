@@ -1,4 +1,5 @@
 import type { FaqItem } from "@/lib/db/types/page-data"
+import { HOME_SEMANTIC_FAQ } from "@/lib/content/home"
 
 /** Phase 1 — editorial + FAQ for tool pages (no DB category). */
 
@@ -58,4 +59,5 @@ export const HOME_FAQ: FaqItem[] = [
     answer:
       "Les grilles du catalogue sont générées par notre moteur de puzzle puis vérifiées avant publication ; le générateur public permet aussi de créer des jeux de mots cachés personnalisés à la volée.",
   },
+  ...HOME_SEMANTIC_FAQ,
 ]

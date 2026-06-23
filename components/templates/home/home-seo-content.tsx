@@ -1,6 +1,13 @@
 import Link from "next/link"
-import { HOME_SYNONYM_PHRASE } from "@/lib/content/synonym-phrases"
 import { SectionHeading } from "@/components/layout/section-heading"
+import {
+  HOME_PEDAGOGICAL_APPROACH_PARAGRAPHS,
+  HOME_PEDAGOGICAL_APPROACH_TITLE,
+  HOME_SYNONYM_DIFFERENCE_PARAGRAPHS,
+  HOME_SYNONYM_DIFFERENCE_TITLE,
+} from "@/lib/content/home"
+import { HOME_SYNONYM_PHRASE } from "@/lib/content/synonym-phrases"
+import { ROUTES } from "@/lib/seo/routes"
 
 export function HomeSeoIntro() {
   return (
@@ -47,6 +54,32 @@ export function HomeSeoIntro() {
   )
 }
 
+export function HomeSynonymDifferenceSection() {
+  return (
+    <section className="border-y border-border bg-card/40 py-12 lg:py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Lexique"
+          title={HOME_SYNONYM_DIFFERENCE_TITLE}
+          description="Deux expressions courantes pour le même word search en français."
+        />
+        <div className="mt-6 flex max-w-3xl flex-col gap-4 text-base leading-relaxed text-muted-foreground">
+          {HOME_SYNONYM_DIFFERENCE_PARAGRAPHS.map((paragraph) => (
+            <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+          ))}
+          <p>
+            Consultez la page{" "}
+            <Link href={ROUTES.solutions} className="font-semibold text-primary hover:underline">
+              solutions et règles des mots mêlés
+            </Link>{" "}
+            pour les astuces de résolution et le détail des directions autorisées sur chaque grille.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function HomePedagogySection() {
   return (
     <section className="bg-card/60 py-12 lg:py-16">
@@ -61,6 +94,34 @@ export function HomePedagogySection() {
           complète, ce qui complète la lecture syllabique et la dictée. En classe comme à la maison,
           c&apos;est une activité calme qui convient aux cycles 2 et 3 du primaire, soutient
           l&apos;apprentissage de la lecture et enrichit le vocabulaire scolaire sans surcharge.
+        </p>
+      </div>
+    </section>
+  )
+}
+
+export function HomePedagogicalApproachSection() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <SectionHeading
+        eyebrow="Méthode"
+        title={HOME_PEDAGOGICAL_APPROACH_TITLE}
+        description="Des grilles pensées pour l'école, la maison et chaque tranche d'âge."
+      />
+      <div className="mt-6 flex max-w-3xl flex-col gap-4 text-base leading-relaxed text-muted-foreground">
+        {HOME_PEDAGOGICAL_APPROACH_PARAGRAPHS.map((paragraph) => (
+          <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+        ))}
+        <p>
+          Approfondissez sur la page{" "}
+          <Link href={ROUTES.pedagogie} className="font-semibold text-primary hover:underline">
+            pédagogie des mots mêlés
+          </Link>{" "}
+          (cycles, vocabulaire, usages en classe) ou découvrez les{" "}
+          <Link href={ROUTES.seniors} className="font-semibold text-primary hover:underline">
+            mots mêlés seniors
+          </Link>{" "}
+          en grand format pour une lecture confortable.
         </p>
       </div>
     </section>

@@ -243,6 +243,8 @@ export function collectHomepageLinks(): InternalLinkRef[] {
   links.push(linkRef(ROUTES.imprimer, "homepage:printable", "homepage"))
   links.push(linkRef(ROUTES.adultes, "homepage:seo:adultes", "homepage"))
   links.push(linkRef(ROUTES.seniors, "homepage:seo:seniors", "homepage"))
+  links.push(linkRef(ROUTES.pedagogie, "homepage:seo:pedagogie", "homepage"))
+  links.push(linkRef(ROUTES.solutions, "homepage:seo:solutions", "homepage"))
   links.push(linkRef(ROUTES.enfants, "homepage:silo:enfants", "homepage"))
   links.push(linkRef(ROUTES.adultes, "homepage:silo:adultes", "homepage"))
   links.push(linkRef(ROUTES.seniors, "homepage:silo:seniors", "homepage"))

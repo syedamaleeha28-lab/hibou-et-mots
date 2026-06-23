@@ -3,9 +3,11 @@ export { GradeLevels } from "./grade-levels"
 export { Hero } from "./hero"
 export {
   HomeChooseGridSection,
+  HomePedagogicalApproachSection,
   HomePedagogySection,
   HomeSeoIntro,
   HomeSiloLinks,
+  HomeSynonymDifferenceSection,
 } from "./home-seo-content"
 export { HomeFaq } from "./home-faq"
 export { PopularPuzzles } from "./popular-puzzles"

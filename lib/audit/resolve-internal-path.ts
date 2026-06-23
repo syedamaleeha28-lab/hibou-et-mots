@@ -63,6 +63,7 @@ const STATIC_APP_PATHS = new Set<string>([
   ROUTES.mentionsLegales,
   ROUTES.confidentialite,
   ROUTES.contact,
+  ROUTES.aPropos,
 ])
 
 function hubSlugForPath(path: string): string | null {
@@ -184,7 +185,8 @@ export async function resolveInternalPath(
       path !== ROUTES.recherche &&
       path !== ROUTES.mentionsLegales &&
       path !== ROUTES.confidentialite &&
-      path !== ROUTES.contact
+      path !== ROUTES.contact &&
+      path !== ROUTES.aPropos
 
     if (categoryLike) {
       const ok = await resolveCategoryLikePath(path)
@@ -236,6 +238,7 @@ export function listKnownCategoryPaths(): string[] {
     ROUTES.mentionsLegales,
     ROUTES.confidentialite,
     ROUTES.contact,
+    ROUTES.aPropos,
   ])
 
   for (const grade of gradeSeed) paths.add(gradePath(grade.slug))

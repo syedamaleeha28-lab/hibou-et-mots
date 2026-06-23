@@ -89,6 +89,7 @@ export {
   buildBreadcrumbSchemaGraph,
   buildCategoryPageSchemaGraph,
   buildPuzzlePageSchemaGraph,
+  buildAboutPageSchemaGraph,
   buildHomePageSchemaGraph,
   buildWebSiteSchema,
   buildOrganizationSchema,

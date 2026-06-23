@@ -26,6 +26,7 @@ export const ROUTES = {
   mentionsLegales: "/mentions-legales/",
   confidentialite: "/politique-de-confidentialite/",
   contact: "/contact/",
+  aPropos: "/a-propos/",
 } as const
 
 export function gradePath(slug: string): string {

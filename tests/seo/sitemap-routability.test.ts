@@ -18,8 +18,14 @@ describe("sitemap routability", () => {
     expect(paths).toContain(ROUTES.mentionsLegales)
     expect(paths).toContain(ROUTES.confidentialite)
     expect(paths).toContain(ROUTES.contact)
+    expect(paths).toContain(ROUTES.aPropos)
 
-    for (const legalPath of [ROUTES.mentionsLegales, ROUTES.confidentialite, ROUTES.contact]) {
+    for (const legalPath of [
+      ROUTES.mentionsLegales,
+      ROUTES.confidentialite,
+      ROUTES.contact,
+      ROUTES.aPropos,
+    ]) {
       const entry = entries.find((item) => item.path === legalPath)
       expect(entry?.exists).toBe(true)
     }

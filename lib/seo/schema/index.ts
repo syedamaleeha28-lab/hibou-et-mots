@@ -7,6 +7,7 @@ export {
   buildCategoryPageSchemaGraph,
   buildPuzzlePageSchemaGraph,
 } from "./page-schemas"
+export { buildAboutPageSchemaGraph } from "./about-page"
 export {
   buildHomePageSchemaGraph,
   buildOrganizationSchema,

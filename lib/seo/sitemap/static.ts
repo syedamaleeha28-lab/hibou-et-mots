@@ -23,6 +23,7 @@ const STATIC_PATHS: string[] = [
   ROUTES.mentionsLegales,
   ROUTES.confidentialite,
   ROUTES.contact,
+  ROUTES.aPropos,
   ROUTES.jouer,
   ROUTES.generateur,
 ]

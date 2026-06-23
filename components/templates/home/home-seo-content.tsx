@@ -19,9 +19,28 @@ export function HomeSeoIntro() {
           de français, à la dictée et à l&apos;apprentissage du vocabulaire.
         </p>
         <p>
-          Les passionnés de mots mêlés adultes et seniors trouvent également des grilles plus
-          denses, avec un mode grand format pour une lecture confortable. Tout reste gratuit, sans
-          inscription et sans publicité intrusive sur les pages de jeu.
+          Les passionnés de mots mêlés{" "}
+          <Link href={ROUTES.adultes} className="font-semibold text-primary hover:underline">
+            adultes
+          </Link>{" "}
+          et{" "}
+          <Link href={ROUTES.seniors} className="font-semibold text-primary hover:underline">
+            seniors
+          </Link>{" "}
+          trouvent également des grilles plus denses, avec un mode grand format pour une lecture
+          confortable. Créez une grille sur le{" "}
+          <Link href={ROUTES.generateur} className="font-semibold text-primary hover:underline">
+            générateur
+          </Link>
+          , imprimez un PDF depuis la page{" "}
+          <Link href={ROUTES.imprimer} className="font-semibold text-primary hover:underline">
+            à imprimer
+          </Link>{" "}
+          ou lancez une partie sur la page{" "}
+          <Link href={ROUTES.jouer} className="font-semibold text-primary hover:underline">
+            jouer en ligne
+          </Link>
+          . Tout reste gratuit, sans inscription et sans publicité intrusive sur les pages de jeu.
         </p>
       </div>
     </section>

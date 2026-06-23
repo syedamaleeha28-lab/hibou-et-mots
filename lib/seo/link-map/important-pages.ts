@@ -1,0 +1,41 @@
+import { ROUTES, seasonalPath, themePath } from "@/lib/seo/routes"
+
+/** SEO pillar pages that must receive at least 3 inbound internal links. */
+export const IMPORTANT_PAGE_PATHS: string[] = [
+  ROUTES.home,
+  ROUTES.generateur,
+  ROUTES.jouer,
+  ROUTES.gratuits,
+  ROUTES.imprimer,
+  ROUTES.ecoleHub,
+  ROUTES.thematiquesHub,
+  ROUTES.fetesHub,
+  ROUTES.difficulteHub,
+  ROUTES.presseHub,
+  ROUTES.enfants,
+  ROUTES.adultes,
+  ROUTES.seniors,
+  ROUTES.pedagogie,
+  ROUTES.personnages,
+  ROUTES.application,
+  ROUTES.solutions,
+  ROUTES.jeuxMagazines,
+  ROUTES.ressources,
+  themePath("animaux"),
+  themePath("fruits"),
+  themePath("sport"),
+  themePath("football"),
+  themePath("vocabulaire"),
+  themePath("couleurs"),
+  themePath("famille"),
+  themePath("meteo"),
+  themePath("pays-du-monde"),
+  seasonalPath("noel"),
+  seasonalPath("halloween"),
+  seasonalPath("paques"),
+  seasonalPath("carnaval"),
+  seasonalPath("rentree"),
+  seasonalPath("ete"),
+]
+
+export const MIN_INBOUND_LINKS = 3

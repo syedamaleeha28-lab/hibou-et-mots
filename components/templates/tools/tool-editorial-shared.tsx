@@ -4,7 +4,11 @@ import { ROUTES } from "@/lib/seo/routes"
 
 const HUB_LINKS = [
   { href: ROUTES.enfants, label: "Mots mêlés enfants" },
+  { href: ROUTES.adultes, label: "Mots mêlés adultes" },
+  { href: ROUTES.seniors, label: "Mots mêlés seniors" },
   { href: ROUTES.ecoleHub, label: "Mots mêlés École — CP à 6e" },
+  { href: ROUTES.thematiquesHub, label: "Mots mêlés par thème" },
+  { href: ROUTES.fetesHub, label: "Fêtes & saisons" },
   { href: ROUTES.imprimer, label: "Mots mêlés à imprimer (PDF)" },
   { href: ROUTES.gratuits, label: "Toutes les grilles gratuites" },
 ] as const
@@ -23,9 +27,17 @@ export function ToolHubLinks() {
         <Link href={ROUTES.enfants} className="font-semibold text-primary hover:underline">
           enfants
         </Link>
+        , aux{" "}
+        <Link href={ROUTES.adultes} className="font-semibold text-primary hover:underline">
+          adultes
+        </Link>
         , par{" "}
         <Link href={ROUTES.ecoleHub} className="font-semibold text-primary hover:underline">
           niveau scolaire
+        </Link>
+        , par{" "}
+        <Link href={ROUTES.thematiquesHub} className="font-semibold text-primary hover:underline">
+          thème
         </Link>
         , ou téléchargez des PDF depuis la page{" "}
         <Link href={ROUTES.imprimer} className="font-semibold text-primary hover:underline">

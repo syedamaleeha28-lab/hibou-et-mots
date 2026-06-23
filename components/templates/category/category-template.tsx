@@ -7,6 +7,7 @@ import { CategoryIntro } from "./category-intro"
 import { CategoryPhase1Sections } from "./category-phase1-sections"
 import { CategoryPhase2Sections } from "./category-phase2-sections"
 import { CategoryThemeSections } from "./category-theme-sections"
+import { CategoryExploreLinks } from "./category-explore-links"
 import { SubCategoryLinks } from "./sub-category-links"
 import { ComboParentLinks } from "./combo-parent-links"
 import { PuzzleCardGrid } from "./puzzle-card-grid"
@@ -38,6 +39,8 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           <CategoryPhase1Sections slug={category.slug} />
 
           <CategoryPhase2Sections slug={category.slug} />
+
+          <CategoryExploreLinks category={category} />
 
           {shouldShowComboParentLinks(category.type) && category.comboParentLinks && (
             <ComboParentLinks links={category.comboParentLinks} />

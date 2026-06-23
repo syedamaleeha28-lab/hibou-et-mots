@@ -1,0 +1,2659 @@
+{
+  "generatedAt": "2026-06-23T18:04:04.541Z",
+  "totalTargets": 180,
+  "importantPageCount": 34,
+  "orphanPages": [],
+  "belowMinimum": [],
+  "pages": [
+    {
+      "path": "/",
+      "inboundCount": 50,
+      "inboundSources": [
+        "audience:adultes:breadcrumb",
+        "audience:enfants:breadcrumb",
+        "audience:seniors:breadcrumb",
+        "combo:ce1:halloween:breadcrumb",
+        "combo:ce1:noel:breadcrumb",
+        "difficulty:difficile:breadcrumb",
+        "difficulty:facile:breadcrumb",
+        "difficulty:geant:breadcrumb",
+        "difficulty:moyen:breadcrumb",
+        "grade:6e:breadcrumb",
+        "grade:ce1:breadcrumb",
+        "grade:ce2:breadcrumb",
+        "grade:cm1:breadcrumb",
+        "grade:cm2:breadcrumb",
+        "grade:cp:breadcrumb",
+        "grade:maternelle:breadcrumb",
+        "homepage:nav-derived",
+        "hub:ecole-resolver:breadcrumb",
+        "hub:hub-difficulte:breadcrumb",
+        "hub:hub-ecole:breadcrumb",
+        "hub:hub-fetes:breadcrumb",
+        "hub:hub-gratuits:breadcrumb",
+        "hub:hub-imprimer:breadcrumb",
+        "hub:hub-presse:breadcrumb",
+        "hub:hub-thematiques:breadcrumb",
+        "nav:mobile-tab",
+        "press:la-croix:breadcrumb",
+        "press:ouest-france:breadcrumb",
+        "press:sud-ouest:breadcrumb",
+        "seasonal:carnaval:breadcrumb",
+        "seasonal:ete:breadcrumb",
+        "seasonal:halloween:breadcrumb",
+        "seasonal:noel:breadcrumb",
+        "seasonal:paques:breadcrumb",
+        "seasonal:rentree:breadcrumb",
+        "support:/application-mots-meles/:breadcrumb",
+        "support:/jeux-magazines-mots-meles/:breadcrumb",
+        "support:/mots-meles-pedagogie/:breadcrumb",
+        "support:/mots-meles-personnages/:breadcrumb",
+        "support:/ressources-enseignants-mots-meles/:breadcrumb",
+        "support:/solutions-regles-mots-meles/:breadcrumb",
+        "theme:animaux:breadcrumb",
+        "theme:couleurs:breadcrumb",
+        "theme:famille:breadcrumb",
+        "theme:football:breadcrumb",
+        "theme:fruits:breadcrumb",
+        "theme:meteo:breadcrumb",
+        "theme:pays-du-monde:breadcrumb",
+        "theme:sport:breadcrumb",
+        "theme:vocabulaire:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/a-propos/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "footer:legal",
+        "homepage:nav-derived"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/application-mots-meles/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "homepage:nav-derived",
+        "nav:mega:plus:Découvrir",
+        "support:/application-mots-meles/:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/contact/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "footer:legal",
+        "homepage:nav-derived"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/generateur-mots-meles/",
+      "inboundCount": 94,
+      "inboundSources": [
+        "audience:adultes:cta-generateur",
+        "audience:adultes:explore",
+        "audience:enfants:cta-generateur",
+        "audience:seniors:cta-generateur",
+        "audience:seniors:explore",
+        "combo:ce1:halloween:cta-generateur",
+        "combo:ce1:halloween:explore",
+        "combo:ce1:noel:cta-generateur",
+        "combo:ce1:noel:explore",
+        "difficulty:difficile:cta-generateur",
+        "difficulty:difficile:explore",
+        "difficulty:facile:cta-generateur",
+        "difficulty:facile:explore",
+        "difficulty:geant:cta-generateur",
+        "difficulty:geant:explore",
+        "difficulty:moyen:cta-generateur",
+        "difficulty:moyen:explore",
+        "footer:Hub principal",
+        "grade:6e:cta-generateur",
+        "grade:6e:explore",
+        "grade:ce1:cta-generateur",
+        "grade:ce1:explore",
+        "grade:ce2:cta-generateur",
+        "grade:ce2:explore",
+        "grade:cm1:cta-generateur",
+        "grade:cm1:explore",
+        "grade:cm2:cta-generateur",
+        "grade:cm2:explore",
+        "grade:cp:cta-generateur",
+        "grade:cp:explore",
+        "grade:maternelle:cta-generateur",
+        "grade:maternelle:explore",
+        "homepage:hero:generateur",
+        "homepage:nav-derived",
+        "homepage:silo:generateur",
+        "hub:ecole-resolver:cta-generateur",
+        "hub:hub-difficulte:cta-generateur",
+        "hub:hub-difficulte:explore",
+        "hub:hub-ecole:cta-generateur",
+        "hub:hub-fetes:cta-generateur",
+        "hub:hub-fetes:explore",
+        "hub:hub-gratuits:cta-generateur",
+        "hub:hub-imprimer:cta-generateur",
+        "hub:hub-presse:cta-generateur",
+        "hub:hub-presse:explore",
+        "hub:hub-thematiques:cta-generateur",
+        "hub:hub-thematiques:explore",
+        "nav:header-primary",
+        "nav:mobile-tab",
+        "press:la-croix:cta-generateur",
+        "press:la-croix:explore",
+        "press:ouest-france:cta-generateur",
+        "press:ouest-france:explore",
+        "press:sud-ouest:cta-generateur",
+        "press:sud-ouest:explore",
+        "seasonal:carnaval:cta-generateur",
+        "seasonal:carnaval:explore",
+        "seasonal:ete:cta-generateur",
+        "seasonal:ete:explore",
+        "seasonal:halloween:cta-generateur",
+        "seasonal:noel:cta-generateur",
+        "seasonal:paques:cta-generateur",
+        "seasonal:paques:explore",
+        "seasonal:rentree:cta-generateur",
+        "seasonal:rentree:explore",
+        "support:/application-mots-meles/:cta-generateur",
+        "support:/application-mots-meles/:explore",
+        "support:/jeux-magazines-mots-meles/:cta-generateur",
+        "support:/jeux-magazines-mots-meles/:explore",
+        "support:/mots-meles-pedagogie/:cta-generateur",
+        "support:/mots-meles-pedagogie/:explore",
+        "support:/mots-meles-personnages/:cta-generateur",
+        "support:/mots-meles-personnages/:explore",
+        "support:/ressources-enseignants-mots-meles/:cta-generateur",
+        "support:/ressources-enseignants-mots-meles/:explore",
+        "support:/solutions-regles-mots-meles/:cta-generateur",
+        "support:/solutions-regles-mots-meles/:explore",
+        "theme:animaux:cta-generateur",
+        "theme:couleurs:cta-generateur",
+        "theme:couleurs:explore",
+        "theme:famille:cta-generateur",
+        "theme:famille:explore",
+        "theme:football:cta-generateur",
+        "theme:football:explore",
+        "theme:fruits:cta-generateur",
+        "theme:meteo:cta-generateur",
+        "theme:meteo:explore",
+        "theme:pays-du-monde:cta-generateur",
+        "theme:pays-du-monde:explore",
+        "theme:sport:cta-generateur",
+        "theme:vocabulaire:cta-generateur",
+        "theme:vocabulaire:explore",
+        "tool:editorial:jouer",
+        "tool:jouer:cross:jouer"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/jeux-magazines-mots-meles/",
+      "inboundCount": 4,
+      "inboundSources": [
+        "footer:Produits & ressources",
+        "homepage:nav-derived",
+        "nav:mega:plus:Presse & ressources",
+        "support:/jeux-magazines-mots-meles/:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/jouer-mots-meles-en-ligne/",
+      "inboundCount": 93,
+      "inboundSources": [
+        "audience:adultes:cta-jouer",
+        "audience:adultes:explore",
+        "audience:enfants:cta-jouer",
+        "audience:seniors:cta-jouer",
+        "audience:seniors:explore",
+        "combo:ce1:halloween:cta-jouer",
+        "combo:ce1:halloween:explore",
+        "combo:ce1:noel:cta-jouer",
+        "combo:ce1:noel:explore",
+        "difficulty:difficile:cta-jouer",
+        "difficulty:difficile:explore",
+        "difficulty:facile:cta-jouer",
+        "difficulty:facile:explore",
+        "difficulty:geant:cta-jouer",
+        "difficulty:geant:explore",
+        "difficulty:moyen:cta-jouer",
+        "difficulty:moyen:explore",
+        "footer:Hub principal",
+        "grade:6e:cta-jouer",
+        "grade:6e:explore",
+        "grade:ce1:cta-jouer",
+        "grade:ce1:explore",
+        "grade:ce2:cta-jouer",
+        "grade:ce2:explore",
+        "grade:cm1:cta-jouer",
+        "grade:cm1:explore",
+        "grade:cm2:cta-jouer",
+        "grade:cm2:explore",
+        "grade:cp:cta-jouer",
+        "grade:cp:explore",
+        "grade:maternelle:cta-jouer",
+        "grade:maternelle:explore",
+        "homepage:hero:jouer",
+        "homepage:nav-derived",
+        "homepage:silo:jouer",
+        "hub:ecole-resolver:cta-jouer",
+        "hub:hub-difficulte:cta-jouer",
+        "hub:hub-difficulte:explore",
+        "hub:hub-ecole:cta-jouer",
+        "hub:hub-fetes:cta-jouer",
+        "hub:hub-fetes:explore",
+        "hub:hub-gratuits:cta-jouer",
+        "hub:hub-imprimer:cta-jouer",
+        "hub:hub-presse:cta-jouer",
+        "hub:hub-presse:explore",
+        "hub:hub-thematiques:cta-jouer",
+        "hub:hub-thematiques:explore",
+        "nav:header-primary",
+        "nav:mobile-tab",
+        "press:la-croix:cta-jouer",
+        "press:la-croix:explore",
+        "press:ouest-france:cta-jouer",
+        "press:ouest-france:explore",
+        "press:sud-ouest:cta-jouer",
+        "press:sud-ouest:explore",
+        "seasonal:carnaval:cta-jouer",
+        "seasonal:carnaval:explore",
+        "seasonal:ete:cta-jouer",
+        "seasonal:ete:explore",
+        "seasonal:halloween:cta-jouer",
+        "seasonal:noel:cta-jouer",
+        "seasonal:paques:cta-jouer",
+        "seasonal:paques:explore",
+        "seasonal:rentree:cta-jouer",
+        "seasonal:rentree:explore",
+        "support:/application-mots-meles/:cta-jouer",
+        "support:/application-mots-meles/:explore",
+        "support:/jeux-magazines-mots-meles/:cta-jouer",
+        "support:/jeux-magazines-mots-meles/:explore",
+        "support:/mots-meles-pedagogie/:cta-jouer",
+        "support:/mots-meles-pedagogie/:explore",
+        "support:/mots-meles-personnages/:cta-jouer",
+        "support:/mots-meles-personnages/:explore",
+        "support:/ressources-enseignants-mots-meles/:cta-jouer",
+        "support:/ressources-enseignants-mots-meles/:explore",
+        "support:/solutions-regles-mots-meles/:cta-jouer",
+        "support:/solutions-regles-mots-meles/:explore",
+        "theme:animaux:cta-jouer",
+        "theme:couleurs:cta-jouer",
+        "theme:couleurs:explore",
+        "theme:famille:cta-jouer",
+        "theme:famille:explore",
+        "theme:football:cta-jouer",
+        "theme:football:explore",
+        "theme:fruits:cta-jouer",
+        "theme:meteo:cta-jouer",
+        "theme:meteo:explore",
+        "theme:pays-du-monde:cta-jouer",
+        "theme:pays-du-monde:explore",
+        "theme:sport:cta-jouer",
+        "theme:vocabulaire:cta-jouer",
+        "theme:vocabulaire:explore",
+        "tool:jouer:cta:generateur"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mentions-legales/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "footer:legal",
+        "homepage:nav-derived"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-a-imprimer/",
+      "inboundCount": 114,
+      "inboundSources": [
+        "audience:adultes:cta-imprimer",
+        "audience:adultes:explore",
+        "audience:adultes:related",
+        "audience:enfants:cta-imprimer",
+        "audience:enfants:related",
+        "audience:seniors:cta-imprimer",
+        "audience:seniors:explore",
+        "audience:seniors:related",
+        "combo:ce1:halloween:cta-imprimer",
+        "combo:ce1:halloween:explore",
+        "combo:ce1:noel:cta-imprimer",
+        "combo:ce1:noel:explore",
+        "difficulty:difficile:cta-imprimer",
+        "difficulty:difficile:explore",
+        "difficulty:facile:cta-imprimer",
+        "difficulty:facile:explore",
+        "difficulty:geant:cta-imprimer",
+        "difficulty:geant:explore",
+        "difficulty:moyen:cta-imprimer",
+        "difficulty:moyen:explore",
+        "footer:Hub principal",
+        "grade:6e:cta-imprimer",
+        "grade:6e:explore",
+        "grade:ce1:cta-imprimer",
+        "grade:ce1:explore",
+        "grade:ce2:cta-imprimer",
+        "grade:ce2:explore",
+        "grade:cm1:cta-imprimer",
+        "grade:cm1:explore",
+        "grade:cm2:cta-imprimer",
+        "grade:cm2:explore",
+        "grade:cp:cta-imprimer",
+        "grade:cp:explore",
+        "grade:maternelle:cta-imprimer",
+        "grade:maternelle:explore",
+        "homepage:nav-derived",
+        "homepage:printable",
+        "homepage:silo:imprimer",
+        "hub:ecole-resolver:cta-imprimer",
+        "hub:ecole-resolver:related",
+        "hub:hub-difficulte:cta-imprimer",
+        "hub:hub-difficulte:explore",
+        "hub:hub-difficulte:related",
+        "hub:hub-ecole:cta-imprimer",
+        "hub:hub-ecole:related",
+        "hub:hub-fetes:cta-imprimer",
+        "hub:hub-fetes:explore",
+        "hub:hub-fetes:related",
+        "hub:hub-gratuits:cta-imprimer",
+        "hub:hub-gratuits:related",
+        "hub:hub-imprimer:breadcrumb",
+        "hub:hub-imprimer:cta-imprimer",
+        "hub:hub-imprimer:related",
+        "hub:hub-presse:cta-imprimer",
+        "hub:hub-presse:explore",
+        "hub:hub-presse:related",
+        "hub:hub-thematiques:cta-imprimer",
+        "hub:hub-thematiques:explore",
+        "hub:hub-thematiques:related",
+        "nav:mega:imprimer:featured",
+        "nav:mobile-tab",
+        "press:la-croix:cta-imprimer",
+        "press:la-croix:explore",
+        "press:ouest-france:cta-imprimer",
+        "press:ouest-france:explore",
+        "press:sud-ouest:cta-imprimer",
+        "press:sud-ouest:explore",
+        "seasonal:carnaval:cta-imprimer",
+        "seasonal:carnaval:explore",
+        "seasonal:ete:cta-imprimer",
+        "seasonal:ete:explore",
+        "seasonal:halloween:cta-imprimer",
+        "seasonal:noel:cta-imprimer",
+        "seasonal:paques:cta-imprimer",
+        "seasonal:paques:explore",
+        "seasonal:rentree:cta-imprimer",
+        "seasonal:rentree:explore",
+        "support:/application-mots-meles/:cta-imprimer",
+        "support:/application-mots-meles/:explore",
+        "support:/application-mots-meles/:related",
+        "support:/jeux-magazines-mots-meles/:cta-imprimer",
+        "support:/jeux-magazines-mots-meles/:explore",
+        "support:/jeux-magazines-mots-meles/:related",
+        "support:/mots-meles-pedagogie/:cta-imprimer",
+        "support:/mots-meles-pedagogie/:explore",
+        "support:/mots-meles-pedagogie/:related",
+        "support:/mots-meles-personnages/:cta-imprimer",
+        "support:/mots-meles-personnages/:explore",
+        "support:/mots-meles-personnages/:related",
+        "support:/ressources-enseignants-mots-meles/:cta-imprimer",
+        "support:/ressources-enseignants-mots-meles/:explore",
+        "support:/ressources-enseignants-mots-meles/:related",
+        "support:/solutions-regles-mots-meles/:cta-imprimer",
+        "support:/solutions-regles-mots-meles/:explore",
+        "support:/solutions-regles-mots-meles/:related",
+        "theme:animaux:cta-imprimer",
+        "theme:couleurs:cta-imprimer",
+        "theme:couleurs:explore",
+        "theme:famille:cta-imprimer",
+        "theme:famille:explore",
+        "theme:football:cta-imprimer",
+        "theme:football:explore",
+        "theme:fruits:cta-imprimer",
+        "theme:meteo:cta-imprimer",
+        "theme:meteo:explore",
+        "theme:pays-du-monde:cta-imprimer",
+        "theme:pays-du-monde:explore",
+        "theme:sport:cta-imprimer",
+        "theme:vocabulaire:cta-imprimer",
+        "theme:vocabulaire:explore",
+        "tool:editorial:generateur",
+        "tool:editorial:jouer",
+        "tool:hub-links:generateur",
+        "tool:hub-links:jouer"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-adultes/",
+      "inboundCount": 19,
+      "inboundSources": [
+        "audience:adultes:breadcrumb",
+        "audience:seniors:explore",
+        "footer:Par public",
+        "homepage:nav-derived",
+        "homepage:seo:adultes",
+        "homepage:silo:adultes",
+        "hub:hub-presse:explore",
+        "nav:mega:plus:Par public",
+        "press:la-croix:explore",
+        "press:ouest-france:explore",
+        "press:sud-ouest:explore",
+        "support:/application-mots-meles/:explore",
+        "support:/jeux-magazines-mots-meles/:explore",
+        "support:/mots-meles-pedagogie/:explore",
+        "support:/mots-meles-personnages/:explore",
+        "support:/ressources-enseignants-mots-meles/:explore",
+        "support:/solutions-regles-mots-meles/:explore",
+        "tool:hub-links:generateur",
+        "tool:hub-links:jouer"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-difficulte/",
+      "inboundCount": 12,
+      "inboundSources": [
+        "difficulty:difficile:breadcrumb",
+        "difficulty:difficile:explore",
+        "difficulty:facile:breadcrumb",
+        "difficulty:facile:explore",
+        "difficulty:geant:breadcrumb",
+        "difficulty:geant:explore",
+        "difficulty:moyen:breadcrumb",
+        "difficulty:moyen:explore",
+        "footer:Hub principal",
+        "homepage:nav-derived",
+        "hub:hub-difficulte:breadcrumb",
+        "nav:mega:imprimer:Par difficulté"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-difficulte/difficile/",
+      "inboundCount": 9,
+      "inboundSources": [
+        "audience:adultes:subcategory",
+        "difficulty:difficile:breadcrumb",
+        "difficulty:facile:related",
+        "difficulty:geant:related",
+        "difficulty:moyen:related",
+        "homepage:nav-derived",
+        "hub:hub-difficulte:subcategory",
+        "hub:hub-imprimer:subcategory",
+        "nav:mega:imprimer:Par difficulté"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-difficulte/facile/",
+      "inboundCount": 10,
+      "inboundSources": [
+        "audience:adultes:subcategory",
+        "audience:seniors:subcategory",
+        "difficulty:difficile:related",
+        "difficulty:facile:breadcrumb",
+        "difficulty:geant:related",
+        "difficulty:moyen:related",
+        "homepage:nav-derived",
+        "hub:hub-difficulte:subcategory",
+        "hub:hub-imprimer:subcategory",
+        "nav:mega:imprimer:Par difficulté"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-difficulte/geant/",
+      "inboundCount": 7,
+      "inboundSources": [
+        "difficulty:difficile:related",
+        "difficulty:facile:related",
+        "difficulty:geant:breadcrumb",
+        "difficulty:moyen:related",
+        "homepage:nav-derived",
+        "hub:hub-difficulte:subcategory",
+        "nav:mega:imprimer:Par difficulté"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-difficulte/moyen/",
+      "inboundCount": 10,
+      "inboundSources": [
+        "audience:adultes:subcategory",
+        "audience:seniors:subcategory",
+        "difficulty:difficile:related",
+        "difficulty:facile:related",
+        "difficulty:geant:related",
+        "difficulty:moyen:breadcrumb",
+        "homepage:nav-derived",
+        "hub:hub-difficulte:subcategory",
+        "hub:hub-imprimer:subcategory",
+        "nav:mega:imprimer:Par difficulté"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/",
+      "inboundCount": 65,
+      "inboundSources": [
+        "audience:adultes:explore",
+        "audience:adultes:related",
+        "audience:enfants:related",
+        "audience:seniors:explore",
+        "audience:seniors:related",
+        "combo:ce1:halloween:breadcrumb",
+        "combo:ce1:halloween:explore",
+        "combo:ce1:noel:breadcrumb",
+        "combo:ce1:noel:explore",
+        "footer:Éducation",
+        "grade:6e:breadcrumb",
+        "grade:6e:explore",
+        "grade:ce1:breadcrumb",
+        "grade:ce1:explore",
+        "grade:ce2:breadcrumb",
+        "grade:ce2:explore",
+        "grade:cm1:breadcrumb",
+        "grade:cm1:explore",
+        "grade:cm2:breadcrumb",
+        "grade:cm2:explore",
+        "grade:cp:breadcrumb",
+        "grade:cp:explore",
+        "grade:maternelle:breadcrumb",
+        "grade:maternelle:explore",
+        "homepage:nav-derived",
+        "homepage:seo:ecole",
+        "homepage:silo:ecole",
+        "hub:ecole-resolver:breadcrumb",
+        "hub:ecole-resolver:related",
+        "hub:hub-difficulte:related",
+        "hub:hub-ecole:breadcrumb",
+        "hub:hub-ecole:related",
+        "hub:hub-fetes:explore",
+        "hub:hub-fetes:related",
+        "hub:hub-gratuits:related",
+        "hub:hub-imprimer:related",
+        "hub:hub-presse:related",
+        "hub:hub-thematiques:explore",
+        "hub:hub-thematiques:related",
+        "nav:mega:ecole:featured",
+        "nav:mega:imprimer:Par niveau",
+        "seasonal:carnaval:explore",
+        "seasonal:ete:explore",
+        "seasonal:paques:explore",
+        "seasonal:rentree:explore",
+        "support:/application-mots-meles/:explore",
+        "support:/application-mots-meles/:related",
+        "support:/jeux-magazines-mots-meles/:explore",
+        "support:/jeux-magazines-mots-meles/:related",
+        "support:/mots-meles-pedagogie/:explore",
+        "support:/mots-meles-pedagogie/:related",
+        "support:/mots-meles-personnages/:explore",
+        "support:/mots-meles-personnages/:related",
+        "support:/ressources-enseignants-mots-meles/:explore",
+        "support:/ressources-enseignants-mots-meles/:related",
+        "support:/solutions-regles-mots-meles/:explore",
+        "support:/solutions-regles-mots-meles/:related",
+        "theme:couleurs:explore",
+        "theme:famille:explore",
+        "theme:football:explore",
+        "theme:meteo:explore",
+        "theme:pays-du-monde:explore",
+        "theme:vocabulaire:explore",
+        "tool:hub-links:generateur",
+        "tool:hub-links:jouer"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/6e/",
+      "inboundCount": 14,
+      "inboundSources": [
+        "audience:enfants:subcategory",
+        "grade:6e:breadcrumb",
+        "grade:ce1:related",
+        "grade:ce2:related",
+        "grade:cm1:related",
+        "grade:cm2:related",
+        "grade:cp:related",
+        "grade:maternelle:related",
+        "homepage:grade:6e",
+        "homepage:nav-derived",
+        "hub:ecole-resolver:subcategory",
+        "hub:hub-ecole:subcategory",
+        "nav:mega:ecole:Niveaux scolaires",
+        "nav:mega:imprimer:Par niveau"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/6e/halloween/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:6e:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/6e/noel/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:6e:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/6e/paques/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:6e:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/ce1/",
+      "inboundCount": 22,
+      "inboundSources": [
+        "audience:enfants:subcategory",
+        "combo:ce1:halloween:breadcrumb",
+        "combo:ce1:halloween:combo-parent",
+        "combo:ce1:halloween:related",
+        "combo:ce1:noel:breadcrumb",
+        "combo:ce1:noel:combo-parent",
+        "combo:ce1:noel:related",
+        "footer:Éducation",
+        "grade:6e:related",
+        "grade:ce1:breadcrumb",
+        "grade:ce2:related",
+        "grade:cm1:related",
+        "grade:cm2:related",
+        "grade:cp:related",
+        "grade:maternelle:related",
+        "homepage:grade:ce1",
+        "homepage:nav-derived",
+        "hub:ecole-resolver:subcategory",
+        "hub:hub-ecole:subcategory",
+        "hub:hub-gratuits:subcategory",
+        "nav:mega:ecole:Niveaux scolaires",
+        "nav:mega:imprimer:Par niveau"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/ce1/halloween/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "combo:ce1:halloween:breadcrumb",
+        "grade:ce1:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/ce1/noel/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "combo:ce1:noel:breadcrumb",
+        "grade:ce1:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/ce1/paques/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:ce1:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/ce2/",
+      "inboundCount": 15,
+      "inboundSources": [
+        "audience:enfants:subcategory",
+        "grade:6e:related",
+        "grade:ce1:related",
+        "grade:ce2:breadcrumb",
+        "grade:cm1:related",
+        "grade:cm2:related",
+        "grade:cp:related",
+        "grade:maternelle:related",
+        "homepage:grade:ce2",
+        "homepage:nav-derived",
+        "hub:ecole-resolver:subcategory",
+        "hub:hub-ecole:subcategory",
+        "hub:hub-gratuits:subcategory",
+        "nav:mega:ecole:Niveaux scolaires",
+        "nav:mega:imprimer:Par niveau"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/ce2/halloween/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:ce2:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/ce2/noel/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:ce2:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/ce2/paques/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:ce2:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cm1/",
+      "inboundCount": 14,
+      "inboundSources": [
+        "audience:enfants:subcategory",
+        "grade:6e:related",
+        "grade:ce1:related",
+        "grade:ce2:related",
+        "grade:cm1:breadcrumb",
+        "grade:cm2:related",
+        "grade:cp:related",
+        "grade:maternelle:related",
+        "homepage:grade:cm1",
+        "homepage:nav-derived",
+        "hub:ecole-resolver:subcategory",
+        "hub:hub-ecole:subcategory",
+        "nav:mega:ecole:Niveaux scolaires",
+        "nav:mega:imprimer:Par niveau"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cm1/halloween/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cm1:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cm1/noel/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cm1:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cm1/paques/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cm1:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cm2/",
+      "inboundCount": 15,
+      "inboundSources": [
+        "audience:enfants:subcategory",
+        "footer:Éducation",
+        "grade:6e:related",
+        "grade:ce1:related",
+        "grade:ce2:related",
+        "grade:cm1:related",
+        "grade:cm2:breadcrumb",
+        "grade:cp:related",
+        "grade:maternelle:related",
+        "homepage:grade:cm2",
+        "homepage:nav-derived",
+        "hub:ecole-resolver:subcategory",
+        "hub:hub-ecole:subcategory",
+        "nav:mega:ecole:Niveaux scolaires",
+        "nav:mega:imprimer:Par niveau"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cm2/halloween/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cm2:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cm2/noel/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cm2:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cm2/paques/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cm2:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cp/",
+      "inboundCount": 16,
+      "inboundSources": [
+        "audience:enfants:subcategory",
+        "footer:Éducation",
+        "grade:6e:related",
+        "grade:ce1:related",
+        "grade:ce2:related",
+        "grade:cm1:related",
+        "grade:cm2:related",
+        "grade:cp:breadcrumb",
+        "grade:maternelle:related",
+        "homepage:grade:cp",
+        "homepage:nav-derived",
+        "hub:ecole-resolver:subcategory",
+        "hub:hub-ecole:subcategory",
+        "hub:hub-gratuits:subcategory",
+        "nav:mega:ecole:Niveaux scolaires",
+        "nav:mega:imprimer:Par niveau"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cp/halloween/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cp:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cp/noel/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cp:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/cp/paques/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cp:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/maternelle/",
+      "inboundCount": 15,
+      "inboundSources": [
+        "audience:enfants:subcategory",
+        "grade:6e:related",
+        "grade:ce1:related",
+        "grade:ce2:related",
+        "grade:cm1:related",
+        "grade:cm2:related",
+        "grade:cp:related",
+        "grade:maternelle:breadcrumb",
+        "homepage:grade:maternelle",
+        "homepage:nav-derived",
+        "hub:ecole-resolver:subcategory",
+        "hub:hub-ecole:subcategory",
+        "hub:hub-gratuits:subcategory",
+        "nav:mega:ecole:Niveaux scolaires",
+        "nav:mega:imprimer:Par niveau"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/maternelle/halloween/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:maternelle:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/maternelle/noel/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:maternelle:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-ecole/maternelle/paques/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:maternelle:subcategory"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-enfants/",
+      "inboundCount": 31,
+      "inboundSources": [
+        "audience:enfants:breadcrumb",
+        "difficulty:difficile:explore",
+        "difficulty:facile:explore",
+        "difficulty:geant:explore",
+        "difficulty:moyen:explore",
+        "footer:Par public",
+        "grade:6e:explore",
+        "grade:ce1:explore",
+        "grade:ce2:explore",
+        "grade:cm1:explore",
+        "grade:cm2:explore",
+        "grade:cp:explore",
+        "grade:maternelle:explore",
+        "homepage:nav-derived",
+        "homepage:silo:enfants",
+        "hub:hub-difficulte:explore",
+        "hub:hub-fetes:explore",
+        "hub:hub-thematiques:explore",
+        "nav:mega:plus:Par public",
+        "seasonal:carnaval:explore",
+        "seasonal:ete:explore",
+        "seasonal:paques:explore",
+        "seasonal:rentree:explore",
+        "theme:couleurs:explore",
+        "theme:famille:explore",
+        "theme:football:explore",
+        "theme:meteo:explore",
+        "theme:pays-du-monde:explore",
+        "theme:vocabulaire:explore",
+        "tool:hub-links:generateur",
+        "tool:hub-links:jouer"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/",
+      "inboundCount": 28,
+      "inboundSources": [
+        "audience:adultes:explore",
+        "audience:seniors:explore",
+        "combo:ce1:halloween:explore",
+        "combo:ce1:noel:explore",
+        "footer:Thèmes & saisons",
+        "homepage:nav-derived",
+        "homepage:seo:fetes",
+        "homepage:silo:fetes",
+        "hub:hub-fetes:breadcrumb",
+        "nav:mega:imprimer:Par thème",
+        "seasonal:carnaval:breadcrumb",
+        "seasonal:carnaval:explore",
+        "seasonal:ete:breadcrumb",
+        "seasonal:ete:explore",
+        "seasonal:halloween:breadcrumb",
+        "seasonal:noel:breadcrumb",
+        "seasonal:paques:breadcrumb",
+        "seasonal:paques:explore",
+        "seasonal:rentree:breadcrumb",
+        "seasonal:rentree:explore",
+        "support:/application-mots-meles/:explore",
+        "support:/jeux-magazines-mots-meles/:explore",
+        "support:/mots-meles-pedagogie/:explore",
+        "support:/mots-meles-personnages/:explore",
+        "support:/ressources-enseignants-mots-meles/:explore",
+        "support:/solutions-regles-mots-meles/:explore",
+        "tool:hub-links:generateur",
+        "tool:hub-links:jouer"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/carnaval/",
+      "inboundCount": 8,
+      "inboundSources": [
+        "hub:hub-fetes:subcategory",
+        "seasonal:carnaval:breadcrumb",
+        "seasonal:ete:related",
+        "seasonal:halloween:related",
+        "seasonal:noel:related",
+        "seasonal:paques:explore",
+        "seasonal:paques:related",
+        "seasonal:rentree:related"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/ete/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "hub:hub-fetes:subcategory",
+        "seasonal:ete:breadcrumb",
+        "seasonal:rentree:explore"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/halloween/",
+      "inboundCount": 12,
+      "inboundSources": [
+        "combo:ce1:halloween:combo-parent",
+        "combo:ce1:halloween:related",
+        "footer:Thèmes & saisons",
+        "homepage:nav-derived",
+        "hub:hub-fetes:subcategory",
+        "nav:mega:imprimer:Par thème",
+        "seasonal:carnaval:related",
+        "seasonal:ete:related",
+        "seasonal:halloween:breadcrumb",
+        "seasonal:noel:related",
+        "seasonal:paques:related",
+        "seasonal:rentree:related"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/noel/",
+      "inboundCount": 13,
+      "inboundSources": [
+        "combo:ce1:noel:combo-parent",
+        "combo:ce1:noel:related",
+        "footer:Thèmes & saisons",
+        "homepage:featured:Noël",
+        "homepage:nav-derived",
+        "hub:hub-fetes:subcategory",
+        "nav:mega:imprimer:Par thème",
+        "seasonal:carnaval:related",
+        "seasonal:ete:related",
+        "seasonal:halloween:related",
+        "seasonal:noel:breadcrumb",
+        "seasonal:paques:related",
+        "seasonal:rentree:related"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/paques/",
+      "inboundCount": 8,
+      "inboundSources": [
+        "hub:hub-fetes:subcategory",
+        "seasonal:carnaval:explore",
+        "seasonal:carnaval:related",
+        "seasonal:ete:related",
+        "seasonal:halloween:related",
+        "seasonal:noel:related",
+        "seasonal:paques:breadcrumb",
+        "seasonal:rentree:related"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-fetes-saisons/rentree/",
+      "inboundCount": 7,
+      "inboundSources": [
+        "hub:hub-fetes:subcategory",
+        "seasonal:carnaval:related",
+        "seasonal:ete:explore",
+        "seasonal:halloween:related",
+        "seasonal:noel:related",
+        "seasonal:paques:related",
+        "seasonal:rentree:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-gratuits/",
+      "inboundCount": 63,
+      "inboundSources": [
+        "audience:adultes:explore",
+        "audience:adultes:related",
+        "audience:enfants:related",
+        "audience:seniors:explore",
+        "audience:seniors:related",
+        "combo:ce1:halloween:explore",
+        "combo:ce1:noel:explore",
+        "difficulty:difficile:explore",
+        "difficulty:facile:explore",
+        "difficulty:geant:explore",
+        "difficulty:moyen:explore",
+        "footer:Hub principal",
+        "grade:6e:explore",
+        "grade:ce1:explore",
+        "grade:ce2:explore",
+        "grade:cm1:explore",
+        "grade:cm2:explore",
+        "grade:cp:explore",
+        "grade:maternelle:explore",
+        "homepage:featured:Toutes les grilles",
+        "homepage:nav-derived",
+        "homepage:silo:gratuits",
+        "hub:ecole-resolver:related",
+        "hub:hub-difficulte:explore",
+        "hub:hub-difficulte:related",
+        "hub:hub-ecole:related",
+        "hub:hub-fetes:explore",
+        "hub:hub-fetes:related",
+        "hub:hub-gratuits:breadcrumb",
+        "hub:hub-gratuits:related",
+        "hub:hub-imprimer:related",
+        "hub:hub-presse:explore",
+        "hub:hub-presse:related",
+        "hub:hub-thematiques:explore",
+        "hub:hub-thematiques:related",
+        "nav:mega:imprimer:featured",
+        "press:la-croix:explore",
+        "press:ouest-france:explore",
+        "press:sud-ouest:explore",
+        "seasonal:carnaval:explore",
+        "seasonal:ete:explore",
+        "seasonal:paques:explore",
+        "seasonal:rentree:explore",
+        "support:/application-mots-meles/:explore",
+        "support:/application-mots-meles/:related",
+        "support:/jeux-magazines-mots-meles/:explore",
+        "support:/jeux-magazines-mots-meles/:related",
+        "support:/mots-meles-pedagogie/:explore",
+        "support:/mots-meles-pedagogie/:related",
+        "support:/mots-meles-personnages/:explore",
+        "support:/mots-meles-personnages/:related",
+        "support:/ressources-enseignants-mots-meles/:explore",
+        "support:/ressources-enseignants-mots-meles/:related",
+        "support:/solutions-regles-mots-meles/:explore",
+        "support:/solutions-regles-mots-meles/:related",
+        "theme:couleurs:explore",
+        "theme:famille:explore",
+        "theme:football:explore",
+        "theme:meteo:explore",
+        "theme:pays-du-monde:explore",
+        "theme:vocabulaire:explore",
+        "tool:hub-links:generateur",
+        "tool:hub-links:jouer"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-journaux-magazines/",
+      "inboundCount": 11,
+      "inboundSources": [
+        "footer:Presse",
+        "homepage:nav-derived",
+        "homepage:silo:presse",
+        "hub:hub-presse:breadcrumb",
+        "nav:mega:plus:Presse & ressources",
+        "press:la-croix:breadcrumb",
+        "press:la-croix:explore",
+        "press:ouest-france:breadcrumb",
+        "press:ouest-france:explore",
+        "press:sud-ouest:breadcrumb",
+        "press:sud-ouest:explore"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-journaux-magazines/la-croix/",
+      "inboundCount": 4,
+      "inboundSources": [
+        "hub:hub-presse:subcategory",
+        "press:la-croix:breadcrumb",
+        "press:ouest-france:related",
+        "press:sud-ouest:related"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-journaux-magazines/ouest-france/",
+      "inboundCount": 4,
+      "inboundSources": [
+        "hub:hub-presse:subcategory",
+        "press:la-croix:related",
+        "press:ouest-france:breadcrumb",
+        "press:sud-ouest:related"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-journaux-magazines/sud-ouest/",
+      "inboundCount": 4,
+      "inboundSources": [
+        "hub:hub-presse:subcategory",
+        "press:la-croix:related",
+        "press:ouest-france:related",
+        "press:sud-ouest:breadcrumb"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-pedagogie/",
+      "inboundCount": 11,
+      "inboundSources": [
+        "audience:adultes:explore",
+        "audience:seniors:explore",
+        "footer:Éducation",
+        "homepage:nav-derived",
+        "nav:mega:ecole:Ressources",
+        "support:/application-mots-meles/:explore",
+        "support:/jeux-magazines-mots-meles/:explore",
+        "support:/mots-meles-pedagogie/:breadcrumb",
+        "support:/mots-meles-personnages/:explore",
+        "support:/ressources-enseignants-mots-meles/:explore",
+        "support:/solutions-regles-mots-meles/:explore"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-personnages/",
+      "inboundCount": 4,
+      "inboundSources": [
+        "footer:Thèmes & saisons",
+        "homepage:nav-derived",
+        "nav:mega:plus:Découvrir",
+        "support:/mots-meles-personnages/:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-seniors/",
+      "inboundCount": 13,
+      "inboundSources": [
+        "audience:adultes:explore",
+        "audience:seniors:breadcrumb",
+        "footer:Par public",
+        "homepage:nav-derived",
+        "homepage:seo:seniors",
+        "homepage:silo:seniors",
+        "hub:hub-presse:explore",
+        "nav:mega:plus:Par public",
+        "press:la-croix:explore",
+        "press:ouest-france:explore",
+        "press:sud-ouest:explore",
+        "tool:hub-links:generateur",
+        "tool:hub-links:jouer"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/",
+      "inboundCount": 38,
+      "inboundSources": [
+        "audience:adultes:explore",
+        "audience:seniors:explore",
+        "footer:Thèmes & saisons",
+        "grade:6e:explore",
+        "grade:ce1:explore",
+        "grade:ce2:explore",
+        "grade:cm1:explore",
+        "grade:cm2:explore",
+        "grade:cp:explore",
+        "grade:maternelle:explore",
+        "homepage:nav-derived",
+        "homepage:seo:thematiques",
+        "homepage:silo:thematiques",
+        "hub:hub-thematiques:breadcrumb",
+        "nav:mega:imprimer:Par thème",
+        "support:/application-mots-meles/:explore",
+        "support:/jeux-magazines-mots-meles/:explore",
+        "support:/mots-meles-pedagogie/:explore",
+        "support:/mots-meles-personnages/:explore",
+        "support:/ressources-enseignants-mots-meles/:explore",
+        "support:/solutions-regles-mots-meles/:explore",
+        "theme:animaux:breadcrumb",
+        "theme:couleurs:breadcrumb",
+        "theme:couleurs:explore",
+        "theme:famille:breadcrumb",
+        "theme:famille:explore",
+        "theme:football:breadcrumb",
+        "theme:football:explore",
+        "theme:fruits:breadcrumb",
+        "theme:meteo:breadcrumb",
+        "theme:meteo:explore",
+        "theme:pays-du-monde:breadcrumb",
+        "theme:pays-du-monde:explore",
+        "theme:sport:breadcrumb",
+        "theme:vocabulaire:breadcrumb",
+        "theme:vocabulaire:explore",
+        "tool:hub-links:generateur",
+        "tool:hub-links:jouer"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/animaux/",
+      "inboundCount": 16,
+      "inboundSources": [
+        "footer:Thèmes & saisons",
+        "homepage:featured:Animaux",
+        "homepage:nav-derived",
+        "hub:hub-gratuits:subcategory",
+        "hub:hub-imprimer:subcategory",
+        "hub:hub-thematiques:subcategory",
+        "nav:mega:imprimer:Par thème",
+        "theme:animaux:breadcrumb",
+        "theme:couleurs:related",
+        "theme:famille:related",
+        "theme:football:related",
+        "theme:fruits:related",
+        "theme:meteo:related",
+        "theme:pays-du-monde:related",
+        "theme:sport:related",
+        "theme:vocabulaire:related"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/couleurs/",
+      "inboundCount": 4,
+      "inboundSources": [
+        "hub:hub-gratuits:subcategory",
+        "hub:hub-thematiques:subcategory",
+        "theme:couleurs:breadcrumb",
+        "theme:vocabulaire:explore"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/famille/",
+      "inboundCount": 5,
+      "inboundSources": [
+        "homepage:featured:Famille",
+        "homepage:nav-derived",
+        "hub:hub-thematiques:subcategory",
+        "theme:famille:breadcrumb",
+        "theme:meteo:explore"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/football/",
+      "inboundCount": 12,
+      "inboundSources": [
+        "hub:hub-gratuits:subcategory",
+        "hub:hub-imprimer:subcategory",
+        "hub:hub-thematiques:subcategory",
+        "theme:animaux:related",
+        "theme:couleurs:related",
+        "theme:famille:related",
+        "theme:football:breadcrumb",
+        "theme:fruits:related",
+        "theme:meteo:related",
+        "theme:pays-du-monde:related",
+        "theme:sport:related",
+        "theme:vocabulaire:related"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/fruits/",
+      "inboundCount": 14,
+      "inboundSources": [
+        "homepage:featured:Fruits",
+        "homepage:nav-derived",
+        "hub:hub-gratuits:subcategory",
+        "hub:hub-imprimer:subcategory",
+        "hub:hub-thematiques:subcategory",
+        "theme:animaux:related",
+        "theme:couleurs:related",
+        "theme:famille:related",
+        "theme:football:related",
+        "theme:fruits:breadcrumb",
+        "theme:meteo:related",
+        "theme:pays-du-monde:related",
+        "theme:sport:related",
+        "theme:vocabulaire:related"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/meteo/",
+      "inboundCount": 5,
+      "inboundSources": [
+        "homepage:featured:Météo",
+        "homepage:nav-derived",
+        "hub:hub-thematiques:subcategory",
+        "theme:famille:explore",
+        "theme:meteo:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/pays-du-monde/",
+      "inboundCount": 4,
+      "inboundSources": [
+        "homepage:featured:Pays du Monde",
+        "homepage:nav-derived",
+        "hub:hub-thematiques:subcategory",
+        "theme:pays-du-monde:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/sport/",
+      "inboundCount": 16,
+      "inboundSources": [
+        "homepage:featured:Sport",
+        "homepage:nav-derived",
+        "hub:hub-gratuits:subcategory",
+        "hub:hub-imprimer:subcategory",
+        "hub:hub-thematiques:subcategory",
+        "nav:mega:imprimer:Par thème",
+        "theme:animaux:related",
+        "theme:couleurs:related",
+        "theme:famille:related",
+        "theme:football:explore",
+        "theme:football:related",
+        "theme:fruits:related",
+        "theme:meteo:related",
+        "theme:pays-du-monde:related",
+        "theme:sport:breadcrumb",
+        "theme:vocabulaire:related"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles-thematiques/vocabulaire/",
+      "inboundCount": 8,
+      "inboundSources": [
+        "hub:hub-gratuits:subcategory",
+        "hub:hub-thematiques:subcategory",
+        "theme:animaux:related",
+        "theme:couleurs:explore",
+        "theme:football:related",
+        "theme:fruits:related",
+        "theme:sport:related",
+        "theme:vocabulaire:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/6e-animaux-bonus-01/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:6e:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/6e-vocabulaire-bonus-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:6e:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/animaux-difficile-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:animaux:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/animaux-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:animaux:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/animaux-facile-01/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "homepage:popular:Les Animaux de la Ferme",
+        "hub:hub-thematiques:puzzle-grid",
+        "theme:animaux:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/animaux-facile-04/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "homepage:popular:Les Petites Bêtes",
+        "theme:animaux:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/animaux-moyen-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:animaux:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/animaux-moyen-05/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:animaux:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/carnaval-difficile-03/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "difficulty:difficile:puzzle-grid",
+        "grade:cm2:puzzle-grid",
+        "seasonal:carnaval:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/carnaval-difficile-06/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "audience:adultes:puzzle-grid",
+        "seasonal:carnaval:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/carnaval-facile-01/",
+      "inboundCount": 10,
+      "inboundSources": [
+        "audience:enfants:puzzle-grid",
+        "difficulty:facile:puzzle-grid",
+        "grade:cp:puzzle-grid",
+        "hub:ecole-resolver:puzzle-grid",
+        "hub:hub-difficulte:puzzle-grid",
+        "hub:hub-ecole:puzzle-grid",
+        "hub:hub-fetes:puzzle-grid",
+        "hub:hub-gratuits:puzzle-grid",
+        "hub:hub-imprimer:puzzle-grid",
+        "seasonal:carnaval:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/carnaval-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "seasonal:carnaval:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/carnaval-moyen-02/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "audience:seniors:puzzle-grid",
+        "difficulty:moyen:puzzle-grid",
+        "seasonal:carnaval:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/carnaval-moyen-05/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "grade:ce1:puzzle-grid",
+        "seasonal:carnaval:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce1-halloween-facile-01/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "combo:ce1:halloween:puzzle-grid",
+        "seasonal:halloween:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce1-halloween-facile-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "combo:ce1:halloween:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce1-halloween-moyen-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "combo:ce1:halloween:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce1-halloween-moyen-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "combo:ce1:halloween:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce1-noel-facile-01/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "combo:ce1:noel:puzzle-grid",
+        "seasonal:noel:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce1-noel-facile-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "combo:ce1:noel:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce1-noel-moyen-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "combo:ce1:noel:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce1-noel-moyen-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "combo:ce1:noel:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce2-animaux-bonus-01/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:ce2:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ce2-vocabulaire-bonus-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:ce2:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/cm1-animaux-bonus-01/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cm1:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/cm1-vocabulaire-bonus-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:cm1:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/couleurs-difficile-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:couleurs:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/couleurs-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:couleurs:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/couleurs-facile-01/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "hub:hub-thematiques:puzzle-grid",
+        "theme:couleurs:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/couleurs-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:couleurs:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/couleurs-moyen-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:couleurs:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/couleurs-moyen-05/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:couleurs:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ete-difficile-03/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "difficulty:difficile:puzzle-grid",
+        "grade:cm2:puzzle-grid",
+        "seasonal:ete:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ete-difficile-06/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "audience:adultes:puzzle-grid",
+        "seasonal:ete:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ete-facile-01/",
+      "inboundCount": 10,
+      "inboundSources": [
+        "audience:enfants:puzzle-grid",
+        "difficulty:facile:puzzle-grid",
+        "grade:cp:puzzle-grid",
+        "hub:ecole-resolver:puzzle-grid",
+        "hub:hub-difficulte:puzzle-grid",
+        "hub:hub-ecole:puzzle-grid",
+        "hub:hub-fetes:puzzle-grid",
+        "hub:hub-gratuits:puzzle-grid",
+        "hub:hub-imprimer:puzzle-grid",
+        "seasonal:ete:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ete-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "seasonal:ete:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ete-moyen-02/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "audience:seniors:puzzle-grid",
+        "difficulty:moyen:puzzle-grid",
+        "seasonal:ete:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/ete-moyen-05/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "grade:ce1:puzzle-grid",
+        "seasonal:ete:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/famille-difficile-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:famille:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/famille-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:famille:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/famille-facile-01/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:famille:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/famille-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:famille:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/famille-moyen-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:famille:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/famille-moyen-05/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:famille:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/football-difficile-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:football:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/football-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:football:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/football-facile-01/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "hub:hub-thematiques:puzzle-grid",
+        "theme:football:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/football-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:football:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/football-moyen-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:football:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/football-moyen-05/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:football:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/fruits-difficile-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:fruits:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/fruits-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:fruits:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/fruits-facile-01/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "homepage:popular:Fruits d'Été",
+        "hub:hub-thematiques:puzzle-grid",
+        "theme:fruits:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/fruits-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:fruits:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/fruits-moyen-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:fruits:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/fruits-moyen-05/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:fruits:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/halloween-difficile-03/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "difficulty:difficile:puzzle-grid",
+        "grade:cm2:puzzle-grid",
+        "seasonal:halloween:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/halloween-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "audience:adultes:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/halloween-facile-01/",
+      "inboundCount": 10,
+      "inboundSources": [
+        "audience:enfants:puzzle-grid",
+        "difficulty:facile:puzzle-grid",
+        "grade:cp:puzzle-grid",
+        "hub:ecole-resolver:puzzle-grid",
+        "hub:hub-difficulte:puzzle-grid",
+        "hub:hub-ecole:puzzle-grid",
+        "hub:hub-fetes:puzzle-grid",
+        "hub:hub-gratuits:puzzle-grid",
+        "hub:hub-imprimer:puzzle-grid",
+        "seasonal:halloween:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/halloween-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "seasonal:halloween:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/halloween-moyen-02/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "audience:seniors:puzzle-grid",
+        "difficulty:moyen:puzzle-grid",
+        "seasonal:halloween:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/halloween-moyen-05/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "combo:ce1:halloween:puzzle-grid",
+        "grade:ce1:puzzle-grid",
+        "seasonal:halloween:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/maternelle-animaux-bonus-01/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:maternelle:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/maternelle-vocabulaire-bonus-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "grade:maternelle:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/meteo-difficile-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:meteo:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/meteo-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:meteo:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/meteo-facile-01/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:meteo:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/meteo-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:meteo:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/meteo-moyen-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:meteo:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/meteo-moyen-05/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:meteo:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/noel-difficile-03/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "difficulty:difficile:puzzle-grid",
+        "grade:cm2:puzzle-grid",
+        "seasonal:noel:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/noel-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "audience:adultes:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/noel-facile-01/",
+      "inboundCount": 10,
+      "inboundSources": [
+        "audience:enfants:puzzle-grid",
+        "difficulty:facile:puzzle-grid",
+        "grade:cp:puzzle-grid",
+        "hub:ecole-resolver:puzzle-grid",
+        "hub:hub-difficulte:puzzle-grid",
+        "hub:hub-ecole:puzzle-grid",
+        "hub:hub-fetes:puzzle-grid",
+        "hub:hub-gratuits:puzzle-grid",
+        "hub:hub-imprimer:puzzle-grid",
+        "seasonal:noel:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/noel-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "seasonal:noel:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/noel-moyen-02/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "audience:seniors:puzzle-grid",
+        "difficulty:moyen:puzzle-grid",
+        "seasonal:noel:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/noel-moyen-05/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "combo:ce1:noel:puzzle-grid",
+        "grade:ce1:puzzle-grid",
+        "seasonal:noel:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/paques-difficile-03/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "difficulty:difficile:puzzle-grid",
+        "grade:cm2:puzzle-grid",
+        "seasonal:paques:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/paques-difficile-06/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "audience:adultes:puzzle-grid",
+        "seasonal:paques:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/paques-facile-01/",
+      "inboundCount": 10,
+      "inboundSources": [
+        "audience:enfants:puzzle-grid",
+        "difficulty:facile:puzzle-grid",
+        "grade:cp:puzzle-grid",
+        "hub:ecole-resolver:puzzle-grid",
+        "hub:hub-difficulte:puzzle-grid",
+        "hub:hub-ecole:puzzle-grid",
+        "hub:hub-fetes:puzzle-grid",
+        "hub:hub-gratuits:puzzle-grid",
+        "hub:hub-imprimer:puzzle-grid",
+        "seasonal:paques:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/paques-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "seasonal:paques:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/paques-moyen-02/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "audience:seniors:puzzle-grid",
+        "difficulty:moyen:puzzle-grid",
+        "seasonal:paques:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/paques-moyen-05/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "grade:ce1:puzzle-grid",
+        "seasonal:paques:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/pays-du-monde-difficile-03/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "homepage:popular:Capitales du Monde",
+        "theme:pays-du-monde:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/pays-du-monde-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:pays-du-monde:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/pays-du-monde-facile-01/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:pays-du-monde:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/pays-du-monde-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:pays-du-monde:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/pays-du-monde-moyen-02/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:pays-du-monde:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/pays-du-monde-moyen-05/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:pays-du-monde:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/rentree-difficile-03/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "difficulty:difficile:puzzle-grid",
+        "grade:cm2:puzzle-grid",
+        "seasonal:rentree:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/rentree-difficile-06/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "audience:adultes:puzzle-grid",
+        "seasonal:rentree:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/rentree-facile-01/",
+      "inboundCount": 10,
+      "inboundSources": [
+        "audience:enfants:puzzle-grid",
+        "difficulty:facile:puzzle-grid",
+        "grade:cp:puzzle-grid",
+        "hub:ecole-resolver:puzzle-grid",
+        "hub:hub-difficulte:puzzle-grid",
+        "hub:hub-ecole:puzzle-grid",
+        "hub:hub-fetes:puzzle-grid",
+        "hub:hub-gratuits:puzzle-grid",
+        "hub:hub-imprimer:puzzle-grid",
+        "seasonal:rentree:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/rentree-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "seasonal:rentree:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/rentree-moyen-02/",
+      "inboundCount": 3,
+      "inboundSources": [
+        "audience:seniors:puzzle-grid",
+        "difficulty:moyen:puzzle-grid",
+        "seasonal:rentree:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/rentree-moyen-05/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "grade:ce1:puzzle-grid",
+        "seasonal:rentree:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/sport-difficile-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:sport:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/sport-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:sport:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/sport-facile-01/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "hub:hub-thematiques:puzzle-grid",
+        "theme:sport:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/sport-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:sport:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/sport-moyen-02/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "homepage:popular:Le Système Solaire",
+        "theme:sport:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/sport-moyen-05/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:sport:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/vocabulaire-difficile-03/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:vocabulaire:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/vocabulaire-difficile-06/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:vocabulaire:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/vocabulaire-facile-01/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "hub:hub-thematiques:puzzle-grid",
+        "theme:vocabulaire:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/vocabulaire-facile-04/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:vocabulaire:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/vocabulaire-moyen-02/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "homepage:popular:Les Instruments",
+        "theme:vocabulaire:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/mots-meles/vocabulaire-moyen-05/",
+      "inboundCount": 1,
+      "inboundSources": [
+        "theme:vocabulaire:puzzle-grid"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/politique-de-confidentialite/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "footer:legal",
+        "homepage:nav-derived"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/recherche/",
+      "inboundCount": 2,
+      "inboundSources": [
+        "homepage:nav-derived",
+        "nav:mobile-tab"
+      ],
+      "isImportant": false,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/ressources-enseignants-mots-meles/",
+      "inboundCount": 5,
+      "inboundSources": [
+        "footer:Produits & ressources",
+        "homepage:nav-derived",
+        "nav:mega:ecole:Ressources",
+        "nav:mega:plus:Presse & ressources",
+        "support:/ressources-enseignants-mots-meles/:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    },
+    {
+      "path": "/solutions-regles-mots-meles/",
+      "inboundCount": 4,
+      "inboundSources": [
+        "footer:Hub principal",
+        "homepage:nav-derived",
+        "nav:mega:plus:Découvrir",
+        "support:/solutions-regles-mots-meles/:breadcrumb"
+      ],
+      "isImportant": true,
+      "meetsMinimum": true
+    }
+  ],
+  "pillarSummary": {
+    "/": 50,
+    "/generateur-mots-meles/": 94,
+    "/jouer-mots-meles-en-ligne/": 93,
+    "/mots-meles-gratuits/": 63,
+    "/mots-meles-a-imprimer/": 114,
+    "/mots-meles-thematiques/": 38,
+    "/mots-meles-enfants/": 31,
+    "/mots-meles-adultes/": 19,
+    "/mots-meles-seniors/": 13
+  }
+}

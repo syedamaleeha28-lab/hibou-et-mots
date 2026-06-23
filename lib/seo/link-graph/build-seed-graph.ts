@@ -9,6 +9,7 @@ import {
 } from "@/lib/navigation"
 import { normalizePath } from "@/lib/seo/canonical"
 import { buildComboParentLinks } from "@/lib/seo/linking"
+import { listCategoryExploreHrefsForSlug } from "@/lib/seo/linking/category-explore-links"
 import {
   ROUTES,
   resolvePuzzlePath,
@@ -118,6 +119,12 @@ export function buildSeedLinkGraph(): GraphAdjacency {
     }
 
     addEdge(adjacency, path, ROUTES.generateur)
+    addEdge(adjacency, path, ROUTES.jouer)
+    addEdge(adjacency, path, ROUTES.imprimer)
+
+    for (const href of listCategoryExploreHrefsForSlug(def.slug)) {
+      addEdge(adjacency, path, href)
+    }
   }
 
   for (const spec of buildPuzzlePlan()) {

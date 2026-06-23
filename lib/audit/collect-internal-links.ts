@@ -37,6 +37,8 @@ import {
   resolveThemeCategoryPageData,
 } from "@/lib/db/queries/category-resolvers"
 import { resolvePuzzlePageData } from "@/lib/db/queries/pilot"
+import { getCategoryExploreLinks } from "@/lib/seo/linking/category-explore-links"
+import { generatorCtaHref } from "@/lib/seo/linking"
 import { normalizeInternalHref } from "@/lib/audit/resolve-internal-path"
 import { CATEGORY_SEED_DEFINITIONS } from "@/prisma/seed/categories"
 import { difficultySeed } from "@/prisma/seed/difficulties"
@@ -68,15 +70,28 @@ export type InternalLinkSection =
   | "tool"
   | "sitemap"
 
-const TOOL_PAGE_LINKS: Array<{ href: string; source: string }> = [
-  { href: ROUTES.jouer, source: "tool:jouer" },
-  { href: ROUTES.generateur, source: "tool:generateur" },
-  { href: ROUTES.enfants, source: "tool:hub-links" },
-  { href: ROUTES.ecoleHub, source: "tool:hub-links" },
-  { href: ROUTES.imprimer, source: "tool:hub-links" },
-  { href: ROUTES.gratuits, source: "tool:hub-links" },
-  { href: ROUTES.imprimer, source: "tool:editorial" },
-  { href: ROUTES.generateur, source: "tool:editorial" },
+const TOOL_PAGE_LINKS: Array<{ href: string; source: string; from: "generateur" | "jouer" }> = [
+  { href: ROUTES.jouer, source: "tool:jouer:cta", from: "generateur" },
+  { href: ROUTES.generateur, source: "tool:jouer:cross", from: "jouer" },
+  { href: ROUTES.enfants, source: "tool:hub-links", from: "generateur" },
+  { href: ROUTES.adultes, source: "tool:hub-links", from: "generateur" },
+  { href: ROUTES.seniors, source: "tool:hub-links", from: "generateur" },
+  { href: ROUTES.ecoleHub, source: "tool:hub-links", from: "generateur" },
+  { href: ROUTES.thematiquesHub, source: "tool:hub-links", from: "generateur" },
+  { href: ROUTES.fetesHub, source: "tool:hub-links", from: "generateur" },
+  { href: ROUTES.imprimer, source: "tool:hub-links", from: "generateur" },
+  { href: ROUTES.gratuits, source: "tool:hub-links", from: "generateur" },
+  { href: ROUTES.imprimer, source: "tool:editorial", from: "generateur" },
+  { href: ROUTES.generateur, source: "tool:editorial", from: "jouer" },
+  { href: ROUTES.enfants, source: "tool:hub-links", from: "jouer" },
+  { href: ROUTES.adultes, source: "tool:hub-links", from: "jouer" },
+  { href: ROUTES.seniors, source: "tool:hub-links", from: "jouer" },
+  { href: ROUTES.ecoleHub, source: "tool:hub-links", from: "jouer" },
+  { href: ROUTES.thematiquesHub, source: "tool:hub-links", from: "jouer" },
+  { href: ROUTES.fetesHub, source: "tool:hub-links", from: "jouer" },
+  { href: ROUTES.imprimer, source: "tool:hub-links", from: "jouer" },
+  { href: ROUTES.gratuits, source: "tool:hub-links", from: "jouer" },
+  { href: ROUTES.imprimer, source: "tool:editorial", from: "jouer" },
 ]
 
 const HOME_SILO_LINKS: Array<{ href: string; label: string }> = [
@@ -88,6 +103,9 @@ const HOME_SILO_LINKS: Array<{ href: string; label: string }> = [
   { href: ROUTES.thematiquesHub, label: "thematiques" },
   { href: ROUTES.fetesHub, label: "fetes" },
   { href: ROUTES.presseHub, label: "presse" },
+  { href: ROUTES.enfants, label: "enfants" },
+  { href: ROUTES.adultes, label: "adultes" },
+  { href: ROUTES.seniors, label: "seniors" },
 ]
 
 function linkRef(
@@ -119,6 +137,12 @@ function linksFromCategoryPage(
   for (const item of page.comboParentLinks ?? []) {
     links.push(linkRef(item.href, `${prefix}:combo-parent`, section))
   }
+  for (const item of getCategoryExploreLinks(page)) {
+    links.push(linkRef(item.href, `${prefix}:explore`, section))
+  }
+  links.push(linkRef(generatorCtaHref(page.theme?.slug), `${prefix}:cta-generateur`, section))
+  links.push(linkRef(ROUTES.jouer, `${prefix}:cta-jouer`, section))
+  links.push(linkRef(ROUTES.imprimer, `${prefix}:cta-imprimer`, section))
   return links
 }
 
@@ -214,12 +238,19 @@ export function collectHomepageLinks(): InternalLinkRef[] {
   links.push(linkRef(ROUTES.jouer, "homepage:hero:jouer", "homepage"))
   links.push(linkRef(ROUTES.generateur, "homepage:hero:generateur", "homepage"))
   links.push(linkRef(ROUTES.imprimer, "homepage:printable", "homepage"))
+  links.push(linkRef(ROUTES.adultes, "homepage:seo:adultes", "homepage"))
+  links.push(linkRef(ROUTES.seniors, "homepage:seo:seniors", "homepage"))
+  links.push(linkRef(ROUTES.enfants, "homepage:silo:enfants", "homepage"))
+  links.push(linkRef(ROUTES.adultes, "homepage:silo:adultes", "homepage"))
+  links.push(linkRef(ROUTES.seniors, "homepage:silo:seniors", "homepage"))
 
   return links
 }
 
 export function collectToolPageLinks(): InternalLinkRef[] {
-  return TOOL_PAGE_LINKS.map((item) => linkRef(item.href, item.source, "tool"))
+  return TOOL_PAGE_LINKS.map((item) =>
+    linkRef(item.href, `${item.source}:${item.from}`, "tool"),
+  )
 }
 
 export async function collectCategoryPageLinks(): Promise<InternalLinkRef[]> {
@@ -366,6 +397,32 @@ export function collectSitemapLinks(siteUrl = DEFAULT_SITE_URL): InternalLinkRef
   }
 
   return links
+}
+
+/** Internal links for pillar/category map (skips individual puzzle pages for speed). */
+export async function collectInternalLinksForMap(): Promise<InternalLinkRef[]> {
+  const sections = [
+    collectNavigationLinks(),
+    collectFooterLinks(),
+    collectHomepageLinks(),
+    collectToolPageLinks(),
+    await collectCategoryPageLinks(),
+  ]
+
+  const merged: InternalLinkRef[] = []
+  const seen = new Set<string>()
+
+  for (const batch of sections) {
+    for (const ref of batch) {
+      if (!ref.path.startsWith("/")) continue
+      const key = `${ref.path}|${ref.source}`
+      if (seen.has(key)) continue
+      seen.add(key)
+      merged.push(ref)
+    }
+  }
+
+  return merged
 }
 
 /** All internal links from rendered page data, navigation, tools, and sitemap sources. */

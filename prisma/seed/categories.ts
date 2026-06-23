@@ -8,6 +8,7 @@ import {
 import { difficultySeed } from "./difficulties"
 import { getCategoryFaq, getPhase1Intro, seasonalCategoryIntro, themeCategoryIntro } from "@/lib/content/phase1"
 import { PEDAGOGIE_INTRO, PEDAGOGIE_META_DESCRIPTION } from "@/lib/content/pedagogie"
+import { SENIORS_INTRO, SENIORS_META_DESCRIPTION } from "@/lib/content/seniors"
 import { getThemeMetaDescription } from "@/lib/content/themes"
 import { gradeSeed } from "./grades"
 import { themeSeed } from "./themes"
@@ -187,10 +188,8 @@ const AUDIENCE_DEFINITIONS: CategorySeedDefinition[] = [
     type: "AUDIENCE",
     h1: "Mots mêlés Seniors — Grand format",
     seoTitle: "Mots mêlés Seniors — Grilles grand format",
-    metaDescription:
-      "Des mots mêlés pour seniors en grand format, lisibles et gratuits à imprimer.",
-    introText:
-      "Des grilles lisibles et stimulantes pour les seniors, avec un vocabulaire varié et un format confortable.",
+    metaDescription: SENIORS_META_DESCRIPTION,
+    introText: SENIORS_INTRO,
   },
 ]
 

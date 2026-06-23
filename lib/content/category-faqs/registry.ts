@@ -1,5 +1,6 @@
 import type { FaqItem } from "@/lib/db/types/page-data"
 import { PEDAGOGIE_FAQ } from "@/lib/content/pedagogie"
+import { SENIORS_FAQ } from "@/lib/content/seniors"
 
 /** Page-specific FAQ blocks keyed by category slug — no shared templates. */
 export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
@@ -518,23 +519,7 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
         "Oui, chaque grille Adultes se joue dans le navigateur ou s'imprime en PDF avec corrigé.",
     },
   ],
-  seniors: [
-    {
-      question: "Les grilles Seniors sont-elles lisibles ?",
-      answer:
-        "Oui, la page Mots mêlés Seniors privilégie un grand format et des lettres claires pour un confort de lecture optimal.",
-    },
-    {
-      question: "Quel vocabulaire sur la rubrique Seniors ?",
-      answer:
-        "Les listes Seniors mêlent lexique varié, culture générale et mots du quotidien, sans acronymes obscurs.",
-    },
-    {
-      question: "Peut-on imprimer les grilles Seniors ?",
-      answer:
-        "Oui, activez le mode grand format puis imprimez le PDF Seniors en A4, corrigé inclus.",
-    },
-  ],
+  seniors: SENIORS_FAQ,
   pedagogie: PEDAGOGIE_FAQ,
   personnages: [
     {

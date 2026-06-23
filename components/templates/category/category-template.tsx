@@ -18,6 +18,7 @@ import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
 import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { PedagogieEditorial } from "@/components/templates/pedagogie/pedagogie-editorial"
+import { SeniorsEditorial } from "@/components/templates/seniors/seniors-editorial"
 
 export type CategoryTemplateProps = {
   category: CategoryPageData
@@ -44,6 +45,8 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           <CategoryPhase2Sections slug={category.slug} />
 
           {category.slug === "pedagogie" && <PedagogieEditorial />}
+
+          {category.slug === "seniors" && <SeniorsEditorial />}
 
           <CategoryExploreLinks category={category} />
 

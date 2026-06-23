@@ -3,12 +3,14 @@ import { ANIMAUX_FAQ, ANIMAUX_INTRO, ANIMAUX_META_DESCRIPTION } from "./animaux"
 import { FRUITS_FAQ, FRUITS_INTRO, FRUITS_META_DESCRIPTION } from "./fruits"
 import { HALLOWEEN_FAQ, HALLOWEEN_INTRO, HALLOWEEN_META_DESCRIPTION } from "./halloween"
 import { NOEL_FAQ, NOEL_INTRO, NOEL_META_DESCRIPTION } from "./noel"
+import { SPORT_FAQ, SPORT_INTRO, SPORT_META_DESCRIPTION } from "./sport"
 
 const THEME_INTROS: Record<string, string> = {
   animaux: ANIMAUX_INTRO,
   fruits: FRUITS_INTRO,
   halloween: HALLOWEEN_INTRO,
   noel: NOEL_INTRO,
+  sport: SPORT_INTRO,
 }
 
 const THEME_FAQS: Record<string, FaqItem[]> = {
@@ -16,6 +18,7 @@ const THEME_FAQS: Record<string, FaqItem[]> = {
   fruits: FRUITS_FAQ,
   halloween: HALLOWEEN_FAQ,
   noel: NOEL_FAQ,
+  sport: SPORT_FAQ,
 }
 
 const THEME_META_DESCRIPTIONS: Record<string, string> = {
@@ -23,6 +26,7 @@ const THEME_META_DESCRIPTIONS: Record<string, string> = {
   fruits: FRUITS_META_DESCRIPTION,
   halloween: HALLOWEEN_META_DESCRIPTION,
   noel: NOEL_META_DESCRIPTION,
+  sport: SPORT_META_DESCRIPTION,
 }
 
 export function getThemeIntro(slug: string): string | undefined {
@@ -41,3 +45,4 @@ export { ANIMAUX_FAQ, ANIMAUX_INTRO, ANIMAUX_META_DESCRIPTION } from "./animaux"
 export { FRUITS_FAQ, FRUITS_INTRO, FRUITS_META_DESCRIPTION } from "./fruits"
 export { HALLOWEEN_FAQ, HALLOWEEN_INTRO, HALLOWEEN_META_DESCRIPTION } from "./halloween"
 export { NOEL_FAQ, NOEL_INTRO, NOEL_META_DESCRIPTION } from "./noel"
+export { SPORT_FAQ, SPORT_INTRO, SPORT_META_DESCRIPTION } from "./sport"

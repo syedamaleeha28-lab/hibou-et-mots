@@ -5,7 +5,7 @@ type CategoryThemeSectionsProps = {
   slug: string
 }
 
-const THEME_SECTION_SLUGS = new Set(["animaux", "fruits", "halloween", "noel"])
+const THEME_SECTION_SLUGS = new Set(["animaux", "fruits", "halloween", "noel", "sport"])
 
 export function CategoryThemeSections({ slug }: CategoryThemeSectionsProps) {
   if (!THEME_SECTION_SLUGS.has(slug)) return null
@@ -14,6 +14,7 @@ export function CategoryThemeSections({ slug }: CategoryThemeSectionsProps) {
   if (slug === "fruits") return <FruitsThemeLinks />
   if (slug === "halloween") return <HalloweenThemeLinks />
   if (slug === "noel") return <NoelThemeLinks />
+  if (slug === "sport") return <SportThemeLinks />
 
   return null
 }
@@ -171,6 +172,86 @@ function FruitsThemeLinks() {
           </Link>
           <span className="mt-0.5 block text-xs text-muted-foreground">
             Variez avec un autre thème nature
+          </span>
+        </li>
+      </ul>
+    </section>
+  )
+}
+
+function SportThemeLinks() {
+  return (
+    <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+      <h2 className="font-heading text-xl font-extrabold text-foreground">
+        Explorer les mots mêlés Sport
+      </h2>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+        Poursuivez avec des grilles par niveau, le thème Football ou d&apos;autres activités
+        sportives à imprimer.
+      </p>
+      <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+        <li>
+          <Link href={themePath("football")} className="text-sm font-semibold text-primary hover:underline">
+            Mots mêlés Football
+          </Link>
+          <span className="mt-0.5 block text-xs text-muted-foreground">
+            Lexique spécialisé autour du ballon rond
+          </span>
+        </li>
+        <li>
+          <Link href={gradePath("ce1")} className="text-sm font-semibold text-primary hover:underline">
+            Mots mêlés CE1
+          </Link>
+          <span className="mt-0.5 block text-xs text-muted-foreground">
+            Vocabulaire du sport adapté au cycle 2
+          </span>
+        </li>
+        <li>
+          <Link href={ROUTES.enfants} className="text-sm font-semibold text-primary hover:underline">
+            Mots mêlés Enfants
+          </Link>
+          <span className="mt-0.5 block text-xs text-muted-foreground">
+            Toutes les grilles pour les 3–12 ans
+          </span>
+        </li>
+        <li>
+          <Link href={ROUTES.imprimer} className="text-sm font-semibold text-primary hover:underline">
+            Mots mêlés à imprimer
+          </Link>
+          <span className="mt-0.5 block text-xs text-muted-foreground">
+            PDF A4 avec corrigé pour la classe ou la maison
+          </span>
+        </li>
+        <li>
+          <Link href={ROUTES.jouer} className="text-sm font-semibold text-primary hover:underline">
+            Jouer en ligne
+          </Link>
+          <span className="mt-0.5 block text-xs text-muted-foreground">
+            Partie immédiate sans impression
+          </span>
+        </li>
+        <li>
+          <Link href={ROUTES.generateur} className="text-sm font-semibold text-primary hover:underline">
+            Générateur de grilles
+          </Link>
+          <span className="mt-0.5 block text-xs text-muted-foreground">
+            Composez votre propre liste de mots sportifs
+          </span>
+        </li>
+        <li>
+          <Link href={ROUTES.ecoleHub} className="text-sm font-semibold text-primary hover:underline">
+            Mots mêlés École
+          </Link>
+          <span className="mt-0.5 block text-xs text-muted-foreground">
+            Parcours par niveau de la maternelle à la 6e
+          </span>
+        </li>
+        <li>
+          <Link href={themePath("fruits")} className="text-sm font-semibold text-primary hover:underline">
+            Thème Fruits
+          </Link>
+          <span className="mt-0.5 block text-xs text-muted-foreground">
+            Variez avec un autre thème du quotidien
           </span>
         </li>
       </ul>

@@ -5,42 +5,39 @@ import { buildOrganizationSchema } from "./home"
 import { buildPersonSchema } from "./person"
 import { buildSchemaGraph } from "./graph"
 
-const ABOUT_TITLE = "À propos de Hibou&Mots"
-const ABOUT_DESCRIPTION =
-  "Découvrez la mission de Hibou&Mots : des mots mêlés gratuits en français pour aider les enfants à enrichir leur vocabulaire, à la maison comme en classe."
+const AUTHOR_PAGE_TITLE = `Auteur — ${SITE_AUTHOR.name}`
 
-export function buildAboutPageSchemaGraph(siteUrl?: string): Record<string, unknown> {
+export function buildAuthorPageSchemaGraph(siteUrl?: string): Record<string, unknown> {
   const base = (siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL).replace(/\/$/, "")
+  const authorUrl = absoluteUrl(ROUTES.auteur, base)
   const homeUrl = absoluteUrl(ROUTES.home, base)
-  const aboutUrl = absoluteUrl(ROUTES.aPropos, base)
 
   const breadcrumb = buildBreadcrumbListSchema(
     [
       { label: "Accueil", href: ROUTES.home },
-      { label: "À propos", href: ROUTES.aPropos },
+      { label: "Auteur", href: ROUTES.auteur },
     ],
     siteUrl,
   )
 
-  const webPage = {
-    "@type": "WebPage",
-    "@id": `${aboutUrl}#webpage`,
-    url: aboutUrl,
-    name: ABOUT_TITLE,
-    description: ABOUT_DESCRIPTION,
+  const profilePage = {
+    "@type": "ProfilePage",
+    "@id": `${authorUrl}#webpage`,
+    url: authorUrl,
+    name: AUTHOR_PAGE_TITLE,
+    description: SITE_AUTHOR.purpose,
     inLanguage: "fr-FR",
     isPartOf: { "@id": `${homeUrl}#website` },
-    about: { "@id": `${homeUrl}#organization` },
     publisher: { "@id": `${homeUrl}#organization` },
-    author: { "@id": `${absoluteUrl(ROUTES.auteur, base)}#person` },
+    mainEntity: { "@id": `${authorUrl}#person` },
     datePublished: SITE_PUBLISHED_DATE,
     dateModified: SITE_CONTENT_UPDATED_DATE,
   }
 
   return buildSchemaGraph([
     breadcrumb,
-    webPage,
-    buildOrganizationSchema(siteUrl),
+    profilePage,
     buildPersonSchema(siteUrl),
+    buildOrganizationSchema(siteUrl),
   ])
 }

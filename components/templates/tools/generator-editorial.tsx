@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { GENERATOR_FAQ } from "@/lib/content/phase1"
 import { ROUTES } from "@/lib/seo/routes"
@@ -121,6 +122,7 @@ export function GeneratorEditorial() {
 
         <ToolHubLinks />
         <FaqAccordion items={GENERATOR_FAQ} />
+        <AuthorAttribution />
       </div>
     </div>
   )

@@ -208,4 +208,5 @@ export const footerLegalLinks: NavLink[] = [
   { label: "Politique de confidentialité", href: ROUTES.confidentialite },
   { label: "Contact", href: ROUTES.contact },
   { label: "À propos", href: ROUTES.aPropos },
+  { label: "Auteur", href: ROUTES.auteur },
 ]

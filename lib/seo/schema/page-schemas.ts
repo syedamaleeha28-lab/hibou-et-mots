@@ -1,5 +1,7 @@
 import type { CategoryPageData, PuzzlePageData } from "@/lib/db/types/page-data"
+import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { buildBreadcrumbListSchema, type BreadcrumbItem } from "@/lib/seo/breadcrumbs"
+import { buildContentWebPageSchema } from "./person"
 import { buildCreativeWorkSchema } from "./creative-work"
 import { buildFaqPageSchema } from "./faq-page"
 import { buildItemListSchema } from "./item-list"
@@ -8,7 +10,7 @@ import { buildSchemaGraph } from "./graph"
 export function buildCategoryPageSchemaGraph(
   category: Pick<
     CategoryPageData,
-    "h1" | "breadcrumbs" | "schema" | "puzzles"
+    "slug" | "type" | "h1" | "metaDescription" | "canonicalPath" | "breadcrumbs" | "schema" | "puzzles"
   >,
   siteUrl?: string,
 ): Record<string, unknown> {
@@ -18,7 +20,21 @@ export function buildCategoryPageSchemaGraph(
     buildItemListSchema(category.h1, category.puzzles.items, siteUrl)
   const faqPage = category.schema.faqPage
 
-  return buildSchemaGraph([breadcrumb, itemList, faqPage])
+  const nodes: Array<Record<string, unknown>> = [breadcrumb, itemList]
+  if (faqPage) nodes.push(faqPage)
+
+  if (shouldShowAuthorAttribution(category.slug, category.type)) {
+    nodes.push(
+      buildContentWebPageSchema({
+        path: category.canonicalPath,
+        name: category.h1,
+        description: category.metaDescription,
+        siteUrl,
+      }),
+    )
+  }
+
+  return buildSchemaGraph(nodes)
 }
 
 export function buildPuzzlePageSchemaGraph(

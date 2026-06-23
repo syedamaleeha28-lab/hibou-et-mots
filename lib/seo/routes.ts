@@ -27,6 +27,7 @@ export const ROUTES = {
   confidentialite: "/politique-de-confidentialite/",
   contact: "/contact/",
   aPropos: "/a-propos/",
+  auteur: "/auteur/",
 } as const
 
 export function gradePath(slug: string): string {

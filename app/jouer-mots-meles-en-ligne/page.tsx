@@ -4,7 +4,7 @@ import { OnlinePlayEditorial } from "@/components/templates/tools/online-play-ed
 import { SchemaJsonLd } from "@/components/seo"
 import { ONLINE_PLAY_FAQ } from "@/lib/content/phase1"
 import { buildStaticPageMetadata } from "@/lib/seo/metadata"
-import { buildFaqPageSchema, buildSchemaGraph, buildSoftwareApplicationSchema, ONLINE_PLAY_FEATURE_LIST } from "@/lib/seo/schema"
+import { buildFaqPageSchema, buildSchemaGraph, buildSoftwareApplicationSchema, ONLINE_PLAY_FEATURE_LIST, buildContentWebPageSchema } from "@/lib/seo/schema"
 import { ROUTES } from "@/lib/seo/routes"
 
 export const revalidate = 3600
@@ -27,6 +27,12 @@ export default function JouerEnLignePage() {
         "Jouez aux mots mêlés dans votre navigateur, sans téléchargement, gratuitement.",
       path: ROUTES.jouer,
       featureList: ONLINE_PLAY_FEATURE_LIST,
+    }),
+    buildContentWebPageSchema({
+      path: ROUTES.jouer,
+      name: "Jouer aux mots mêlés en ligne — Grilles gratuites",
+      description:
+        "Joue gratuitement aux mots mêlés en ligne : choisis un thème, une difficulté et trouve tous les mots avec le chronomètre.",
     }),
     ...(faqPage ? [faqPage] : []),
   ])

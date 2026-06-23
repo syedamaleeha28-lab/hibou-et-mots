@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { BreadcrumbTrail } from "@/components/layout/breadcrumb-trail"
 import { SchemaJsonLd } from "@/components/seo"
+import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { buildStaticPageMetadata } from "@/lib/seo/metadata"
 import { buildAboutPageSchemaGraph } from "@/lib/seo/schema/about-page"
 import { CONTACT_EMAIL, ROUTES } from "@/lib/seo/routes"
@@ -118,6 +119,15 @@ export default function AboutPage() {
               <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> ou utilisez le{" "}
               <Link href={ROUTES.contact}>formulaire de contact</Link>.
             </p>
+
+            <p>
+              En savoir plus sur l&apos;équipe éditoriale :{" "}
+              <Link href={ROUTES.auteur}>page auteur Hibou&Mots</Link>.
+            </p>
+          </div>
+
+          <div className="mt-8">
+            <AuthorAttribution variant="detailed" />
           </div>
         </div>
       </div>

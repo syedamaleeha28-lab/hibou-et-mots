@@ -13,6 +13,7 @@ import {
   PuzzleGenerator,
 } from "@/components/templates/home"
 import { SchemaJsonLd } from "@/components/seo"
+import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { buildHomeMetadata } from "@/lib/seo/metadata"
 import { buildHomePageSchemaGraph } from "@/lib/seo/schema/home"
 
@@ -32,6 +33,9 @@ export default function Home() {
       <FeaturedCategories />
       <PopularPuzzles />
       <HomePedagogySection />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <AuthorAttribution />
+      </div>
       <HomeChooseGridSection />
       <GradeLevels />
       <PrintablePdfs />

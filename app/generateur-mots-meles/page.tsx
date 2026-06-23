@@ -4,7 +4,7 @@ import { GeneratorEditorial } from "@/components/templates/tools/generator-edito
 import { SchemaJsonLd } from "@/components/seo"
 import { GENERATOR_FAQ } from "@/lib/content/phase1"
 import { buildStaticPageMetadata } from "@/lib/seo/metadata"
-import { buildFaqPageSchema, buildSchemaGraph, buildSoftwareApplicationSchema, GENERATOR_FEATURE_LIST } from "@/lib/seo/schema"
+import { buildFaqPageSchema, buildSchemaGraph, buildSoftwareApplicationSchema, GENERATOR_FEATURE_LIST, buildContentWebPageSchema } from "@/lib/seo/schema"
 import { ROUTES } from "@/lib/seo/routes"
 
 export const revalidate = 3600
@@ -27,6 +27,12 @@ export default function GenerateurPage() {
         "Créez une grille de mots mêlés personnalisée en français avec aperçu en direct, sans inscription.",
       path: ROUTES.generateur,
       featureList: GENERATOR_FEATURE_LIST,
+    }),
+    buildContentWebPageSchema({
+      path: ROUTES.generateur,
+      name: "Générateur de mots mêlés — Crée ta grille gratuite",
+      description:
+        "Générateur de mots mêlés gratuit en français : choisis un thème, personnalise tes mots, règle la taille et joue en ligne ou imprime ta grille.",
     }),
     ...(faqPage ? [faqPage] : []),
   ])

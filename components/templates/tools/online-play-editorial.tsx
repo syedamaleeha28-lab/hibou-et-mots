@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { ONLINE_PLAY_FAQ } from "@/lib/content/phase1"
@@ -102,6 +103,7 @@ export function OnlinePlayEditorial() {
         <PrintableVsOnlineComparison focus="online" />
         <ToolHubLinks />
         <FaqAccordion items={ONLINE_PLAY_FAQ} />
+        <AuthorAttribution />
       </div>
     </div>
   )

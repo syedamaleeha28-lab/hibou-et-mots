@@ -21,12 +21,14 @@ describe("home schema", () => {
     )
   })
 
-  it("builds Organization with logo, email and social profiles", () => {
+  it("builds Organization with logo, email, social profiles, founder and description", () => {
     const organization = buildOrganizationSchema(SITE) as Record<string, unknown>
 
     expect(organization["@type"]).toBe("Organization")
     expect(organization.logo).toBe(`${SITE}/icon.svg`)
     expect(organization.email).toBe("hibou.et.mots@gmail.com")
+    expect(organization.description).toBeTruthy()
+    expect(organization.founder).toBeTruthy()
     expect(organization.sameAs).toEqual([
       "https://www.instagram.com/hibou.et.mots/",
       "https://x.com/hibouetmots",
@@ -34,12 +36,13 @@ describe("home schema", () => {
     ])
   })
 
-  it("composes homepage @graph with website, organization, popular puzzles and FAQ", () => {
+  it("composes homepage @graph with website, organization, person, popular puzzles and FAQ", () => {
     const graph = buildHomePageSchemaGraph(SITE)
     const nodes = graph["@graph"] as Array<Record<string, unknown>>
 
     expect(nodes.some((node) => node["@type"] === "WebSite")).toBe(true)
     expect(nodes.some((node) => node["@type"] === "Organization")).toBe(true)
+    expect(nodes.some((node) => node["@type"] === "Person")).toBe(true)
     expect(nodes.some((node) => node["@type"] === "ItemList")).toBe(true)
     expect(nodes.some((node) => node["@type"] === "FAQPage")).toBe(true)
   })

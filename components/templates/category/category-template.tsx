@@ -15,6 +15,8 @@ import { RelatedCategoriesRow } from "./related-categories-row"
 import { CategoryCta } from "./category-cta"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import { AuthorAttribution } from "@/components/seo/author-attribution"
+import { shouldShowAuthorAttribution } from "@/lib/content/author"
 
 export type CategoryTemplateProps = {
   category: CategoryPageData
@@ -53,6 +55,10 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           <HowToPlayBlock />
 
           <FaqAccordion items={category.faqJson} />
+
+          {shouldShowAuthorAttribution(category.slug, category.type) && (
+            <AuthorAttribution />
+          )}
 
           <RelatedCategoriesRow categories={category.relatedCategories} />
 

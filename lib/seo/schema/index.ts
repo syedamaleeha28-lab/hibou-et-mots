@@ -8,6 +8,12 @@ export {
   buildPuzzlePageSchemaGraph,
 } from "./page-schemas"
 export { buildAboutPageSchemaGraph } from "./about-page"
+export { buildAuthorPageSchemaGraph } from "./author-page"
+export {
+  buildContentWebPageSchema,
+  buildPersonSchema,
+  personSchemaId,
+} from "./person"
 export {
   buildHomePageSchemaGraph,
   buildOrganizationSchema,

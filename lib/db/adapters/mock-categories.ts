@@ -310,7 +310,7 @@ export function mockGradeCategoryPageData(gradeSlug: string, page = 1): Category
   const category = mockCategoryRecord({
     type: "GRADE",
     slug: grade.slug,
-    h1: `Mots mêlés ${grade.name}`,
+    h1: "h1" in grade && grade.h1 ? grade.h1 : `Mots mêlés ${grade.name}`,
     seoTitle: grade.seoTitle,
     metaDescription: grade.metaDescription,
     introText: grade.introText,

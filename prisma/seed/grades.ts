@@ -18,7 +18,8 @@ export const gradeSeed = [
     ageRange: "6 ans",
     order: 1,
     defaultGridSize: 8,
-    seoTitle: "Mots Mêlés CP — Grilles Gratuites à Imprimer",
+    h1: "Mots Mêlés pour le CP",
+    seoTitle: "Mots Mêlés CP Gratuits à Imprimer | Hibou & Mots",
     metaDescription:
       "Mots mêlés pour le CP : grilles 8×8, vocabulaire de lecture débutante, PDF gratuits avec corrigé.",
     introText:

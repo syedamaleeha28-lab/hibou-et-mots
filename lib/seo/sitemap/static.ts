@@ -1,3 +1,16 @@
+/**
+ * Static sitemap entries for fixed app routes (hubs, tools, legal).
+ *
+ * Inclusion rules:
+ * - Hub/tool pages listed here → sitemap-static.xml
+ * - Category pages under /mots-meles-* paths (grades, themes, seasons, etc.) →
+ *   sitemap-categories.xml automatically when PUBLISHED + indexable in DB
+ *   (falls back to prisma seed definitions when DB is unavailable)
+ * - Individual puzzles → sitemap-puzzles.xml automatically from DB/seed
+ *
+ * When adding a new fixed hub page, add its path to ROUTES and STATIC_PATHS below.
+ * Dynamic /mots-meles-* subpages seeded as categories need no manual sitemap edit.
+ */
 import { absoluteUrl, DEFAULT_SITE_URL, ROUTES } from "@/lib/seo/routes"
 import type { SitemapUrlEntry } from "./types"
 import { priorityForStaticPage } from "./priority"

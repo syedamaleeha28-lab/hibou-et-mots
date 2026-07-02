@@ -7,24 +7,24 @@ import { SENIORS_FAQ } from "@/lib/content/seniors"
 export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
   "hub-gratuits": [
     {
-      question: "Faut-il créer un compte pour accéder aux mots mêlés gratuits ?",
+      question: "Les mots mêlés sont-ils vraiment gratuits sur ce site ?",
       answer:
-        "Non : la page Mots mêlés gratuits ouvre tout le catalogue sans inscription, que vous jouiez en ligne, imprimiez un PDF ou lanciez le générateur.",
+        "Oui : toutes les grilles publiées sur Hibou&Mots sont gratuites, sans limite de téléchargement ni de parties en ligne. Le générateur et les PDF avec corrigé sont inclus.",
     },
     {
-      question: "Y a-t-il une limite au nombre de grilles gratuites ?",
+      question: "Faut-il créer un compte pour jouer ?",
       answer:
-        "Non, le hub Mots mêlés gratuits ne fixe aucun plafond de téléchargement ni de parties en ligne sur les grilles publiées.",
+        "Non, aucune inscription n'est requise pour jouer en ligne, imprimer un PDF ou créer une grille personnalisée sur Hibou&Mots.",
     },
     {
-      question: "Le générateur fait-il partie de l'offre gratuite ?",
+      question: "Puis-je imprimer les grilles gratuites ?",
       answer:
-        "Oui, créer une grille personnalisée depuis la rubrique gratuite reste illimité et sans frais, comme le reste du catalogue.",
+        "Oui, chaque grille peut être exportée en PDF format A4 avec corrigé sur une page séparée — idéal pour la classe ou la maison.",
     },
     {
-      question: "Y a-t-il des publicités sur les grilles gratuites ?",
+      question: "À quelle fréquence ajoutez-vous de nouvelles grilles ?",
       answer:
-        "Les pages de jeu du hub gratuit sont conçues pour les enfants : pas de publicité intrusive pendant la partie.",
+        "La bibliothèque s'enrichit régulièrement : comptez environ cinq nouvelles grilles par semaine, réparties entre thèmes, saisons et niveaux scolaires.",
     },
   ],
   "hub-imprimer": [

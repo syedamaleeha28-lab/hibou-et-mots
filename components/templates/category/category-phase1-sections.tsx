@@ -40,7 +40,7 @@ function GratuitsSections() {
     <>
       <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
         <h2 className="font-heading text-xl font-extrabold text-foreground">
-          Trois façons d&apos;utiliser Hibou&Mots gratuitement
+          Comment jouer aux mots mêlés gratuitement sur Hibou &amp; Mots
         </h2>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[28rem] text-left text-sm">
@@ -84,12 +84,15 @@ function GratuitsSections() {
         </div>
       </section>
       <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
-        <h2 className="font-heading text-xl font-extrabold text-foreground">Explorer par public</h2>
+        <h2 className="font-heading text-xl font-extrabold text-foreground">
+          Nos grilles gratuites par catégorie
+        </h2>
         <InternalLinks
           links={[
             { href: ROUTES.enfants, label: "Mots mêlés enfants" },
             { href: ROUTES.adultes, label: "Mots mêlés adultes" },
-            { href: ROUTES.ecoleHub, label: "Mots mêlés par niveau scolaire" },
+            { href: ROUTES.jouer, label: "Jouer aux mots mêlés en ligne" },
+            { href: ROUTES.imprimer, label: "Mots mêlés à imprimer" },
           ]}
         />
       </section>

@@ -291,8 +291,8 @@ function GratuitsPhase2() {
         <SectionHeading
           align="left"
           eyebrow="Gratuité"
-          title="Pourquoi choisir des mots mêlés gratuits ?"
-          description="Accéder à l'intégralité du catalogue sans payer, sans compte et sans limite de téléchargement."
+          title="Pourquoi choisir Hibou & Mots"
+          description="Sans publicité intrusive, sans connexion obligatoire et avec de nouvelles grilles ajoutées régulièrement."
         />
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
           Hibou&Mots a été conçu pour les familles et les classes qui cherchent une activité

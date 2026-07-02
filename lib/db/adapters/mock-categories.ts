@@ -115,10 +115,10 @@ function hubRelatedLinks(): RelatedCategoryLink[] {
 const HUB_DEFINITIONS = {
   [HUB_CATEGORY_SLUGS.gratuits]: {
     type: "AUDIENCE" as const,
-    h1: "Mots mêlés gratuits — Toutes les grilles",
-    seoTitle: "Mots mêlés gratuits — Imprimer et jouer en ligne",
+    h1: "Mots Mêlés Gratuits : Jouez en Ligne ou Imprimez",
+    seoTitle: "Mots Mêlés Gratuits en Ligne et à Imprimer | Hibou & Mots",
     metaDescription:
-      "Des centaines de mots mêlés gratuits à imprimer ou à jouer en ligne pour les enfants, les enseignants et toute la famille.",
+      "Des centaines de grilles de mots mêlés 100% gratuites, sans inscription. Jouez en ligne ou imprimez en PDF - pour enfants, adultes et la classe.",
     introText: phase1Intro(
       HUB_CATEGORY_SLUGS.gratuits,
       "Parcourez notre bibliothèque de mots mêlés 100 % gratuits : par thème, par niveau scolaire ou par difficulté.",

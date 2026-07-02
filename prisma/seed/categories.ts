@@ -90,8 +90,8 @@ const HUB_DEFINITIONS: CategorySeedDefinition[] = [
   {
     slug: HUB_CATEGORY_SLUGS.difficulte,
     type: "DIFFICULTY",
-    h1: "Mots mêlés par difficulté",
-    seoTitle: "Mots mêlés Facile, Moyen, Difficile — Grilles gratuites",
+    h1: "Mots Mêlés Faciles ou Difficiles : Choisissez Votre Niveau",
+    seoTitle: "Mots Mêlés Faciles et Difficiles - Tous Niveaux | Hibou & Mots",
     metaDescription:
       "Des mots mêlés classés par difficulté : facile, moyen, difficile et géant. Grilles gratuites à imprimer.",
     introText:

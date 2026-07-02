@@ -16,7 +16,7 @@ export const MVP_PRESS_BRANDS = [
   { slug: "la-croix", name: "La Croix" },
 ] as const
 
-export const MVP_SEASONAL_THEME_SLUGS = ["noel", "halloween", "paques", "carnaval", "rentree", "ete"] as const
+export const MVP_SEASONAL_THEME_SLUGS = ["noel", "halloween", "paques", "carnaval", "rentree", "ete", "printemps"] as const
 
 export const MVP_P0_THEME_SLUGS = ["animaux", "sport"] as const
 

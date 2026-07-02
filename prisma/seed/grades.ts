@@ -6,7 +6,8 @@ export const gradeSeed = [
     ageRange: "3–5 ans",
     order: 0,
     defaultGridSize: 8,
-    seoTitle: "Mots Mêlés Maternelle — Grilles Gratuites à Imprimer",
+    h1: "Mots Mêlés pour la Maternelle (GS)",
+    seoTitle: "Mots Mêlés GS Maternelle Gratuits à Imprimer | Hibou & Mots",
     metaDescription:
       "Des mots mêlés adaptés à la maternelle : grilles 8×8, mots courts et vocabulaire ludique à imprimer gratuitement.",
     introText:
@@ -31,7 +32,8 @@ export const gradeSeed = [
     ageRange: "7 ans",
     order: 2,
     defaultGridSize: 10,
-    seoTitle: "Mots Mêlés CE1 — Grilles Gratuites à Imprimer",
+    h1: "Mots Mêlés pour le CE1",
+    seoTitle: "Mots Mêlés CE1 Gratuits à Imprimer | Hibou & Mots",
     metaDescription:
       "Mots mêlés CE1 : grilles 10×10, vocabulaire adapté au programme, imprimables et jouables en ligne.",
     introText:
@@ -43,7 +45,8 @@ export const gradeSeed = [
     ageRange: "8 ans",
     order: 3,
     defaultGridSize: 10,
-    seoTitle: "Mots Mêlés CE2 — Grilles Gratuites à Imprimer",
+    h1: "Mots Mêlés pour le CE2",
+    seoTitle: "Mots Mêlés CE2 Gratuits à Imprimer | Hibou & Mots",
     metaDescription:
       "Mots mêlés CE2 : grilles 10×10, mots plus longs, activités gratuites à imprimer ou jouer en ligne.",
     introText:
@@ -55,7 +58,8 @@ export const gradeSeed = [
     ageRange: "9 ans",
     order: 4,
     defaultGridSize: 12,
-    seoTitle: "Mots Mêlés CM1 — Grilles Gratuites à Imprimer",
+    h1: "Mots Mêlés pour le CM1",
+    seoTitle: "Mots Mêlés CM1 Gratuits à Imprimer | Hibou & Mots",
     metaDescription:
       "Mots mêlés CM1 : grilles 12×12 avec diagonales, PDF gratuits et corrigés pour la classe.",
     introText:
@@ -67,7 +71,8 @@ export const gradeSeed = [
     ageRange: "10 ans",
     order: 5,
     defaultGridSize: 12,
-    seoTitle: "Mots Mêlés CM2 — Grilles Gratuites à Imprimer",
+    h1: "Mots Mêlés pour le CM2",
+    seoTitle: "Mots Mêlés CM2 Gratuits à Imprimer | Hibou & Mots",
     metaDescription:
       "Mots mêlés CM2 : grilles 12×12, directions inversées, grilles gratuites à imprimer avec solution.",
     introText:

@@ -247,8 +247,8 @@ const STATIC_SUPPORT_PAGES = {
   },
   [ROUTES.solutions]: {
     slug: "solutions",
-    h1: "Solutions et règles des mots mêlés",
-    seoTitle: "Solutions et règles des mots mêlés",
+    h1: "Solutions et Règles des Mots Mêlés",
+    seoTitle: "Solutions et Règles des Mots Mêlés | Hibou & Mots",
     metaDescription:
       "Apprenez les règles des mots mêlés et consultez nos conseils pour trouver toutes les solutions.",
     introText:

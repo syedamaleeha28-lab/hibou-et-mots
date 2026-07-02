@@ -144,8 +144,11 @@ const SEASONAL_DEFINITIONS: CategorySeedDefinition[] = themeSeed
     type: "SEASONAL" as const,
     parentSlug: HUB_CATEGORY_SLUGS.fetes,
     themeSlug: theme.slug,
-    h1: `Mots mêlés ${theme.name}`,
-    seoTitle: `Mots mêlés ${theme.name} — Grilles gratuites`,
+    h1: theme.slug === "noel" ? "Mots Mêlés de Noël" : `Mots mêlés ${theme.name}`,
+    seoTitle:
+      theme.slug === "noel"
+        ? "Mots Mêlés de Noël Gratuits à Imprimer | Hibou & Mots"
+        : `Mots mêlés ${theme.name} — Grilles gratuites`,
     metaDescription:
       getThemeMetaDescription(theme.slug) ??
       `Des mots mêlés ${theme.name} gratuits à imprimer et à jouer en ligne.`,
@@ -226,8 +229,8 @@ const STATIC_SUPPORT_DEFINITIONS: CategorySeedDefinition[] = [
   {
     slug: "solutions",
     type: "AUDIENCE",
-    h1: "Solutions et règles des mots mêlés",
-    seoTitle: "Solutions et règles des mots mêlés",
+    h1: "Solutions et Règles des Mots Mêlés",
+    seoTitle: "Solutions et Règles des Mots Mêlés | Hibou & Mots",
     metaDescription:
       "Apprenez les règles des mots mêlés et consultez nos conseils pour trouver toutes les solutions.",
     introText:

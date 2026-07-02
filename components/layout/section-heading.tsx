@@ -6,6 +6,7 @@ type SectionHeadingProps = {
   description?: string
   align?: "left" | "center"
   className?: string
+  as?: "h1" | "h2"
 }
 
 export function SectionHeading({
@@ -14,6 +15,7 @@ export function SectionHeading({
   description,
   align = "center",
   className,
+  as: Heading = "h2",
 }: SectionHeadingProps) {
   return (
     <div
@@ -26,9 +28,9 @@ export function SectionHeading({
       <span className="inline-flex items-center rounded-full bg-secondary/15 px-3 py-1 text-sm font-extrabold uppercase tracking-wide text-secondary">
         {eyebrow}
       </span>
-      <h2 className="font-heading text-3xl font-extrabold tracking-tight text-foreground text-balance sm:text-4xl">
+      <Heading className="font-heading text-3xl font-extrabold tracking-tight text-foreground text-balance sm:text-4xl">
         {title}
-      </h2>
+      </Heading>
       {description && (
         <p
           className={cn(

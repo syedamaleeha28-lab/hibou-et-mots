@@ -80,9 +80,10 @@ export function ToolGeneratorTemplate({
   const heading = (
     <SectionHeading
       align={variant === "page" ? "left" : "center"}
+      as={variant === "page" ? "h1" : "h2"}
       eyebrow="Générateur"
-      title="Crée ta propre grille en un clic"
-      description="Choisis un thème ou écris tes propres mots, règle la taille et joue tout de suite. Parfait pour réviser une leçon !"
+      title="Générateur de Mots Mêlés Gratuit et Personnalisable"
+      description="Choisissez vos mots, la taille et la difficulté — créez une grille en français en quelques secondes, sans inscription."
     />
   )
 

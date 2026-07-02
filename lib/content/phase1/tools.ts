@@ -5,18 +5,24 @@ import { HOME_SEMANTIC_FAQ } from "@/lib/content/home"
 
 export const GENERATOR_FAQ: FaqItem[] = [
   {
-    question: "Puis-je utiliser n'importe quels mots ?",
+    question: "Le générateur est-il vraiment gratuit ?",
     answer:
-      "Oui, vous pouvez saisir librement vos propres mots. Le générateur place ensuite la liste dans une grille de mots mêlés — un jeu de mots cachés — adaptée à la taille choisie.",
+      "Oui, le générateur Hibou&Mots est entièrement gratuit, sans limite de grilles créées et sans inscription.",
   },
   {
-    question: "La grille générée peut-elle être imprimée ?",
+    question: "Puis-je choisir mes propres mots pour créer une grille personnalisée ?",
     answer:
-      "Oui, utilisez le bouton Imprimer ou ouvrez le générateur complet pour exporter une grille prête à l'emploi.",
+      "Oui, saisissez librement votre liste de mots — un mot par ligne ou séparés par des virgules — puis générez la grille.",
   },
   {
-    question: "Existe-t-il une limite au nombre de grilles que je peux créer ?",
-    answer: "Non, le générateur est utilisable sans limite et sans inscription.",
+    question: "Puis-je télécharger ma grille en PDF après l'avoir créée ?",
+    answer:
+      "Oui, utilisez le bouton Imprimer ou exportez via la page mots mêlés à imprimer pour obtenir un PDF A4 avec corrigé.",
+  },
+  {
+    question: "Combien de mots puis-je inclure dans une grille ?",
+    answer:
+      "Cela dépend de la taille de grille : comptez 6 à 8 mots courts pour une grille 8×8, jusqu'à 15–20 mots pour une grille 12×12 ou plus.",
   },
 ]
 

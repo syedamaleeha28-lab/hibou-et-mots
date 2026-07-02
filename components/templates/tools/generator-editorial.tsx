@@ -18,8 +18,8 @@ export function GeneratorEditorial() {
         <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
           <SectionHeading
             align="left"
-            eyebrow="Avantages"
-            title="Pourquoi utiliser le générateur Hibou&Mots ?"
+            eyebrow="Introduction"
+            title="Un générateur gratuit, en français, sans connexion"
             description="Créez une grille unique en quelques secondes — sans compte, sans limite, entièrement en français."
           />
           <div className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground">
@@ -57,43 +57,52 @@ export function GeneratorEditorial() {
           <SectionHeading
             align="left"
             eyebrow="Mode d'emploi"
-            title="Créer sa grille en 5 étapes"
-            description="De la liste de mots à la grille jouable — en moins de deux minutes."
+            title="Comment utiliser le générateur"
+            description="Trois étapes pour passer de votre liste de mots à une grille jouable."
           />
           <ol className="mt-6 list-decimal space-y-4 pl-5 text-sm leading-relaxed text-muted-foreground">
             <li>
-              <strong className="text-foreground">Choisir un modèle ou saisir vos mots.</strong>{" "}
+              <strong className="text-foreground">Saisissez vos mots.</strong>{" "}
               Sélectionnez un thème prédéfini (animaux, école, fêtes…) ou collez votre propre liste,
               un mot par ligne ou séparés par des virgules.
             </li>
             <li>
-              <strong className="text-foreground">Régler la difficulté.</strong> Facile : horizontal
-              et vertical uniquement. Moyen et difficile : ajoutez les diagonales et, au besoin, les
-              mots inversés pour les plus grands.
+              <strong className="text-foreground">Personnalisez la grille.</strong> Réglez la taille,
+              la difficulté (facile, moyen, difficile), les diagonales et le thème visuel.
             </li>
             <li>
-              <strong className="text-foreground">Ajuster la taille de grille.</strong> 8×8 pour les
-              débutants, 10×10 au primaire, 12×12 et plus pour les niveaux CM2–6e. Activez le grand
-              format si la lecture fatigue vos élèves.
-            </li>
-            <li>
-              <strong className="text-foreground">Générer et vérifier.</strong> Cliquez sur
-              «&nbsp;Générer&nbsp;» : la grille apparaît avec la liste de mots placés. Si un mot ne
-              rentre pas, réduisez la liste ou agrandissez la grille, puis relancez.
-            </li>
-            <li>
-              <strong className="text-foreground">Jouer ou imprimer.</strong> Testez la grille
-              directement dans la page, ou ouvrez le catalogue{" "}
-              <Link href={ROUTES.gratuits} className="font-semibold text-primary hover:underline">
-                mots mêlés gratuits
-              </Link>{" "}
-              pour comparer avec une grille publiée sur le même thème.
+              <strong className="text-foreground">Générez et jouez.</strong> Cliquez sur
+              «&nbsp;Générer&nbsp;», testez la grille en ligne ou imprimez-la en PDF.
             </li>
           </ol>
         </section>
 
-        <TeacherUseCases context="generator" />
-        <ParentUseCases context="generator" />
+        <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+          <SectionHeading
+            align="left"
+            eyebrow="Options"
+            title="Personnalisez votre grille"
+            description="Mots, taille, difficulté et thème — chaque paramètre adapte la grille à votre public."
+          />
+          <ul className="mt-6 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+            <li>Liste de mots libre ou thème prédéfini</li>
+            <li>Taille de grille de 8×8 à 15×15</li>
+            <li>Trois niveaux de difficulté avec diagonales optionnelles</li>
+            <li>Mode grand format pour une meilleure lisibilité</li>
+          </ul>
+        </section>
+
+        <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+          <SectionHeading
+            align="left"
+            eyebrow="Usages"
+            title="Idées d'utilisation"
+            description="Classe, anniversaire, entreprise ou famille — le générateur s'adapte à chaque occasion."
+          />
+          <TeacherUseCases context="generator" />
+          <ParentUseCases context="generator" />
+        </section>
+
         <PrintableVsOnlineComparison focus="generator" />
 
         <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
@@ -108,7 +117,11 @@ export function GeneratorEditorial() {
             sa version.
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Besoin d&apos;inspiration pédagogique ? Consultez les grilles par niveau sur{" "}
+            Besoin d&apos;inspiration ? Parcourez les{" "}
+            <Link href={ROUTES.gratuits} className="font-semibold text-primary hover:underline">
+              mots mêlés gratuits
+            </Link>
+            , les grilles par niveau sur{" "}
             <Link href={ROUTES.ecoleHub} className="font-semibold text-primary hover:underline">
               Mots mêlés École
             </Link>{" "}

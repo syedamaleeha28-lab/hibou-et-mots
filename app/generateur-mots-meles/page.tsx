@@ -12,9 +12,9 @@ export const revalidate = 3600
 export async function generateMetadata(): Promise<Metadata> {
   return buildStaticPageMetadata({
     path: ROUTES.generateur,
-    title: "Générateur de mots mêlés — Crée ta grille gratuite",
+    title: "Générateur de Mots Mêlés Gratuit - Créez Votre Grille",
     description:
-      "Générateur de mots mêlés gratuit en français : choisis un thème, personnalise tes mots, règle la taille et joue en ligne ou imprime ta grille.",
+      "Créez votre propre grille de mots mêlés en quelques secondes : choisissez vos mots, la taille et la difficulté. Générateur 100% gratuit, sans inscription.",
   })
 }
 
@@ -30,9 +30,9 @@ export default function GenerateurPage() {
     }),
     buildContentWebPageSchema({
       path: ROUTES.generateur,
-      name: "Générateur de mots mêlés — Crée ta grille gratuite",
+      name: "Générateur de Mots Mêlés Gratuit - Créez Votre Grille",
       description:
-        "Générateur de mots mêlés gratuit en français : choisis un thème, personnalise tes mots, règle la taille et joue en ligne ou imprime ta grille.",
+        "Créez votre propre grille de mots mêlés en quelques secondes : choisissez vos mots, la taille et la difficulté. Générateur 100% gratuit, sans inscription.",
     }),
     ...(faqPage ? [faqPage] : []),
   ])

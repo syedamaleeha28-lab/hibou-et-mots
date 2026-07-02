@@ -102,22 +102,36 @@ function GratuitsSections() {
 
 function ImprimerSections() {
   return (
-    <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
-      <h2 className="font-heading text-xl font-extrabold text-foreground">
-        Imprimer par thème ou par niveau
-      </h2>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-        Retrouvez des PDF prêts à imprimer — mots mêlés et jeux de mots cachés — classés par école,
-        par fête de l&apos;année ou parmi toutes les grilles gratuites du catalogue.
-      </p>
-      <InternalLinks
-        links={[
-          { href: ROUTES.ecoleHub, label: "Mots mêlés École — CP à 6e" },
-          { href: ROUTES.fetesHub, label: "Mots mêlés Fêtes & Saisons" },
-          { href: ROUTES.gratuits, label: "Toutes les grilles gratuites" },
-        ]}
-      />
-    </section>
+    <>
+      <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+        <h2 className="font-heading text-xl font-extrabold text-foreground">
+          Comment télécharger et imprimer une grille
+        </h2>
+        <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-muted-foreground">
+          <li>Choisissez une grille dans le catalogue ci-dessous.</li>
+          <li>Cliquez sur « Télécharger le PDF » depuis la page du puzzle.</li>
+          <li>Imprimez en format A4 — la grille sur la première page, le corrigé sur la seconde.</li>
+        </ol>
+      </section>
+      <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+        <h2 className="font-heading text-xl font-extrabold text-foreground">
+          Grilles à imprimer par thème et niveau
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          Retrouvez des PDF prêts à imprimer classés par école, par fête de l&apos;année ou parmi
+          toutes les grilles gratuites du catalogue.
+        </p>
+        <InternalLinks
+          links={[
+            { href: ROUTES.enfants, label: "Mots mêlés enfants" },
+            { href: ROUTES.ecoleHub, label: "Mots mêlés École — CP à 6e" },
+            { href: ROUTES.fetesHub, label: "Mots mêlés Fêtes & Saisons" },
+            { href: ROUTES.gratuits, label: "Toutes les grilles gratuites" },
+            { href: ROUTES.generateur, label: "Générateur de mots mêlés" },
+          ]}
+        />
+      </section>
+    </>
   )
 }
 

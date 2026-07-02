@@ -127,10 +127,10 @@ const HUB_DEFINITIONS = {
   },
   [HUB_CATEGORY_SLUGS.imprimer]: {
     type: "AUDIENCE" as const,
-    h1: "Mots mêlés à imprimer — PDF gratuits",
-    seoTitle: "Mots mêlés à imprimer — Grilles PDF gratuites",
+    h1: "Mots Mêlés à Imprimer en PDF",
+    seoTitle: "Mots Mêlés à Imprimer Gratuitement (PDF) | Hibou & Mots",
     metaDescription:
-      "Téléchargez et imprimez des mots mêlés gratuits en PDF, adaptés aux enfants et aux enseignants.",
+      "Téléchargez et imprimez gratuitement nos grilles de mots mêlés en PDF, format A4, avec ou sans solution. Idéal pour la classe ou la maison.",
     introText: phase1Intro(
       HUB_CATEGORY_SLUGS.imprimer,
       "Des grilles prêtes à imprimer pour la maison ou la classe, classées par thème et par niveau scolaire.",

@@ -234,7 +234,7 @@ function ImprimerPhase2() {
 
       <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
         <h2 className="font-heading text-xl font-extrabold text-foreground">
-          Conseils pour une impression réussie
+          Astuces pour bien imprimer
         </h2>
         <ul className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-muted-foreground">
           <li>

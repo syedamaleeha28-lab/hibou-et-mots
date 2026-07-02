@@ -29,19 +29,24 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
   ],
   "hub-imprimer": [
     {
-      question: "Le corrigé est-il inclus dans les PDF à imprimer ?",
+      question: "Les PDF sont-ils au format A4 ?",
       answer:
-        "Oui, chaque export de la page Mots mêlés à imprimer place la grille sur la première page et la solution sur la suivante, prête pour la classe.",
+        "Oui, chaque grille est exportée en PDF format A4 portrait, optimisée pour l'impression noir et blanc.",
     },
     {
-      question: "Faut-il une imprimante couleur pour ces PDF ?",
+      question: "Puis-je imprimer la solution séparément ?",
       answer:
-        "Non, les grilles du hub Imprimer sont optimisées pour une impression noir et blanc en A4 sans perte de lisibilité.",
+        "Oui, le corrigé figure sur la page suivante du PDF — vous pouvez n'imprimer que cette page pour corriger les copies.",
     },
     {
-      question: "Puis-je imprimer plusieurs grilles pour toute une classe ?",
+      question: "Puis-je imprimer plusieurs grilles à la fois ?",
       answer:
-        "Oui, parcourez les thèmes ou niveaux depuis Mots mêlés à imprimer et téléchargez autant de PDF que nécessaire pour vos élèves.",
+        "Oui, téléchargez autant de PDF que nécessaire depuis les différentes catégories — idéal pour distribuer plusieurs grilles en classe.",
+    },
+    {
+      question: "Est-ce vraiment gratuit et sans limite d'impressions ?",
+      answer:
+        "Oui, tous les PDF Hibou&Mots sont gratuits et peuvent être imprimés autant de fois que vous le souhaitez, sans inscription.",
     },
   ],
   "hub-ecole": [

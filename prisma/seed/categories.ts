@@ -178,8 +178,8 @@ const AUDIENCE_DEFINITIONS: CategorySeedDefinition[] = [
   {
     slug: "adultes",
     type: "AUDIENCE",
-    h1: "Mots mêlés Adultes",
-    seoTitle: "Mots mêlés Adultes — Grilles gratuites",
+    h1: "Mots Mêlés pour Adultes",
+    seoTitle: "Mots Mêlés pour Adultes - Grilles Gratuites | Hibou & Mots",
     metaDescription: ADULTES_META_DESCRIPTION,
     introText: ADULTES_INTRO,
   },

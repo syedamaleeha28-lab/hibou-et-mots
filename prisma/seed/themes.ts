@@ -49,6 +49,14 @@ export const themeSeed = [
     activeDateEnd: "08-31",
   },
   {
+    slug: "printemps",
+    name: "Printemps",
+    group: "Saisons & Fêtes",
+    isSeasonal: true,
+    activeDateStart: "03-01",
+    activeDateEnd: "05-31",
+  },
+  {
     slug: "animaux",
     name: "Animaux",
     group: "Nature & Animaux",

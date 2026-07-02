@@ -161,8 +161,8 @@ const HUB_DEFINITIONS = {
   },
   [HUB_CATEGORY_SLUGS.thematiques]: {
     type: "THEME" as const,
-    h1: "Mots mêlés Thématiques",
-    seoTitle: "Mots mêlés Thématiques — Animaux, Sport, Vocabulaire",
+    h1: "Mots Mêlés Thématiques",
+    seoTitle: "Mots Mêlés Thématiques - Animaux, Sport, Vocabulaire | Hibou & Mots",
     metaDescription:
       "Explorez nos mots mêlés par thème : animaux, sport, vocabulaire, famille et bien d'autres sujets.",
     introText:
@@ -181,8 +181,8 @@ const HUB_DEFINITIONS = {
   },
   [HUB_CATEGORY_SLUGS.presse]: {
     type: "PRESS_BRAND" as const,
-    h1: "Mots mêlés Journaux & Magazines",
-    seoTitle: "Mots mêlés Journaux & Magazines — Grilles gratuites",
+    h1: "Une Alternative Gratuite aux Mots Mêlés de Presse",
+    seoTitle: "Mots Mêlés Gratuits - Alternative aux Grilles de Presse | Hibou & Mots",
     metaDescription:
       "Des mots mêlés inspirés des grilles de journaux et magazines français, gratuits à jouer en ligne.",
     introText:

@@ -15,6 +15,30 @@ import { getThemeMetaDescription } from "@/lib/content/themes"
 import { gradeSeed } from "./grades"
 import { themeSeed } from "./themes"
 
+function seasonalPageH1(slug: string, name: string): string {
+  if (slug === "noel") return "Mots Mêlés de Noël"
+  if (slug === "halloween") return "Mots Mêlés d'Halloween"
+  if (slug === "printemps") return "Mots Mêlés de Printemps"
+  return `Mots mêlés ${name}`
+}
+
+function seasonalPageTitle(slug: string, name: string): string {
+  if (slug === "noel") return "Mots Mêlés de Noël Gratuits à Imprimer | Hibou & Mots"
+  if (slug === "halloween") return "Mots Mêlés d'Halloween Gratuits à Imprimer | Hibou & Mots"
+  if (slug === "printemps") return "Mots Mêlés de Printemps Gratuits à Imprimer | Hibou & Mots"
+  return `Mots mêlés ${name} — Grilles gratuites`
+}
+
+function themePageH1(slug: string, name: string): string {
+  if (slug === "animaux") return "Mots Mêlés Animaux"
+  return `Mots mêlés ${name}`
+}
+
+function themePageTitle(slug: string, name: string): string {
+  if (slug === "animaux") return "Mots Mêlés Animaux Gratuits à Imprimer | Hibou & Mots"
+  return `Mots mêlés ${name} — Grilles gratuites à imprimer`
+}
+
 export type CategorySeedDefinition = {
   slug: string
   type: CategoryType
@@ -79,8 +103,8 @@ const HUB_DEFINITIONS: CategorySeedDefinition[] = [
   {
     slug: HUB_CATEGORY_SLUGS.thematiques,
     type: "THEME",
-    h1: "Mots mêlés Thématiques",
-    seoTitle: "Mots mêlés Thématiques — Animaux, Sport, Vocabulaire",
+    h1: "Mots Mêlés Thématiques",
+    seoTitle: "Mots Mêlés Thématiques - Animaux, Sport, Vocabulaire | Hibou & Mots",
     metaDescription:
       "Explorez nos mots mêlés par thème : animaux, sport, vocabulaire, famille et bien d'autres sujets.",
     introText:
@@ -101,8 +125,8 @@ const HUB_DEFINITIONS: CategorySeedDefinition[] = [
   {
     slug: HUB_CATEGORY_SLUGS.presse,
     type: "PRESS_BRAND",
-    h1: "Mots mêlés Journaux & Magazines",
-    seoTitle: "Mots mêlés Journaux & Magazines — Grilles gratuites",
+    h1: "Une Alternative Gratuite aux Mots Mêlés de Presse",
+    seoTitle: "Mots Mêlés Gratuits - Alternative aux Grilles de Presse | Hibou & Mots",
     metaDescription:
       "Des mots mêlés inspirés des grilles de journaux et magazines français, gratuits à jouer en ligne.",
     introText:
@@ -129,8 +153,8 @@ const THEME_DEFINITIONS: CategorySeedDefinition[] = themeSeed
     type: "THEME" as const,
     parentSlug: HUB_CATEGORY_SLUGS.thematiques,
     themeSlug: theme.slug,
-    h1: `Mots mêlés ${theme.name}`,
-    seoTitle: `Mots mêlés ${theme.name} — Grilles gratuites à imprimer`,
+    h1: themePageH1(theme.slug, theme.name),
+    seoTitle: themePageTitle(theme.slug, theme.name),
     metaDescription:
       getThemeMetaDescription(theme.slug) ??
       `Des mots mêlés gratuits sur le thème ${theme.name}, à imprimer et à jouer en ligne.`,
@@ -144,11 +168,8 @@ const SEASONAL_DEFINITIONS: CategorySeedDefinition[] = themeSeed
     type: "SEASONAL" as const,
     parentSlug: HUB_CATEGORY_SLUGS.fetes,
     themeSlug: theme.slug,
-    h1: theme.slug === "noel" ? "Mots Mêlés de Noël" : `Mots mêlés ${theme.name}`,
-    seoTitle:
-      theme.slug === "noel"
-        ? "Mots Mêlés de Noël Gratuits à Imprimer | Hibou & Mots"
-        : `Mots mêlés ${theme.name} — Grilles gratuites`,
+    h1: seasonalPageH1(theme.slug, theme.name),
+    seoTitle: seasonalPageTitle(theme.slug, theme.name),
     metaDescription:
       getThemeMetaDescription(theme.slug) ??
       `Des mots mêlés ${theme.name} gratuits à imprimer et à jouer en ligne.`,

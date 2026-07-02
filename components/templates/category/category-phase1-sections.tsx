@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ROUTES, gradePath, themePath } from "@/lib/seo/routes"
+import { ROUTES, gradePath, themePath, seasonalPath } from "@/lib/seo/routes"
 import { gradeSeed } from "@/prisma/seed/grades"
 
 type CategoryPhase1SectionsProps = {
@@ -166,10 +166,11 @@ function EcoleSections() {
 
 function EnfantsSections() {
   return (
-    <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
-      <h2 className="font-heading text-xl font-extrabold text-foreground">
-        Quelle grille pour quel âge ?
-      </h2>
+    <>
+      <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+        <h2 className="font-heading text-xl font-extrabold text-foreground">
+          Mots mêlés par âge et niveau
+        </h2>
       <div className="mt-4 overflow-x-auto">
         <table className="w-full min-w-[28rem] text-left text-sm">
           <thead>
@@ -202,8 +203,26 @@ function EnfantsSections() {
               </td>
               <td className="py-2">8×8 à 10×10</td>
             </tr>
+            <tr className="border-b border-border/60">
+              <td className="py-2 pr-4">8–9 ans</td>
+              <td className="py-2 pr-4">
+                <Link href={gradePath("ce2")} className="text-primary hover:underline">
+                  CE2
+                </Link>
+              </td>
+              <td className="py-2">10×10</td>
+            </tr>
+            <tr className="border-b border-border/60">
+              <td className="py-2 pr-4">9–10 ans</td>
+              <td className="py-2 pr-4">
+                <Link href={gradePath("cm1")} className="text-primary hover:underline">
+                  CM1
+                </Link>
+              </td>
+              <td className="py-2">12×12</td>
+            </tr>
             <tr>
-              <td className="py-2 pr-4">9–12 ans</td>
+              <td className="py-2 pr-4">10–12 ans</td>
               <td className="py-2 pr-4">
                 <Link href={gradePath("cm2")} className="text-primary hover:underline">
                   CM2
@@ -216,11 +235,31 @@ function EnfantsSections() {
       </div>
       <InternalLinks
         links={[
-          { href: ROUTES.ecoleHub, label: "Tous les niveaux scolaires" },
-          { href: ROUTES.fetesHub, label: "Grilles de fêtes et saisons" },
-          { href: themePath("animaux"), label: "Thème Animaux — idéal pour les enfants" },
+          { href: gradePath("cp"), label: "Mots mêlés CP" },
+          { href: gradePath("ce1"), label: "Mots mêlés CE1" },
+          { href: gradePath("ce2"), label: "Mots mêlés CE2" },
+          { href: gradePath("cm1"), label: "Mots mêlés CM1" },
+          { href: gradePath("cm2"), label: "Mots mêlés CM2" },
         ]}
       />
-    </section>
+      </section>
+      <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+        <h2 className="font-heading text-xl font-extrabold text-foreground">
+          Thèmes préférés des enfants
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          Animaux, fêtes de l&apos;année et univers du quotidien : les thèmes les plus demandés par
+          les familles et les classes.
+        </p>
+        <InternalLinks
+          links={[
+            { href: themePath("animaux"), label: "Mots mêlés animaux" },
+            { href: seasonalPath("noel"), label: "Mots mêlés de Noël" },
+            { href: ROUTES.fetesHub, label: "Fêtes et saisons" },
+            { href: ROUTES.thematiquesHub, label: "Tous les thèmes" },
+          ]}
+        />
+      </section>
+    </>
   )
 }

@@ -44,7 +44,7 @@ function EnfantsPhase2() {
         <SectionHeading
           align="left"
           eyebrow="Pédagogie"
-          title="Les bienfaits des mots mêlés pour l'apprentissage"
+          title="Conseils pour les parents et enseignants"
           description="Un jeu de repérage visuel qui soutient plusieurs compétences du primaire — sans l'effort d'une fiche d'exercices classique."
         />
         <div className="mt-6 flex flex-col gap-5 text-sm leading-relaxed text-muted-foreground">

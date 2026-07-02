@@ -168,10 +168,10 @@ const AUDIENCE_DEFINITIONS: CategorySeedDefinition[] = [
   {
     slug: "enfants",
     type: "AUDIENCE",
-    h1: "Mots mêlés Enfants — Grilles gratuites",
-    seoTitle: "Mots mêlés Enfants — Grilles gratuites à imprimer",
+    h1: "Mots Mêlés pour Enfants",
+    seoTitle: "Mots Mêlés pour Enfants - Grilles Gratuites à Imprimer",
     metaDescription:
-      "Des mots mêlés gratuits pour les enfants : grilles ludiques, vocabulaire adapté et PDF à imprimer.",
+      "Grilles de mots mêlés adaptées aux enfants : vocabulaire simple, grandes lettres, thèmes ludiques. À imprimer ou jouer en ligne, 100% gratuit.",
     introText:
       "Des grilles amusantes et éducatives pour les enfants, du CP au CM2, à imprimer ou à jouer en ligne.",
   },

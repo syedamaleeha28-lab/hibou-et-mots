@@ -488,19 +488,19 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
   ],
   enfants: [
     {
-      question: "Mon enfant de 5 ans peut-il faire les grilles Enfants ?",
+      question: "À partir de quel âge un enfant peut-il faire des mots mêlés ?",
       answer:
-        "Oui, la page Mots mêlés Enfants propose des grilles 6×6 en grandes lettres dès la maternelle, puis des niveaux progressifs.",
+        "Dès 4–5 ans avec des grilles 6×6 en grandes lettres (maternelle), puis progressivement au CP, CE1, CE2, CM1 et CM2 selon le niveau de lecture.",
     },
     {
-      question: "Les grilles Enfants aident-elles l'orthographe ?",
+      question: "Les grilles sont-elles adaptées aux enfants qui apprennent à lire ?",
       answer:
-        "Oui, la rubrique Enfants renforce la mémorisation visuelle du mot entier, en complément de la lecture et de la dictée.",
+        "Oui, chaque niveau propose un vocabulaire court et des grilles calibrées : mots outils au CP, lexique thématique au CE1–CE2, mots plus longs au CM1–CM2.",
     },
     {
-      question: "Peut-on imprimer plusieurs grilles Enfants pour la classe ?",
+      question: "Puis-je imprimer plusieurs grilles à la fois pour la classe ?",
       answer:
-        "Oui, chaque PDF Enfants est gratuit en A4, idéal pour une distribution en classe ou un devoir maison.",
+        "Oui, téléchargez autant de PDF A4 que nécessaire — chaque grille inclut le corrigé sur une page séparée, gratuitement.",
     },
   ],
   adultes: ADULTES_FAQ,

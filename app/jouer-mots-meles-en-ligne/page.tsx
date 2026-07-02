@@ -12,9 +12,9 @@ export const revalidate = 3600
 export async function generateMetadata(): Promise<Metadata> {
   return buildStaticPageMetadata({
     path: ROUTES.jouer,
-    title: "Jouer aux mots mêlés en ligne — Grilles gratuites",
+    title: "Jouer aux Mots Mêlés en Ligne Gratuitement",
     description:
-      "Joue gratuitement aux mots mêlés en ligne : choisis un thème, une difficulté et trouve tous les mots avec le chronomètre. Idéal pour les enfants, la classe et les adultes.",
+      "Jouez aux mots mêlés directement dans votre navigateur, sans téléchargement ni inscription. Des dizaines de grilles gratuites, tous niveaux.",
   })
 }
 
@@ -30,9 +30,9 @@ export default function JouerEnLignePage() {
     }),
     buildContentWebPageSchema({
       path: ROUTES.jouer,
-      name: "Jouer aux mots mêlés en ligne — Grilles gratuites",
+      name: "Jouer aux Mots Mêlés en Ligne Gratuitement",
       description:
-        "Joue gratuitement aux mots mêlés en ligne : choisis un thème, une difficulté et trouve tous les mots avec le chronomètre.",
+        "Jouez aux mots mêlés directement dans votre navigateur, sans téléchargement ni inscription. Des dizaines de grilles gratuites, tous niveaux.",
     }),
     ...(faqPage ? [faqPage] : []),
   ])

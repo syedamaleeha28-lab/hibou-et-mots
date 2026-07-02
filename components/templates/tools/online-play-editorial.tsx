@@ -5,9 +5,7 @@ import { SectionHeading } from "@/components/layout/section-heading"
 import { ONLINE_PLAY_FAQ } from "@/lib/content/phase1"
 import { ROUTES } from "@/lib/seo/routes"
 import {
-  ParentUseCases,
   PrintableVsOnlineComparison,
-  TeacherUseCases,
   ToolHubLinks,
 } from "./tool-editorial-shared"
 
@@ -18,9 +16,9 @@ export function OnlinePlayEditorial() {
         <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
           <SectionHeading
             align="left"
-            eyebrow="Avantages"
-            title="Pourquoi jouer en ligne sur Hibou&Mots ?"
-            description="Une partie prête en un clic — sans application à installer, sur tous vos appareils."
+            eyebrow="Introduction"
+            title="Jouez instantanément, sans téléchargement"
+            description="Une partie prête en un clic — sur ordinateur, tablette ou mobile."
           />
           <div className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground">
             <p>
@@ -56,9 +54,9 @@ export function OnlinePlayEditorial() {
         <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
           <SectionHeading
             align="left"
-            eyebrow="Mode d'emploi"
-            title="Comment jouer en 5 étapes"
-            description="De l'ouverture de la page à la dernière lettre trouvée."
+            eyebrow="Règles"
+            title="Comment jouer en ligne"
+            description="Les règles essentielles pour retrouver tous les mots dans la grille."
           />
           <ol className="mt-6 list-decimal space-y-4 pl-5 text-sm leading-relaxed text-muted-foreground">
             <li>
@@ -98,8 +96,34 @@ export function OnlinePlayEditorial() {
           </p>
         </section>
 
-        <TeacherUseCases context="online" />
-        <ParentUseCases context="online" />
+        <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+          <SectionHeading
+            align="left"
+            eyebrow="Catalogue"
+            title="Choisissez votre grille"
+            description="Par difficulté ou par thème — trouvez la grille adaptée à votre niveau."
+          />
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            Parcourez le catalogue{" "}
+            <Link href={ROUTES.gratuits} className="font-semibold text-primary hover:underline">
+              mots mêlés gratuits
+            </Link>
+            , les grilles{" "}
+            <Link href={ROUTES.enfants} className="font-semibold text-primary hover:underline">
+              pour enfants
+            </Link>{" "}
+            ou les hubs par{" "}
+            <Link href={ROUTES.thematiquesHub} className="font-semibold text-primary hover:underline">
+              thème
+            </Link>{" "}
+            et{" "}
+            <Link href={ROUTES.difficulteHub} className="font-semibold text-primary hover:underline">
+              difficulté
+            </Link>
+            .
+          </p>
+        </section>
+
         <PrintableVsOnlineComparison focus="online" />
         <ToolHubLinks />
         <FaqAccordion items={ONLINE_PLAY_FAQ} />

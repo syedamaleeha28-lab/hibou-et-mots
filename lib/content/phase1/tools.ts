@@ -28,19 +28,19 @@ export const GENERATOR_FAQ: FaqItem[] = [
 
 export const ONLINE_PLAY_FAQ: FaqItem[] = [
   {
-    question: "Dois-je installer une application pour jouer ?",
+    question: "Dois-je m'inscrire pour jouer en ligne ?",
     answer:
-      "Non, le jeu fonctionne directement dans votre navigateur, sur ordinateur, tablette ou smartphone.",
+      "Non, le jeu fonctionne directement dans votre navigateur sans création de compte ni inscription.",
   },
   {
-    question: "Puis-je changer de thème en cours de partie ?",
+    question: "Le jeu fonctionne-t-il sur téléphone et tablette ?",
     answer:
-      "Oui, lancez une nouvelle grille avec un thème ou une difficulté différente à tout moment.",
+      "Oui, Hibou&Mots est compatible avec les ordinateurs, tablettes et smartphones via un navigateur web récent.",
   },
   {
-    question: "Le jeu en ligne fonctionne-t-il hors connexion ?",
+    question: "Puis-je imprimer la grille après avoir joué en ligne ?",
     answer:
-      "Non, une connexion internet est nécessaire pour le mode en ligne ; pour jouer sans connexion, imprimez une grille en PDF.",
+      "Oui, ouvrez la même grille depuis le catalogue ou utilisez le générateur pour exporter un PDF A4 avec corrigé.",
   },
 ]
 

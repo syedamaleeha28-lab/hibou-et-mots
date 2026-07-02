@@ -102,9 +102,10 @@ export function ToolOnlinePlayTemplate() {
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
         <SectionHeading
           align="left"
+          as="h1"
           eyebrow="Jeu en ligne"
-          title="Joue aux mots mêlés gratuitement"
-          description="Choisis un thème et une difficulté, puis trouve tous les mots le plus vite possible. Aucun téléchargement requis."
+          title="Mots Mêlés en Ligne : Jouez Gratuitement"
+          description="Choisissez un thème et une difficulté, puis trouvez tous les mots — aucun téléchargement ni inscription requis."
         />
 
         <div className="mt-8 flex flex-col gap-8">

@@ -1,3 +1,5 @@
 export { Faq } from "./faq"
 export { FaqAccordion } from "./faq-accordion"
+export { RelatedPages } from "./related-pages"
+export type { RelatedPageLink } from "./related-pages"
 export type { FaqItem } from "./faq"

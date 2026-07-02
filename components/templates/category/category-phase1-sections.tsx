@@ -139,8 +139,12 @@ function EcoleSections() {
   return (
     <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
       <h2 className="font-heading text-xl font-extrabold text-foreground">
-        Les 7 niveaux en un coup d&apos;œil
+        Mots mêlés par niveau scolaire
       </h2>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+        Maternelle, CP, CE1, CE2, CM1, CM2 et 6e : chaque niveau propose des grilles calibrées
+        pour le programme français.
+      </p>
       <div className="mt-4 overflow-x-auto">
         <table className="w-full min-w-[32rem] text-left text-sm">
           <thead>
@@ -169,8 +173,13 @@ function EcoleSections() {
       </div>
       <InternalLinks
         links={[
-          { href: ROUTES.pedagogie, label: "Pédagogie des mots mêlés" },
-          { href: ROUTES.thematiquesHub, label: "Mots mêlés par thème" },
+          { href: gradePath("maternelle"), label: "Mots mêlés Maternelle (GS)" },
+          { href: gradePath("cp"), label: "Mots mêlés CP" },
+          { href: gradePath("ce1"), label: "Mots mêlés CE1" },
+          { href: gradePath("ce2"), label: "Mots mêlés CE2" },
+          { href: gradePath("cm1"), label: "Mots mêlés CM1" },
+          { href: gradePath("cm2"), label: "Mots mêlés CM2" },
+          { href: ROUTES.pedagogie, label: "Guide pédagogique" },
           { href: ROUTES.imprimer, label: "Imprimer en PDF" },
         ]}
       />

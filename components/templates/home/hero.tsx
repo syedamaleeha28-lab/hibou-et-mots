@@ -34,8 +34,7 @@ export function Hero() {
           </span>
 
           <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground text-balance sm:text-5xl lg:text-6xl">
-            Apprends en t&apos;amusant avec les{" "}
-            <span className="text-primary">mots mêlés</span> !
+            Mots mêlés gratuits en ligne et à imprimer
           </h1>
 
           <p className="max-w-md text-lg leading-relaxed text-muted-foreground text-pretty">

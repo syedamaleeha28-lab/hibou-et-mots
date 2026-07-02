@@ -8,7 +8,6 @@ import {
   DEFAULT_OG_IMAGE_WIDTH,
   resolveOgImageUrl,
 } from "./og-image"
-import { HOME_SYNONYM_PHRASE } from "@/lib/content/synonym-phrases"
 
 const SITE_NAME = "Hibou&Mots"
 
@@ -159,10 +158,10 @@ export async function buildPuzzleMetadata(
 export async function buildHomeMetadata(siteUrl?: string): Promise<Metadata> {
   const path = "/"
   const override = await lookupSeoMetaOverride(path)
-  const title = override?.title ?? "Hibou&Mots — Mots mêlés gratuits à imprimer et jouer en ligne"
+  const title = override?.title ?? "Mots Mêlés Gratuits en Ligne et à Imprimer | Hibou & Mots"
   const description =
     override?.metaDescription ??
-    `${HOME_SYNONYM_PHRASE} Grilles à imprimer, thèmes variés et générateur en ligne.`
+    "Des centaines de grilles de mots mêlés 100% gratuites, sans inscription. Jouez en ligne ou imprimez en PDF - pour enfants, adultes et la classe."
 
   return {
     title,

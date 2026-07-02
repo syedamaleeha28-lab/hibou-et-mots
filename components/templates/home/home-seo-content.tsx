@@ -26,6 +26,25 @@ export function HomeSeoIntro() {
           de français, à la dictée et à l&apos;apprentissage du vocabulaire.
         </p>
         <p>
+          Parcourez notre catalogue de{" "}
+          <Link href={ROUTES.gratuits} className="font-semibold text-primary hover:underline">
+            mots mêlés gratuits
+          </Link>
+          , choisissez des grilles pour{" "}
+          <Link href={ROUTES.enfants} className="font-semibold text-primary hover:underline">
+            enfants
+          </Link>
+          , lancez une partie sur la page{" "}
+          <Link href={ROUTES.jouer} className="font-semibold text-primary hover:underline">
+            jouer en ligne
+          </Link>{" "}
+          ou composez la vôtre avec le{" "}
+          <Link href={ROUTES.generateur} className="font-semibold text-primary hover:underline">
+            générateur de mots mêlés
+          </Link>
+          . Tout reste gratuit, sans inscription et sans publicité intrusive sur les pages de jeu.
+        </p>
+        <p>
           Les passionnés de mots mêlés{" "}
           <Link href={ROUTES.adultes} className="font-semibold text-primary hover:underline">
             adultes
@@ -35,19 +54,11 @@ export function HomeSeoIntro() {
             seniors
           </Link>{" "}
           trouvent également des grilles plus denses, avec un mode grand format pour une lecture
-          confortable. Créez une grille sur le{" "}
-          <Link href={ROUTES.generateur} className="font-semibold text-primary hover:underline">
-            générateur
-          </Link>
-          , imprimez un PDF depuis la page{" "}
+          confortable. Imprimez un PDF depuis la page{" "}
           <Link href={ROUTES.imprimer} className="font-semibold text-primary hover:underline">
             à imprimer
           </Link>{" "}
-          ou lancez une partie sur la page{" "}
-          <Link href={ROUTES.jouer} className="font-semibold text-primary hover:underline">
-            jouer en ligne
-          </Link>
-          . Tout reste gratuit, sans inscription et sans publicité intrusive sur les pages de jeu.
+          quand vous préférez le papier.
         </p>
       </div>
     </section>
@@ -175,6 +186,7 @@ export function HomeChooseGridSection() {
 export function HomeSiloLinks() {
   const links = [
     { href: ROUTES.gratuits, label: "Mots mêlés gratuits" },
+    { href: ROUTES.enfants, label: "Mots mêlés pour enfants" },
     { href: ROUTES.imprimer, label: "Imprimer une grille PDF" },
     { href: ROUTES.jouer, label: "Jouer en ligne" },
     { href: ROUTES.generateur, label: "Créer ma grille" },

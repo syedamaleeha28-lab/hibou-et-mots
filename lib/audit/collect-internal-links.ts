@@ -1,4 +1,4 @@
-import { popularPuzzles } from "@/lib/content"
+import { pdfPacks, popularPuzzles } from "@/lib/content"
 import {
   MVP_P1_COMBOS,
   MVP_PRESS_BRANDS,
@@ -229,6 +229,10 @@ export function collectHomepageLinks(): InternalLinkRef[] {
 
   for (const grade of gradeSeed) {
     links.push(linkRef(gradePath(grade.slug), `homepage:grade:${grade.slug}`, "homepage"))
+  }
+
+  for (const pack of pdfPacks) {
+    links.push(linkRef(pack.href, `homepage:pdf-pack:${pack.title}`, "homepage"))
   }
 
   for (const item of HOME_SILO_LINKS) {

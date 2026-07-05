@@ -13,6 +13,7 @@ import {
   Shirt,
   Trophy,
 } from "lucide-react"
+import { ROUTES, gradePath, themePath } from "@/lib/seo/routes"
 
 export type ColorKey = "coral" | "teal" | "sunny" | "sky" | "leaf"
 
@@ -231,11 +232,36 @@ export type Pdf = {
   pages: number
   level: string
   color: ColorKey
+  href: string
 }
 
 export const pdfPacks: Pdf[] = [
-  { title: "Cahier de Vacances — Animaux", pages: 20, level: "CP – CE1", color: "coral" },
-  { title: "Pack Saisons & Nature", pages: 16, level: "CE2 – CM1", color: "leaf" },
-  { title: "Spécial Sciences", pages: 24, level: "CM2 – Collège", color: "sky" },
-  { title: "Premiers Mots — Maternelle", pages: 12, level: "Maternelle", color: "sunny" },
+  {
+    title: "Cahier de Vacances — Animaux",
+    pages: 20,
+    level: "CP – CE1",
+    color: "coral",
+    href: themePath("animaux"),
+  },
+  {
+    title: "Pack Saisons & Nature",
+    pages: 16,
+    level: "CE2 – CM1",
+    color: "leaf",
+    href: ROUTES.fetesHub,
+  },
+  {
+    title: "Spécial Sciences",
+    pages: 24,
+    level: "CM2 – Collège",
+    color: "sky",
+    href: themePath("corps-humain"),
+  },
+  {
+    title: "Premiers Mots — Maternelle",
+    pages: 12,
+    level: "Maternelle",
+    color: "sunny",
+    href: gradePath("maternelle"),
+  },
 ]

@@ -55,7 +55,7 @@ export function PrintablePdfs() {
             return (
               <Link
                 key={pack.title}
-                href={ROUTES.imprimer}
+                href={pack.href}
                 className="group flex flex-col gap-4 rounded-3xl border border-border bg-card p-5 transition-all hover:-translate-y-1 hover:shadow-lg"
               >
                 <div

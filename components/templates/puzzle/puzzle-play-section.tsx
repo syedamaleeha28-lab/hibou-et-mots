@@ -2,7 +2,6 @@
 
 import type { PuzzlePageData } from "@/lib/db/types/page-data"
 import { PuzzleGridClient } from "@/components/puzzle/puzzle-grid-client"
-import { PuzzleGridServer } from "@/components/puzzle/puzzle-grid-server"
 import { WordListPanel } from "./word-list-panel"
 
 type PuzzlePlaySectionProps = {
@@ -18,11 +17,6 @@ export function PuzzlePlaySection({ puzzle }: PuzzlePlaySectionProps) {
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
       <div className="flex flex-col gap-4">
-        <PuzzleGridServer
-          grid={puzzle.grid}
-          largePrint={puzzle.largePrint}
-          className="sr-only"
-        />
         <PuzzleGridClient
           puzzleId={puzzle.id}
           grid={puzzle.grid}

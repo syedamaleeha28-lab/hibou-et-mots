@@ -42,3 +42,11 @@ export async function resolvePedagogieContentPageData(
   if (!category) return null
   return mapCategoryToContentPageData(category, "educational")
 }
+
+export async function resolveRessourcesContentPageData(
+  page = 1,
+): Promise<ContentPageData | null> {
+  const category = await resolveStaticSupportCategoryPageData(ROUTES.ressources, page)
+  if (!category) return null
+  return mapCategoryToContentPageData(category, "educational")
+}

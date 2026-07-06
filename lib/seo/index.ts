@@ -36,6 +36,7 @@ export {
 } from "./breadcrumbs"
 export {
   buildCategoryMetadata,
+  buildContentPageMetadata,
   buildHomeMetadata,
   buildPuzzleMetadata,
   buildSearchMetadata,
@@ -88,6 +89,7 @@ export {
   buildSchemaGraph,
   buildBreadcrumbSchemaGraph,
   buildCategoryPageSchemaGraph,
+  buildContentPageSchemaGraph,
   buildPuzzlePageSchemaGraph,
   buildAboutPageSchemaGraph,
   buildHomePageSchemaGraph,
@@ -95,6 +97,7 @@ export {
   buildOrganizationSchema,
   toSchemaGraphNode,
   type CategorySchemaPayload,
+  type ContentSchemaPayload,
   type CreativeWorkSchema,
   type FaqPageSchema,
   type ItemListSchema,

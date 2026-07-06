@@ -51,3 +51,7 @@ export type PuzzleSchemaPayload = {
   creativeWork: CreativeWorkSchema
   faqPage?: FaqPageSchema
 }
+
+export type ContentSchemaPayload = {
+  faqPage?: FaqPageSchema
+}

@@ -5,6 +5,7 @@ export { buildSchemaGraph, toSchemaGraphNode } from "./graph"
 export {
   buildBreadcrumbSchemaGraph,
   buildCategoryPageSchemaGraph,
+  buildContentPageSchemaGraph,
   buildPuzzlePageSchemaGraph,
 } from "./page-schemas"
 export { buildAboutPageSchemaGraph } from "./about-page"
@@ -26,6 +27,7 @@ export {
 } from "./software-application"
 export type {
   CategorySchemaPayload,
+  ContentSchemaPayload,
   CreativeWorkSchema,
   FaqPageSchema,
   ItemListSchema,

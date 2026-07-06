@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { prisma } from "@/lib/db/client"
 import type { CategoryPageData, PuzzlePageData } from "@/lib/db/types/page-data"
+import type { ContentPageData } from "@/lib/db/types/content-page-data"
 import { buildCanonicalPath, buildCanonicalUrl, normalizePath } from "./canonical"
 import { robotsDirective, robotsMetaContent, type RobotsDirective } from "./indexability"
 import {
@@ -208,6 +209,36 @@ export async function buildStaticPageMetadata(input: {
       canonicalPath: input.path,
       siteUrl: input.siteUrl,
       type: "website",
+      image: override?.ogImage,
+    }),
+  }
+}
+
+export async function buildContentPageMetadata(
+  page: ContentPageData,
+  siteUrl?: string,
+): Promise<Metadata> {
+  const override = await lookupSeoMetaOverride(page.canonicalPath)
+  const title = override?.title ?? page.seoTitle
+  const description = override?.metaDescription ?? page.metaDescription
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: buildCanonicalUrl({
+        path: page.canonicalPath,
+        siteUrl,
+        override: override?.canonicalOverride,
+      }),
+    },
+    ...robotsMetadata({ index: page.isIndexable, follow: true }),
+    openGraph: openGraphMetadata({
+      title,
+      description,
+      canonicalPath: page.canonicalPath,
+      siteUrl,
+      type: "article",
       image: override?.ogImage,
     }),
   }

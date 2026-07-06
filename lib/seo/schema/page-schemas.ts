@@ -1,4 +1,5 @@
 import type { CategoryPageData, PuzzlePageData } from "@/lib/db/types/page-data"
+import type { ContentPageData } from "@/lib/db/types/content-page-data"
 import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { buildBreadcrumbListSchema, type BreadcrumbItem } from "@/lib/seo/breadcrumbs"
 import { buildContentWebPageSchema } from "./person"
@@ -66,4 +67,32 @@ export function buildBreadcrumbSchemaGraph(
   siteUrl?: string,
 ): Record<string, unknown> {
   return buildSchemaGraph([buildBreadcrumbListSchema(breadcrumbs, siteUrl)])
+}
+
+export function buildContentPageSchemaGraph(
+  page: Pick<
+    ContentPageData,
+    "slug" | "h1" | "metaDescription" | "canonicalPath" | "breadcrumbs" | "faqJson" | "schema" | "showAuthorAttribution"
+  >,
+  siteUrl?: string,
+): Record<string, unknown> {
+  const breadcrumb = buildBreadcrumbListSchema(page.breadcrumbs, siteUrl)
+  const faqPage =
+    page.schema.faqPage ?? buildFaqPageSchema(page.faqJson)
+
+  const nodes: Array<Record<string, unknown>> = [breadcrumb]
+  if (faqPage) nodes.push(faqPage)
+
+  if (page.showAuthorAttribution ?? shouldShowAuthorAttribution(page.slug)) {
+    nodes.push(
+      buildContentWebPageSchema({
+        path: page.canonicalPath,
+        name: page.h1,
+        description: page.metaDescription,
+        siteUrl,
+      }),
+    )
+  }
+
+  return buildSchemaGraph(nodes)
 }

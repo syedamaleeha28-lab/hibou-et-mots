@@ -34,3 +34,11 @@ export async function resolveJeuxMagazinesContentPageData(
   if (!category) return null
   return mapCategoryToContentPageData(category, "editorial")
 }
+
+export async function resolvePedagogieContentPageData(
+  page = 1,
+): Promise<ContentPageData | null> {
+  const category = await resolveStaticSupportCategoryPageData(ROUTES.pedagogie, page)
+  if (!category) return null
+  return mapCategoryToContentPageData(category, "educational")
+}

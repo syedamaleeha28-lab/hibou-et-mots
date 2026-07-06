@@ -21,7 +21,6 @@ import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
 import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { AdultesEditorial } from "@/components/templates/adultes/adultes-editorial"
-import { PedagogieEditorial } from "@/components/templates/pedagogie/pedagogie-editorial"
 import { SeniorsEditorial } from "@/components/templates/seniors/seniors-editorial"
 import { cn } from "@/lib/utils"
 
@@ -58,8 +57,6 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           <CategoryPhase1Sections slug={category.slug} />
 
           <CategoryPhase2Sections slug={category.slug} />
-
-          {category.slug === "pedagogie" && <PedagogieEditorial />}
 
           {category.slug === "adultes" && <AdultesEditorial />}
 

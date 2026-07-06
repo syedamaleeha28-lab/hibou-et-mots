@@ -1,19 +1,22 @@
 import type { CategoryPageData } from "@/lib/db/types/page-data"
 import { DifficultyPill } from "@/components/ui/difficulty-pill"
+import { shouldUseEmptyCatalogMode } from "@/lib/category/catalog-layout"
 
 type CategoryIntroProps = {
   category: Pick<
     CategoryPageData,
-    "h1" | "introText" | "puzzleCount" | "grade" | "theme" | "difficulty" | "type"
+    "slug" | "h1" | "introText" | "puzzleCount" | "grade" | "theme" | "difficulty" | "type"
   >
 }
 
 export function CategoryIntro({ category }: CategoryIntroProps) {
+  const showPuzzleCountBadge = !shouldUseEmptyCatalogMode(category)
   const badge =
     category.grade?.name ??
     category.theme?.name ??
     category.difficulty?.name ??
     undefined
+  const hasBadges = showPuzzleCountBadge || badge || category.difficulty
 
   return (
     <header className="flex flex-col gap-4">
@@ -31,22 +34,26 @@ export function CategoryIntro({ category }: CategoryIntroProps) {
             </p>
           ))}
         </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <span className="rounded-full bg-muted px-3 py-1 text-xs font-extrabold text-muted-foreground">
-            {category.puzzleCount} grilles
-          </span>
-          {badge && (
-            <span className="rounded-full bg-secondary/15 px-3 py-1 text-xs font-extrabold text-secondary">
-              {badge}
-            </span>
-          )}
-          {category.difficulty && (
-            <DifficultyPill
-              slug={category.difficulty.slug}
-              name={category.difficulty.name}
-            />
-          )}
-        </div>
+        {hasBadges && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {showPuzzleCountBadge && (
+              <span className="rounded-full bg-muted px-3 py-1 text-xs font-extrabold text-muted-foreground">
+                {category.puzzleCount} grilles
+              </span>
+            )}
+            {badge && (
+              <span className="rounded-full bg-secondary/15 px-3 py-1 text-xs font-extrabold text-secondary">
+                {badge}
+              </span>
+            )}
+            {category.difficulty && (
+              <DifficultyPill
+                slug={category.difficulty.slug}
+                name={category.difficulty.name}
+              />
+            )}
+          </div>
+        )}
       </div>
     </header>
   )

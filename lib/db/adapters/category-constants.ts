@@ -28,3 +28,17 @@ export const MVP_P1_COMBOS = [
   { grade: "ce1", theme: "noel" },
   { grade: "ce1", theme: "halloween" },
 ] as const
+
+/** Editorial / educational pages that reuse category routing but are not puzzle catalogs. */
+export const STATIC_SUPPORT_CATEGORY_SLUGS = [
+  "pedagogie",
+  "personnages",
+  "application",
+  "solutions",
+  "jeux-magazines",
+  "ressources-enseignants",
+] as const
+
+export function isStaticSupportCategorySlug(slug: string): boolean {
+  return (STATIC_SUPPORT_CATEGORY_SLUGS as readonly string[]).includes(slug)
+}

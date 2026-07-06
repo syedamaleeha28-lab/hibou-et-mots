@@ -11,6 +11,8 @@ import { CategoryThemeSections } from "./category-theme-sections"
 import { CategoryExploreLinks } from "./category-explore-links"
 import { SubCategoryLinks } from "./sub-category-links"
 import { ComboParentLinks } from "./combo-parent-links"
+import { shouldUseEmptyCatalogMode } from "@/lib/category/catalog-layout"
+import { CategoryEmptyState } from "./category-empty-state"
 import { PuzzleCardGrid } from "./puzzle-card-grid"
 import { RelatedCategoriesRow } from "./related-categories-row"
 import { CategoryCta } from "./category-cta"
@@ -28,6 +30,7 @@ export type CategoryTemplateProps = {
 }
 
 export function CategoryTemplate({ category }: CategoryTemplateProps) {
+  const emptyCatalogMode = shouldUseEmptyCatalogMode(category)
   const schemaGraph = buildCategoryPageSchemaGraph(category)
 
   return (
@@ -61,9 +64,13 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
           <SubCategoryLinks category={category} />
 
-          <PuzzleCardGrid category={category} />
+          {emptyCatalogMode ? (
+            <CategoryEmptyState />
+          ) : (
+            <PuzzleCardGrid category={category} />
+          )}
 
-          <HowToPlayBlock />
+          {!emptyCatalogMode && <HowToPlayBlock />}
 
           <FaqAccordion items={category.faqJson} />
 
@@ -73,7 +80,7 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
           <RelatedCategoriesRow categories={category.relatedCategories} />
 
-          <CategoryCta themeSlug={category.theme?.slug} />
+          {!emptyCatalogMode && <CategoryCta themeSlug={category.theme?.slug} />}
         </div>
       </div>
     </div>

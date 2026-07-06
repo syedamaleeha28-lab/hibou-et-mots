@@ -1,0 +1,18 @@
+﻿node.exe : npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (npm warn Unknow...version of npm.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+file:///C:/Users/LENOVO/Desktop/websites/hibou-et-mots/scripts/gsc-audit-data.mjs:7
+import { buildInternalLinkMapReport } from "../lib/seo/link-map/build-link-map.ts"
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: The requested module '../lib/seo/link-map/build-link-map.ts' does not provide an export named 
+'buildInternalLinkMapReport'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:302:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:405:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:660:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.13.0

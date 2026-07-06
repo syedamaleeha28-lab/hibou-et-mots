@@ -80,19 +80,16 @@ export function buildContentPageSchemaGraph(
   const faqPage =
     page.schema.faqPage ?? buildFaqPageSchema(page.faqJson)
 
-  const nodes: Array<Record<string, unknown>> = [breadcrumb]
+  const nodes: Array<Record<string, unknown>> = [
+    breadcrumb,
+    buildContentWebPageSchema({
+      path: page.canonicalPath,
+      name: page.h1,
+      description: page.metaDescription,
+      siteUrl,
+    }),
+  ]
   if (faqPage) nodes.push(faqPage)
-
-  if (page.showAuthorAttribution ?? shouldShowAuthorAttribution(page.slug)) {
-    nodes.push(
-      buildContentWebPageSchema({
-        path: page.canonicalPath,
-        name: page.h1,
-        description: page.metaDescription,
-        siteUrl,
-      }),
-    )
-  }
 
   return buildSchemaGraph(nodes)
 }

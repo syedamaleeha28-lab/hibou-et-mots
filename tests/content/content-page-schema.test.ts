@@ -59,15 +59,15 @@ describe("buildContentPageSchemaGraph", () => {
     expect(types).not.toContain("ItemList")
   })
 
-  it("omits WebPage when author attribution is disabled", () => {
+  it("always includes WebPage for editorial content pages", () => {
     const graph = buildContentPageSchemaGraph({
       ...SAMPLE_CONTENT_PAGE,
-      slug: "personnages",
+      slug: "application",
       showAuthorAttribution: false,
     }) as { "@graph": Array<Record<string, unknown>> }
 
     const types = graph["@graph"].map((node) => node["@type"])
-    expect(types).not.toContain("WebPage")
+    expect(types).toContain("WebPage")
   })
 })
 

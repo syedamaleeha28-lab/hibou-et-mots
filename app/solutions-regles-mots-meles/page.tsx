@@ -1,12 +1,13 @@
 import type { Metadata } from "next"
 import { ROUTES } from "@/lib/seo/routes"
 import { resolveStaticSupportCategoryPageData } from "@/lib/db/queries/category-resolvers"
+import { resolveSolutionsContentPageData } from "@/lib/db/queries/content-resolvers"
 import {
   categoryGenerateMetadata,
   parseCategoryPage,
-  renderCategoryPage,
   type CategorySearchParams,
 } from "@/lib/app/category-page"
+import { renderContentPage } from "@/lib/app/content-page"
 
 export const revalidate = 3600
 
@@ -28,6 +29,6 @@ export default async function SolutionsPage({
 }) {
   const params = await searchParams
   const page = parseCategoryPage(params?.page)
-  const category = await resolveStaticSupportCategoryPageData(ROUTES.solutions, page)
-  return renderCategoryPage(category, page)
+  const contentPage = await resolveSolutionsContentPageData(page)
+  return renderContentPage(contentPage)
 }

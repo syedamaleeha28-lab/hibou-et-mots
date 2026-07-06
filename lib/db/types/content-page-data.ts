@@ -1,4 +1,5 @@
 import type { BreadcrumbItem } from "@/lib/seo/breadcrumbs"
+import type { CategoryExploreLink } from "@/lib/seo/linking/category-explore-links"
 import type { ContentSchemaPayload } from "@/lib/seo/schema/types"
 import type { FaqItem } from "./page-data"
 
@@ -41,6 +42,7 @@ export type ContentPageData = {
   breadcrumbs: BreadcrumbItem[]
   faqJson: FaqItem[]
   relatedLinks: ContentRelatedLink[]
+  exploreLinks?: CategoryExploreLink[]
   showAuthorAttribution?: boolean
   illustration?: ContentPageIllustration
   cta?: ContentPageCta

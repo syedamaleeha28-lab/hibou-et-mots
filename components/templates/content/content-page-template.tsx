@@ -7,6 +7,7 @@ import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { buildContentPageSchemaGraph } from "@/lib/seo/schema"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
 import { ContentPageCtaSection } from "./content-page-cta"
+import { ContentExploreLinks } from "./content-explore-links"
 import { ContentPageHero } from "./content-page-hero"
 import { ContentRelatedLinks } from "./content-related-links"
 
@@ -31,6 +32,8 @@ export function ContentPageTemplate({ page, children }: ContentPageTemplateProps
           <ContentPageHero page={page} />
 
           {children ? <article className="flex flex-col gap-8">{children}</article> : null}
+
+          <ContentExploreLinks page={page} />
 
           <FaqAccordion items={page.faqJson} />
 

@@ -23,6 +23,7 @@ import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { AdultesEditorial } from "@/components/templates/adultes/adultes-editorial"
 import { PedagogieEditorial } from "@/components/templates/pedagogie/pedagogie-editorial"
 import { SeniorsEditorial } from "@/components/templates/seniors/seniors-editorial"
+import { cn } from "@/lib/utils"
 
 export type CategoryTemplateProps = {
   category: CategoryPageData
@@ -40,8 +41,16 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
         <BreadcrumbTrail items={category.breadcrumbs} className="mb-6" includeSchema={false} />
 
-        <div className="flex flex-col gap-10 lg:gap-14">
+        <div
+          className={cn(
+            "flex flex-col",
+            emptyCatalogMode ? "gap-6 lg:gap-8" : "gap-10 lg:gap-14",
+          )}
+        >
           <CategoryIntro category={category} />
+
+          {emptyCatalogMode && <CategoryEmptyState category={category} />}
+
           <CategorySynonymNote />
 
           <CategoryThemeSections slug={category.slug} />
@@ -64,11 +73,7 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
           <SubCategoryLinks category={category} />
 
-          {emptyCatalogMode ? (
-            <CategoryEmptyState />
-          ) : (
-            <PuzzleCardGrid category={category} />
-          )}
+          {!emptyCatalogMode && <PuzzleCardGrid category={category} />}
 
           {!emptyCatalogMode && <HowToPlayBlock />}
 

@@ -11,12 +11,8 @@ type CategoryIntroProps = {
 
 export function CategoryIntro({ category }: CategoryIntroProps) {
   const showPuzzleCountBadge = !shouldUseEmptyCatalogMode(category)
-  const badge =
-    category.grade?.name ??
-    category.theme?.name ??
-    category.difficulty?.name ??
-    undefined
-  const hasBadges = showPuzzleCountBadge || badge || category.difficulty
+  const contextualBadge = category.grade?.name ?? category.theme?.name ?? undefined
+  const hasBadges = showPuzzleCountBadge || contextualBadge || category.difficulty
 
   return (
     <header className="flex flex-col gap-4">
@@ -41,9 +37,9 @@ export function CategoryIntro({ category }: CategoryIntroProps) {
                 {category.puzzleCount} grilles
               </span>
             )}
-            {badge && (
+            {contextualBadge && (
               <span className="rounded-full bg-secondary/15 px-3 py-1 text-xs font-extrabold text-secondary">
-                {badge}
+                {contextualBadge}
               </span>
             )}
             {category.difficulty && (

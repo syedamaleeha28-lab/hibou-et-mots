@@ -7,6 +7,7 @@ import {
 } from "@/lib/content/synonym-phrases"
 import { adultesEditorialPlainText } from "@/lib/content/adultes"
 import { pedagogieEditorialPlainText } from "@/lib/content/pedagogie"
+import { ressourcesEnseignantsEditorialPlainText } from "@/lib/content/ressources-enseignants"
 import { seniorsEditorialPlainText } from "@/lib/content/seniors"
 import { GENERATOR_FAQ, HOME_FAQ, ONLINE_PLAY_FAQ } from "@/lib/content/phase1/tools"
 import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
@@ -45,6 +46,7 @@ function flattenFaq(faq: FaqItem[]): string {
 
 const EDITORIAL_BY_SLUG: Record<string, string> = {
   pedagogie: pedagogieEditorialPlainText(),
+  "ressources-enseignants": ressourcesEnseignantsEditorialPlainText(),
   seniors: seniorsEditorialPlainText(),
   adultes: adultesEditorialPlainText(),
 }

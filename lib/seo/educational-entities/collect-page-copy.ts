@@ -3,6 +3,7 @@ import {
   ecoleCyclePlainText,
 } from "@/lib/content/educational-entities"
 import { pedagogieEditorialPlainText } from "@/lib/content/pedagogie"
+import { ressourcesEnseignantsEditorialPlainText } from "@/lib/content/ressources-enseignants"
 import { getPhase1Intro } from "@/lib/content/phase1"
 import {
   resolveAudienceCategoryPageData,
@@ -85,7 +86,10 @@ export async function collectEducationalPageCopies(): Promise<EducationalPageCop
       path: ROUTES.ressources,
       slug: "ressources-enseignants",
       pageType: "support",
-      text: flattenCategory(ressources, false),
+      text: [
+        flattenCategory(ressources, false),
+        ressourcesEnseignantsEditorialPlainText(),
+      ].join(" "),
     })
   }
 

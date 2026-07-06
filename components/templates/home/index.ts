@@ -11,5 +11,5 @@ export {
 } from "./home-seo-content"
 export { HomeFaq } from "./home-faq"
 export { PopularPuzzles } from "./popular-puzzles"
+export { HomeGeneratorTeaser } from "./home-generator-teaser"
 export { PrintablePdfs } from "./printable-pdfs"
-export { PuzzleGenerator } from "./puzzle-generator"

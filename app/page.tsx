@@ -12,7 +12,7 @@ import {
   HomeSynonymDifferenceSection,
   PopularPuzzles,
   PrintablePdfs,
-  PuzzleGenerator,
+  HomeGeneratorTeaser,
 } from "@/components/templates/home"
 import { SchemaJsonLd } from "@/components/seo"
 import { AuthorAttribution } from "@/components/seo/author-attribution"
@@ -43,7 +43,7 @@ export default function Home() {
       <HomeChooseGridSection />
       <GradeLevels />
       <PrintablePdfs />
-      <PuzzleGenerator />
+      <HomeGeneratorTeaser />
       <HomeFaq />
     </>
   )

@@ -18,3 +18,11 @@ export async function resolveApplicationContentPageData(
   if (!category) return null
   return mapCategoryToContentPageData(category, "editorial")
 }
+
+export async function resolvePersonnagesContentPageData(
+  page = 1,
+): Promise<ContentPageData | null> {
+  const category = await resolveStaticSupportCategoryPageData(ROUTES.personnages, page)
+  if (!category) return null
+  return mapCategoryToContentPageData(category, "editorial")
+}

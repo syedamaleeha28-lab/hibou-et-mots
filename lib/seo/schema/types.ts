@@ -24,9 +24,11 @@ export type FaqPageSchema = {
   }>
 }
 
+export const CREATIVE_WORK_SCHEMA_TYPES = ["CreativeWork", "LearningResource"] as const
+
 export type CreativeWorkSchema = {
   "@context": "https://schema.org"
-  "@type": "CreativeWork"
+  "@type": typeof CREATIVE_WORK_SCHEMA_TYPES
   name: string
   description?: string
   url: string
@@ -34,12 +36,26 @@ export type CreativeWorkSchema = {
   genre?: string
   educationalLevel?: string
   learningResourceType?: string
+  educationalUse?: string
+  teaches?: string
   isAccessibleForFree?: boolean
   image?: string
   audience?: {
     "@type": "Audience"
     audienceType: string
   }
+}
+
+export type CollectionPageSchema = {
+  "@type": "CollectionPage"
+  "@id": string
+  url: string
+  name: string
+  description?: string
+  inLanguage: string
+  isPartOf: { "@id": string }
+  mainEntity: { "@id": string }
+  numberOfItems?: number
 }
 
 export type CategorySchemaPayload = {

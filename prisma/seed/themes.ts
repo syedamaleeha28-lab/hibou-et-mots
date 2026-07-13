@@ -136,6 +136,22 @@ export const themeSeed = [
     activeDateStart: null,
     activeDateEnd: null,
   },
+  {
+    slug: "sciences",
+    name: "Sciences",
+    group: "École & Savoir",
+    isSeasonal: false,
+    activeDateStart: null,
+    activeDateEnd: null,
+  },
+  {
+    slug: "metiers",
+    name: "Métiers",
+    group: "École & Savoir",
+    isSeasonal: false,
+    activeDateStart: null,
+    activeDateEnd: null,
+  },
 ] as const
 
 export type ThemeSlug = (typeof themeSeed)[number]["slug"]

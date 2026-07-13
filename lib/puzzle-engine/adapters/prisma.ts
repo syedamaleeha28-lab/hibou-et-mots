@@ -1,4 +1,4 @@
-import type { PuzzleResult } from "./types"
+import type { PuzzleResult } from "../types"
 
 export type PrismaPuzzlePayload = {
   slug: string

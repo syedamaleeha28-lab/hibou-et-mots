@@ -326,6 +326,44 @@ const rawWords: ThemeWordSeed[] = [
     ["pays-du-monde", "ARGENTINE", 5],
     ["pays-du-monde", "PORTUGAL", 5],
   ].map(([s, w, g]) => entry(s as ThemeSlug, w as string, g as number)),
+
+  // Sciences
+  ...[
+    ["sciences", "EAU", 0],
+    ["sciences", "AIR", 0],
+    ["sciences", "SOLEIL", 1],
+    ["sciences", "LUNE", 1],
+    ["sciences", "PLANTE", 1],
+    ["sciences", "GRAINE", 2],
+    ["sciences", "RACINE", 2],
+    ["sciences", "ENERGIE", 3],
+    ["sciences", "GRAVITE", 3],
+    ["sciences", "PLANETE", 3],
+    ["sciences", "ETOILE", 2],
+    ["sciences", "MATIERE", 4],
+    ["sciences", "MOLECULE", 5],
+    ["sciences", "EXPERIENCE", 5],
+    ["sciences", "MICROSCOPE", 5],
+  ].map(([s, w, g]) => entry(s as ThemeSlug, w as string, g as number)),
+
+  // Métiers
+  ...[
+    ["metiers", "CHEF", 0],
+    ["metiers", "FACTEUR", 1],
+    ["metiers", "POMPIER", 1],
+    ["metiers", "MEDECIN", 2],
+    ["metiers", "BOULANGER", 2],
+    ["metiers", "FERMIER", 2],
+    ["metiers", "PROFESSEUR", 2],
+    ["metiers", "POLICIER", 2],
+    ["metiers", "DENTISTE", 3],
+    ["metiers", "VETERINAIRE", 4],
+    ["metiers", "INFIRMIER", 3],
+    ["metiers", "INGENIEUR", 4],
+    ["metiers", "ARCHITECTE", 5],
+    ["metiers", "JOURNALISTE", 5],
+    ["metiers", "ASTRONAUTE", 4],
+  ].map(([s, w, g]) => entry(s as ThemeSlug, w as string, g as number)),
 ]
 
 export const themeWordSeed = rawWords.map((w) => ({

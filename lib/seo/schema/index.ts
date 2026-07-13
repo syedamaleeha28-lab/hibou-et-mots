@@ -1,4 +1,5 @@
 export { buildCreativeWorkSchema, isChildOrientedPuzzle } from "./creative-work"
+export { buildCollectionPageSchema, itemListId } from "./collection-page"
 export { buildFaqPageSchema } from "./faq-page"
 export { buildItemListSchema, buildLinksItemListSchema } from "./item-list"
 export { buildSchemaGraph, toSchemaGraphNode } from "./graph"
@@ -25,8 +26,10 @@ export {
   GENERATOR_FEATURE_LIST,
   ONLINE_PLAY_FEATURE_LIST,
 } from "./software-application"
+export { CREATIVE_WORK_SCHEMA_TYPES } from "./types"
 export type {
   CategorySchemaPayload,
+  CollectionPageSchema,
   ContentSchemaPayload,
   CreativeWorkSchema,
   FaqPageSchema,

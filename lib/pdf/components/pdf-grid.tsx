@@ -22,7 +22,7 @@ export function PdfGrid({ grid, cellSize, fontSize, highlightCells }: PdfGridPro
                 style={[
                   pdfBaseStyles.cell,
                   { width: cellSize, height: cellSize },
-                  highlighted ? pdfBaseStyles.cellHighlight : undefined,
+                  ...(highlighted ? [pdfBaseStyles.cellHighlight] : []),
                 ]}
               >
                 <Text style={[pdfBaseStyles.cellLetter, { fontSize }]}>{letter}</Text>

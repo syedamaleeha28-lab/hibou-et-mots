@@ -140,7 +140,7 @@ const GRADE_DEFINITIONS: CategorySeedDefinition[] = gradeSeed.map((grade) => ({
   type: "GRADE",
   parentSlug: HUB_CATEGORY_SLUGS.ecole,
   gradeSlug: grade.slug,
-  h1: grade.h1 ?? `Mots mêlés ${grade.name}`,
+  h1: "h1" in grade && grade.h1 ? grade.h1 : `Mots mêlés ${grade.name}`,
   seoTitle: grade.seoTitle,
   metaDescription: grade.metaDescription,
   introText: grade.introText,

@@ -23,9 +23,10 @@ describe("pilot mock fixtures", () => {
 
   it("builds animaux category with related links", () => {
     const page = mockAnimauxCategoryPageData()
-    expect(page.canonicalPath).toBe("/mots-meles-thematiques/animaux/")
-    expect(page.theme?.slug).toBe("animaux")
-    expect(page.relatedCategories.length).toBeGreaterThan(0)
+    expect(page).not.toBeNull()
+    expect(page!.canonicalPath).toBe("/mots-meles-thematiques/animaux/")
+    expect(page!.theme?.slug).toBe("animaux")
+    expect(page!.relatedCategories.length).toBeGreaterThan(0)
   })
 
   it("builds animaux pilot puzzle with grid and schema", () => {
@@ -33,7 +34,7 @@ describe("pilot mock fixtures", () => {
     expect(puzzle.slug).toBe(PILOT_PUZZLE_SLUG)
     expect(puzzle.grid.length).toBeGreaterThan(0)
     expect(puzzle.breadcrumbs.length).toBeGreaterThan(1)
-    expect(puzzle.schema.creativeWork["@type"]).toBe("CreativeWork")
+    expect(puzzle.schema.creativeWork["@type"]).toEqual(["CreativeWork", "LearningResource"])
     expect(puzzle.relatedPuzzles.length).toBeGreaterThan(0)
   })
 })

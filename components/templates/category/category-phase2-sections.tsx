@@ -388,7 +388,8 @@ function EcolePhase2() {
   const cycle3 = gradeSeed.filter((g) => ["cm1", "cm2"].includes(g.slug))
   const college = gradeSeed.filter((g) => g.slug === "6e")
 
-  const cycleLinks: Record<EducationalCycleBlock["id"], typeof cycle1> = {
+  type GradeEntry = (typeof gradeSeed)[number]
+  const cycleLinks: Record<EducationalCycleBlock["id"], GradeEntry[]> = {
     "cycle-1": cycle1,
     "cycle-2": cycle2,
     "cycle-3": cycle3,

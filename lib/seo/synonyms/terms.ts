@@ -1,5 +1,7 @@
 import type { SynonymId } from "@/lib/content/synonym-phrases"
 
+export type { SynonymId }
+
 export type SynonymTerm = {
   id: SynonymId
   label: string

@@ -1,4 +1,5 @@
 import type { CategoryPageData, CategoryType } from "@/lib/db/types/page-data"
+import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 import { categoryPathFromDefinition } from "@/lib/seo/link-graph/paths"
 import {
   ROUTES,
@@ -31,6 +32,16 @@ const DEDICATED_EDITORIAL_SLUGS = new Set([
   "pedagogie",
   "seniors",
   "adultes",
+])
+
+const HUB_SLUGS = new Set<string>(Object.values(HUB_CATEGORY_SLUGS))
+const STATIC_SUPPORT_SLUGS = new Set([
+  "pedagogie",
+  "personnages",
+  "application",
+  "solutions",
+  "jeux-magazines",
+  "ressources-enseignants",
 ])
 
 export function hasDedicatedEditorialLinks(slug: string): boolean {
@@ -184,6 +195,34 @@ function seasonalSiblingLink(slug: string): CategoryExploreLink | null {
   return siblings[slug] ?? null
 }
 
+function hubExploreLinks(category: CategoryPageData): CategoryExploreLink[] {
+  return [
+    ...toolLinks(),
+    ...printableLinks(),
+    ...audienceLinks(),
+    ...hubLinks().filter((link) => link.href !== category.canonicalPath),
+  ]
+}
+
+function staticSupportExploreLinks(): CategoryExploreLink[] {
+  return [
+    ...toolLinks(),
+    ...printableLinks(),
+    ...audienceLinks(),
+    {
+      href: ROUTES.ecoleHub,
+      label: "Mots mêlés École",
+      description: "Grilles par niveau pour la classe",
+    },
+  ]
+}
+
+function linksForCategory(category: CategoryPageData): CategoryExploreLink[] {
+  if (HUB_SLUGS.has(category.slug)) return hubExploreLinks(category)
+  if (STATIC_SUPPORT_SLUGS.has(category.slug)) return staticSupportExploreLinks()
+  return linksForType(category.type, category)
+}
+
 function linksForType(type: CategoryType, category: CategoryPageData): CategoryExploreLink[] {
   const themeSlug = category.theme?.slug
   const label = category.theme?.name ?? category.h1.replace(/^Mots mêlés\s+/i, "")
@@ -299,13 +338,6 @@ function linksForType(type: CategoryType, category: CategoryPageData): CategoryE
           description: "Commencer par une grille facile",
         },
       ]
-    case "HUB":
-      return [
-        ...toolLinks(),
-        ...printableLinks(),
-        ...audienceLinks(),
-        ...hubLinks().filter((link) => link.href !== category.canonicalPath),
-      ]
     case "PRESS_BRAND":
       return [
         ...toolLinks(),
@@ -341,17 +373,6 @@ function linksForType(type: CategoryType, category: CategoryPageData): CategoryE
           description: "Noël, Halloween et autres grilles festives",
         },
       ]
-    case "STATIC_SUPPORT":
-      return [
-        ...toolLinks(),
-        ...printableLinks(),
-        ...audienceLinks(),
-        {
-          href: ROUTES.ecoleHub,
-          label: "Mots mêlés École",
-          description: "Grilles par niveau pour la classe",
-        },
-      ]
     default:
       return [...toolLinks(), ...printableLinks()]
   }
@@ -364,7 +385,7 @@ export function getCategoryExploreLinks(category: CategoryPageData): CategoryExp
   const seen = new Set<string>()
   const links: CategoryExploreLink[] = []
 
-  for (const link of linksForType(category.type, category)) {
+  for (const link of linksForCategory(category)) {
     if (link.href === category.canonicalPath) continue
     if (seen.has(link.href)) continue
     seen.add(link.href)
@@ -399,7 +420,7 @@ function stubCategoryFromSeed(def: CategorySeedDefinition): CategoryPageData {
     minPuzzleThreshold: 4,
     breadcrumbs: [],
     subCategories: [],
-    puzzles: { items: [], page: 1, pageSize: 12, total: 0, totalPages: 0 },
+    puzzles: { items: [], page: 1, pageSize: 12, totalCount: 0, totalPages: 1 },
     relatedCategories: [],
     theme: theme ? { slug: theme.slug, name: theme.name } : undefined,
     grade: def.gradeSlug ? { slug: def.gradeSlug, name: def.gradeSlug } : undefined,

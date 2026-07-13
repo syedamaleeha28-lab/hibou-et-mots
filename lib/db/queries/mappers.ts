@@ -145,6 +145,7 @@ export function mapCategoryToPageData(
     page?: number
     subCategories?: CategoryPageData["subCategories"]
     relatedCategories?: CategoryPageData["relatedCategories"]
+    comboParentLinks?: CategoryPageData["comboParentLinks"]
   } = {},
 ): CategoryPageData {
   const page = options.page ?? 1
@@ -189,7 +190,8 @@ export function mapCategoryToPageData(
   }
 
   const comboParentLinks =
-    category.type === "COMBO" && category.grade && category.theme
+    options.comboParentLinks ??
+    (category.type === "COMBO" && category.grade && category.theme
       ? buildComboParentLinks({
           grade: category.grade,
           theme: {
@@ -197,7 +199,7 @@ export function mapCategoryToPageData(
             isSeasonal: category.theme.isSeasonal,
           },
         })
-      : undefined
+      : undefined)
 
   const itemList =
     category.slug === "hub-ecole"

@@ -21,7 +21,7 @@ export function LegalPageTemplate({ title, description, path, children }: LegalP
           className="mb-6"
         />
 
-        <SectionHeading align="left" title={title} description={description} />
+        <SectionHeading align="left" eyebrow="Informations" title={title} description={description} />
 
         <div className="prose prose-neutral mt-8 max-w-none text-foreground/90">{children}</div>
       </div>

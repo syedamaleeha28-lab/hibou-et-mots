@@ -287,7 +287,7 @@ function buildHubMock(slug: keyof typeof HUB_DEFINITIONS, page = 1): CategoryPag
 
   return mapCategoryToPageData(category, staticMockPuzzleCards(slug, 6), {
     page,
-    subCategories: def.subCategories,
+    subCategories: [...def.subCategories],
     relatedCategories: hubRelatedLinks(),
   })
 }
@@ -494,7 +494,7 @@ export function mockAudienceCategoryPageData(
 
   return mapCategoryToPageData(category, staticMockPuzzleCards(audienceSlug, 6), {
     page,
-    subCategories: def.subCategories,
+    subCategories: [...def.subCategories],
     relatedCategories: hubRelatedLinks(),
   })
 }
@@ -503,7 +503,6 @@ export function mockPressBrandCategoryPageData(brandSlug: string, page = 1): Cat
   const brand = MVP_PRESS_BRANDS.find((entry) => entry.slug === brandSlug)
   if (!brand) return null
 
-  const now = new Date()
   const category = mockCategoryRecord({
     type: "PRESS_BRAND",
     slug: brand.slug,
@@ -520,8 +519,6 @@ export function mockPressBrandCategoryPageData(brandSlug: string, page = 1): Cat
       logoUrl: null,
       seoTitle: null,
       metaDescription: null,
-      createdAt: now,
-      updatedAt: now,
     },
   })
 

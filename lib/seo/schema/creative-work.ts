@@ -1,6 +1,6 @@
 import { absoluteUrl } from "@/lib/seo/routes"
 import type { PuzzlePageData } from "@/lib/db/types/page-data"
-import type { CreativeWorkSchema } from "./types"
+import { CREATIVE_WORK_SCHEMA_TYPES, type CreativeWorkSchema } from "./types"
 
 const CHILD_GRADE_SLUGS = new Set([
   "maternelle",
@@ -39,15 +39,17 @@ export function buildCreativeWorkSchema(
 
   return {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
+    "@type": [...CREATIVE_WORK_SCHEMA_TYPES],
     name: puzzle.title,
     description: puzzle.metaDescription,
     url: absoluteUrl(puzzle.canonicalPath, siteUrl),
     inLanguage: "fr-FR",
     learningResourceType: "puzzle",
+    educationalUse: "Vocabulaire et orthographe",
     isAccessibleForFree: true,
     genre: puzzle.theme?.name,
     educationalLevel: puzzle.grade?.name,
+    ...(puzzle.theme?.name ? { teaches: `Vocabulaire ${puzzle.theme.name}` } : {}),
     ...(childOriented
       ? {
           audience: {

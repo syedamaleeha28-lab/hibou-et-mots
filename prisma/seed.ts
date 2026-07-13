@@ -37,7 +37,7 @@ async function seedReferenceData() {
   for (const difficulty of difficultySeed) {
     await prisma.difficulty.upsert({
       where: { slug: difficulty.slug },
-      create: difficulty,
+      create: { ...difficulty, directions: [...difficulty.directions] },
       update: {
         name: difficulty.name,
         gridSizeMin: difficulty.gridSizeMin,

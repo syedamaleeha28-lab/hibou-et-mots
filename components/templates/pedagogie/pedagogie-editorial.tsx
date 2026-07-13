@@ -17,7 +17,7 @@ export function PedagogieEditorial() {
         >
           <SectionHeading
             align="left"
-            eyebrow={section.eyebrow}
+            eyebrow={section.eyebrow ?? "Guide"}
             title={section.title}
           />
           <div className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground">

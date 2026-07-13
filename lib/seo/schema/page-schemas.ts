@@ -3,6 +3,7 @@ import type { ContentPageData } from "@/lib/db/types/content-page-data"
 import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { buildBreadcrumbListSchema, type BreadcrumbItem } from "@/lib/seo/breadcrumbs"
 import { buildContentWebPageSchema } from "./person"
+import { buildCollectionPageSchema, itemListId } from "./collection-page"
 import { buildCreativeWorkSchema } from "./creative-work"
 import { buildFaqPageSchema } from "./faq-page"
 import { buildItemListSchema } from "./item-list"
@@ -16,12 +17,21 @@ export function buildCategoryPageSchemaGraph(
   siteUrl?: string,
 ): Record<string, unknown> {
   const breadcrumb = buildBreadcrumbListSchema(category.breadcrumbs, siteUrl)
-  const itemList =
-    category.schema.itemList ??
-    buildItemListSchema(category.h1, category.puzzles.items, siteUrl)
+  const itemList = {
+    "@id": itemListId(category.canonicalPath, siteUrl),
+    ...(category.schema.itemList ?? buildItemListSchema(category.h1, category.puzzles.items, siteUrl)),
+  }
+  const collectionPage = buildCollectionPageSchema({
+    path: category.canonicalPath,
+    name: category.h1,
+    description: category.metaDescription,
+    siteUrl,
+    itemListId: itemList["@id"],
+    numberOfItems: category.puzzles.items.length,
+  })
   const faqPage = category.schema.faqPage
 
-  const nodes: Array<Record<string, unknown>> = [breadcrumb, itemList]
+  const nodes: Array<Record<string, unknown>> = [breadcrumb, collectionPage, itemList]
   if (faqPage) nodes.push(faqPage)
 
   if (shouldShowAuthorAttribution(category.slug, category.type)) {

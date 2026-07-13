@@ -1,11 +1,19 @@
 import { ANIMAUX_EXPLORE_LINK_LABELS } from "./animaux"
+import { CARNAVAL_EXPLORE_LINK_LABELS } from "./carnaval"
 import { COULEURS_EXPLORE_LINK_LABELS } from "./couleurs"
 import { CORPS_HUMAIN_EXPLORE_LINK_LABELS } from "./corps-humain"
+import { ETE_EXPLORE_LINK_LABELS } from "./ete"
 import { FAMILLE_EXPLORE_LINK_LABELS } from "./famille"
 import { FRUITS_EXPLORE_LINK_LABELS } from "./fruits"
 import { HALLOWEEN_EXPLORE_LINK_LABELS } from "./halloween"
 import { METEO_EXPLORE_LINK_LABELS } from "./meteo"
+import { METIERS_EXPLORE_LINK_LABELS } from "./metiers"
 import { NOEL_EXPLORE_LINK_LABELS } from "./noel"
+import { PAQUES_EXPLORE_LINK_LABELS } from "./paques"
+import { PAYS_DU_MONDE_EXPLORE_LINK_LABELS } from "./pays-du-monde"
+import { PRINTEMPS_EXPLORE_LINK_LABELS } from "./printemps"
+import { RENTREE_EXPLORE_LINK_LABELS } from "./rentree"
+import { SCIENCES_EXPLORE_LINK_LABELS } from "./sciences"
 import { SPORT_EXPLORE_LINK_LABELS } from "./sport"
 import { VOCABULAIRE_EXPLORE_LINK_LABELS } from "./vocabulaire"
 
@@ -81,6 +89,54 @@ const THEME_EXPLORE_CONFIGS: Record<string, ThemeExploreConfig> = {
     intro:
       "Poursuivez avec la maternelle, le thème Famille ou des grilles sciences à imprimer.",
     links: CORPS_HUMAIN_EXPLORE_LINK_LABELS,
+  },
+  paques: {
+    title: "Explorer les mots mêlés Pâques",
+    intro:
+      "Prolongez la fête avec des grilles par niveau, le thème Printemps ou d'autres fêtes saisonnières.",
+    links: PAQUES_EXPLORE_LINK_LABELS,
+  },
+  carnaval: {
+    title: "Explorer les mots mêlés Carnaval",
+    intro:
+      "Prolongez la période festive avec des grilles par niveau, le thème Pâques ou d'autres fêtes saisonnières.",
+    links: CARNAVAL_EXPLORE_LINK_LABELS,
+  },
+  ete: {
+    title: "Explorer les mots mêlés Été",
+    intro:
+      "Prolongez la saison avec des grilles par niveau, le thème Printemps ou d'autres fêtes saisonnières.",
+    links: ETE_EXPLORE_LINK_LABELS,
+  },
+  rentree: {
+    title: "Explorer les mots mêlés Rentrée",
+    intro:
+      "Poursuivez avec des grilles par niveau, le hub École ou le thème Vocabulaire pour prolonger le lexique scolaire.",
+    links: RENTREE_EXPLORE_LINK_LABELS,
+  },
+  printemps: {
+    title: "Explorer les mots mêlés Printemps",
+    intro:
+      "Prolongez la saison avec des grilles par niveau, le thème Pâques ou d'autres fêtes saisonnières.",
+    links: PRINTEMPS_EXPLORE_LINK_LABELS,
+  },
+  "pays-du-monde": {
+    title: "Explorer les mots mêlés Pays du Monde",
+    intro:
+      "Poursuivez avec des grilles par niveau, le thème Météo ou la page Adultes pour la culture générale.",
+    links: PAYS_DU_MONDE_EXPLORE_LINK_LABELS,
+  },
+  sciences: {
+    title: "Explorer les mots mêlés Sciences",
+    intro:
+      "Poursuivez avec des grilles par niveau, le thème Météo ou le thème Corps humain pour d'autres sciences du vivant.",
+    links: SCIENCES_EXPLORE_LINK_LABELS,
+  },
+  metiers: {
+    title: "Explorer les mots mêlés Métiers",
+    intro:
+      "Poursuivez avec des grilles par niveau, le thème Sciences ou les ressources enseignants pour une séquence sur les métiers.",
+    links: METIERS_EXPLORE_LINK_LABELS,
   },
 }
 

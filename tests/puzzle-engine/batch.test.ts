@@ -3,6 +3,7 @@ import {
   generatePuzzleBatch,
   PuzzleGenerationError,
   resolveGenerateOptions,
+  type Direction,
 } from "@/lib/puzzle-engine"
 import { themedWordSet } from "./fixtures/words"
 
@@ -21,7 +22,7 @@ describe("generatePuzzleBatch", () => {
         id: "fail-1",
         options: {
           words: [],
-          directions: ["HORIZONTAL"] as const,
+          directions: ["HORIZONTAL"] as Direction[],
         },
       },
       {

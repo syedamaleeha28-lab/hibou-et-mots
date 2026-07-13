@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest"
+import type { Metadata } from "next"
 import {
   DEFAULT_OG_IMAGE_PATH,
   resolveOgImageUrl,
@@ -12,6 +13,7 @@ import {
 } from "@/lib/seo/metadata"
 import type { CategoryPageData, PuzzlePageData } from "@/lib/db/types/page-data"
 import { ROUTES } from "@/lib/seo/routes"
+import { CREATIVE_WORK_SCHEMA_TYPES } from "@/lib/seo/schema"
 
 vi.mock("@/lib/db/client", () => ({
   prisma: {
@@ -75,8 +77,10 @@ const basePuzzle: PuzzlePageData = {
   schema: {
     creativeWork: {
       "@context": "https://schema.org",
-      "@type": "CreativeWork",
+      "@type": [...CREATIVE_WORK_SCHEMA_TYPES],
       name: "Animaux facile 01",
+      url: `${SITE}/mots-meles/animaux-facile-01/`,
+      inLanguage: "fr-FR",
     },
     faqPage: {
       "@context": "https://schema.org",
@@ -86,7 +90,7 @@ const basePuzzle: PuzzlePageData = {
   },
 }
 
-function firstOgImageUrl(metadata: { openGraph?: { images?: unknown } }) {
+function firstOgImageUrl(metadata: Pick<Metadata, "openGraph">) {
   const images = metadata.openGraph?.images
   if (!images) return undefined
   if (Array.isArray(images)) {
@@ -95,6 +99,9 @@ function firstOgImageUrl(metadata: { openGraph?: { images?: unknown } }) {
     if (first && typeof first === "object" && "url" in first) {
       return String((first as { url: string }).url)
     }
+  }
+  if (typeof images === "object" && images !== null && "url" in images) {
+    return String((images as { url: string }).url)
   }
   return undefined
 }
@@ -125,8 +132,9 @@ describe("openGraphMetadata", () => {
       siteUrl: SITE,
     })
 
-    expect(firstOgImageUrl({ openGraph: og })).toBe(`${SITE}${DEFAULT_OG_IMAGE_PATH}`)
-    expect(og?.images?.[0]).toMatchObject({
+    expect(firstOgImageUrl({ openGraph: og ?? undefined })).toBe(`${SITE}${DEFAULT_OG_IMAGE_PATH}`)
+    const ogImages = og?.images
+    expect(Array.isArray(ogImages) ? ogImages[0] : ogImages).toMatchObject({
       width: 1200,
       height: 630,
       alt: "Hibou&Mots",
@@ -143,7 +151,7 @@ describe("openGraphMetadata", () => {
       image: custom,
     })
 
-    expect(firstOgImageUrl({ openGraph: og })).toBe(custom)
+    expect(firstOgImageUrl({ openGraph: og ?? undefined })).toBe(custom)
   })
 })
 
@@ -189,6 +197,8 @@ describe("page metadata og:image override", () => {
     const { prisma } = await import("@/lib/db/client")
     const custom = "https://cdn.example.test/custom-og.png"
     vi.mocked(prisma.seoMetaOverride.findUnique).mockResolvedValueOnce({
+      id: "override-1",
+      path: "/",
       title: null,
       metaDescription: null,
       canonicalOverride: null,
@@ -202,6 +212,8 @@ describe("page metadata og:image override", () => {
   it("supports relative SeoMetaOverride.ogImage paths", async () => {
     const { prisma } = await import("@/lib/db/client")
     vi.mocked(prisma.seoMetaOverride.findUnique).mockResolvedValueOnce({
+      id: "override-2",
+      path: "/mots-meles-thematiques/animaux/",
       title: null,
       metaDescription: null,
       canonicalOverride: null,

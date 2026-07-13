@@ -67,7 +67,7 @@ describe("ressources enseignants page migration", () => {
   })
 
   it("preserves category explore links and editorial teacher links", () => {
-    expect(contentPage.exploreLinks.length).toBeGreaterThan(0)
+    expect(contentPage.exploreLinks?.length).toBeGreaterThan(0)
     expect(RESSOURCES_TEACHER_LINKS.length).toBeGreaterThanOrEqual(10)
     expect(ressourcesEnseignantsEditorialPlainText().length).toBeGreaterThan(500)
   })

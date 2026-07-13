@@ -22,7 +22,9 @@ const themeBySlug = new Map(themeSeed.map((t) => [t.slug, t]))
 export function seedSpecToCardData(spec: PuzzleSeedSpec): PuzzleCardData {
   const difficulty = difficultyBySlug.get(spec.difficulty)!
   const grade = spec.gradeSlug ? gradeBySlug.get(spec.gradeSlug) : undefined
-  const theme = themeBySlug.get(spec.themeSlug)
+  const theme = spec.themeSlug
+    ? themeBySlug.get(spec.themeSlug as (typeof themeSeed)[number]["slug"])
+    : undefined
 
   return {
     id: `seed-${spec.slug}`,

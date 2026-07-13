@@ -188,7 +188,7 @@ function categoryMatchesQuery(category: SearchCategoryHit, needle: string): bool
   )
 }
 
-function paginate<T>(items: T[], page: number, pageSize: number): SearchPagination & { items: T[] } {
+function paginate(items: PuzzleCardData[], page: number, pageSize: number): SearchPagination {
   const totalCount = items.length
   const totalPages = Math.max(1, Math.ceil(totalCount / pageSize))
   const safePage = Math.min(page, totalPages)

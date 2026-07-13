@@ -29,7 +29,7 @@ describe("buildContentPageMetadata", () => {
     expect(metadata.description).toBe(SAMPLE_PAGE.metaDescription)
     expect(metadata.alternates?.canonical).toContain(ROUTES.solutions)
     expect(metadata.robots).toEqual({ index: true, follow: true })
-    expect(metadata.openGraph?.type).toBe("article")
+    expect((metadata.openGraph as { type?: string } | undefined)?.type).toBe("article")
   })
 
   it("respects isIndexable for robots metadata", async () => {

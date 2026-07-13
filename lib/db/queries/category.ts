@@ -6,6 +6,7 @@ import { prisma } from "@/lib/db/client"
 import type { CategoryType } from "@/lib/db/types/page-data"
 import type { CategoryPageData } from "@/lib/db/types/page-data"
 import {
+  isCategoryHub,
   mapCategoryToPageData,
   mapPuzzleToCardData,
   paginatePuzzles,

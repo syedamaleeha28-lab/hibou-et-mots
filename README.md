@@ -1,7 +1,17 @@
-# Hibou & Mots
+# Mots Mêlés – Word Search Daily
 
-Site officiel :
+Free daily word search puzzles in French and English. 
+New themed grid every day for all ages.
 
-https://hibou-et-mots.com
+## Live App
+https://hibou-et-mots.com/app/
 
-Mots mêlés gratuits à imprimer, jouer en ligne et créer pour les enfants, les adultes et les enseignants.
+## Play Word Search Online
+- Sports themed: https://hibou-et-mots.com/mots-meles-thematiques/sport/
+- For adults: https://hibou-et-mots.com/mots-meles-adultes/
+- For children: https://hibou-et-mots.com/mots-meles-enfants/
+- For seniors: https://hibou-et-mots.com/mots-meles-seniors/
+
+## About
+Built with Next.js. Free printable and online word 
+search puzzles at hibou-et-mots.com

@@ -7,6 +7,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async rewrites() {
+    return [
+      // Serve the static Mots Mêlés PWA (public/app) at /app/
+      { source: '/app', destination: '/app/index.html' },
+      { source: '/app/', destination: '/app/index.html' },
+    ]
+  },
 }
 
 export default nextConfig

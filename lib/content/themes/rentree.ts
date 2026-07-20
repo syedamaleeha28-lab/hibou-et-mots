@@ -26,7 +26,7 @@ export const RENTREE_FAQ: FaqItem[] = [
   {
     question: "Quand utiliser ce thème Rentrée en classe ?",
     answer:
-      "Dès la première semaine de septembre, pour accueillir les élèves et réviser en douceur le vocabulaire de la salle de classe.",
+      "Dès la première semaine de septembre, pour accueillir les élèves avec des mots mêlés Rentrée et réviser en douceur le vocabulaire de la salle de classe.",
   },
   {
     question: "Peut-on jouer en ligne ou imprimer les mots mêlés de Rentrée ?",

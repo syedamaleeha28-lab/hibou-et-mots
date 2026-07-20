@@ -89,6 +89,10 @@ export function getThemeFaq(slug: string): FaqItem[] | undefined {
   return THEME_FAQS[slug]
 }
 
+export function listThemeFaqSlugs(): string[] {
+  return Object.keys(THEME_FAQS).sort()
+}
+
 export function getThemeMetaDescription(slug: string): string | undefined {
   return THEME_META_DESCRIPTIONS[slug]
 }

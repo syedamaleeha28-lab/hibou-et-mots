@@ -26,7 +26,7 @@ export const METEO_FAQ: FaqItem[] = [
   {
     question: "Ce thème Météo convient-il aux plus jeunes ?",
     answer:
-      "Oui : commencez par pluie, soleil ou vent en maternelle, puis progressez vers brouillard, tempête ou température au CE1 et au CE2.",
+      "Oui : commencez par pluie, soleil ou vent en maternelle avec des mots mêlés météo simples, puis progressez vers brouillard, tempête ou température au CE1 et au CE2.",
   },
   {
     question: "Peut-on jouer en ligne ou imprimer les mots mêlés Météo ?",

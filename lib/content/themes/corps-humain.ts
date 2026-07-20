@@ -21,7 +21,7 @@ export const CORPS_HUMAIN_FAQ: FaqItem[] = [
   {
     question: "Ce thème Corps humain convient-il à la maternelle ?",
     answer:
-      "Oui, commencez par main, pied, tête ou nez en grilles courtes en grandes lettres — idéal en PS, MS et GS.",
+      "Oui, commencez par main, pied, tête ou nez en grilles courtes de mots mêlés Corps humain en grandes lettres — idéal en PS, MS et GS.",
   },
   {
     question: "Comment utiliser ce thème en sciences au primaire ?",
@@ -36,7 +36,7 @@ export const CORPS_HUMAIN_FAQ: FaqItem[] = [
   {
     question: "Existe-t-il des grilles Corps humain par niveau scolaire ?",
     answer:
-      "Oui, croisez le thème avec un niveau via les pages École ou choisissez une difficulté facile pour les plus jeunes.",
+      "Oui, croisez le thème Corps humain avec un niveau via les pages École ou choisissez une difficulté facile pour les plus jeunes.",
   },
 ]
 

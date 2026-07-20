@@ -22,7 +22,7 @@ describe("category mock fixtures", () => {
     expect(page.canonicalPath).toBe("/mots-meles-gratuits/")
     expect(page.breadcrumbs.map((item) => item.label)).toEqual([
       "Accueil",
-      "Mots mêlés gratuits — Toutes les grilles",
+      "Mots Mêlés Gratuits : Jouez en Ligne ou Imprimez",
     ])
     expect(page.breadcrumbs.some((item) => item.label === "École")).toBe(false)
     expect(page.subCategories.length).toBeGreaterThan(0)

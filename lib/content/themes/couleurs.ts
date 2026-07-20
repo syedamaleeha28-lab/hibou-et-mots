@@ -26,7 +26,7 @@ export const COULEURS_FAQ: FaqItem[] = [
   {
     question: "Comment utiliser les mots mêlés Couleurs en arts plastiques ?",
     answer:
-      "Distribuez une grille avant un atelier peinture ou après une frise : les élèves repèrent le vocabulaire des teintes pendant un temps calme.",
+      "Distribuez une grille de mots mêlés Couleurs avant un atelier peinture ou après une frise : les élèves repèrent le vocabulaire des teintes pendant un temps calme.",
   },
   {
     question: "Peut-on jouer en ligne ou imprimer les grilles Couleurs ?",

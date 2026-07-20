@@ -26,7 +26,7 @@ export const ETE_FAQ: FaqItem[] = [
   {
     question: "Quand utiliser ce thème Été en classe ?",
     answer:
-      "Lors de la dernière semaine de juin ou pendant une séquence sur les saisons, en activité calme avant les grandes vacances.",
+      "Lors de la dernière semaine de juin ou pendant une séquence sur les saisons, en activité calme de mots mêlés Été avant les grandes vacances.",
   },
   {
     question: "Peut-on jouer en ligne ou imprimer les mots mêlés d'Été ?",

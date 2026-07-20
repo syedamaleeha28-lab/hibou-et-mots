@@ -36,7 +36,7 @@ export const PAYS_DU_MONDE_FAQ: FaqItem[] = [
   {
     question: "Existe-t-il des grilles Pays du Monde par niveau scolaire ?",
     answer:
-      "Oui, croisez le thème avec un niveau via les pages École, ou choisissez la difficulté facile pour les plus jeunes élèves.",
+      "Oui, croisez le thème Pays du Monde avec un niveau via les pages École, ou choisissez la difficulté facile pour les plus jeunes élèves.",
   },
 ]
 

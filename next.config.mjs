@@ -7,11 +7,56 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      // Soft-404 / malformed crawl paths → canonical pages
+      {
+        source: "/mots-meles-thematiques/fruits/-2",
+        destination: "/mots-meles-thematiques/fruits/",
+        permanent: true,
+      },
+      {
+        source: "/mots-meles-thematiques/fruits/-2/",
+        destination: "/mots-meles-thematiques/fruits/",
+        permanent: true,
+      },
+      {
+        source: "/mots-meles-thematiques/meteo/-2",
+        destination: "/mots-meles-thematiques/meteo/",
+        permanent: true,
+      },
+      {
+        source: "/mots-meles-thematiques/meteo/-2/",
+        destination: "/mots-meles-thematiques/meteo/",
+        permanent: true,
+      },
+      {
+        source: "/mots-meles/fruits-facile-04/-3",
+        destination: "/mots-meles/fruits-facile-04/",
+        permanent: true,
+      },
+      {
+        source: "/mots-meles/fruits-facile-04/-3/",
+        destination: "/mots-meles/fruits-facile-04/",
+        permanent: true,
+      },
+      {
+        source: "/application-mots-meles/-1",
+        destination: "/application-mots-meles/",
+        permanent: true,
+      },
+      {
+        source: "/application-mots-meles/-1/",
+        destination: "/application-mots-meles/",
+        permanent: true,
+      },
+    ]
+  },
   async rewrites() {
     return [
       // Serve the static Mots Mêlés PWA (public/app) at /app/
-      { source: '/app', destination: '/app/index.html' },
-      { source: '/app/', destination: '/app/index.html' },
+      { source: "/app", destination: "/app/index.html" },
+      { source: "/app/", destination: "/app/index.html" },
     ]
   },
 }

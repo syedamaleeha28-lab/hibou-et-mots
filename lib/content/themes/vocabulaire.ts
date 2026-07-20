@@ -36,7 +36,7 @@ export const VOCABULAIRE_FAQ: FaqItem[] = [
   {
     question: "Existe-t-il des grilles Vocabulaire par niveau scolaire ?",
     answer:
-      "Oui, croisez le thème avec un niveau via le hub École — CP, CE1, CE2 — ou choisissez une difficulté adaptée à la classe.",
+      "Oui, croisez le thème Vocabulaire avec un niveau via le hub École — CP, CE1, CE2 — ou choisissez une difficulté adaptée à la classe.",
   },
 ]
 

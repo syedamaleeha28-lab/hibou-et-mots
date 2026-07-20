@@ -26,7 +26,7 @@ export const CARNAVAL_FAQ: FaqItem[] = [
   {
     question: "Quand utiliser ce thème Carnaval en classe ?",
     answer:
-      "En février ou mars, avant les vacances d'hiver, pour ancrer le lexique festif après un atelier déguisement ou un défilé dans la cour de récréation.",
+      "En février ou mars, avant les vacances d'hiver, pour ancrer le lexique Carnaval après un atelier déguisement ou un défilé dans la cour de récréation.",
   },
   {
     question: "Peut-on jouer en ligne ou imprimer les mots mêlés de Carnaval ?",

@@ -14,24 +14,24 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
     {
       question: "Faut-il créer un compte pour jouer ?",
       answer:
-        "Non, aucune inscription n'est requise pour jouer en ligne, imprimer un PDF ou créer une grille personnalisée sur Hibou&Mots.",
+        "Non, aucune inscription n'est requise pour jouer en ligne, imprimer un PDF ou créer une grille personnalisée de mots mêlés gratuits sur Hibou&Mots.",
     },
     {
       question: "Puis-je imprimer les grilles gratuites ?",
       answer:
-        "Oui, chaque grille peut être exportée en PDF format A4 avec corrigé sur une page séparée — idéal pour la classe ou la maison.",
+        "Oui, chaque grille gratuite peut être exportée en PDF format A4 avec corrigé sur une page séparée — idéal pour imprimer des mots mêlés en classe ou à la maison.",
     },
     {
       question: "À quelle fréquence ajoutez-vous de nouvelles grilles ?",
       answer:
-        "La bibliothèque s'enrichit régulièrement : comptez environ cinq nouvelles grilles par semaine, réparties entre thèmes, saisons et niveaux scolaires.",
+        "La bibliothèque de mots mêlés gratuits s'enrichit régulièrement : comptez environ cinq nouvelles grilles par semaine, réparties entre thèmes, saisons et niveaux scolaires.",
     },
   ],
   "hub-imprimer": [
     {
       question: "Les PDF sont-ils au format A4 ?",
       answer:
-        "Oui, chaque grille est exportée en PDF format A4 portrait, optimisée pour l'impression noir et blanc.",
+        "Oui, chaque grille de mots mêlés à imprimer est exportée en PDF format A4 portrait, optimisée pour l'impression noir et blanc.",
     },
     {
       question: "Puis-je imprimer la solution séparément ?",
@@ -41,7 +41,7 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
     {
       question: "Puis-je imprimer plusieurs grilles à la fois ?",
       answer:
-        "Oui, téléchargez autant de PDF que nécessaire depuis les différentes catégories — idéal pour distribuer plusieurs grilles en classe.",
+        "Oui, téléchargez autant de PDF de mots mêlés à imprimer que nécessaire depuis les différentes catégories — idéal pour distribuer plusieurs grilles en classe.",
     },
     {
       question: "Est-ce vraiment gratuit et sans limite d'impressions ?",
@@ -495,7 +495,7 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
     {
       question: "À partir de quel âge un enfant peut-il faire des mots mêlés ?",
       answer:
-        "Dès 4–5 ans avec des grilles 6×6 en grandes lettres (maternelle), puis progressivement au CP, CE1, CE2, CM1 et CM2 selon le niveau de lecture.",
+        "Dès 4–5 ans, les enfants progressent avec des grilles 6×6 en grandes lettres (maternelle), puis au CP, CE1, CE2, CM1 et CM2 selon le niveau de lecture.",
     },
     {
       question: "Les grilles sont-elles adaptées aux enfants qui apprennent à lire ?",
@@ -505,7 +505,7 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
     {
       question: "Puis-je imprimer plusieurs grilles à la fois pour la classe ?",
       answer:
-        "Oui, téléchargez autant de PDF A4 que nécessaire — chaque grille inclut le corrigé sur une page séparée, gratuitement.",
+        "Oui, téléchargez autant de PDF A4 de mots mêlés pour enfants que nécessaire — chaque grille inclut le corrigé sur une page séparée, gratuitement.",
     },
   ],
   adultes: ADULTES_FAQ,

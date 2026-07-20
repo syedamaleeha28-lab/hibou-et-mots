@@ -24,6 +24,11 @@ export async function getSitemapIndexLocations(siteUrl?: string): Promise<string
 export { getStaticSitemapEntries } from "./static"
 export { getCategorySitemapEntries } from "./categories"
 export {
+  getAllMotsMelesListingPaths,
+  MOTS_MELES_AUDIENCE_PATHS,
+  shouldAlwaysIncludeCategoryInSitemap,
+} from "./mots-meles-coverage"
+export {
   getPuzzleSitemapBatchCount,
   getPuzzleSitemapEntries,
   getPublishedPuzzleCount,

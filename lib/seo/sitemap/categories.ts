@@ -6,6 +6,10 @@ import { computeIsIndexable } from "@/lib/seo/indexability"
 import type { SitemapUrlEntry } from "./types"
 import { pilotCategorySitemapEntries } from "./pilot-entries"
 import { priorityForCategoryType } from "./priority"
+import {
+  getAllMotsMelesListingPaths,
+  shouldAlwaysIncludeCategoryInSitemap,
+} from "./mots-meles-coverage"
 
 const categoryInclude = {
   grade: true,
@@ -13,6 +17,38 @@ const categoryInclude = {
   difficulty: true,
   pressBrand: true,
 } as const
+
+function mergeMotsMelesListingCoverage(
+  entries: SitemapUrlEntry[],
+  siteUrl: string,
+): SitemapUrlEntry[] {
+  const byLoc = new Map(entries.map((entry) => [entry.loc, entry]))
+  const now = new Date()
+
+  for (const path of getAllMotsMelesListingPaths()) {
+    const loc = absoluteUrl(path, siteUrl)
+    if (byLoc.has(loc)) continue
+
+    const type: CategoryType = path.includes("/mots-meles-ecole/")
+      ? "GRADE"
+      : path.includes("/mots-meles-thematiques/")
+        ? "THEME"
+        : path.includes("/mots-meles-fetes-saisons/")
+          ? "SEASONAL"
+          : path.includes("/mots-meles-difficulte/")
+            ? "DIFFICULTY"
+            : "AUDIENCE"
+
+    byLoc.set(loc, {
+      loc,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: priorityForCategoryType(type, false),
+    })
+  }
+
+  return [...byLoc.values()]
+}
 
 export async function getCategorySitemapEntries(siteUrl?: string): Promise<SitemapUrlEntry[]> {
   const base = siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL
@@ -33,12 +69,16 @@ export async function getCategorySitemapEntries(siteUrl?: string): Promise<Sitem
 
     for (const category of categories) {
       const puzzleCount = category.puzzles.length
+      const alwaysInclude = shouldAlwaysIncludeCategoryInSitemap({
+        type: category.type,
+        slug: category.slug,
+      })
       const indexable = computeIsIndexable({
         status: category.status,
         puzzleCount,
         minPuzzleThreshold: category.minPuzzleThreshold,
       })
-      if (!indexable) continue
+      if (!alwaysInclude && !indexable) continue
 
       const hub = isCategoryHub(category)
       const path = resolveCategoryPath({
@@ -58,10 +98,13 @@ export async function getCategorySitemapEntries(siteUrl?: string): Promise<Sitem
       })
     }
 
-    if (entries.length > 0) return entries
+    if (entries.length > 0) return mergeMotsMelesListingCoverage(entries, base)
   } catch {
     // DB unavailable — fall back to pilot entries below.
   }
 
-  return pilotCategorySitemapEntries(base.replace(/\/$/, ""))
+  return mergeMotsMelesListingCoverage(
+    pilotCategorySitemapEntries(base.replace(/\/$/, "")),
+    base,
+  )
 }

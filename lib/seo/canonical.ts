@@ -1,11 +1,22 @@
-import { absoluteUrl } from "./routes"
+import { absoluteUrl, resolveSiteOrigin } from "./routes"
 
 const TRACKING_PARAMS = /^utm_/i
 
 /** Normalize path: leading slash, trailing slash (except home). */
 export function normalizePath(path: string): string {
   if (!path || path === "/") return "/"
+  // Allow full-URL overrides — keep only the pathname (+ force trailing slash).
+  if (/^https?:\/\//i.test(path)) {
+    try {
+      const url = new URL(path)
+      return normalizePath(url.pathname)
+    } catch {
+      // fall through to path normalization
+    }
+  }
   let normalized = path.startsWith("/") ? path : `/${path}`
+  // Drop query/hash if a raw path somehow included them.
+  normalized = normalized.split(/[?#]/, 1)[0] ?? normalized
   if (!normalized.endsWith("/")) normalized += "/"
   return normalized
 }
@@ -36,8 +47,9 @@ export function buildCanonicalPath(input: CanonicalInput): string {
   return path
 }
 
+/** Absolute canonical URL on the apex host, always trailing-slash path. */
 export function buildCanonicalUrl(input: CanonicalInput): string {
-  return absoluteUrl(buildCanonicalPath(input), input.siteUrl)
+  return absoluteUrl(buildCanonicalPath(input), resolveSiteOrigin(input.siteUrl))
 }
 
 export function isIndexableCanonicalPath(path: string, page = 1): boolean {

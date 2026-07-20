@@ -6,6 +6,10 @@ import { CATEGORY_SEED_DEFINITIONS } from "@/prisma/seed/categories"
 import type { SitemapUrlEntry } from "./types"
 import { PUZZLE_SITEMAP_PRIORITY, priorityForCategoryType } from "./priority"
 import { SITEMAP_PUZZLE_BATCH_SIZE } from "./types"
+import {
+  getAllMotsMelesListingPaths,
+  shouldAlwaysIncludeCategoryInSitemap,
+} from "./mots-meles-coverage"
 
 const DEFAULT_MIN_PUZZLE_THRESHOLD = 4
 
@@ -19,16 +23,31 @@ function puzzleCountByCategorySlug(): Map<string, number> {
   return counts
 }
 
+function isSeedCategorySitemapEligible(
+  def: (typeof CATEGORY_SEED_DEFINITIONS)[number],
+  counts: Map<string, number>,
+): boolean {
+  if (shouldAlwaysIncludeCategoryInSitemap({ type: def.type, slug: def.slug })) {
+    return true
+  }
+  return computeIsIndexable({
+    status: "PUBLISHED",
+    puzzleCount: counts.get(def.slug) ?? 0,
+    minPuzzleThreshold: DEFAULT_MIN_PUZZLE_THRESHOLD,
+  })
+}
+
 export function seedCategorySitemapPaths(): string[] {
   const counts = puzzleCountByCategorySlug()
-
-  return CATEGORY_SEED_DEFINITIONS.filter((def) =>
-    computeIsIndexable({
-      status: "PUBLISHED",
-      puzzleCount: counts.get(def.slug) ?? 0,
-      minPuzzleThreshold: DEFAULT_MIN_PUZZLE_THRESHOLD,
-    }),
-  ).map((def) => categoryPathFromDefinition(def))
+  const paths = new Set(
+    CATEGORY_SEED_DEFINITIONS.filter((def) => isSeedCategorySitemapEligible(def, counts)).map(
+      (def) => categoryPathFromDefinition(def),
+    ),
+  )
+  for (const path of getAllMotsMelesListingPaths()) {
+    paths.add(path)
+  }
+  return [...paths]
 }
 
 export function seedPuzzleSitemapPaths(): string[] {
@@ -42,19 +61,31 @@ export function seedPublishedPuzzleCount(): number {
 export function seedCategorySitemapEntries(siteUrl: string): SitemapUrlEntry[] {
   const now = new Date()
   const counts = puzzleCountByCategorySlug()
+  const byLoc = new Map<string, SitemapUrlEntry>()
 
-  return CATEGORY_SEED_DEFINITIONS.filter((def) =>
-    computeIsIndexable({
-      status: "PUBLISHED",
-      puzzleCount: counts.get(def.slug) ?? 0,
-      minPuzzleThreshold: DEFAULT_MIN_PUZZLE_THRESHOLD,
-    }),
-  ).map((def) => ({
-    loc: absoluteUrl(categoryPathFromDefinition(def), siteUrl),
-    lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: priorityForCategoryType(def.type, def.isHub === true),
-  }))
+  for (const def of CATEGORY_SEED_DEFINITIONS) {
+    if (!isSeedCategorySitemapEligible(def, counts)) continue
+    const loc = absoluteUrl(categoryPathFromDefinition(def), siteUrl)
+    byLoc.set(loc, {
+      loc,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: priorityForCategoryType(def.type, def.isHub === true),
+    })
+  }
+
+  for (const path of getAllMotsMelesListingPaths()) {
+    const loc = absoluteUrl(path, siteUrl)
+    if (byLoc.has(loc)) continue
+    byLoc.set(loc, {
+      loc,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    })
+  }
+
+  return [...byLoc.values()]
 }
 
 export function seedPuzzleSitemapEntries(siteUrl: string, page = 0): SitemapUrlEntry[] {

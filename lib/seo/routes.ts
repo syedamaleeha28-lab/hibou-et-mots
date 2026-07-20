@@ -70,11 +70,31 @@ export const SOCIAL_PROFILES = {
 
 export const SOCIAL_PROFILE_URLS = Object.values(SOCIAL_PROFILES)
 
+/**
+ * Resolve the public site origin: HTTPS, no trailing slash, www stripped.
+ * Keeps canonicals / sitemap locs on the preferred apex host.
+ */
+export function resolveSiteOrigin(
+  siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
+): string {
+  try {
+    const withProtocol = /^https?:\/\//i.test(siteUrl) ? siteUrl : `https://${siteUrl}`
+    const url = new URL(withProtocol)
+    if (url.hostname.toLowerCase().startsWith("www.")) {
+      url.hostname = url.hostname.slice(4)
+    }
+    url.protocol = "https:"
+    return url.origin
+  } catch {
+    return DEFAULT_SITE_URL
+  }
+}
+
 export function absoluteUrl(
   path: string,
   siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
 ): string {
-  const base = siteUrl.replace(/\/$/, "")
+  const base = resolveSiteOrigin(siteUrl)
   const normalized = path.startsWith("/") ? path : `/${path}`
   return `${base}${normalized}`
 }

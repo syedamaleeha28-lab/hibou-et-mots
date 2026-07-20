@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.hibou-et-mots.com" }],
+      "destination": "https://hibou-et-mots.com/:path*",
+      "permanent": true
+    }
+  ]
+}

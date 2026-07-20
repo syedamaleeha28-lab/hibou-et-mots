@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Baloo_2, Nunito } from 'next/font/google'
 import { MainShell } from '@/components/layout'
+import { DEFAULT_SITE_URL, resolveSiteOrigin } from '@/lib/seo/routes'
 import './globals.css'
 
 const baloo = Baloo_2({
@@ -16,9 +17,13 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(resolveSiteOrigin(process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL)),
   title: 'Hibou & Mots — Mots mêlés gratuits à imprimer et jouer en ligne',
   description:
     'Des mots mêlés en français pour la maternelle, le primaire, le collège, les adultes et les seniors. Grilles à imprimer, générateur et jeu en ligne gratuits.',
+  alternates: {
+    canonical: '/',
+  },
   robots: {
     index: true,
     follow: true,

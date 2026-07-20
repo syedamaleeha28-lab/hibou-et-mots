@@ -1,14 +1,22 @@
 import { describe, expect, it } from "vitest"
 import { getStaticSitemapEntries } from "@/lib/seo/sitemap/static"
 import { seedCategorySitemapPaths } from "@/lib/seo/sitemap/seed-entries"
+import { getAllMotsMelesListingPaths } from "@/lib/seo/sitemap/mots-meles-coverage"
 import { ROUTES } from "@/lib/seo/routes"
 import { findMissingStaticSitemapRoutes } from "@/lib/seo/sitemap/routability"
+import {
+  difficultyStaticParams,
+  gradeStaticParams,
+  seasonalStaticParams,
+  themeStaticParams,
+} from "@/lib/app/category-route-params"
 
 const MOTS_MELES_STATIC_HUBS = [
   ROUTES.gratuits,
   ROUTES.imprimer,
   ROUTES.enfants,
   ROUTES.adultes,
+  ROUTES.seniors,
   ROUTES.ecoleHub,
   ROUTES.thematiquesHub,
   ROUTES.fetesHub,
@@ -36,6 +44,31 @@ describe("sitemap — /mots-meles-* coverage", () => {
     // Grade subpages are category-driven, not static list entries
     expect(categoryPaths.some((path) => path.includes("/mots-meles-ecole/cp/"))).toBe(true)
     expect(categoryPaths.some((path) => path.includes("/mots-meles-thematiques/"))).toBe(true)
+  })
+
+  it("includes every theme, grade, seasonal, difficulty, and audience listing with trailing slash", () => {
+    const categoryPaths = new Set(seedCategorySitemapPaths())
+    const required = getAllMotsMelesListingPaths()
+
+    expect(required.length).toBe(
+      themeStaticParams().length +
+        gradeStaticParams().length +
+        seasonalStaticParams().length +
+        difficultyStaticParams().length +
+        3,
+    )
+
+    for (const path of required) {
+      expect(path.endsWith("/")).toBe(true)
+      expect(categoryPaths.has(path)).toBe(true)
+    }
+
+    // Thin grades / difficulty must still be listed (not gated by puzzle threshold)
+    expect(categoryPaths.has("/mots-meles-ecole/maternelle/")).toBe(true)
+    expect(categoryPaths.has("/mots-meles-ecole/ce2/")).toBe(true)
+    expect(categoryPaths.has("/mots-meles-ecole/cm1/")).toBe(true)
+    expect(categoryPaths.has("/mots-meles-ecole/6e/")).toBe(true)
+    expect(categoryPaths.has("/mots-meles-difficulte/geant/")).toBe(true)
   })
 
   it("maps every static mots-mêlés hub to an existing app route file", () => {

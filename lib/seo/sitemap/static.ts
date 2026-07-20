@@ -4,7 +4,8 @@
  * Inclusion rules:
  * - Hub/tool pages listed here → sitemap-static.xml
  * - Category pages under /mots-meles-* paths (grades, themes, seasons, etc.) →
- *   sitemap-categories.xml automatically when PUBLISHED + indexable in DB
+ *   sitemap-categories.xml: THEME/GRADE/SEASONAL/DIFFICULTY + audience hubs
+ *   are always included; other categories when PUBLISHED + indexable in DB
  *   (falls back to prisma seed definitions when DB is unavailable)
  * - Individual puzzles → sitemap-puzzles.xml automatically from DB/seed
  *

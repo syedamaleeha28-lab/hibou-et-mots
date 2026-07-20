@@ -1,30 +1,18 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { APEX_HOSTNAME, isWwwHost, needsTrailingSlash } from "@/lib/seo/host"
+import { isWwwHost, toApexUrl } from "@/lib/seo/host"
 
 /**
- * Single 308 hop for:
- * - www → non-www (apex)
- * - missing trailing slash → trailing slash (except file-like paths)
+ * Permanent www → non-www redirect (308).
+ * Adds a trailing slash on that hop so Google avoids a second redirect.
+ * Apex trailing-slash redirects stay handled by Next (`trailingSlash: true`).
  */
 export function middleware(request: NextRequest) {
-  const host = request.headers.get("host")
-  const www = isWwwHost(host)
-  const slash = needsTrailingSlash(request.nextUrl.pathname)
-
-  if (!www && !slash) {
+  if (!isWwwHost(request.headers.get("host"))) {
     return NextResponse.next()
   }
 
-  const url = request.nextUrl.clone()
-  url.protocol = "https:"
-  url.hostname = APEX_HOSTNAME
-  url.port = ""
-  if (needsTrailingSlash(url.pathname)) {
-    url.pathname = `${url.pathname}/`
-  }
-
-  return NextResponse.redirect(url, 308)
+  return NextResponse.redirect(toApexUrl(request.nextUrl), 308)
 }
 
 export const config = {

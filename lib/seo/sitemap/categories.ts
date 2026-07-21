@@ -1,7 +1,13 @@
 import { prisma } from "@/lib/db/client"
 import type { CategoryType } from "@/lib/db/types/page-data"
 import { isCategoryHub } from "@/lib/db/queries/mappers"
-import { absoluteUrl, DEFAULT_SITE_URL, resolveCategoryPath } from "@/lib/seo/routes"
+import {
+  absoluteUrl,
+  DEFAULT_SITE_URL,
+  isSeasonalThemeSlug,
+  resolveCategoryPath,
+  seasonalPath,
+} from "@/lib/seo/routes"
 import { computeIsIndexable } from "@/lib/seo/indexability"
 import type { SitemapUrlEntry } from "./types"
 import { pilotCategorySitemapEntries } from "./pilot-entries"
@@ -18,11 +24,29 @@ const categoryInclude = {
   pressBrand: true,
 } as const
 
+/** Rewrite legacy /mots-meles-thematiques/{seasonal}/ locs to the fêtes silo. */
+function canonicalizeSeasonalSitemapLoc(loc: string, siteUrl: string): string {
+  try {
+    const pathname = new URL(loc).pathname
+    const match = pathname.match(/^\/mots-meles-thematiques\/([^/]+)\/?$/)
+    if (match && isSeasonalThemeSlug(match[1])) {
+      return absoluteUrl(seasonalPath(match[1]), siteUrl)
+    }
+  } catch {
+    // Keep original loc if parsing fails.
+  }
+  return loc
+}
+
 function mergeMotsMelesListingCoverage(
   entries: SitemapUrlEntry[],
   siteUrl: string,
 ): SitemapUrlEntry[] {
-  const byLoc = new Map(entries.map((entry) => [entry.loc, entry]))
+  const byLoc = new Map<string, SitemapUrlEntry>()
+  for (const entry of entries) {
+    const loc = canonicalizeSeasonalSitemapLoc(entry.loc, siteUrl)
+    byLoc.set(loc, { ...entry, loc })
+  }
   const now = new Date()
 
   for (const path of getAllMotsMelesListingPaths()) {

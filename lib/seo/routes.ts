@@ -1,6 +1,7 @@
 /** Canonical public paths — PRD §8, trailing slash enforced via next.config. */
 
 import type { CategoryType } from "@/lib/db/types/page-data"
+import { MVP_SEASONAL_THEME_SLUGS } from "@/lib/db/adapters/category-constants"
 
 export const ROUTES = {
   home: "/",
@@ -40,6 +41,13 @@ export function themePath(slug: string): string {
 
 export function seasonalPath(slug: string): string {
   return `/mots-meles-fetes-saisons/${slug}/`
+}
+
+const SEASONAL_THEME_SLUGS = new Set<string>(MVP_SEASONAL_THEME_SLUGS)
+
+/** True for fêtes/saisons themes that must never live under /mots-meles-thematiques/. */
+export function isSeasonalThemeSlug(slug: string): boolean {
+  return SEASONAL_THEME_SLUGS.has(slug)
 }
 
 export function difficultyPath(slug: string): string {
@@ -141,8 +149,13 @@ export function resolveCategoryPath(input: CategoryPathInput): string {
   switch (input.type) {
     case "GRADE":
       return input.grade ? gradePath(input.grade.slug) : ROUTES.ecoleHub
-    case "THEME":
+    case "THEME": {
+      // Guard: seasonal themes must use /mots-meles-fetes-saisons/ even if
+      // mis-typed as THEME in the DB (prevents wrong sitemap locs).
+      const themeSlug = input.theme?.slug ?? input.slug
+      if (isSeasonalThemeSlug(themeSlug)) return seasonalPath(themeSlug)
       return input.theme ? themePath(input.theme.slug) : ROUTES.thematiquesHub
+    }
     case "SEASONAL":
       return input.theme ? seasonalPath(input.theme.slug) : ROUTES.fetesHub
     case "DIFFICULTY":

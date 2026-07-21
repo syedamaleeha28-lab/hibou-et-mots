@@ -8,7 +8,30 @@ const nextConfig = {
     unoptimized: true,
   },
   async redirects() {
+    // Fêtes/saisons pages wrongly crawled under /mots-meles-thematiques/ → canonical silo
+    const seasonalThemeRedirects = [
+      "noel",
+      "halloween",
+      "paques",
+      "carnaval",
+      "rentree",
+      "ete",
+      "printemps",
+    ].flatMap((slug) => [
+      {
+        source: `/mots-meles-thematiques/${slug}`,
+        destination: `/mots-meles-fetes-saisons/${slug}/`,
+        permanent: true,
+      },
+      {
+        source: `/mots-meles-thematiques/${slug}/`,
+        destination: `/mots-meles-fetes-saisons/${slug}/`,
+        permanent: true,
+      },
+    ])
+
     return [
+      ...seasonalThemeRedirects,
       // Soft-404 / malformed crawl paths → canonical pages
       {
         source: "/mots-meles-thematiques/fruits/-2",

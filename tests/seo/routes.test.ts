@@ -48,4 +48,14 @@ describe("resolveCategoryPath", () => {
       ROUTES.enfants,
     )
   })
+
+  it("routes seasonal themes to fetes-saisons even if typed as THEME", () => {
+    expect(
+      resolveCategoryPath({
+        type: "THEME",
+        slug: "noel",
+        theme: { slug: "noel" },
+      }),
+    ).toBe("/mots-meles-fetes-saisons/noel/")
+  })
 })

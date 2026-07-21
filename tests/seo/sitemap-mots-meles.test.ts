@@ -2,8 +2,9 @@ import { describe, expect, it } from "vitest"
 import { getStaticSitemapEntries } from "@/lib/seo/sitemap/static"
 import { seedCategorySitemapPaths } from "@/lib/seo/sitemap/seed-entries"
 import { getAllMotsMelesListingPaths } from "@/lib/seo/sitemap/mots-meles-coverage"
-import { ROUTES } from "@/lib/seo/routes"
+import { ROUTES, seasonalPath } from "@/lib/seo/routes"
 import { findMissingStaticSitemapRoutes } from "@/lib/seo/sitemap/routability"
+import { MVP_SEASONAL_THEME_SLUGS } from "@/lib/db/adapters/category-constants"
 import {
   difficultyStaticParams,
   gradeStaticParams,
@@ -75,5 +76,19 @@ describe("sitemap — /mots-meles-* coverage", () => {
     const missing = findMissingStaticSitemapRoutes(process.cwd())
     const missingHubs = missing.filter((path) => path.startsWith("/mots-meles"))
     expect(missingHubs).toEqual([])
+  })
+
+  it("never lists fêtes/saisons pages under /mots-meles-thematiques/", () => {
+    const categoryPaths = seedCategorySitemapPaths()
+    const listingPaths = getAllMotsMelesListingPaths()
+
+    for (const slug of MVP_SEASONAL_THEME_SLUGS) {
+      const wrong = `/mots-meles-thematiques/${slug}/`
+      const correct = seasonalPath(slug)
+      expect(categoryPaths).not.toContain(wrong)
+      expect(listingPaths).not.toContain(wrong)
+      expect(categoryPaths).toContain(correct)
+      expect(listingPaths).toContain(correct)
+    }
   })
 })

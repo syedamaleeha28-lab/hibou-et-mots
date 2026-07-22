@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.hibouetmots.wordsearch",
+        "sha256_cert_fingerprints": ["AC:42:95:94:CD:7B:45:DB:9C:D6:C5:ED:BB:01:84:C0:D3:3F:D3:9E:26:32:A6:32:83:42:EA:E2:E1:AA:AE:F6"]
+      }
+    }]

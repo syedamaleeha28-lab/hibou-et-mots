@@ -95,6 +95,14 @@ describe("schema graph", () => {
     const nodes = graph["@graph"] as Array<Record<string, unknown>>
     expect(nodes.some((node) => schemaNodeHasType(node, "CreativeWork"))).toBe(true)
     expect(nodes.some((node) => node["@type"] === "BreadcrumbList")).toBe(true)
+    expect(nodes.some((node) => node["@type"] === "Person")).toBe(true)
+    const creativeWork = nodes.find((node) => schemaNodeHasType(node, "CreativeWork")) as Record<
+      string,
+      unknown
+    >
+    expect(creativeWork.author).toEqual(
+      expect.objectContaining({ "@id": expect.stringContaining("#person") }),
+    )
   })
 
   it("builds empty-safe graph", () => {

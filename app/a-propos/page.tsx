@@ -121,8 +121,8 @@ export default function AboutPage() {
             </p>
 
             <p>
-              En savoir plus sur l&apos;équipe éditoriale :{" "}
-              <Link href={ROUTES.auteur}>page auteur Hibou&Mots</Link>.
+              En savoir plus sur l&apos;auteure :{" "}
+              <Link href={ROUTES.auteur}>Sophie Martin — page auteur</Link>.
             </p>
           </div>
 

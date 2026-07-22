@@ -14,9 +14,9 @@ import { buildAuthorPageSchemaGraph } from "@/lib/seo/schema/author-page"
 import { CONTACT_EMAIL, ROUTES } from "@/lib/seo/routes"
 
 const PAGE_PATH = ROUTES.auteur
-const META_TITLE = "Auteur — Équipe Hibou&Mots"
+const META_TITLE = "Auteur — Sophie Martin"
 const META_DESCRIPTION =
-  "Découvrez l'équipe Hibou&Mots : créateurs de mots mêlés éducatifs gratuits en français pour les enfants, les enseignants et les familles."
+  "Sophie Martin, créatrice de contenu éducatif et enseignante : découvrez l'auteure de Hibou&Mots, mots mêlés éducatifs gratuits en français pour les enfants, les enseignants et les familles."
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildStaticPageMetadata({
@@ -54,7 +54,7 @@ export default function AuthorPage() {
           </header>
 
           <div className="prose prose-neutral mt-8 max-w-none text-foreground/90">
-            <h2>Créateur du site</h2>
+            <h2>À propos de l&apos;auteure</h2>
             <p>
               <strong>{SITE_AUTHOR.name}</strong> conçoit et publie l&apos;ensemble du contenu
               éditorial de Hibou&Mots : grilles de mots mêlés, jeux de mots cachés, guides

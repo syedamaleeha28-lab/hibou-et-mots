@@ -1,6 +1,6 @@
 import type { PuzzlePageData } from "@/lib/db/types/page-data"
 import { BreadcrumbTrail } from "@/components/layout/breadcrumb-trail"
-import { SchemaJsonLd } from "@/components/seo"
+import { AuthorAttribution, SchemaJsonLd } from "@/components/seo"
 import { buildPuzzlePageSchemaGraph } from "@/lib/seo/schema"
 import { AdSlotPlaceholder } from "@/components/templates/shared/ad-slot-placeholder"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
@@ -26,6 +26,8 @@ export function PuzzleTemplate({ puzzle }: PuzzleTemplateProps) {
 
         <div className="flex flex-col gap-10 lg:gap-12">
           <PuzzleHeader puzzle={puzzle} />
+
+          <AuthorAttribution />
 
           <PuzzlePlaySection puzzle={puzzle} />
 

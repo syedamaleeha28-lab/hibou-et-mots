@@ -2,7 +2,7 @@ import type { CategoryPageData, PuzzlePageData } from "@/lib/db/types/page-data"
 import type { ContentPageData } from "@/lib/db/types/content-page-data"
 import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { buildBreadcrumbListSchema, type BreadcrumbItem } from "@/lib/seo/breadcrumbs"
-import { buildContentWebPageSchema } from "./person"
+import { buildContentWebPageSchema, buildPersonSchema, personSchemaId } from "./person"
 import { buildCollectionPageSchema, itemListId } from "./collection-page"
 import { buildCreativeWorkSchema } from "./creative-work"
 import { buildFaqPageSchema } from "./faq-page"
@@ -64,12 +64,18 @@ export function buildPuzzlePageSchemaGraph(
   siteUrl?: string,
 ): Record<string, unknown> {
   const breadcrumb = buildBreadcrumbListSchema(puzzle.breadcrumbs, siteUrl)
-  const creativeWork =
+  const baseCreativeWork =
     puzzle.schema.creativeWork ??
     buildCreativeWorkSchema(puzzle, siteUrl, puzzle.thumbnailUrl)
+  const authorRef = { "@id": personSchemaId(siteUrl) }
+  const creativeWork = {
+    ...baseCreativeWork,
+    author: baseCreativeWork.author ?? authorRef,
+    creator: baseCreativeWork.creator ?? authorRef,
+  }
   const faqPage = puzzle.schema.faqPage
 
-  return buildSchemaGraph([breadcrumb, creativeWork, faqPage])
+  return buildSchemaGraph([breadcrumb, creativeWork, buildPersonSchema(siteUrl), faqPage])
 }
 
 export function buildBreadcrumbSchemaGraph(

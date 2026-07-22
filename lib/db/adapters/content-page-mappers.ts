@@ -1,6 +1,5 @@
 import type { CategoryPageData } from "@/lib/db/types/page-data"
 import type { ContentPageData, ContentPageVariant } from "@/lib/db/types/content-page-data"
-import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { getCategoryExploreLinks } from "@/lib/seo/linking/category-explore-links"
 
 export function mapCategoryToContentPageData(
@@ -25,7 +24,8 @@ export function mapCategoryToContentPageData(
       description: link.description,
     })),
     exploreLinks: getCategoryExploreLinks(category),
-    showAuthorAttribution: shouldShowAuthorAttribution(category.slug, category.type),
+    // All editorial / educational content pages carry a named author byline for E-E-A-T.
+    showAuthorAttribution: true,
     schema: {
       faqPage: category.schema.faqPage,
     },

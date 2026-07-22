@@ -3,14 +3,14 @@ import { CONTACT_EMAIL, ROUTES } from "@/lib/seo/routes"
 
 /** Editorial identity for E-E-A-T (Experience, Expertise, Authoritativeness, Trust). */
 export const SITE_AUTHOR = {
-  name: "Équipe Hibou&Mots",
-  jobTitle: "Créateurs et rédacteurs éducatifs",
-  slug: "equipe-hibou-et-mots",
+  name: "Sophie Martin",
+  jobTitle: "Créatrice de contenu éducatif & enseignante",
+  slug: "sophie-martin",
   email: CONTACT_EMAIL,
   mission:
     "Rendre les mots mêlés gratuits accessibles aux enfants, aux enseignants et aux familles en français — pour enrichir le vocabulaire en s'amusant, à la maison comme en classe.",
   experience:
-    "L'équipe conçoit et publie des grilles de mots mêlés et de mots cachés calibrées par niveau scolaire (maternelle à 6e), par thème et par saison. Chaque liste de mots est pensée pour le programme de français : vocabulaire thématique, dictée, lecture et activités calmes en classe.",
+    "Sophie Martin a enseigné en école primaire pendant 8 ans avant de créer Hibou&Mots en 2024 pour partager des ressources pédagogiques gratuites avec les enseignants et les familles francophones.",
   purpose:
     "Hibou&Mots est un site éducatif gratuit qui propose des mots mêlés à jouer en ligne ou à imprimer en PDF, un générateur personnalisé et des ressources pour les enseignants et les parents.",
   knowsAbout: [
@@ -27,7 +27,7 @@ export const SITE_AUTHOR = {
 export const SITE_PUBLISHED_DATE = "2024-06-01"
 
 /** Last substantive editorial update (ISO 8601 date). */
-export const SITE_CONTENT_UPDATED_DATE = "2026-06-23"
+export const SITE_CONTENT_UPDATED_DATE = "2026-07-22"
 
 const EDUCATIONAL_AUTHOR_SLUGS = new Set([
   "pedagogie",
@@ -36,6 +36,9 @@ const EDUCATIONAL_AUTHOR_SLUGS = new Set([
   "hub-ecole",
   "hub-gratuits",
   "solutions",
+  "personnages",
+  "jeux-magazines",
+  "application",
 ])
 
 export function shouldShowAuthorAttribution(slug: string, type?: CategoryType): boolean {

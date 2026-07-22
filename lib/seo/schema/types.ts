@@ -39,6 +39,10 @@ export type CreativeWorkSchema = {
   educationalUse?: string
   teaches?: string
   isAccessibleForFree?: boolean
+  author?: { "@id": string }
+  creator?: { "@id": string }
+  datePublished?: string
+  dateModified?: string
   image?: string
   audience?: {
     "@type": "Audience"

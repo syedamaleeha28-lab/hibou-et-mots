@@ -20,7 +20,7 @@ export function PuzzlePdfDocument({ puzzle }: PuzzlePdfDocumentProps) {
   const compactWordList = puzzle.size > 14
 
   return (
-    <Document title={puzzle.title} author="Hibou & Mots">
+    <Document title={puzzle.title} author="Sophie Martin">
       <Page size="A4" style={pdfBaseStyles.page}>
         <Text style={[pdfBaseStyles.title, { fontSize: titleSize }]}>{puzzle.title}</Text>
         <PdfGrid grid={puzzle.grid} cellSize={cellSize} fontSize={fontSize} />

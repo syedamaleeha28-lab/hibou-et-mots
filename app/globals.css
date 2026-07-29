@@ -159,6 +159,24 @@
     animation: wiggle 2.5s ease-in-out infinite;
   }
 
+  @keyframes word-found-flash {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--sunny) 70%, transparent);
+    }
+    35% {
+      transform: scale(1.14);
+      box-shadow: 0 0 0 6px color-mix(in oklab, var(--sunny) 35%, transparent);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  .animate-word-found {
+    animation: word-found-flash 0.55s ease-out;
+  }
+
   .bg-dots {
     background-image: radial-gradient(
       var(--border) 1.5px,

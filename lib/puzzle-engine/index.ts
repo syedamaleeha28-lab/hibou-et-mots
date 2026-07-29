@@ -38,6 +38,13 @@ export {
   selectWordsFromBank,
   shouldSimplifyAccents,
 } from "./difficulty"
-export { lineBetween, cellsEqual } from "./gameplay"
+export {
+  lineBetween,
+  cellsEqual,
+  cellFromPointer,
+  readGridPointerMetrics,
+  matchPlacement,
+  type GridPointerMetrics,
+} from "./gameplay"
 export { generateGrid } from "./compat"
 export { toPrismaPuzzlePayload, type PrismaPuzzlePayload } from "./adapters/prisma"

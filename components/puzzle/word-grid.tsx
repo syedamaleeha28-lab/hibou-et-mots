@@ -109,11 +109,26 @@ export function WordGrid({
     })
   }
 
+  function releasePointer(event: ReactPointerEvent) {
+    if (gridRef.current?.hasPointerCapture(event.pointerId)) {
+      gridRef.current.releasePointerCapture(event.pointerId)
+    }
+  }
+
+  function keepAnchor(cell: Cell) {
+    selectingRef.current = false
+    startRef.current = cell
+    endRef.current = cell
+    setIsSelecting(false)
+    setStart(cell)
+    setEnd(cell)
+  }
+
   function commitSelection(from: Cell, to: Cell) {
     const line = lineBetween(from, to)
-    if (!line) return
+    if (!line) return false
     const match = matchPlacement(line, grid.placements, foundWordsRef.current)
-    if (!match) return
+    if (!match) return false
 
     foundWordsRef.current = new Set(foundWordsRef.current).add(match.word)
     setFoundCells((prev) => {
@@ -123,19 +138,36 @@ export function WordGrid({
     })
     flashFoundCells(match.cells)
     onWordFound?.(match.word)
+    return true
   }
 
   function handlePointerDown(cell: Cell, event: ReactPointerEvent) {
     if (readOnly || event.button !== 0) return
     event.preventDefault()
+    onSelectionStart?.()
+
+    const anchored = startRef.current
+    const hasRestingAnchor =
+      !!anchored && !selectingRef.current && !sameCell(anchored, cell)
+
     gridRef.current?.setPointerCapture(event.pointerId)
     selectingRef.current = true
+
+    if (hasRestingAnchor && anchored) {
+      // Second click: extend from the previously tapped start letter.
+      startRef.current = anchored
+      endRef.current = cell
+      setIsSelecting(true)
+      setStart(anchored)
+      setEnd(cell)
+      return
+    }
+
     startRef.current = cell
     endRef.current = cell
     setIsSelecting(true)
     setStart(cell)
     setEnd(cell)
-    onSelectionStart?.()
   }
 
   function handlePointerMove(event: ReactPointerEvent) {
@@ -148,20 +180,29 @@ export function WordGrid({
 
   function handlePointerUp(event: ReactPointerEvent) {
     if (!selectingRef.current) return
-    if (gridRef.current?.hasPointerCapture(event.pointerId)) {
-      gridRef.current.releasePointerCapture(event.pointerId)
-    }
+    releasePointer(event)
+
     const from = startRef.current
     const to = cellAt(event.clientX, event.clientY) ?? endRef.current ?? from
+    if (!from || !to) {
+      clearSelection()
+      return
+    }
+
+    // Plain click / tap: keep the letter highlighted so kids see feedback,
+    // and so a second click can finish the word (two-click selection).
+    if (sameCell(from, to)) {
+      keepAnchor(from)
+      return
+    }
+
+    commitSelection(from, to)
     clearSelection()
-    if (from && to) commitSelection(from, to)
   }
 
   function handlePointerCancel(event: ReactPointerEvent) {
-    if (!selectingRef.current) return
-    if (gridRef.current?.hasPointerCapture(event.pointerId)) {
-      gridRef.current.releasePointerCapture(event.pointerId)
-    }
+    if (!selectingRef.current && !startRef.current) return
+    releasePointer(event)
     clearSelection()
   }
 
@@ -211,7 +252,7 @@ export function WordGrid({
                   !isFound &&
                     isSelected &&
                     !isSelecting &&
-                    "bg-accent text-accent-foreground",
+                    "bg-sunny/80 text-sunny-foreground ring-2 ring-sunny/40",
                   !isFound &&
                     !isSelected &&
                     (largePrint

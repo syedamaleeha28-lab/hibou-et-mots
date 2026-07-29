@@ -13,6 +13,7 @@ type PuzzleGridClientProps = {
   largePrint?: boolean
   readOnly?: boolean
   onWordFound?: (word: string) => void
+  onSelectionStart?: () => void
   className?: string
 }
 
@@ -23,6 +24,7 @@ export function PuzzleGridClient({
   largePrint = false,
   readOnly = false,
   onWordFound,
+  onSelectionStart,
   className,
 }: PuzzleGridClientProps) {
   const legacyGrid = useMemo(
@@ -38,6 +40,7 @@ export function PuzzleGridClient({
         largePrint={largePrint}
         readOnly={readOnly}
         onWordFound={onWordFound}
+        onSelectionStart={onSelectionStart}
       />
     </div>
   )

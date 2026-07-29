@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
-import { Check, ChevronDown, Clock, RefreshCw, Settings2, Shuffle, Sparkles, Trophy } from "lucide-react"
+import { Check, ChevronDown, Clock, Play, RefreshCw, Settings2, Shuffle, Sparkles, Trophy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { PuzzleGridClient } from "@/components/puzzle/puzzle-grid-client"
@@ -168,6 +168,7 @@ export function ToolOnlinePlayTemplate() {
   const [found, setFound] = useState<string[]>([])
   const [largePrint, setLargePrint] = useState(true)
   const [optionsOpen, setOptionsOpen] = useState(false)
+  const [hasStarted, setHasStarted] = useState(false)
 
   const words = useMemo(
     () => getThemeWordsForPlay(theme.slug, difficulty, seed),
@@ -191,25 +192,32 @@ export function ToolOnlinePlayTemplate() {
   )
 
   const isComplete = placedWords.length > 0 && found.length === placedWords.length
-  const elapsed = useElapsedTimer(placedWords.length > 0 && !isComplete, seed)
+  const elapsed = useElapsedTimer(hasStarted && !isComplete, seed)
+
+  function beginPlay() {
+    setHasStarted(true)
+  }
+
+  function resetRound() {
+    setFound([])
+    setHasStarted(false)
+    setSeed((value) => value + 1)
+  }
 
   function newGame() {
-    setFound([])
-    setSeed((value) => value + 1)
+    resetRound()
   }
 
   function handleThemeSelect(preset: { id: string; label: string }) {
     const next = ONLINE_PLAY_THEMES.find((entry) => entry.slug === preset.id)
     if (!next) return
     setTheme(next)
-    setFound([])
-    setSeed((value) => value + 1)
+    resetRound()
   }
 
   function handleDifficultyChange(slug: DifficultySlug) {
     setDifficulty(slug)
-    setFound([])
-    setSeed((value) => value + 1)
+    resetRound()
   }
 
   const settingsProps: PlaySettingsProps = {
@@ -278,15 +286,28 @@ export function ToolOnlinePlayTemplate() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-center overflow-x-auto py-1">
+                  <div className="relative flex items-center justify-center overflow-x-auto py-1">
                     <PuzzleGridClient
                       puzzleId={`play-${theme.slug}-${difficulty}-${seed}`}
                       grid={puzzleResult.grid}
                       solutionData={puzzleResult.solutionData}
                       largePrint={largePrint}
                       onWordFound={(word) => setFound((prev) => [...prev, word])}
+                      onSelectionStart={beginPlay}
                       className="w-full max-w-2xl"
                     />
+                    {!hasStarted && (
+                      <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-card/75 backdrop-blur-[2px]">
+                        <Button
+                          type="button"
+                          onClick={beginPlay}
+                          className="pointer-events-auto h-12 gap-2 rounded-full bg-primary px-8 text-base font-extrabold text-primary-foreground shadow-lg hover:bg-primary/90"
+                        >
+                          <Play className="size-5 fill-current" />
+                          Démarrer
+                        </Button>
+                      </div>
+                    )}
                   </div>
 
                   <ul className="flex flex-wrap gap-2">

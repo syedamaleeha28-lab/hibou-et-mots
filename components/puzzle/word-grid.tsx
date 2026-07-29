@@ -18,6 +18,8 @@ type WordGridProps = {
   /** Grand format / haute lisibilité — cellules ~×1.4, contraste renforcé. */
   largePrint?: boolean
   onWordFound?: (word: string) => void
+  /** Fired once a letter selection gesture begins (pointer down on a cell). */
+  onSelectionStart?: () => void
   className?: string
 }
 
@@ -36,6 +38,7 @@ export function WordGrid({
   readOnly = false,
   largePrint = false,
   onWordFound,
+  onSelectionStart,
   className,
 }: WordGridProps) {
   const gridRef = useRef<HTMLDivElement>(null)
@@ -132,6 +135,7 @@ export function WordGrid({
     setIsSelecting(true)
     setStart(cell)
     setEnd(cell)
+    onSelectionStart?.()
   }
 
   function handlePointerMove(event: ReactPointerEvent) {

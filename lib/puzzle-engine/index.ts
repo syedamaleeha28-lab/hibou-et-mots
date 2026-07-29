@@ -44,7 +44,11 @@ export {
   cellFromPointer,
   readGridPointerMetrics,
   matchPlacement,
+  areSameCell,
+  selectionPreview,
+  resolveSelectionEnd,
   type GridPointerMetrics,
+  type SelectionEndResult,
 } from "./gameplay"
 export { generateGrid } from "./compat"
 export { toPrismaPuzzlePayload, type PrismaPuzzlePayload } from "./adapters/prisma"

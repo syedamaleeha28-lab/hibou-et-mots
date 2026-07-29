@@ -3,10 +3,11 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react"
 import { cn } from "@/lib/utils"
 import {
+  areSameCell,
   cellFromPointer,
-  lineBetween,
-  matchPlacement,
   readGridPointerMetrics,
+  resolveSelectionEnd,
+  selectionPreview,
   type Cell,
   type Grid,
 } from "@/lib/puzzle-engine"
@@ -27,10 +28,6 @@ const FOUND_FLASH_MS = 560
 
 function key(cell: Cell) {
   return `${cell.r}-${cell.c}`
-}
-
-function sameCell(a: Cell | null, b: Cell | null) {
-  return !!a && !!b && a.r === b.r && a.c === b.c
 }
 
 export function WordGrid({
@@ -56,8 +53,7 @@ export function WordGrid({
 
   const selection = useMemo<Cell[]>(() => {
     if (!start) return []
-    const tip = end ?? start
-    return lineBetween(start, tip) ?? [start]
+    return selectionPreview(start, end ?? start)
   }, [start, end])
 
   const selectionSet = useMemo(() => new Set(selection.map(key)), [selection])
@@ -124,21 +120,27 @@ export function WordGrid({
     setEnd(cell)
   }
 
-  function commitSelection(from: Cell, to: Cell) {
-    const line = lineBetween(from, to)
-    if (!line) return false
-    const match = matchPlacement(line, grid.placements, foundWordsRef.current)
-    if (!match) return false
-
-    foundWordsRef.current = new Set(foundWordsRef.current).add(match.word)
+  function markFound(word: string, cells: Cell[]) {
+    foundWordsRef.current = new Set(foundWordsRef.current).add(word)
     setFoundCells((prev) => {
       const next = new Set(prev)
-      match.cells.forEach((c) => next.add(key(c)))
+      cells.forEach((c) => next.add(key(c)))
       return next
     })
-    flashFoundCells(match.cells)
-    onWordFound?.(match.word)
-    return true
+    flashFoundCells(cells)
+    onWordFound?.(word)
+  }
+
+  function finishGesture(from: Cell, to: Cell) {
+    const result = resolveSelectionEnd(from, to, grid.placements, foundWordsRef.current)
+    if (result.kind === "anchor") {
+      keepAnchor(result.cell)
+      return
+    }
+    if (result.kind === "found") {
+      markFound(result.word, result.cells)
+    }
+    clearSelection()
   }
 
   function handlePointerDown(cell: Cell, event: ReactPointerEvent) {
@@ -148,13 +150,13 @@ export function WordGrid({
 
     const anchored = startRef.current
     const hasRestingAnchor =
-      !!anchored && !selectingRef.current && !sameCell(anchored, cell)
+      !!anchored && !selectingRef.current && !areSameCell(anchored, cell)
 
     gridRef.current?.setPointerCapture(event.pointerId)
     selectingRef.current = true
 
     if (hasRestingAnchor && anchored) {
-      // Second click: extend from the previously tapped start letter.
+      // Second click / drag from a previously tapped start letter.
       startRef.current = anchored
       endRef.current = cell
       setIsSelecting(true)
@@ -173,7 +175,7 @@ export function WordGrid({
   function handlePointerMove(event: ReactPointerEvent) {
     if (!selectingRef.current) return
     const cell = cellAt(event.clientX, event.clientY)
-    if (!cell || sameCell(endRef.current, cell)) return
+    if (!cell || (endRef.current && areSameCell(endRef.current, cell))) return
     endRef.current = cell
     setEnd(cell)
   }
@@ -188,16 +190,7 @@ export function WordGrid({
       clearSelection()
       return
     }
-
-    // Plain click / tap: keep the letter highlighted so kids see feedback,
-    // and so a second click can finish the word (two-click selection).
-    if (sameCell(from, to)) {
-      keepAnchor(from)
-      return
-    }
-
-    commitSelection(from, to)
-    clearSelection()
+    finishGesture(from, to)
   }
 
   function handlePointerCancel(event: ReactPointerEvent) {
@@ -231,11 +224,14 @@ export function WordGrid({
             const isFound = foundCells.has(k)
             const isSelected = selectionSet.has(k)
             const isFlashing = flashingCells.has(k)
+            const state = isFound ? "found" : isSelected ? "selected" : "idle"
             return (
               <button
                 key={k}
                 type="button"
                 disabled={readOnly}
+                data-state={state}
+                aria-pressed={isSelected || isFound}
                 onPointerDown={(event) => handlePointerDown(cell, event)}
                 className={cn(
                   "flex aspect-square min-h-11 min-w-11 items-center justify-center font-bold uppercase",
@@ -243,12 +239,15 @@ export function WordGrid({
                   largePrint
                     ? "rounded-xl border border-border text-base sm:min-h-12 sm:min-w-12 sm:text-lg md:text-xl"
                     : "rounded-lg text-sm sm:rounded-xl sm:text-base md:text-lg",
+                  // Found = distinct green (final confirmed color)
                   isFound && "bg-leaf text-leaf-foreground",
                   isFlashing && "animate-word-found bg-sunny text-sunny-foreground",
+                  // Active drag path = strong sunny highlight along the full line
                   !isFound &&
                     isSelected &&
                     isSelecting &&
                     "z-10 scale-105 bg-sunny text-sunny-foreground shadow-md ring-2 ring-sunny/50",
+                  // Resting start letter after a tap
                   !isFound &&
                     isSelected &&
                     !isSelecting &&

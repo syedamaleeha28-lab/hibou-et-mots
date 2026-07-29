@@ -128,3 +128,41 @@ export function matchPlacement(
   if (!match || alreadyFound.has(match.word)) return null
   return match
 }
+
+export function areSameCell(a: Cell, b: Cell): boolean {
+  return a.r === b.r && a.c === b.c
+}
+
+/** Straight-line preview from start→end, or just the start cell if not aligned. */
+export function selectionPreview(from: Cell, to: Cell): Cell[] {
+  return lineBetween(from, to) ?? [from]
+}
+
+export type SelectionEndResult =
+  | { kind: "anchor"; cell: Cell; path: Cell[] }
+  | { kind: "found"; word: string; cells: Cell[]; path: Cell[] }
+  | { kind: "clear"; path: Cell[] }
+
+/**
+ * Resolves a selection gesture once the pointer is released (or a second
+ * click lands on a different cell). Encodes:
+ * - tap same cell → keep start anchor
+ * - aligned line matching a placement → found
+ * - anything else → clear
+ */
+export function resolveSelectionEnd(
+  from: Cell,
+  to: Cell,
+  placements: Array<{ word: string; cells: Cell[] }>,
+  alreadyFound: ReadonlySet<string>,
+): SelectionEndResult {
+  const path = selectionPreview(from, to)
+  if (areSameCell(from, to)) {
+    return { kind: "anchor", cell: from, path }
+  }
+  const line = lineBetween(from, to)
+  if (!line) return { kind: "clear", path }
+  const match = matchPlacement(line, placements, alreadyFound)
+  if (!match) return { kind: "clear", path }
+  return { kind: "found", word: match.word, cells: match.cells, path: line }
+}

@@ -6,7 +6,10 @@ import {
   cellsEqual,
   lineBetween,
   matchPlacement,
+  resolveSelectionEnd,
+  selectionPreview,
   type Cell,
+  type Direction,
   type GridPointerMetrics,
 } from "@/lib/puzzle-engine"
 
@@ -38,6 +41,13 @@ function clientPointFor(
     x: m.left + m.paddingLeft + cell.c * strideX + cellSize / 2,
     y: m.top + m.paddingTop + cell.r * strideY + cellSize / 2,
   }
+}
+
+function placementsForHub(start: Cell, length = 4) {
+  return ALL_DIRECTIONS.map((direction) => ({
+    word: direction,
+    cells: cellsAlongDirection(start, direction, length),
+  }))
 }
 
 describe("lineBetween / cellsEqual", () => {
@@ -87,6 +97,79 @@ describe("cellFromPointer", () => {
       "2-2",
       "3-3",
       "4-4",
+    ])
+  })
+})
+
+describe("full selection flow — click/tap then end in all 8 directions", () => {
+  const start = { r: 3, c: 3 }
+  const placements = placementsForHub(start, 4)
+
+  it("first letter tap keeps an anchor highlight", () => {
+    const result = resolveSelectionEnd(start, start, placements, new Set())
+    expect(result).toEqual({ kind: "anchor", cell: start, path: [start] })
+  })
+
+  it.each(ALL_DIRECTIONS)(
+    "click start→end marks %s found and exposes the full path",
+    (direction: Direction) => {
+      const cells = cellsAlongDirection(start, direction, 4)
+      const end = cells[cells.length - 1]!
+      const preview = selectionPreview(start, end)
+      expect(preview).toEqual(cells)
+
+      const result = resolveSelectionEnd(start, end, placements, new Set())
+      expect(result.kind).toBe("found")
+      if (result.kind === "found") {
+        expect(result.word).toBe(direction)
+        expect(result.cells).toEqual(cells)
+        expect(result.path).toEqual(cells)
+      }
+    },
+  )
+
+  it.each(ALL_DIRECTIONS)(
+    "reverse drag end→start still marks %s found",
+    (direction: Direction) => {
+      const cells = cellsAlongDirection(start, direction, 4)
+      const end = cells[cells.length - 1]!
+      const result = resolveSelectionEnd(end, start, placements, new Set())
+      expect(result.kind).toBe("found")
+      if (result.kind === "found") {
+        expect(result.word).toBe(direction)
+      }
+    },
+  )
+
+  it("updates the found counter across all 8 directions without duplicates", () => {
+    const found = new Set<string>()
+    for (const direction of ALL_DIRECTIONS) {
+      const cells = cellsAlongDirection(start, direction, 4)
+      const end = cells[cells.length - 1]!
+      const result = resolveSelectionEnd(start, end, placements, found)
+      expect(result.kind).toBe("found")
+      if (result.kind === "found") found.add(result.word)
+    }
+    expect(found.size).toBe(8)
+    expect([...found].sort()).toEqual([...ALL_DIRECTIONS].sort())
+
+    // Selecting an already-found word is a clear (counter unchanged).
+    const again = cellsAlongDirection(start, "HORIZONTAL", 4)
+    const duplicate = resolveSelectionEnd(start, again[again.length - 1]!, placements, found)
+    expect(duplicate.kind).toBe("clear")
+    expect(found.size).toBe(8)
+  })
+
+  it("clears on a non-word path while still previewing the line", () => {
+    const from = { r: 0, c: 0 }
+    const to = { r: 0, c: 3 }
+    const result = resolveSelectionEnd(from, to, placements, new Set())
+    expect(result.kind).toBe("clear")
+    expect(result.path).toEqual([
+      { r: 0, c: 0 },
+      { r: 0, c: 1 },
+      { r: 0, c: 2 },
+      { r: 0, c: 3 },
     ])
   })
 })

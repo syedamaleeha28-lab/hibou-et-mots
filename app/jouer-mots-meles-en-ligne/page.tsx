@@ -10,12 +10,21 @@ import { ROUTES } from "@/lib/seo/routes"
 export const revalidate = 3600
 
 export async function generateMetadata(): Promise<Metadata> {
-  return buildStaticPageMetadata({
+  const base = await buildStaticPageMetadata({
     path: ROUTES.jouer,
     title: "Jouer aux Mots Mêlés en Ligne Gratuitement",
     description:
       "Jouez aux mots mêlés directement dans votre navigateur, sans téléchargement ni inscription. Des dizaines de grilles gratuites, tous niveaux.",
   })
+
+  return {
+    ...base,
+    // Prevent Google Translate from mutating letter cells (e.g. "A"/"S" → "HAS").
+    other: {
+      ...base.other,
+      google: "notranslate",
+    },
+  }
 }
 
 export default function JouerEnLignePage() {

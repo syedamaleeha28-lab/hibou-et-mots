@@ -64,8 +64,9 @@ export function WordGrid({
 
   return (
     <div
+      translate="no"
       className={cn(
-        "inline-grid select-none rounded-2xl bg-card p-2 shadow-sm",
+        "notranslate inline-grid select-none rounded-2xl bg-card p-2 shadow-sm",
         largePrint ? "gap-1 p-3 sm:gap-1.5 sm:p-4" : "gap-0.5 sm:gap-1 sm:p-3",
         className,
       )}

@@ -43,7 +43,7 @@ export function ToolGeneratorTemplate({
   const [difficulty, setDifficulty] = useState<DifficultySlug>("moyen")
   const [gridSize, setGridSize] = useState<GridSizeOption>(10)
   const [allowDiagonals, setAllowDiagonals] = useState(true)
-  const [largePrint, setLargePrint] = useState(false)
+  const [largePrint, setLargePrint] = useState(true)
   const [seed, setSeed] = useState(1)
   const [found, setFound] = useState<string[]>([])
 

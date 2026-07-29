@@ -58,7 +58,7 @@ export function ToolOnlinePlayTemplate() {
   const [difficulty, setDifficulty] = useState<DifficultySlug>("moyen")
   const [seed, setSeed] = useState(1)
   const [found, setFound] = useState<string[]>([])
-  const [largePrint, setLargePrint] = useState(false)
+  const [largePrint, setLargePrint] = useState(true)
 
   const words = useMemo(
     () => getThemeWordsForPlay(theme.slug, difficulty, seed),

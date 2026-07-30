@@ -138,6 +138,36 @@ export function selectionPreview(from: Cell, to: Cell): Cell[] {
   return lineBetween(from, to) ?? [from]
 }
 
+/**
+ * Extends a click-built (not dragged) selection by one more tapped cell.
+ * Rules: first tap starts it; a second adjacent tap sets the direction;
+ * further taps must continue exactly along that direction; tapping the
+ * last cell again undoes one step; anything else restarts the selection
+ * at the newly tapped cell.
+ */
+export function extendSelectionWithCell(pending: Cell[], cell: Cell): Cell[] {
+  if (pending.length === 0) return [cell]
+
+  if (pending.length === 1) {
+    if (areSameCell(pending[0]!, cell)) return [] // tap the lone cell again = deselect
+    const dr = Math.sign(cell.r - pending[0]!.r)
+    const dc = Math.sign(cell.c - pending[0]!.c)
+    const isAdjacent = Math.abs(cell.r - pending[0]!.r) <= 1 && Math.abs(cell.c - pending[0]!.c) <= 1
+    if (isAdjacent && (dr !== 0 || dc !== 0)) return [pending[0]!, cell]
+    return [cell] // not adjacent/in-line: start a fresh selection here
+  }
+
+  const last = pending[pending.length - 1]!
+  if (areSameCell(last, cell)) return pending.slice(0, -1) // tap last cell again = undo one step
+
+  const dr = Math.sign(pending[1]!.r - pending[0]!.r)
+  const dc = Math.sign(pending[1]!.c - pending[0]!.c)
+  const expectedNext: Cell = { r: last.r + dr, c: last.c + dc }
+  if (areSameCell(expectedNext, cell)) return [...pending, cell]
+
+  return [cell] // breaks the line: start fresh
+}
+
 export type SelectionEndResult =
   | { kind: "anchor"; cell: Cell; path: Cell[] }
   | { kind: "found"; word: string; cells: Cell[]; path: Cell[] }

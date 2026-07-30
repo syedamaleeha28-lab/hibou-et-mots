@@ -5,6 +5,9 @@ import { cn } from "@/lib/utils"
 import {
   areSameCell,
   cellFromPointer,
+  extendSelectionWithCell,
+  lineBetween,
+  matchPlacement,
   readGridPointerMetrics,
   resolveSelectionEnd,
   selectionPreview,
@@ -25,10 +28,19 @@ type WordGridProps = {
   pulseCell?: Cell | null
   /** Tier-2 hint: programmatically reveals a whole word, same as if the player found it. Bump `token` to re-trigger for the same word. */
   revealWord?: { word: string; token: number } | null
+  /**
+   * When true: letters can be built up one click/tap at a time (in addition to
+   * dragging), the selection stays yellow/"pending" until the player presses
+   * "Valider", and the grid shows explicit correct/incorrect feedback instead
+   * of auto-validating the instant a line is completed. Default false keeps
+   * the original auto-validate-on-release behavior unchanged.
+   */
+  requireSubmit?: boolean
   className?: string
 }
 
 const FOUND_FLASH_MS = 560
+const WRONG_FLASH_MS = 650
 
 function key(cell: Cell) {
   return `${cell.r}-${cell.c}`
@@ -42,6 +54,7 @@ export function WordGrid({
   onSelectionStart,
   pulseCell = null,
   revealWord = null,
+  requireSubmit = false,
   className,
 }: WordGridProps) {
   const gridRef = useRef<HTMLDivElement>(null)
@@ -50,11 +63,24 @@ export function WordGrid({
   const endRef = useRef<Cell | null>(null)
   const foundWordsRef = useRef<Set<string>>(new Set())
   const flashTimersRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map())
+  const wrongTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [pulsingCellKey, setPulsingCellKey] = useState<string | null>(null)
 
+  // --- Original (auto-validate-on-release) selection state ---
   const [start, setStart] = useState<Cell | null>(null)
   const [end, setEnd] = useState<Cell | null>(null)
   const [isSelecting, setIsSelecting] = useState(false)
+
+  // --- requireSubmit-mode selection state ---
+  const [pendingCells, setPendingCells] = useState<Cell[]>([])
+  const [wrongCells, setWrongCells] = useState<Set<string>>(new Set())
+  const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error" | "info"; text: string } | null>(
+    null,
+  )
+  const isDraggingRef = useRef(false)
+  const dragAnchorRef = useRef<Cell | null>(null)
+  const [liveDragEnd, setLiveDragEnd] = useState<Cell | null>(null)
+
   const [foundCells, setFoundCells] = useState<Set<string>>(new Set())
   const [flashingCells, setFlashingCells] = useState<Set<string>>(new Set())
 
@@ -63,6 +89,16 @@ export function WordGrid({
     return selectionPreview(start, end ?? start)
   }, [start, end])
 
+  const liveDragPreview = useMemo<Cell[]>(() => {
+    if (!requireSubmit || !isDraggingRef.current || !dragAnchorRef.current) return []
+    return selectionPreview(dragAnchorRef.current, liveDragEnd ?? dragAnchorRef.current)
+  }, [requireSubmit, liveDragEnd])
+
+  const pendingSet = useMemo(
+    () => new Set((liveDragPreview.length > 0 ? liveDragPreview : pendingCells).map(key)),
+    [liveDragPreview, pendingCells],
+  )
+
   const selectionSet = useMemo(() => new Set(selection.map(key)), [selection])
 
   useEffect(() => {
@@ -70,6 +106,7 @@ export function WordGrid({
     return () => {
       timers.forEach((timer) => clearTimeout(timer))
       timers.clear()
+      if (wrongTimerRef.current) clearTimeout(wrongTimerRef.current)
     }
   }, [])
 
@@ -196,10 +233,65 @@ export function WordGrid({
     clearSelection()
   }
 
+  // ---------- requireSubmit-mode helpers ----------
+
+  function cellsMatch(a: Cell[], b: Cell[]): boolean {
+    if (a.length !== b.length) return false
+    const forward = a.every((c, i) => c.r === b[i]!.r && c.c === b[i]!.c)
+    const backward = a.every((c, i) => c.r === b[b.length - 1 - i]!.r && c.c === b[b.length - 1 - i]!.c)
+    return forward || backward
+  }
+
+  function showWrongFlash(cells: Cell[]) {
+    const keys = cells.map(key)
+    setWrongCells(new Set(keys))
+    if (wrongTimerRef.current) clearTimeout(wrongTimerRef.current)
+    wrongTimerRef.current = setTimeout(() => {
+      setWrongCells(new Set())
+      setPendingCells([])
+    }, WRONG_FLASH_MS)
+  }
+
+  function extendPendingWithClick(cell: Cell) {
+    setPendingCells((prev) => extendSelectionWithCell(prev, cell))
+    setStatusMessage(null)
+  }
+
+  function handleSubmit() {
+    if (pendingCells.length < 2) return
+    const match = matchPlacement(pendingCells, grid.placements, foundWordsRef.current)
+    if (match) {
+      markFound(match.word, match.cells)
+      setPendingCells([])
+      setStatusMessage({ type: "success", text: `Bravo, "${match.word}" trouvé !` })
+      return
+    }
+    const isDuplicate = grid.placements.some(
+      (p) => foundWordsRef.current.has(p.word) && cellsMatch(p.cells, pendingCells),
+    )
+    if (isDuplicate) {
+      setStatusMessage({ type: "info", text: "Ce mot est déjà trouvé !" })
+      setPendingCells([])
+      return
+    }
+    setStatusMessage({ type: "error", text: "Ce n'est pas un mot mêlé. Réessaie !" })
+    showWrongFlash(pendingCells)
+  }
+
+  // ---------- Pointer handlers ----------
+
   function handlePointerDown(cell: Cell, event: ReactPointerEvent) {
     if (readOnly || event.button !== 0) return
     event.preventDefault()
     onSelectionStart?.()
+
+    if (requireSubmit) {
+      gridRef.current?.setPointerCapture(event.pointerId)
+      isDraggingRef.current = false
+      dragAnchorRef.current = cell
+      setLiveDragEnd(cell)
+      return
+    }
 
     const anchored = startRef.current
     const hasRestingAnchor =
@@ -226,6 +318,14 @@ export function WordGrid({
   }
 
   function handlePointerMove(event: ReactPointerEvent) {
+    if (requireSubmit) {
+      if (!dragAnchorRef.current) return
+      const cell = cellAt(event.clientX, event.clientY)
+      if (!cell) return
+      if (!areSameCell(cell, dragAnchorRef.current)) isDraggingRef.current = true
+      setLiveDragEnd((prev) => (prev && areSameCell(prev, cell) ? prev : cell))
+      return
+    }
     if (!selectingRef.current) return
     const cell = cellAt(event.clientX, event.clientY)
     if (!cell || (endRef.current && areSameCell(endRef.current, cell))) return
@@ -234,6 +334,26 @@ export function WordGrid({
   }
 
   function handlePointerUp(event: ReactPointerEvent) {
+    if (requireSubmit) {
+      if (!dragAnchorRef.current) return
+      releasePointer(event)
+      const anchor = dragAnchorRef.current
+      const releaseCell = cellAt(event.clientX, event.clientY) ?? liveDragEnd ?? anchor
+      const wasDragging = isDraggingRef.current
+      dragAnchorRef.current = null
+      isDraggingRef.current = false
+      setLiveDragEnd(null)
+      setStatusMessage(null)
+
+      if (!wasDragging) {
+        extendPendingWithClick(anchor)
+        return
+      }
+      const line = lineBetween(anchor, releaseCell)
+      setPendingCells(line ?? [anchor])
+      return
+    }
+
     if (!selectingRef.current) return
     releasePointer(event)
 
@@ -247,6 +367,13 @@ export function WordGrid({
   }
 
   function handlePointerCancel(event: ReactPointerEvent) {
+    if (requireSubmit) {
+      releasePointer(event)
+      dragAnchorRef.current = null
+      isDraggingRef.current = false
+      setLiveDragEnd(null)
+      return
+    }
     if (!selectingRef.current && !startRef.current) return
     releasePointer(event)
     clearSelection()
@@ -275,17 +402,19 @@ export function WordGrid({
             const cell = { r, c }
             const k = key(cell)
             const isFound = foundCells.has(k)
-            const isSelected = selectionSet.has(k)
+            const isWrong = requireSubmit && wrongCells.has(k)
+            const isPending = requireSubmit && pendingSet.has(k)
+            const isSelected = !requireSubmit && selectionSet.has(k)
             const isFlashing = flashingCells.has(k)
             const isPulsing = pulsingCellKey === k
-            const state = isFound ? "found" : isSelected ? "selected" : "idle"
+            const state = isFound ? "found" : isSelected || isPending ? "selected" : "idle"
             return (
               <button
                 key={k}
                 type="button"
                 disabled={readOnly}
                 data-state={state}
-                aria-pressed={isSelected || isFound}
+                aria-pressed={isSelected || isPending || isFound}
                 onPointerDown={(event) => handlePointerDown(cell, event)}
                 className={cn(
                   "flex aspect-square min-h-11 min-w-11 items-center justify-center font-bold uppercase",
@@ -296,18 +425,28 @@ export function WordGrid({
                   // Found = distinct green (final confirmed color)
                   isFound && "bg-leaf text-leaf-foreground",
                   isFlashing && "animate-word-found bg-sunny text-sunny-foreground",
+                  isWrong && "bg-destructive/80 text-white",
                   // Active drag path = strong sunny highlight along the full line
                   !isFound &&
+                    !isWrong &&
                     isSelected &&
                     isSelecting &&
                     "z-10 scale-105 bg-sunny text-sunny-foreground shadow-md ring-2 ring-sunny/50",
                   // Resting start letter after a tap
                   !isFound &&
+                    !isWrong &&
                     isSelected &&
                     !isSelecting &&
                     "bg-sunny/80 text-sunny-foreground ring-2 ring-sunny/40",
+                  // requireSubmit mode: pending (yellow) selection built via click or drag
                   !isFound &&
+                    !isWrong &&
+                    isPending &&
+                    "z-10 scale-105 bg-sunny text-sunny-foreground shadow-md ring-2 ring-sunny/50",
+                  !isFound &&
+                    !isWrong &&
                     !isSelected &&
+                    !isPending &&
                     (largePrint
                       ? "bg-background text-foreground hover:bg-muted"
                       : "bg-muted/60 text-foreground hover:bg-secondary/20"),
@@ -322,6 +461,43 @@ export function WordGrid({
           }),
         )}
       </div>
+
+      {requireSubmit && !readOnly && (
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={pendingCells.length < 2}
+            className={cn(
+              "rounded-full px-5 py-2 text-sm font-extrabold transition-colors",
+              pendingCells.length < 2
+                ? "cursor-not-allowed bg-muted text-muted-foreground"
+                : "bg-primary text-primary-foreground hover:bg-primary/90",
+            )}
+          >
+            Valider le mot
+          </button>
+          <span className="text-xs font-semibold text-muted-foreground">
+            {pendingCells.length === 0
+              ? "Touche les lettres d'un mot, puis valide."
+              : `${pendingCells.length} lettre(s) sélectionnée(s)`}
+          </span>
+          {statusMessage && (
+            <span
+              role="status"
+              aria-live="polite"
+              className={cn(
+                "text-sm font-bold",
+                statusMessage.type === "success" && "text-leaf",
+                statusMessage.type === "error" && "text-destructive",
+                statusMessage.type === "info" && "text-muted-foreground",
+              )}
+            >
+              {statusMessage.text}
+            </span>
+          )}
+        </div>
+      )}
     </div>
   )
 }

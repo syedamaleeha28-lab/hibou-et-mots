@@ -16,6 +16,7 @@ type PuzzleGridClientProps = {
   onSelectionStart?: () => void
   pulseCell?: Cell | null
   revealWord?: { word: string; token: number } | null
+  requireSubmit?: boolean
   className?: string
 }
 
@@ -29,6 +30,7 @@ export function PuzzleGridClient({
   onSelectionStart,
   pulseCell,
   revealWord,
+  requireSubmit = false,
   className,
 }: PuzzleGridClientProps) {
   const legacyGrid = useMemo(
@@ -47,6 +49,7 @@ export function PuzzleGridClient({
         onSelectionStart={onSelectionStart}
         pulseCell={pulseCell}
         revealWord={revealWord}
+        requireSubmit={requireSubmit}
       />
     </div>
   )

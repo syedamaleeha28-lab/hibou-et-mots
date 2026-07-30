@@ -448,6 +448,7 @@ export function ToolOnlinePlayTemplate() {
                       onSelectionStart={beginPlay}
                       pulseCell={pulseCell}
                       revealWord={revealWord}
+                      requireSubmit
                       className="w-full max-w-2xl"
                     />
                     {!hasStarted && (

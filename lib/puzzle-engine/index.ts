@@ -47,6 +47,7 @@ export {
   areSameCell,
   selectionPreview,
   resolveSelectionEnd,
+  extendSelectionWithCell,
   type GridPointerMetrics,
   type SelectionEndResult,
 } from "./gameplay"

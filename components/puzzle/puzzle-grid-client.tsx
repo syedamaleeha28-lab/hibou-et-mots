@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import type { SolutionData } from "@/lib/puzzle-engine"
+import type { Cell, SolutionData } from "@/lib/puzzle-engine"
 import { solutionToLegacyGrid } from "@/lib/puzzle/grid-utils"
 import { WordGrid } from "@/components/puzzle/word-grid"
 import { cn } from "@/lib/utils"
@@ -14,6 +14,8 @@ type PuzzleGridClientProps = {
   readOnly?: boolean
   onWordFound?: (word: string) => void
   onSelectionStart?: () => void
+  pulseCell?: Cell | null
+  revealWord?: { word: string; token: number } | null
   className?: string
 }
 
@@ -25,6 +27,8 @@ export function PuzzleGridClient({
   readOnly = false,
   onWordFound,
   onSelectionStart,
+  pulseCell,
+  revealWord,
   className,
 }: PuzzleGridClientProps) {
   const legacyGrid = useMemo(
@@ -41,6 +45,8 @@ export function PuzzleGridClient({
         readOnly={readOnly}
         onWordFound={onWordFound}
         onSelectionStart={onSelectionStart}
+        pulseCell={pulseCell}
+        revealWord={revealWord}
       />
     </div>
   )

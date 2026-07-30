@@ -6,6 +6,29 @@ export function createEmptyGrid(size: number): (string | null)[][] {
   return Array.from({ length: size }, () => Array.from({ length: size }, () => null))
 }
 
+function isDiagonalDirection(direction: Direction): boolean {
+  return direction.includes("DIAGONAL")
+}
+
+/**
+ * Weighted direction pick: horizontal/vertical directions are 3x more likely
+ * than diagonal ones. This keeps diagonals in the mix (so grids stay
+ * interesting at medium/hard difficulty) without letting them dominate the
+ * puzzle, which is what made grids feel like "everything is diagonal."
+ */
+function pickWeightedDirection(rng: () => number, directions: Direction[]): Direction {
+  const STRAIGHT_WEIGHT = 2
+  const DIAGONAL_WEIGHT = 1
+  const weights = directions.map((d) => (isDiagonalDirection(d) ? DIAGONAL_WEIGHT : STRAIGHT_WEIGHT))
+  const total = weights.reduce((sum, w) => sum + w, 0)
+  let roll = rng() * total
+  for (let i = 0; i < directions.length; i++) {
+    roll -= weights[i]!
+    if (roll <= 0) return directions[i]!
+  }
+  return directions[directions.length - 1]!
+}
+
 export function canPlaceWord(
   grid: (string | null)[][],
   word: string,
@@ -49,7 +72,8 @@ export function tryPlaceWordRandom(
   const { gridWord, displayWord } = prepared
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    const direction = directions[randomInt(rng, 0, directions.length - 1)]!
+    const direction =
+      directions.length > 1 ? pickWeightedDirection(rng, directions) : directions[0]!
     const { dr, dc } = getDelta(direction)
     const maxRow =
       dr === 0

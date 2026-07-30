@@ -21,6 +21,10 @@ type WordGridProps = {
   onWordFound?: (word: string) => void
   /** Fired once a letter selection gesture begins (pointer down on a cell). */
   onSelectionStart?: () => void
+  /** Tier-1 hint: briefly pulses a single cell (e.g. a word's first letter) without marking anything found. */
+  pulseCell?: Cell | null
+  /** Tier-2 hint: programmatically reveals a whole word, same as if the player found it. Bump `token` to re-trigger for the same word. */
+  revealWord?: { word: string; token: number } | null
   className?: string
 }
 
@@ -36,6 +40,8 @@ export function WordGrid({
   largePrint = false,
   onWordFound,
   onSelectionStart,
+  pulseCell = null,
+  revealWord = null,
   className,
 }: WordGridProps) {
   const gridRef = useRef<HTMLDivElement>(null)
@@ -44,6 +50,7 @@ export function WordGrid({
   const endRef = useRef<Cell | null>(null)
   const foundWordsRef = useRef<Set<string>>(new Set())
   const flashTimersRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map())
+  const [pulsingCellKey, setPulsingCellKey] = useState<string | null>(null)
 
   const [start, setStart] = useState<Cell | null>(null)
   const [end, setEnd] = useState<Cell | null>(null)
@@ -65,6 +72,52 @@ export function WordGrid({
       timers.clear()
     }
   }, [])
+
+  // Tier-1 hint: pulse a single cell for a moment (no found-state change).
+  useEffect(() => {
+    if (!pulseCell) return
+    const k = key(pulseCell)
+    setPulsingCellKey(k)
+    const timer = setTimeout(() => setPulsingCellKey(null), 1400)
+    return () => clearTimeout(timer)
+  }, [pulseCell])
+
+  // Tier-2 hint: reveal an entire word programmatically, same as a real find.
+  useEffect(() => {
+    if (!revealWord) return
+    if (foundWordsRef.current.has(revealWord.word)) return
+    const placement = grid.placements.find((p) => p.word === revealWord.word)
+    if (!placement) return
+    foundWordsRef.current = new Set(foundWordsRef.current).add(revealWord.word)
+    setFoundCells((prev) => {
+      const next = new Set(prev)
+      placement.cells.forEach((c) => next.add(key(c)))
+      return next
+    })
+    const keys = placement.cells.map(key)
+    setFlashingCells((prev) => {
+      const next = new Set(prev)
+      keys.forEach((k) => next.add(k))
+      return next
+    })
+    keys.forEach((k) => {
+      const existing = flashTimersRef.current.get(k)
+      if (existing) clearTimeout(existing)
+      flashTimersRef.current.set(
+        k,
+        setTimeout(() => {
+          flashTimersRef.current.delete(k)
+          setFlashingCells((prev) => {
+            const next = new Set(prev)
+            next.delete(k)
+            return next
+          })
+        }, FOUND_FLASH_MS),
+      )
+    })
+    onWordFound?.(revealWord.word)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [revealWord])
 
   function cellAt(clientX: number, clientY: number): Cell | null {
     const el = gridRef.current
@@ -224,6 +277,7 @@ export function WordGrid({
             const isFound = foundCells.has(k)
             const isSelected = selectionSet.has(k)
             const isFlashing = flashingCells.has(k)
+            const isPulsing = pulsingCellKey === k
             const state = isFound ? "found" : isSelected ? "selected" : "idle"
             return (
               <button
@@ -257,6 +311,7 @@ export function WordGrid({
                     (largePrint
                       ? "bg-background text-foreground hover:bg-muted"
                       : "bg-muted/60 text-foreground hover:bg-secondary/20"),
+                  isPulsing && !isFound && "animate-word-found ring-4 ring-secondary/70",
                   readOnly ? "cursor-default" : "cursor-pointer",
                 )}
                 aria-label={`Lettre ${letter}`}

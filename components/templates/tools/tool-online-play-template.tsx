@@ -2,12 +2,24 @@
 
 import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
-import { Check, ChevronDown, Clock, Play, RefreshCw, Settings2, Shuffle, Sparkles, Trophy } from "lucide-react"
+import {
+  Check,
+  ChevronDown,
+  Clock,
+  Lightbulb,
+  Play,
+  RefreshCw,
+  Settings2,
+  Share2,
+  Shuffle,
+  Sparkles,
+  Trophy,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { PuzzleGridClient } from "@/components/puzzle/puzzle-grid-client"
 import { ThemeChipSelector } from "@/components/forms"
-import type { DifficultySlug } from "@/lib/puzzle-engine"
+import type { Cell, DifficultySlug } from "@/lib/puzzle-engine"
 import {
   generateToolPuzzle,
   getThemeWordsForPlay,
@@ -30,10 +42,42 @@ const THEME_PRESETS = ONLINE_PLAY_THEMES.map((theme) => ({
   words: "",
 }))
 
+const HINT_LETTER_PENALTY_SECONDS = 10
+const HINT_WORD_PENALTY_SECONDS = 30
+const BEST_TIME_STORAGE_PREFIX = "hibou-et-mots:best-time:"
+
+// Wong/Okabe-Ito colorblind-safe palette. Fixed positions/delays so server
+// and client render identically (no Math.random() during render).
+const CONFETTI_COLORS = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#F0E442"]
+const CONFETTI_PIECES = Array.from({ length: 18 }, (_, i) => ({
+  id: i,
+  left: `${(i * 37) % 100}%`,
+  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length]!,
+  delay: `${(i % 6) * 0.12}s`,
+  duration: `${1.1 + (i % 4) * 0.2}s`,
+}))
+
 function formatElapsed(seconds: number): string {
   const minutes = Math.floor(seconds / 60)
   const remainder = seconds % 60
   return `${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`
+}
+
+function bestTimeKey(themeSlug: string, difficulty: DifficultySlug): string {
+  return `${BEST_TIME_STORAGE_PREFIX}${themeSlug}:${difficulty}`
+}
+
+function readBestTime(themeSlug: string, difficulty: DifficultySlug): number | null {
+  if (typeof window === "undefined") return null
+  const raw = window.localStorage.getItem(bestTimeKey(themeSlug, difficulty))
+  if (!raw) return null
+  const parsed = Number.parseInt(raw, 10)
+  return Number.isFinite(parsed) ? parsed : null
+}
+
+function writeBestTime(themeSlug: string, difficulty: DifficultySlug, seconds: number): void {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(bestTimeKey(themeSlug, difficulty), String(seconds))
 }
 
 function useElapsedTimer(active: boolean, resetKey: number): number {
@@ -169,6 +213,12 @@ export function ToolOnlinePlayTemplate() {
   const [largePrint, setLargePrint] = useState(true)
   const [optionsOpen, setOptionsOpen] = useState(false)
   const [hasStarted, setHasStarted] = useState(false)
+  const [hintLettersUsed, setHintLettersUsed] = useState(0)
+  const [hintWordsUsed, setHintWordsUsed] = useState(0)
+  const [pulseCell, setPulseCell] = useState<Cell | null>(null)
+  const [revealWord, setRevealWord] = useState<{ word: string; token: number } | null>(null)
+  const [bestTime, setBestTime] = useState<number | null>(null)
+  const [justBeatBest, setJustBeatBest] = useState(false)
 
   const words = useMemo(
     () => getThemeWordsForPlay(theme.slug, difficulty, seed),
@@ -192,7 +242,28 @@ export function ToolOnlinePlayTemplate() {
   )
 
   const isComplete = placedWords.length > 0 && found.length === placedWords.length
-  const elapsed = useElapsedTimer(hasStarted && !isComplete, seed)
+  const rawElapsed = useElapsedTimer(hasStarted && !isComplete, seed)
+  const hintPenalty = hintLettersUsed * HINT_LETTER_PENALTY_SECONDS + hintWordsUsed * HINT_WORD_PENALTY_SECONDS
+  const elapsed = rawElapsed + hintPenalty
+
+  // Load the saved best time whenever theme/difficulty changes.
+  useEffect(() => {
+    setBestTime(readBestTime(theme.slug, difficulty))
+  }, [theme.slug, difficulty])
+
+  // On completion, compare against and persist the best time.
+  useEffect(() => {
+    if (!isComplete) return
+    const previousBest = readBestTime(theme.slug, difficulty)
+    if (previousBest === null || elapsed < previousBest) {
+      writeBestTime(theme.slug, difficulty, elapsed)
+      setBestTime(elapsed)
+      setJustBeatBest(true)
+    } else {
+      setJustBeatBest(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isComplete])
 
   function beginPlay() {
     setHasStarted(true)
@@ -201,6 +272,11 @@ export function ToolOnlinePlayTemplate() {
   function resetRound() {
     setFound([])
     setHasStarted(false)
+    setHintLettersUsed(0)
+    setHintWordsUsed(0)
+    setPulseCell(null)
+    setRevealWord(null)
+    setJustBeatBest(false)
     setSeed((value) => value + 1)
   }
 
@@ -218,6 +294,46 @@ export function ToolOnlinePlayTemplate() {
   function handleDifficultyChange(slug: DifficultySlug) {
     setDifficulty(slug)
     resetRound()
+  }
+
+  function pickUnfoundWord(): string | null {
+    const remaining = placedWords.filter((word) => !found.includes(word))
+    if (remaining.length === 0) return null
+    return remaining[Math.floor(Math.random() * remaining.length)]!
+  }
+
+  function hintRevealLetter() {
+    if (isComplete) return
+    const word = pickUnfoundWord()
+    if (!word || !puzzleResult) return
+    const placement = puzzleResult.solutionData.words.find((entry) => entry.word === word)
+    if (!placement) return
+    const firstCell = placement.cells[0]
+    if (!firstCell) return
+    if (!hasStarted) beginPlay()
+    setHintLettersUsed((value) => value + 1)
+    setPulseCell({ r: firstCell.row, c: firstCell.col })
+  }
+
+  function hintRevealWord() {
+    if (isComplete) return
+    const word = pickUnfoundWord()
+    if (!word) return
+    if (!hasStarted) beginPlay()
+    setHintWordsUsed((value) => value + 1)
+    setRevealWord({ word, token: Date.now() })
+  }
+
+  function shareResult() {
+    const text = `J'ai trouvé les ${placedWords.length} mots (${theme.label}, ${difficulty}) en ${formatElapsed(elapsed)} sur Hibou&Mots ! 🦉🔎`
+    const url = typeof window !== "undefined" ? window.location.href : ""
+    if (typeof navigator !== "undefined" && navigator.share) {
+      navigator.share({ title: "Mots Mêlés — Hibou&Mots", text, url }).catch(() => {})
+      return
+    }
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(`${text} ${url}`).catch(() => {})
+    }
   }
 
   const settingsProps: PlaySettingsProps = {
@@ -274,6 +390,12 @@ export function ToolOnlinePlayTemplate() {
                         <Check className="size-4" />
                         {found.length} / {placedWords.length}
                       </span>
+                      {bestTime !== null && (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-sunny/20 px-3 py-1 text-sm font-extrabold text-foreground">
+                          <Trophy className="size-3.5 text-sunny-foreground" />
+                          {formatElapsed(bestTime)}
+                        </span>
+                      )}
                       <Button
                         type="button"
                         size="sm"
@@ -286,6 +408,36 @@ export function ToolOnlinePlayTemplate() {
                     </div>
                   </div>
 
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={hintRevealLetter}
+                      disabled={isComplete || placedWords.length === found.length}
+                      className="rounded-full border-2 font-bold"
+                    >
+                      <Lightbulb className="size-3.5" />
+                      Indice : lettre (+{HINT_LETTER_PENALTY_SECONDS}s)
+                    </Button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={hintRevealWord}
+                      disabled={isComplete || placedWords.length === found.length}
+                      className="rounded-full border-2 font-bold"
+                    >
+                      <Lightbulb className="size-3.5" />
+                      Indice : mot entier (+{HINT_WORD_PENALTY_SECONDS}s)
+                    </Button>
+                    {(hintLettersUsed > 0 || hintWordsUsed > 0) && (
+                      <span className="text-xs font-semibold text-muted-foreground">
+                        {hintLettersUsed + hintWordsUsed} indice(s) utilisé(s)
+                      </span>
+                    )}
+                  </div>
+
                   <div className="relative flex items-center justify-center overflow-x-auto py-1">
                     <PuzzleGridClient
                       puzzleId={`play-${theme.slug}-${difficulty}-${seed}`}
@@ -294,6 +446,8 @@ export function ToolOnlinePlayTemplate() {
                       largePrint={largePrint}
                       onWordFound={(word) => setFound((prev) => [...prev, word])}
                       onSelectionStart={beginPlay}
+                      pulseCell={pulseCell}
+                      revealWord={revealWord}
                       className="w-full max-w-2xl"
                     />
                     {!hasStarted && (
@@ -337,17 +491,62 @@ export function ToolOnlinePlayTemplate() {
                   </ul>
 
                   {isComplete && (
-                    <div className="flex items-center gap-3 rounded-2xl bg-leaf/12 p-4">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-leaf text-leaf-foreground">
-                        <Trophy className="size-5" />
-                      </span>
-                      <div>
-                        <p className="font-heading font-extrabold text-foreground">
-                          Bravo ! Tous les mots trouvés en {formatElapsed(elapsed)}.
-                        </p>
-                        <p className="text-sm font-semibold text-muted-foreground">
-                          Lance une nouvelle partie pour battre ton record.
-                        </p>
+                    <div className="relative overflow-hidden rounded-2xl bg-leaf/12 p-4">
+                      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+                        {CONFETTI_PIECES.map((piece) => (
+                          <span
+                            key={piece.id}
+                            className="absolute top-0 block h-2 w-2 animate-confetti-fall rounded-sm"
+                            style={{
+                              left: piece.left,
+                              backgroundColor: piece.color,
+                              animationDelay: piece.delay,
+                              animationDuration: piece.duration,
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <div className="relative flex flex-wrap items-center gap-3">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-leaf text-leaf-foreground">
+                          <Trophy className="size-5" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-heading font-extrabold text-foreground">
+                            {justBeatBest
+                              ? `🎉 Nouveau record ! Tous les mots trouvés en ${formatElapsed(elapsed)}.`
+                              : `Bravo ! Tous les mots trouvés en ${formatElapsed(elapsed)}.`}
+                          </p>
+                          <p className="text-sm font-semibold text-muted-foreground">
+                            {bestTime !== null && !justBeatBest && (
+                              <>Meilleur temps : {formatElapsed(bestTime)}. </>
+                            )}
+                            {hintLettersUsed + hintWordsUsed > 0
+                              ? `${hintLettersUsed + hintWordsUsed} indice(s) utilisé(s). `
+                              : ""}
+                            Lance une nouvelle partie pour rejouer.
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            onClick={shareResult}
+                            className="rounded-full border-2 font-extrabold"
+                          >
+                            <Share2 className="size-3.5" />
+                            Partager
+                          </Button>
+                          <Button
+                            type="button"
+                            size="sm"
+                            onClick={newGame}
+                            className="rounded-full bg-primary font-extrabold text-primary-foreground hover:bg-primary/90"
+                          >
+                            <Shuffle className="size-3.5" />
+                            Rejouer
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   )}

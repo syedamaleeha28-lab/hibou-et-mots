@@ -310,6 +310,12 @@ export function ToolOnlinePlayTemplate() {
                     )}
                   </div>
 
+                  <p className="sr-only" role="status" aria-live="polite">
+                    {found.length > 0
+                      ? `Mot trouvé : ${found[found.length - 1]}. ${found.length} sur ${placedWords.length} mots trouvés.`
+                      : ""}
+                  </p>
+
                   <ul className="flex flex-wrap gap-2">
                     {placedWords.map((word) => {
                       const isFound = found.includes(word)

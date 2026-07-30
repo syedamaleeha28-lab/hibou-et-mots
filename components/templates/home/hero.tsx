@@ -27,7 +27,7 @@ export function Hero() {
       <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
 
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:py-20 lg:px-8">
-        <div className="flex flex-col items-start gap-6">
+        <div className="order-2 flex flex-col items-start gap-6 lg:order-none">
           <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-bold text-accent-foreground">
             <Star className="size-4 fill-current" />
             Mots mêlés gratuits en français
@@ -77,7 +77,7 @@ export function Hero() {
           </dl>
         </div>
 
-        <div className="relative">
+        <div className="order-1 relative lg:order-none">
           <div className="absolute -top-6 left-1/2 z-10 hidden -translate-x-1/2 sm:block">
             <Image
               src="/mascot-leo.png"

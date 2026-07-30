@@ -30,20 +30,20 @@ export default function Home() {
     <>
       <SchemaJsonLd data={schemaGraph} />
       <Hero />
+      <FeaturedCategories />
+      <PopularPuzzles />
+      <GradeLevels />
+      <HomeGeneratorTeaser />
+      <PrintablePdfs />
       <HomeSeoIntro />
       <HomeSynonymDifferenceSection />
       <HomeSiloLinks />
-      <FeaturedCategories />
-      <PopularPuzzles />
       <HomePedagogySection />
       <HomePedagogicalApproachSection />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AuthorAttribution />
       </div>
       <HomeChooseGridSection />
-      <GradeLevels />
-      <PrintablePdfs />
-      <HomeGeneratorTeaser />
       <HomeFaq />
     </>
   )

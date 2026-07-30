@@ -1,5 +1,6 @@
 import Image from "next/image"
 import type { ContentPageData } from "@/lib/db/types/content-page-data"
+import { splitParagraphsIntoChunks } from "@/lib/content/paragraph-utils"
 
 const VARIANT_EYEBROWS: Record<ContentPageData["variant"], string> = {
   editorial: "Guide",
@@ -24,7 +25,7 @@ export function ContentPageHero({ page }: ContentPageHeroProps) {
         </h1>
         <div className="mt-5 rounded-2xl border border-border bg-card/80 p-5 sm:p-6">
           <div className="flex flex-col gap-4">
-            {page.introText.split("\n\n").map((paragraph) => (
+            {splitParagraphsIntoChunks(page.introText.split("\n\n")).map((paragraph) => (
               <p
                 key={paragraph.slice(0, 48)}
                 className="text-base leading-relaxed text-foreground/90 sm:text-lg"

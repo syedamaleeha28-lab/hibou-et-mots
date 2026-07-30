@@ -1,6 +1,7 @@
 import type { CategoryPageData } from "@/lib/db/types/page-data"
 import { DifficultyPill } from "@/components/ui/difficulty-pill"
 import { shouldUseEmptyCatalogMode } from "@/lib/category/catalog-layout"
+import { splitParagraphsIntoChunks } from "@/lib/content/paragraph-utils"
 
 type CategoryIntroProps = {
   category: Pick<
@@ -21,7 +22,7 @@ export function CategoryIntro({ category }: CategoryIntroProps) {
       </h1>
       <div className="rounded-2xl border border-border bg-card/80 p-5 sm:p-6">
         <div className="flex flex-col gap-4">
-          {category.introText.split("\n\n").map((paragraph) => (
+          {splitParagraphsIntoChunks(category.introText.split("\n\n")).map((paragraph) => (
             <p
               key={paragraph.slice(0, 48)}
               className="text-base leading-relaxed text-foreground/90 sm:text-lg"

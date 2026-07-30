@@ -52,6 +52,10 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
           <CategorySynonymNote />
 
+          {!emptyCatalogMode && <PuzzleCardGrid category={category} />}
+
+          {!emptyCatalogMode && <HowToPlayBlock />}
+
           <CategoryThemeSections slug={category.slug} />
 
           <CategoryPhase1Sections slug={category.slug} />
@@ -69,10 +73,6 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           )}
 
           <SubCategoryLinks category={category} />
-
-          {!emptyCatalogMode && <PuzzleCardGrid category={category} />}
-
-          {!emptyCatalogMode && <HowToPlayBlock />}
 
           <FaqAccordion items={category.faqJson} />
 

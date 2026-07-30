@@ -3,7 +3,7 @@ import { BreadcrumbTrail } from "@/components/layout/breadcrumb-trail"
 import { SchemaJsonLd } from "@/components/seo"
 import { buildCategoryPageSchemaGraph } from "@/lib/seo/schema"
 import { shouldShowComboParentLinks } from "@/lib/seo/linking"
-import { CategoryIntro } from "./category-intro"
+import { CategoryIntro, CategoryIntroDetails } from "./category-intro"
 import { CategorySynonymNote } from "@/components/seo/category-synonym-note"
 import { CategoryPhase1Sections } from "./category-phase1-sections"
 import { CategoryPhase2Sections } from "./category-phase2-sections"
@@ -55,6 +55,8 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           {!emptyCatalogMode && <PuzzleCardGrid category={category} />}
 
           {!emptyCatalogMode && <HowToPlayBlock />}
+
+          <CategoryIntroDetails category={category} />
 
           <CategoryThemeSections slug={category.slug} />
 

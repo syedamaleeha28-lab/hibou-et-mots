@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { splitIntoParagraphChunks, splitParagraphsIntoChunks } from "../../lib/content/paragraph-utils"
+import { splitIntoParagraphChunks, splitParagraphsIntoChunks, splitTeaserAndRest } from "../../lib/content/paragraph-utils"
 
 function normalize(text: string): string {
   return text.replace(/\s+/g, " ").trim()
@@ -53,5 +53,30 @@ describe("splitParagraphsIntoChunks", () => {
     const chunks = splitParagraphsIntoChunks(paragraphs)
     expect(chunks).toHaveLength(5)
     expect(normalize(chunks.join(" "))).toBe(normalize(paragraphs.join(" ")))
+  })
+})
+
+describe("splitTeaserAndRest", () => {
+  it("puts the first chunk in teaser and everything else in rest, losing nothing", () => {
+    const paragraphs = [
+      "Phrase un ici. Phrase deux ici. Phrase trois ici. Phrase quatre ici.",
+    ]
+    const { teaser, rest } = splitTeaserAndRest(paragraphs, 1)
+    expect(teaser).toEqual(["Phrase un ici."])
+    expect(rest).toEqual(["Phrase deux ici.", "Phrase trois ici.", "Phrase quatre ici."])
+    expect(normalize([...teaser, ...rest].join(" "))).toBe(normalize(paragraphs.join(" ")))
+  })
+
+  it("supports a multi-chunk teaser", () => {
+    const paragraphs = ["Un. Deux. Trois. Quatre."]
+    const { teaser, rest } = splitTeaserAndRest(paragraphs, 2)
+    expect(teaser).toEqual(["Un.", "Deux."])
+    expect(rest).toEqual(["Trois.", "Quatre."])
+  })
+
+  it("rest is empty when there's only one chunk total", () => {
+    const { teaser, rest } = splitTeaserAndRest(["Une seule phrase ici."], 1)
+    expect(teaser).toEqual(["Une seule phrase ici."])
+    expect(rest).toEqual([])
   })
 })

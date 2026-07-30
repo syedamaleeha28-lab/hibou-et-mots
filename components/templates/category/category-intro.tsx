@@ -1,7 +1,7 @@
 import type { CategoryPageData } from "@/lib/db/types/page-data"
 import { DifficultyPill } from "@/components/ui/difficulty-pill"
 import { shouldUseEmptyCatalogMode } from "@/lib/category/catalog-layout"
-import { splitParagraphsIntoChunks } from "@/lib/content/paragraph-utils"
+import { splitTeaserAndRest } from "@/lib/content/paragraph-utils"
 
 type CategoryIntroProps = {
   category: Pick<
@@ -14,6 +14,7 @@ export function CategoryIntro({ category }: CategoryIntroProps) {
   const showPuzzleCountBadge = !shouldUseEmptyCatalogMode(category)
   const contextualBadge = category.grade?.name ?? category.theme?.name ?? undefined
   const hasBadges = showPuzzleCountBadge || contextualBadge || category.difficulty
+  const { teaser } = splitTeaserAndRest(category.introText.split("\n\n"))
 
   return (
     <header className="flex flex-col gap-4">
@@ -22,7 +23,7 @@ export function CategoryIntro({ category }: CategoryIntroProps) {
       </h1>
       <div className="rounded-2xl border border-border bg-card/80 p-5 sm:p-6">
         <div className="flex flex-col gap-4">
-          {splitParagraphsIntoChunks(category.introText.split("\n\n")).map((paragraph) => (
+          {teaser.map((paragraph) => (
             <p
               key={paragraph.slice(0, 48)}
               className="text-base leading-relaxed text-foreground/90 sm:text-lg"
@@ -53,5 +54,34 @@ export function CategoryIntro({ category }: CategoryIntroProps) {
         )}
       </div>
     </header>
+  )
+}
+
+/**
+ * Renders the remainder of introText that didn't fit in the short teaser
+ * above the puzzles. Same content, same wording — just placed further down
+ * the page instead of dropped.
+ */
+export function CategoryIntroDetails({
+  category,
+}: {
+  category: Pick<CategoryPageData, "introText">
+}) {
+  const { rest } = splitTeaserAndRest(category.introText.split("\n\n"))
+  if (rest.length === 0) return null
+
+  return (
+    <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+      <div className="flex flex-col gap-4">
+        {rest.map((paragraph) => (
+          <p
+            key={paragraph.slice(0, 48)}
+            className="text-sm leading-relaxed text-foreground/90 sm:text-base"
+          >
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </section>
   )
 }

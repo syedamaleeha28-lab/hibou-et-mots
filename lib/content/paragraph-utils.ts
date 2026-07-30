@@ -29,3 +29,20 @@ export function splitIntoParagraphChunks(text: string, sentencesPerChunk = 1): s
 export function splitParagraphsIntoChunks(paragraphs: string[], sentencesPerChunk = 1): string[] {
   return paragraphs.flatMap((paragraph) => splitIntoParagraphChunks(paragraph, sentencesPerChunk))
 }
+
+/**
+ * Splits already-chunked paragraphs into a short "teaser" (shown before the
+ * puzzles) and the "rest" (shown further down the page). No content is
+ * dropped — everything not in the teaser moves to `rest`.
+ */
+export function splitTeaserAndRest(
+  paragraphs: string[],
+  teaserChunkCount = 1,
+  sentencesPerChunk = 1,
+): { teaser: string[]; rest: string[] } {
+  const allChunks = splitParagraphsIntoChunks(paragraphs, sentencesPerChunk)
+  return {
+    teaser: allChunks.slice(0, teaserChunkCount),
+    rest: allChunks.slice(teaserChunkCount),
+  }
+}

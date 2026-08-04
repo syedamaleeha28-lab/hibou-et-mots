@@ -101,6 +101,7 @@ export function Hero() {
               <WordGrid
                 grid={grid}
                 onWordFound={(w) => setFound((prev) => [...prev, w])}
+                requireSubmit
                 className="w-full max-w-sm"
               />
             </div>
@@ -124,9 +125,6 @@ export function Hero() {
                 )
               })}
             </ul>
-            <p className="mt-3 text-center text-xs font-semibold text-muted-foreground">
-              Clique sur la première puis la dernière lettre d&apos;un mot.
-            </p>
           </div>
         </div>
       </div>

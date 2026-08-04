@@ -14,6 +14,7 @@ import {
   PrintablePdfs,
   HomeGeneratorTeaser,
 } from "@/components/templates/home"
+import { AllGamesGrid } from "@/components/templates/home/all-games-grid"
 import { SchemaJsonLd } from "@/components/seo"
 import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { buildHomeMetadata } from "@/lib/seo/metadata"
@@ -30,6 +31,7 @@ export default function Home() {
     <>
       <SchemaJsonLd data={schemaGraph} />
       <Hero />
+      <AllGamesGrid />
       <FeaturedCategories />
       <PopularPuzzles />
       <GradeLevels />
@@ -37,13 +39,13 @@ export default function Home() {
       <PrintablePdfs />
       <HomeSeoIntro />
       <HomeSynonymDifferenceSection />
-      <HomeSiloLinks />
       <HomePedagogySection />
       <HomePedagogicalApproachSection />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AuthorAttribution />
       </div>
       <HomeChooseGridSection />
+      <HomeSiloLinks />
       <HomeFaq />
     </>
   )

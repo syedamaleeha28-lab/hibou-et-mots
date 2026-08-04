@@ -191,6 +191,20 @@
     animation: confetti-fall ease-in forwards;
   }
 
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    body {
+      background: white !important;
+    }
+    .print-crossword-grid input {
+      border-color: #000 !important;
+      color: #000 !important;
+      background: white !important;
+    }
+  }
+
   .bg-dots {
     background-image: radial-gradient(
       var(--border) 1.5px,

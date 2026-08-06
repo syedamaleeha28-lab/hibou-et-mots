@@ -60,6 +60,7 @@ export type CollectionPageSchema = {
   isPartOf: { "@id": string }
   mainEntity: { "@id": string }
   numberOfItems?: number
+  image?: { "@type": "ImageObject"; url: string; width: number; height: number }
 }
 
 export type CategorySchemaPayload = {

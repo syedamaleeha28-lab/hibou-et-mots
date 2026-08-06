@@ -22,6 +22,8 @@ import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { shouldShowAuthorAttribution } from "@/lib/content/author"
 import { AdultesEditorial } from "@/components/templates/adultes/adultes-editorial"
 import { SeniorsEditorial } from "@/components/templates/seniors/seniors-editorial"
+import { PageIllustration } from "@/components/ui/page-illustration"
+import { getCategoryIllustrations } from "@/lib/images/page-illustrations"
 import { cn } from "@/lib/utils"
 
 export type CategoryTemplateProps = {
@@ -32,6 +34,7 @@ export type CategoryTemplateProps = {
 export function CategoryTemplate({ category }: CategoryTemplateProps) {
   const emptyCatalogMode = shouldUseEmptyCatalogMode(category)
   const schemaGraph = buildCategoryPageSchemaGraph(category)
+  const illustrations = getCategoryIllustrations(category)
 
   return (
     <div className="bg-background">
@@ -48,6 +51,8 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
         >
           <CategoryIntro category={category} />
 
+          <PageIllustration variant="hero" illustration={illustrations.hero} />
+
           {emptyCatalogMode && <CategoryEmptyState category={category} />}
 
           <CategorySynonymNote />
@@ -55,6 +60,10 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           {!emptyCatalogMode && <PuzzleCardGrid category={category} />}
 
           {!emptyCatalogMode && <HowToPlayBlock />}
+
+          {!emptyCatalogMode && (
+            <PageIllustration variant="preview" illustration={illustrations.preview} />
+          )}
 
           <CategoryIntroDetails category={category} />
 

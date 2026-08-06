@@ -8,6 +8,7 @@ import { buildCreativeWorkSchema } from "./creative-work"
 import { buildFaqPageSchema } from "./faq-page"
 import { buildItemListSchema } from "./item-list"
 import { buildSchemaGraph } from "./graph"
+import { getCategoryIllustrations } from "@/lib/images/page-illustrations"
 
 export function buildCategoryPageSchemaGraph(
   category: Pick<
@@ -21,6 +22,7 @@ export function buildCategoryPageSchemaGraph(
     "@id": itemListId(category.canonicalPath, siteUrl),
     ...(category.schema.itemList ?? buildItemListSchema(category.h1, category.puzzles.items, siteUrl)),
   }
+  const heroIllustration = getCategoryIllustrations(category).hero
   const collectionPage = buildCollectionPageSchema({
     path: category.canonicalPath,
     name: category.h1,
@@ -28,6 +30,11 @@ export function buildCategoryPageSchemaGraph(
     siteUrl,
     itemListId: itemList["@id"],
     numberOfItems: category.puzzles.items.length,
+    image: {
+      url: heroIllustration.src,
+      width: heroIllustration.width,
+      height: heroIllustration.height,
+    },
   })
   const faqPage = category.schema.faqPage
 

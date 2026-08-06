@@ -14,6 +14,7 @@ export function buildCollectionPageSchema(input: {
   siteUrl?: string
   itemListId: string
   numberOfItems?: number
+  image?: { url: string; width: number; height: number }
 }): CollectionPageSchema {
   const base = (input.siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL).replace(/\/$/, "")
   const pageUrl = absoluteUrl(input.path, base)
@@ -29,6 +30,16 @@ export function buildCollectionPageSchema(input: {
     isPartOf: { "@id": `${homeUrl}#website` },
     mainEntity: { "@id": input.itemListId },
     ...(input.numberOfItems !== undefined ? { numberOfItems: input.numberOfItems } : {}),
+    ...(input.image
+      ? {
+          image: {
+            "@type": "ImageObject" as const,
+            url: absoluteUrl(input.image.url, base),
+            width: input.image.width,
+            height: input.image.height,
+          },
+        }
+      : {}),
   }
 }
 

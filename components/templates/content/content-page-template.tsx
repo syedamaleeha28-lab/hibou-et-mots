@@ -10,6 +10,8 @@ import { ContentPageCtaSection } from "./content-page-cta"
 import { ContentExploreLinks } from "./content-explore-links"
 import { ContentPageHero } from "./content-page-hero"
 import { ContentRelatedLinks } from "./content-related-links"
+import { PageIllustration } from "@/components/ui/page-illustration"
+import { getContentIllustration } from "@/lib/images/page-illustrations"
 
 export type ContentPageTemplateProps = {
   page: ContentPageData
@@ -20,6 +22,7 @@ export function ContentPageTemplate({ page, children }: ContentPageTemplateProps
   const schemaGraph = buildContentPageSchemaGraph(page)
   const showAuthor =
     page.showAuthorAttribution ?? shouldShowAuthorAttribution(page.slug)
+  const heroIllustration = getContentIllustration(page)
 
   return (
     <div className="bg-background">
@@ -30,6 +33,8 @@ export function ContentPageTemplate({ page, children }: ContentPageTemplateProps
 
         <div className="flex flex-col gap-10 lg:gap-14">
           <ContentPageHero page={page} />
+
+          <PageIllustration variant="hero" illustration={heroIllustration} />
 
           {children ? <article className="flex flex-col gap-8">{children}</article> : null}
 

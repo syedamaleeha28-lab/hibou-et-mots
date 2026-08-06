@@ -26,7 +26,30 @@ export const ILLUSTRATION_STYLE_GUIDE =
   "content, suitable for children, parents, teachers, and seniors, consistent character style " +
   "across all illustrations."
 
-/** Turns a canonical page path into a filesystem-safe, globally unique slug. */
+/**
+ * Optional hand-crafted alt/caption overrides, keyed by canonical path, for
+ * pages where a more specific description has been written (e.g. once a
+ * real image has been generated and reviewed for that page). This is DATA,
+ * not per-page logic — the mapping function itself stays fully generic and
+ * works correctly with zero entries here; this table only ever improves on
+ * the generic default, never required for the system to function.
+ */
+const ILLUSTRATION_COPY_OVERRIDES: Record<
+  string,
+  { heroAlt?: string; heroCaption?: string; previewAlt?: string; previewCaption?: string }
+> = {
+  "/mots-meles-thematiques/fruits/": {
+    heroAlt:
+      "Un enfant souriant résout une grille de mots mêlés entouré de personnages fruits amusants (pomme, banane, fraise, orange)",
+    heroCaption: "Apprends les noms des fruits en français en t'amusant.",
+  },
+  "/mots-meles-thematiques/animaux/": {
+    previewAlt:
+      "Aperçu d'une grille de mots mêlés imprimable sur le thème des animaux, avec lion, éléphant et girafe illustrés",
+    previewCaption: "Une grille prête à imprimer, avec ses crayons de couleur.",
+  },
+}
+
 function slugFromPath(canonicalPath: string): string {
   return canonicalPath.replace(/^\/+|\/+$/g, "").replace(/\//g, "-") || "accueil"
 }
@@ -42,20 +65,21 @@ export function getCategoryIllustrations(
 ): { hero: IllustrationSpec; preview: IllustrationSpec } {
   const baseSlug = slugFromPath(category.canonicalPath)
   const title = category.h1
+  const overrides = ILLUSTRATION_COPY_OVERRIDES[category.canonicalPath]
 
   return {
     hero: {
       src: `/images/heroes/${baseSlug}-hero.webp`,
-      alt: `${title} — illustration`,
+      alt: overrides?.heroAlt ?? `Enfants et enseignante s'amusant avec une grille de mots mêlés — ${title}`,
       title,
-      caption: `Découvre nos grilles : ${title.toLowerCase()}.`,
+      caption: overrides?.heroCaption ?? `Découvre nos grilles : ${title.toLowerCase()}.`,
       ...HERO_DIMENSIONS,
     },
     preview: {
       src: `/images/previews/${baseSlug}-preview.webp`,
-      alt: `Aperçu d'une grille imprimable — ${title}`,
+      alt: overrides?.previewAlt ?? `Aperçu d'une grille de mots mêlés imprimable — ${title}`,
       title: `Exemple de grille — ${title}`,
-      caption: "Chaque grille est prête à imprimer ou à jouer en ligne.",
+      caption: overrides?.previewCaption ?? "Chaque grille est prête à imprimer ou à jouer en ligne.",
       ...PREVIEW_DIMENSIONS,
     },
   }

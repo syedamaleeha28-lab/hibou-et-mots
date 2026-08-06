@@ -34,6 +34,7 @@ export function buildCategoryPageSchemaGraph(
       url: heroIllustration.src,
       width: heroIllustration.width,
       height: heroIllustration.height,
+      caption: heroIllustration.caption,
     },
   })
   const faqPage = category.schema.faqPage

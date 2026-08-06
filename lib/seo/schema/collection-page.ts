@@ -14,7 +14,7 @@ export function buildCollectionPageSchema(input: {
   siteUrl?: string
   itemListId: string
   numberOfItems?: number
-  image?: { url: string; width: number; height: number }
+  image?: { url: string; width: number; height: number; caption?: string }
 }): CollectionPageSchema {
   const base = (input.siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL).replace(/\/$/, "")
   const pageUrl = absoluteUrl(input.path, base)
@@ -37,6 +37,7 @@ export function buildCollectionPageSchema(input: {
             url: absoluteUrl(input.image.url, base),
             width: input.image.width,
             height: input.image.height,
+            ...(input.image.caption ? { caption: input.image.caption } : {}),
           },
         }
       : {}),

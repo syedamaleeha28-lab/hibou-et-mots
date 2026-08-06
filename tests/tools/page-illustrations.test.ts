@@ -42,6 +42,24 @@ describe("getCategoryIllustrations", () => {
     expect(preview.alt).toContain("Mots Mêlés Seniors")
   })
 
+  it("uses richer hand-crafted copy for pages with a known override, generic default otherwise", () => {
+    const withOverride = getCategoryIllustrations({
+      canonicalPath: "/mots-meles-thematiques/fruits/",
+      h1: "Mots Mêlés Fruits",
+    })
+    expect(withOverride.hero.alt).toContain("fruits")
+    expect(withOverride.hero.alt).not.toBe("Mots Mêlés Fruits — illustration")
+
+    const withoutOverride = getCategoryIllustrations({
+      canonicalPath: "/mots-meles-thematiques/legumes/",
+      h1: "Mots Mêlés Légumes",
+    })
+    // A page with no override still gets a complete, non-empty alt — the
+    // system works correctly even with zero entries in the override table.
+    expect(withoutOverride.hero.alt.length).toBeGreaterThan(0)
+    expect(withoutOverride.hero.alt).toContain("Mots Mêlés Légumes")
+  })
+
   it("uses the standard hero (16:9) and preview (4:3) dimensions", () => {
     const { hero, preview } = getCategoryIllustrations({
       canonicalPath: "/mots-meles-thematiques/animaux/",

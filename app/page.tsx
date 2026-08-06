@@ -15,6 +15,8 @@ import {
   HomeGeneratorTeaser,
 } from "@/components/templates/home"
 import { AllGamesGrid } from "@/components/templates/home/all-games-grid"
+import { PageIllustration } from "@/components/ui/page-illustration"
+import { HOMEPAGE_ILLUSTRATION } from "@/lib/images/homepage-illustration"
 import { SchemaJsonLd } from "@/components/seo"
 import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { buildHomeMetadata } from "@/lib/seo/metadata"
@@ -31,6 +33,9 @@ export default function Home() {
     <>
       <SchemaJsonLd data={schemaGraph} />
       <Hero />
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <PageIllustration variant="hero" illustration={HOMEPAGE_ILLUSTRATION} />
+      </div>
       <AllGamesGrid />
       <FeaturedCategories />
       <PopularPuzzles />

@@ -19,7 +19,7 @@ export function PageIllustration({ variant, illustration, className }: PageIllus
   const { src, alt, title, caption, width, height } = illustration
 
   return (
-    <figure className={cn("overflow-hidden rounded-3xl", className)}>
+    <figure className={cn("mx-auto overflow-hidden rounded-3xl max-w-2xl", className)}>
       <Image
         src={src}
         alt={alt}

@@ -1,5 +1,5 @@
 import type { PrismaClient } from "@prisma/client"
-import type { CategoryType } from "@/lib/db/types/page-data"
+import type { CategoryType, FaqItem } from "@/lib/db/types/page-data"
 import {
   HUB_CATEGORY_SLUGS,
   MVP_P1_COMBOS,
@@ -40,6 +40,8 @@ function themePageTitle(slug: string, name: string): string {
 }
 
 export type CategorySeedDefinition = {
+  /** Added for PT-BR pack. All existing (French) definitions are tagged "fr" below. */
+  locale: string
   slug: string
   type: CategoryType
   parentSlug?: string
@@ -51,11 +53,18 @@ export type CategorySeedDefinition = {
   seoTitle: string
   metaDescription: string
   introText: string
+  /**
+   * Added for PT-BR pack. French definitions leave this undefined and fall
+   * back to the required getCategoryFaq(slug) lookup (unchanged behavior).
+   * Non-French definitions MUST set this explicitly — getCategoryFaq only
+   * knows French slugs.
+   */
+  faqJson?: FaqItem[]
   isHub?: boolean
   isStaticSupport?: boolean
 }
 
-const HUB_DEFINITIONS: CategorySeedDefinition[] = [
+const HUB_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = [
   {
     slug: HUB_CATEGORY_SLUGS.gratuits,
     type: "AUDIENCE",
@@ -135,7 +144,7 @@ const HUB_DEFINITIONS: CategorySeedDefinition[] = [
   },
 ]
 
-const GRADE_DEFINITIONS: CategorySeedDefinition[] = gradeSeed.map((grade) => ({
+const GRADE_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = gradeSeed.map((grade) => ({
   slug: grade.slug,
   type: "GRADE",
   parentSlug: HUB_CATEGORY_SLUGS.ecole,
@@ -146,7 +155,7 @@ const GRADE_DEFINITIONS: CategorySeedDefinition[] = gradeSeed.map((grade) => ({
   introText: grade.introText,
 }))
 
-const THEME_DEFINITIONS: CategorySeedDefinition[] = themeSeed
+const THEME_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = themeSeed
   .filter((theme) => !theme.isSeasonal)
   .map((theme) => ({
     slug: theme.slug,
@@ -161,7 +170,7 @@ const THEME_DEFINITIONS: CategorySeedDefinition[] = themeSeed
     introText: getPhase1Intro(theme.slug) ?? themeCategoryIntro(theme.name),
   }))
 
-const SEASONAL_DEFINITIONS: CategorySeedDefinition[] = themeSeed
+const SEASONAL_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = themeSeed
   .filter((theme) => theme.isSeasonal)
   .map((theme) => ({
     slug: theme.slug,
@@ -177,7 +186,7 @@ const SEASONAL_DEFINITIONS: CategorySeedDefinition[] = themeSeed
     isHub: false,
   }))
 
-const DIFFICULTY_DEFINITIONS: CategorySeedDefinition[] = difficultySeed.map((level) => ({
+const DIFFICULTY_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = difficultySeed.map((level) => ({
   slug: level.slug,
   type: "DIFFICULTY",
   parentSlug: HUB_CATEGORY_SLUGS.difficulte,
@@ -188,7 +197,7 @@ const DIFFICULTY_DEFINITIONS: CategorySeedDefinition[] = difficultySeed.map((lev
   introText: `Sélection de grilles ${level.name.toLowerCase()} pour progresser à votre rythme.`,
 }))
 
-const AUDIENCE_DEFINITIONS: CategorySeedDefinition[] = [
+const AUDIENCE_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = [
   {
     slug: "enfants",
     type: "AUDIENCE",
@@ -217,7 +226,7 @@ const AUDIENCE_DEFINITIONS: CategorySeedDefinition[] = [
   },
 ]
 
-const STATIC_SUPPORT_DEFINITIONS: CategorySeedDefinition[] = [
+const STATIC_SUPPORT_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = [
   {
     slug: "pedagogie",
     type: "AUDIENCE",
@@ -280,7 +289,7 @@ const STATIC_SUPPORT_DEFINITIONS: CategorySeedDefinition[] = [
   },
 ]
 
-const COMBO_DEFINITIONS: CategorySeedDefinition[] = MVP_P1_COMBOS.map(({ grade, theme }) => {
+const COMBO_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = MVP_P1_COMBOS.map(({ grade, theme }) => {
   const gradeDef = gradeSeed.find((entry) => entry.slug === grade)!
   const themeDef = themeSeed.find((entry) => entry.slug === theme)!
   return {
@@ -296,7 +305,7 @@ const COMBO_DEFINITIONS: CategorySeedDefinition[] = MVP_P1_COMBOS.map(({ grade, 
   }
 })
 
-const PRESS_DEFINITIONS: CategorySeedDefinition[] = MVP_PRESS_BRANDS.map((brand) => ({
+const PRESS_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = MVP_PRESS_BRANDS.map((brand) => ({
   slug: brand.slug,
   type: "PRESS_BRAND",
   parentSlug: HUB_CATEGORY_SLUGS.presse,
@@ -307,6 +316,7 @@ const PRESS_DEFINITIONS: CategorySeedDefinition[] = MVP_PRESS_BRANDS.map((brand)
   introText: `Retrouvez le style des grilles de ${brand.name} en version web et PDF.`,
 }))
 
+/** French category definitions — unchanged content, now explicitly tagged locale: "fr". */
 export const CATEGORY_SEED_DEFINITIONS: CategorySeedDefinition[] = [
   ...HUB_DEFINITIONS,
   ...GRADE_DEFINITIONS,
@@ -317,7 +327,7 @@ export const CATEGORY_SEED_DEFINITIONS: CategorySeedDefinition[] = [
   ...STATIC_SUPPORT_DEFINITIONS,
   ...COMBO_DEFINITIONS,
   ...PRESS_DEFINITIONS,
-]
+].map((def) => ({ ...def, locale: "fr" }))
 
 export async function seedPressBrands(prisma: PrismaClient) {
   for (const brand of MVP_PRESS_BRANDS) {
@@ -337,68 +347,89 @@ export async function seedPressBrands(prisma: PrismaClient) {
   }
 }
 
-export async function seedCategories(prisma: PrismaClient): Promise<Map<string, string>> {
-  const gradeIdBySlug = new Map(
-    (await prisma.grade.findMany()).map((grade) => [grade.slug, grade.id]),
-  )
-  const themeIdBySlug = new Map(
-    (await prisma.theme.findMany()).map((theme) => [theme.slug, theme.id]),
-  )
-  const difficultyIdBySlug = new Map(
-    (await prisma.difficulty.findMany()).map((difficulty) => [difficulty.slug, difficulty.id]),
-  )
-  const pressBrandIdBySlug = new Map(
-    (await prisma.pressBrand.findMany()).map((brand) => [brand.slug, brand.id]),
-  )
+/**
+ * Generic, locale-driven category seeding.
+ *
+ * PT-BR pack changes from the original:
+ * - Accepts `definitions` explicitly instead of always using the French
+ *   constant — call with [...CATEGORY_SEED_DEFINITIONS, ...PT_CATEGORY_SEED_DEFINITIONS]
+ *   to seed both locales in one pass.
+ * - Every DB lookup/upsert now scopes by (locale, slug) via `findFirst` +
+ *   branch, since `slug` alone is no longer unique post-migration.
+ * - Returns a Map keyed by "locale:slug" (not just slug), since the same
+ *   slug string (e.g. "hub-imprimer") now legitimately exists once per
+ *   locale.
+ */
+export async function seedCategories(
+  prisma: PrismaClient,
+  definitions: CategorySeedDefinition[],
+): Promise<Map<string, string>> {
+  const grades = await prisma.grade.findMany()
+  const themes = await prisma.theme.findMany()
+  const difficulties = await prisma.difficulty.findMany()
+  const pressBrands = await prisma.pressBrand.findMany()
 
-  const categoryIdBySlug = new Map<string, string>()
+  const gradeIdByLocaleSlug = new Map(grades.map((g) => [`${g.locale}:${g.slug}`, g.id]))
+  const themeIdByLocaleSlug = new Map(themes.map((t) => [`${t.locale}:${t.slug}`, t.id]))
+  const difficultyIdByLocaleSlug = new Map(difficulties.map((d) => [`${d.locale}:${d.slug}`, d.id]))
+  const pressBrandIdBySlug = new Map(pressBrands.map((b) => [b.slug, b.id]))
 
-  for (const def of CATEGORY_SEED_DEFINITIONS) {
-    const faqJson = getCategoryFaq(def.slug)
+  const categoryIdByLocaleSlug = new Map<string, string>()
+
+  for (const def of definitions) {
+    // French definitions rely on the existing required-FAQ lookup; other
+    // locales must supply faqJson directly (getCategoryFaq only knows
+    // French slugs).
+    const faqJson =
+      def.faqJson ??
+      (def.locale === "fr" ? getCategoryFaq(def.slug) : undefined)
     if (!faqJson) {
-      throw new Error(`Missing category FAQ for slug: ${def.slug}`)
+      throw new Error(`Missing category FAQ for locale "${def.locale}", slug: ${def.slug}`)
     }
+
+    // Safe for non-French locales too: getPhase1Intro only recognizes
+    // French slugs, so it returns undefined for e.g. "animais"/"facil"
+    // and falls through to def.introText.
     const introText = getPhase1Intro(def.slug) ?? def.introText
 
-    const record = await prisma.category.upsert({
-      where: { slug: def.slug },
-      create: {
-        type: def.type,
-        slug: def.slug,
-        h1: def.h1,
-        seoTitle: def.seoTitle,
-        metaDescription: def.metaDescription,
-        introText,
-        faqJson,
-        status: "PUBLISHED",
-        minPuzzleThreshold: 4,
-        gradeId: def.gradeSlug ? gradeIdBySlug.get(def.gradeSlug) : null,
-        themeId: def.themeSlug ? themeIdBySlug.get(def.themeSlug) : null,
-        difficultyId: def.difficultySlug ? difficultyIdBySlug.get(def.difficultySlug) : null,
-        pressBrandId: def.pressBrandSlug ? pressBrandIdBySlug.get(def.pressBrandSlug) : null,
-      },
-      update: {
-        type: def.type,
-        h1: def.h1,
-        seoTitle: def.seoTitle,
-        metaDescription: def.metaDescription,
-        introText,
-        faqJson,
-        status: "PUBLISHED",
-        gradeId: def.gradeSlug ? gradeIdBySlug.get(def.gradeSlug) : null,
-        themeId: def.themeSlug ? themeIdBySlug.get(def.themeSlug) : null,
-        difficultyId: def.difficultySlug ? difficultyIdBySlug.get(def.difficultySlug) : null,
-        pressBrandId: def.pressBrandSlug ? pressBrandIdBySlug.get(def.pressBrandSlug) : null,
-      },
+    const gradeId = def.gradeSlug ? gradeIdByLocaleSlug.get(`${def.locale}:${def.gradeSlug}`) : null
+    const themeId = def.themeSlug ? themeIdByLocaleSlug.get(`${def.locale}:${def.themeSlug}`) : null
+    const difficultyId = def.difficultySlug
+      ? difficultyIdByLocaleSlug.get(`${def.locale}:${def.difficultySlug}`)
+      : null
+    const pressBrandId = def.pressBrandSlug ? pressBrandIdBySlug.get(def.pressBrandSlug) : null
+
+    const existing = await prisma.category.findFirst({
+      where: { locale: def.locale, slug: def.slug },
     })
 
-    categoryIdBySlug.set(def.slug, record.id)
+    const data = {
+      locale: def.locale,
+      type: def.type,
+      slug: def.slug,
+      h1: def.h1,
+      seoTitle: def.seoTitle,
+      metaDescription: def.metaDescription,
+      introText,
+      faqJson,
+      status: "PUBLISHED" as const,
+      gradeId: gradeId ?? null,
+      themeId: themeId ?? null,
+      difficultyId: difficultyId ?? null,
+      pressBrandId: pressBrandId ?? null,
+    }
+
+    const record = existing
+      ? await prisma.category.update({ where: { id: existing.id }, data })
+      : await prisma.category.create({ data: { ...data, minPuzzleThreshold: 4 } })
+
+    categoryIdByLocaleSlug.set(`${def.locale}:${def.slug}`, record.id)
   }
 
-  for (const def of CATEGORY_SEED_DEFINITIONS) {
+  for (const def of definitions) {
     if (!def.parentSlug) continue
-    const parentId = categoryIdBySlug.get(def.parentSlug)
-    const childId = categoryIdBySlug.get(def.slug)
+    const parentId = categoryIdByLocaleSlug.get(`${def.locale}:${def.parentSlug}`)
+    const childId = categoryIdByLocaleSlug.get(`${def.locale}:${def.slug}`)
     if (!parentId || !childId) continue
 
     await prisma.category.update({
@@ -407,7 +438,7 @@ export async function seedCategories(prisma: PrismaClient): Promise<Map<string, 
     })
   }
 
-  return categoryIdBySlug
+  return categoryIdByLocaleSlug
 }
 
 export async function clearContentSeed(prisma: PrismaClient) {

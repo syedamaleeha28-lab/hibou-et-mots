@@ -208,8 +208,9 @@ export function buildPuzzlePlan(): PuzzleSeedSpec[] {
 
 type WordBankByTheme = Map<string, ThemeWordInput[]>
 
-async function loadWordBanks(prisma: PrismaClient): Promise<WordBankByTheme> {
+async function loadWordBanks(prisma: PrismaClient, locale = "fr"): Promise<WordBankByTheme> {
   const rows = await prisma.themeWord.findMany({
+    where: { theme: { locale } },
     include: { theme: { select: { slug: true } } },
   })
 
@@ -260,20 +261,47 @@ function selectWordsWithFallback(
   throw lastError
 }
 
-export async function seedPuzzles(
+/**
+ * PT-BR pack: generalized core, parameterized by locale. `seedPuzzles`
+ * (below) is now a thin wrapper around this for French — same exported
+ * name/signature as before, so nothing else that imports it needs to
+ * change.
+ *
+ * IMPORTANT: `categoryIdBySlug` here is expected to be keyed by
+ * "locale:slug" (as returned by the updated `seedCategories` in
+ * categories.ts), not by bare slug.
+ */
+export async function seedLocalizedPuzzles(
   prisma: PrismaClient,
+  locale: string,
+  specs: PuzzleSeedSpec[],
   categoryIdBySlug: Map<string, string>,
+  themeNameBySlug: Map<string, string>,
 ): Promise<{ puzzleCount: number; linkCount: number }> {
-  const specs = buildPuzzlePlan()
-  const wordBanks = await loadWordBanks(prisma)
+  const wordBanks = await loadWordBanks(prisma, locale)
 
   const difficultyIdBySlug = new Map(
-    (await prisma.difficulty.findMany()).map((entry) => [entry.slug, entry.id]),
+    (await prisma.difficulty.findMany({ where: { locale } })).map((entry) => [entry.slug, entry.id]),
   )
-  const gradeIdBySlug = new Map((await prisma.grade.findMany()).map((entry) => [entry.slug, entry.id]))
-  const themeIdBySlug = new Map((await prisma.theme.findMany()).map((entry) => [entry.slug, entry.id]))
+  const gradeIdBySlug = new Map(
+    (await prisma.grade.findMany({ where: { locale } })).map((entry) => [entry.slug, entry.id]),
+  )
+  const themeIdBySlug = new Map(
+    (await prisma.theme.findMany({ where: { locale } })).map((entry) => [entry.slug, entry.id]),
+  )
 
-  const batchRequests = specs.map((spec) => {
+  const emptyBankThemes = [
+    ...new Set(specs.map((spec) => spec.themeSlug).filter((slug) => (wordBanks.get(slug) ?? []).length === 0)),
+  ]
+  if (emptyBankThemes.length > 0) {
+    console.warn(
+      `  · [${locale}] skipping themes with empty word banks: ${emptyBankThemes.join(", ")}`,
+    )
+  }
+
+  const specsWithBanks = specs.filter((spec) => (wordBanks.get(spec.themeSlug) ?? []).length > 0)
+
+  const batchRequests = specsWithBanks.map((spec) => {
     const bank = wordBanks.get(spec.themeSlug) ?? []
     const gradeOrder = gradeOrderForSlug(spec.gradeSlug)
     const words = selectWordsWithFallback(bank, gradeOrder, spec.difficulty, spec.seed)
@@ -282,6 +310,10 @@ export async function seedPuzzles(
       grade: spec.gradeSlug,
       words,
       seed: spec.seed,
+      // Explicit rather than relying on the grade-driven default: accented
+      // languages (French, Portuguese) need this true or letters get
+      // silently dropped rather than accent-stripped. See normalize.ts.
+      simplifyAccents: true,
     })
     return { id: spec.id, options }
   })
@@ -292,17 +324,17 @@ export async function seedPuzzles(
       .slice(0, 5)
       .map((failure) => `${failure.id}: ${failure.message}`)
       .join("; ")
-    throw new Error(`Puzzle generation failed for ${batch.failures.length} specs. ${summary}`)
+    throw new Error(`[${locale}] Puzzle generation failed for ${batch.failures.length} specs. ${summary}`)
   }
 
   const resultById = new Map(batch.successes.map((entry) => [entry.id, entry.result]))
   let linkCount = 0
 
-  for (const spec of specs) {
+  for (const spec of specsWithBanks) {
     const result = resultById.get(spec.id)
     if (!result) continue
 
-    const themeName = themeSeed.find((entry) => entry.slug === spec.themeSlug)?.name ?? spec.themeSlug
+    const themeName = themeNameBySlug.get(spec.themeSlug) ?? spec.themeSlug
     const payload = toPrismaPuzzlePayload(result, {
       slug: spec.slug,
       title: spec.title,
@@ -311,14 +343,21 @@ export async function seedPuzzles(
       themeId: themeIdBySlug.get(spec.themeSlug),
     })
 
+    const metaTitle = `${themeName} — ${spec.title}`
+    const metaDescription =
+      locale === "pt-BR"
+        ? `Jogue e imprima este caça-palavras grátis sobre ${themeName}. Grade ${result.size}×${result.size}, nível ${spec.difficulty}.`
+        : `Jouez et imprimez ce mots mêlés gratuit sur le thème ${themeName}. Grille ${result.size}×${result.size}, difficulté ${spec.difficulty}.`
+
     const puzzle = await prisma.puzzle.upsert({
       where: { slug: spec.slug },
       create: {
         ...payload,
+        language: locale,
         status: "PUBLISHED",
         viewCount: spec.viewCount,
-        metaTitle: `Mots mêlés ${themeName} — ${spec.title}`,
-        metaDescription: `Jouez et imprimez ce mots mêlés gratuit sur le thème ${themeName}. Grille ${result.size}×${result.size}, difficulté ${spec.difficulty}.`,
+        metaTitle,
+        metaDescription,
       },
       update: {
         title: payload.title,
@@ -329,16 +368,17 @@ export async function seedPuzzles(
         difficultyId: payload.difficultyId,
         gradeId: payload.gradeId ?? null,
         themeId: payload.themeId ?? null,
+        language: locale,
         status: "PUBLISHED",
         viewCount: spec.viewCount,
-        metaTitle: `Mots mêlés ${themeName} — ${spec.title}`,
-        metaDescription: `Jouez et imprimez ce mots mêlés gratuit sur le thème ${themeName}. Grille ${result.size}×${result.size}, difficulté ${spec.difficulty}.`,
+        metaTitle,
+        metaDescription,
       },
     })
 
     const categorySlugs = [...new Set(spec.categorySlugs)]
     for (const categorySlug of categorySlugs) {
-      const categoryId = categoryIdBySlug.get(categorySlug)
+      const categoryId = categoryIdBySlug.get(`${locale}:${categorySlug}`)
       if (!categoryId) continue
       await prisma.categoryPuzzle.upsert({
         where: {
@@ -351,10 +391,24 @@ export async function seedPuzzles(
     }
   }
 
-  // Press brand categories: link top puzzles per brand
+  return { puzzleCount: specsWithBanks.length, linkCount }
+}
+
+/** French puzzle seeding — same name/signature as before this pack. */
+export async function seedPuzzles(
+  prisma: PrismaClient,
+  categoryIdBySlug: Map<string, string>,
+): Promise<{ puzzleCount: number; linkCount: number }> {
+  const specs = buildPuzzlePlan()
+  const themeNameBySlug = new Map(themeSeed.map((t) => [t.slug, t.name]))
+
+  const result = await seedLocalizedPuzzles(prisma, "fr", specs, categoryIdBySlug, themeNameBySlug)
+
+  // Press brand + static-support + audience bonus linking — French-only,
+  // unchanged from the original, just updated to composite category keys.
   let pressIndex = 0
   for (const brand of MVP_PRESS_BRANDS) {
-    const categoryId = categoryIdBySlug.get(brand.slug)
+    const categoryId = categoryIdBySlug.get(`fr:${brand.slug}`)
     if (!categoryId) continue
     const pressPuzzles = specs
       .filter((spec) => spec.themeSlug === "animaux" || spec.themeSlug === "sport")
@@ -367,12 +421,11 @@ export async function seedPuzzles(
         create: { categoryId, puzzleId: puzzle.id },
         update: {},
       })
-      linkCount += 1
+      result.linkCount += 1
     }
     pressIndex += 2
   }
 
-  // Static support + audience pages: link representative puzzles
   const supportSlugs = [
     "pedagogie",
     "personnages",
@@ -385,7 +438,7 @@ export async function seedPuzzles(
   ]
   const supportPuzzles = specs.slice(0, 6)
   for (const supportSlug of supportSlugs) {
-    const categoryId = categoryIdBySlug.get(supportSlug)
+    const categoryId = categoryIdBySlug.get(`fr:${supportSlug}`)
     if (!categoryId) continue
     for (const spec of supportPuzzles) {
       const puzzle = await prisma.puzzle.findUnique({ where: { slug: spec.slug } })
@@ -395,11 +448,11 @@ export async function seedPuzzles(
         create: { categoryId, puzzleId: puzzle.id },
         update: {},
       })
-      linkCount += 1
+      result.linkCount += 1
     }
   }
 
-  return { puzzleCount: specs.length, linkCount }
+  return result
 }
 
 export const EXPECTED_PUZZLE_COUNT_MIN = 100

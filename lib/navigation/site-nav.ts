@@ -24,27 +24,10 @@ export type MegaMenuPanel = {
   featured?: NavLink[]
 }
 
-/**
- * PT-BR pack: the site had 18 live Portuguese pages with genuinely no
- * link to them anywhere in the site's own navigation — not in the
- * header, not in the footer. They were only reachable by direct URL or
- * via the sitemap. Deliberately minimal for now (a single link, not a
- * full language switcher with per-page French↔Portuguese mapping) since
- * there are only 6 PT category pages today; worth revisiting once PT
- * content grows enough that mapping "this French page's PT equivalent"
- * is worth building.
- */
-const PORTUGUESE_HUB_LINK: NavLink = {
-  label: "Português",
-  href: "/caca-palavras-para-imprimir/",
-  description: "Caça-palavras em português",
-}
-
 /** PRD §9 — desktop header primary actions */
 export const headerPrimaryLinks: NavLink[] = [
   { label: "Jouer en ligne", href: ROUTES.jouer },
   { label: "Créer ma grille", href: ROUTES.generateur },
-  PORTUGUESE_HUB_LINK,
 ]
 
 export const imprimerMegaMenu: MegaMenuPanel = {
@@ -150,10 +133,56 @@ export const plusMegaMenu: MegaMenuPanel = {
   ],
 }
 
+/**
+ * PT-BR pack: upgraded from a single flat header link. A flat link only
+ * gets a visitor INTO the Portuguese section — once there, every other
+ * header item (Imprimer/École/Plus) is still the French mega-menu with
+ * no locale awareness, so clicking anything else immediately drops the
+ * visitor back into French content with no way back except re-clicking
+ * this same entry point. A real dropdown, matching the same pattern as
+ * the French menus, lets a visitor move between all Portuguese pages
+ * without ever losing their place in that section.
+ *
+ * Covers all 8 real PT-BR category pages that exist today (the 6
+ * original ones plus the 2 hub index pages added later —
+ * /caca-palavras-nivel/ and /caca-palavras-tematicos/).
+ */
+export const portuguesMegaMenu: MegaMenuPanel = {
+  id: "portugues",
+  label: "Português",
+  featured: [
+    {
+      label: "Caça-Palavras para Imprimir",
+      href: "/caca-palavras-para-imprimir/",
+      description: "Grades grátis em PDF",
+    },
+  ],
+  sections: [
+    {
+      title: "Por dificuldade",
+      links: [
+        { label: "Todos os níveis", href: "/caca-palavras-nivel/" },
+        { label: "Fácil", href: "/caca-palavras-nivel/facil/" },
+        { label: "Médio", href: "/caca-palavras-nivel/medio/" },
+        { label: "Difícil", href: "/caca-palavras-nivel/dificil/" },
+      ],
+    },
+    {
+      title: "Por tema",
+      links: [
+        { label: "Todos os temas", href: "/caca-palavras-tematicos/" },
+        { label: "Animais", href: "/caca-palavras-tematicos/animais/" },
+        { label: "Esporte", href: "/caca-palavras-tematicos/esporte/" },
+      ],
+    },
+  ],
+}
+
 export const headerMegaMenus: MegaMenuPanel[] = [
   imprimerMegaMenu,
   ecoleMegaMenu,
   plusMegaMenu,
+  portuguesMegaMenu,
 ]
 
 /** PRD §9 — mobile bottom tab bar (≥44px touch targets) */
@@ -218,9 +247,11 @@ export const footerSiloColumns: NavSection[] = [
       { label: "Ressources enseignants", href: ROUTES.ressources },
     ],
   },
-  // PT-BR pack: dedicated footer silo so the Portuguese section is
-  // discoverable on mobile too (headerPrimaryLinks only renders in the
-  // desktop nav — see site-header.tsx's "hidden ... lg:flex" wrapper).
+  // PT-BR pack: footer still carries a compact Português column too, for
+  // mobile visitors — the dropdown above only renders in the desktop nav
+  // (see site-header.tsx's "hidden ... lg:flex" wrapper), same reason
+  // the French mega-menus don't reach mobile without MobileNavDrawer
+  // handling them separately.
   {
     title: "Português",
     links: [

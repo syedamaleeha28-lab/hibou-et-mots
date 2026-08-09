@@ -22,8 +22,13 @@ describe("site navigation", () => {
     expect(ROUTES.home).toBe("/")
   })
 
-  it("defines PRD mega menus: Imprimer, École, Plus", () => {
-    expect(headerMegaMenus.map((m) => m.label)).toEqual(["Imprimer", "École", "Plus"])
+  it("defines mega menus: Imprimer, École, Plus, Português", () => {
+    expect(headerMegaMenus.map((m) => m.label)).toEqual([
+      "Imprimer",
+      "École",
+      "Plus",
+      "Português",
+    ])
   })
 
   it("includes imprimer sections for theme, grade, and difficulty", () => {
@@ -32,6 +37,25 @@ describe("site navigation", () => {
     expect(titles).toContain("Par thème")
     expect(titles).toContain("Par niveau")
     expect(titles).toContain("Par difficulté")
+  })
+
+  it("covers all 8 PT-BR category pages in the Português mega menu", () => {
+    const pt = headerMegaMenus.find((m) => m.id === "portugues")!
+    expect(pt.featured?.map((l) => l.href)).toEqual(["/caca-palavras-para-imprimir/"])
+    const hrefs = [
+      ...(pt.featured ?? []).map((l) => l.href),
+      ...pt.sections.flatMap((s) => s.links.map((l) => l.href)),
+    ]
+    expect(hrefs).toEqual([
+      "/caca-palavras-para-imprimir/",
+      "/caca-palavras-nivel/",
+      "/caca-palavras-nivel/facil/",
+      "/caca-palavras-nivel/medio/",
+      "/caca-palavras-nivel/dificil/",
+      "/caca-palavras-tematicos/",
+      "/caca-palavras-tematicos/animais/",
+      "/caca-palavras-tematicos/esporte/",
+    ])
   })
 
   it("defines five mobile bottom tabs per PRD", () => {

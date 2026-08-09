@@ -40,7 +40,26 @@ export async function seedReferenceDataAll(prisma: PrismaClient, log: SeedLogger
 
   for (const grade of gradeSeed) {
     const existing = await prisma.grade.findFirst({ where: { locale: "fr", slug: grade.slug } })
-    const data = { ...grade, locale: "fr" }
+    // Explicit field mapping, not a spread — gradeSeed entries carry an
+    // `h1` field (used elsewhere for category seoTitle fallback) that
+    // does NOT exist on the Prisma Grade model. Spreading `...grade`
+    // directly into create/update data throws "Unknown argument `h1`".
+    // This was already fixed once locally (Cursor caught it during the
+    // first local seed run) — reintroduced here by mistake when this
+    // file was written from an earlier version of the logic. Fixed for
+    // real this time via explicit fields, so it can't recur even if
+    // gradeSeed gains more extra fields later.
+    const data = {
+      locale: "fr",
+      slug: grade.slug,
+      name: grade.name,
+      ageRange: grade.ageRange,
+      order: grade.order,
+      defaultGridSize: grade.defaultGridSize,
+      seoTitle: grade.seoTitle,
+      metaDescription: grade.metaDescription,
+      introText: grade.introText,
+    }
     if (existing) {
       await prisma.grade.update({ where: { id: existing.id }, data })
     } else {

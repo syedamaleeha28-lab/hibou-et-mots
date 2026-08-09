@@ -55,31 +55,89 @@ function slugFromPath(canonicalPath: string): string {
 }
 
 /**
+ * PT-BR pack: no Portuguese illustration images have been generated yet —
+ * they're static pre-generated assets (see buildAiPrompt below), not
+ * something built at request time, and generating a full new PT-BR image
+ * set is a separate content task from this fix.
+ *
+ * Illustrations are generic, language-neutral scenes by design (the style
+ * guide explicitly forbids rendering any text/letters in the image), so
+ * as an interim measure each PT-BR category reuses the equivalent French
+ * category's already-generated image file as a visual stand-in. The
+ * alt/caption TEXT below is still correctly Portuguese — only the pixels
+ * are borrowed. Swap these out for real PT-BR-specific images whenever
+ * that generation pass happens; nothing else needs to change when it does.
+ *
+ * Keyed by category.slug (not path), since PT hub rows intentionally
+ * reuse the same slug strings as their French counterparts (see
+ * category-constants.ts) — locale is what disambiguates them, so slug
+ * alone isn't enough to build the right path, but IS enough to look up
+ * which French image to borrow.
+ */
+const PT_IMAGE_FALLBACK_BASE_SLUG: Record<string, string> = {
+  "hub-imprimer": "mots-meles-a-imprimer",
+  "hub-difficulte": "mots-meles-difficulte",
+  "hub-thematiques": "mots-meles-thematiques",
+  animais: "mots-meles-thematiques-animaux",
+  esporte: "mots-meles-thematiques-sport",
+  facil: "mots-meles-difficulte-facile",
+  medio: "mots-meles-difficulte-moyen",
+  dificil: "mots-meles-difficulte-difficile",
+}
+
+function resolveIllustrationBaseSlug(category: Pick<CategoryPageData, "canonicalPath" | "slug" | "locale">): string {
+  if (category.locale === "pt-BR") {
+    const fallback = PT_IMAGE_FALLBACK_BASE_SLUG[category.slug]
+    if (fallback) return fallback
+    // No mapping yet for this slug (e.g. a future PT grade/seasonal
+    // category) — falls through to the PT path's own slug, which will
+    // 404 on the image same as before this fix, but at least won't
+    // silently point at the wrong content either.
+  }
+  return slugFromPath(category.canonicalPath)
+}
+
+/**
  * Derives hero + preview illustration specs for ANY category page purely
  * from data already on the page object — no per-category/per-theme/per-grade
  * special-casing. Works identically for a theme page, a grade page, a
  * difficulty page, an audience page, or any future category type.
  */
 export function getCategoryIllustrations(
-  category: Pick<CategoryPageData, "canonicalPath" | "h1">,
+  category: Pick<CategoryPageData, "canonicalPath" | "slug" | "h1" | "locale">,
 ): { hero: IllustrationSpec; preview: IllustrationSpec } {
-  const baseSlug = slugFromPath(category.canonicalPath)
+  const baseSlug = resolveIllustrationBaseSlug(category)
   const title = category.h1
   const overrides = ILLUSTRATION_COPY_OVERRIDES[category.canonicalPath]
+  const isPt = category.locale === "pt-BR"
 
   return {
     hero: {
       src: `/images/heroes/${baseSlug}-hero.webp`,
-      alt: overrides?.heroAlt ?? `Enfants et enseignante s'amusant avec une grille de mots mêlés — ${title}`,
+      alt:
+        overrides?.heroAlt ??
+        (isPt
+          ? `Crianças e professora se divertindo com uma grade de caça-palavras — ${title}`
+          : `Enfants et enseignante s'amusant avec une grille de mots mêlés — ${title}`),
       title,
-      caption: overrides?.heroCaption ?? `Découvre nos grilles : ${title.toLowerCase()}.`,
+      caption:
+        overrides?.heroCaption ??
+        (isPt ? `Descubra nossas grades: ${title.toLowerCase()}.` : `Découvre nos grilles : ${title.toLowerCase()}.`),
       ...HERO_DIMENSIONS,
     },
     preview: {
       src: `/images/previews/${baseSlug}-preview.webp`,
-      alt: overrides?.previewAlt ?? `Aperçu d'une grille de mots mêlés imprimable — ${title}`,
-      title: `Exemple de grille — ${title}`,
-      caption: overrides?.previewCaption ?? "Chaque grille est prête à imprimer ou à jouer en ligne.",
+      alt:
+        overrides?.previewAlt ??
+        (isPt
+          ? `Prévia de uma grade de caça-palavras para imprimir — ${title}`
+          : `Aperçu d'une grille de mots mêlés imprimable — ${title}`),
+      title: isPt ? `Exemplo de grade — ${title}` : `Exemple de grille — ${title}`,
+      caption:
+        overrides?.previewCaption ??
+        (isPt
+          ? "Cada grade está pronta para imprimir ou jogar online."
+          : "Chaque grille est prête à imprimer ou à jouer en ligne."),
       ...PREVIEW_DIMENSIONS,
     },
   }

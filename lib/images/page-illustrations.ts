@@ -74,6 +74,20 @@ function slugFromPath(canonicalPath: string): string {
  * alone isn't enough to build the right path, but IS enough to look up
  * which French image to borrow.
  */
+// Confirmed present on disk (both -hero.webp and -preview.webp). Update
+// this as real French/PT assets get generated — anything not in this set
+// falls back to WORKING_STOPGAP_BASE_SLUG below rather than pointing at
+// a file we know 404s.
+const CONFIRMED_EXISTING_BASE_SLUGS = new Set<string>(["mots-meles-thematiques-animaux"])
+
+// Since illustrations never contain rendered text (see the style guide
+// above), there's no language-mismatch risk in reusing this one confirmed-
+// working image as a generic placeholder for any PT-BR page that doesn't
+// have its own asset yet — visually generic, not broken. Swap individual
+// PT_IMAGE_FALLBACK_BASE_SLUG entries to real PT-specific slugs as real
+// images get generated; this constant is just the last-resort default.
+const WORKING_STOPGAP_BASE_SLUG = "mots-meles-thematiques-animaux"
+
 const PT_IMAGE_FALLBACK_BASE_SLUG: Record<string, string> = {
   "hub-imprimer": "mots-meles-a-imprimer",
   "hub-difficulte": "mots-meles-difficulte",
@@ -88,11 +102,11 @@ const PT_IMAGE_FALLBACK_BASE_SLUG: Record<string, string> = {
 function resolveIllustrationBaseSlug(category: Pick<CategoryPageData, "canonicalPath" | "slug" | "locale">): string {
   if (category.locale === "pt-BR") {
     const fallback = PT_IMAGE_FALLBACK_BASE_SLUG[category.slug]
-    if (fallback) return fallback
-    // No mapping yet for this slug (e.g. a future PT grade/seasonal
-    // category) — falls through to the PT path's own slug, which will
-    // 404 on the image same as before this fix, but at least won't
-    // silently point at the wrong content either.
+    if (fallback && CONFIRMED_EXISTING_BASE_SLUGS.has(fallback)) return fallback
+    // Mapped French equivalent doesn't actually exist on disk (or no
+    // mapping at all yet) — use the one confirmed-working image as a
+    // generic stopgap rather than pointing at a file known to 404.
+    return WORKING_STOPGAP_BASE_SLUG
   }
   return slugFromPath(category.canonicalPath)
 }

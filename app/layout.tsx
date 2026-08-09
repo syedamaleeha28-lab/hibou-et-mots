@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Baloo_2, Nunito } from 'next/font/google'
+import { headers } from 'next/headers'
 import { MainShell } from '@/components/layout'
 import { DEFAULT_SITE_URL, resolveSiteOrigin } from '@/lib/seo/routes'
 import './globals.css'
@@ -60,14 +61,21 @@ export const viewport: Viewport = {
   themeColor: '#FFF4E2',
 }
 
-export default function RootLayout({
+// PT-BR pack: was a plain sync component with hardcoded lang="fr". Now
+// async so it can read the `x-locale` header set by middleware.ts and
+// pick the right <html lang> per request. See middleware.ts for the
+// accepted ISR→SSR tradeoff this introduces sitewide.
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const headersList = await headers()
+  const locale = headersList.get('x-locale') === 'pt-BR' ? 'pt-BR' : 'fr'
+
   return (
     <html
-      lang="fr"
+      lang={locale}
       className={`${baloo.variable} ${nunito.variable} bg-background`}
     >
       <body className="font-sans antialiased">

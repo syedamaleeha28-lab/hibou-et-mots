@@ -24,10 +24,27 @@ export type MegaMenuPanel = {
   featured?: NavLink[]
 }
 
+/**
+ * PT-BR pack: the site had 18 live Portuguese pages with genuinely no
+ * link to them anywhere in the site's own navigation — not in the
+ * header, not in the footer. They were only reachable by direct URL or
+ * via the sitemap. Deliberately minimal for now (a single link, not a
+ * full language switcher with per-page French↔Portuguese mapping) since
+ * there are only 6 PT category pages today; worth revisiting once PT
+ * content grows enough that mapping "this French page's PT equivalent"
+ * is worth building.
+ */
+const PORTUGUESE_HUB_LINK: NavLink = {
+  label: "Português",
+  href: "/caca-palavras-para-imprimir/",
+  description: "Caça-palavras em português",
+}
+
 /** PRD §9 — desktop header primary actions */
 export const headerPrimaryLinks: NavLink[] = [
   { label: "Jouer en ligne", href: ROUTES.jouer },
   { label: "Créer ma grille", href: ROUTES.generateur },
+  PORTUGUESE_HUB_LINK,
 ]
 
 export const imprimerMegaMenu: MegaMenuPanel = {
@@ -199,6 +216,17 @@ export const footerSiloColumns: NavSection[] = [
     links: [
       { label: "Jeux & magazines", href: ROUTES.jeuxMagazines },
       { label: "Ressources enseignants", href: ROUTES.ressources },
+    ],
+  },
+  // PT-BR pack: dedicated footer silo so the Portuguese section is
+  // discoverable on mobile too (headerPrimaryLinks only renders in the
+  // desktop nav — see site-header.tsx's "hidden ... lg:flex" wrapper).
+  {
+    title: "Português",
+    links: [
+      { label: "Caça-palavras para imprimir", href: "/caca-palavras-para-imprimir/" },
+      { label: "Por dificuldade", href: "/caca-palavras-nivel/" },
+      { label: "Por tema", href: "/caca-palavras-tematicos/" },
     ],
   },
 ]

@@ -45,8 +45,14 @@ describe("site navigation", () => {
     ])
   })
 
-  it("maps footer to six silo columns plus legal", () => {
-    expect(footerSiloColumns).toHaveLength(6)
+  it("maps footer to silo columns plus legal, including Português", () => {
+    expect(footerSiloColumns).toHaveLength(7)
     expect(footerSiloColumns[0]?.title).toBe("Hub principal")
+    expect(footerSiloColumns.at(-1)?.title).toBe("Português")
+    expect(footerSiloColumns.at(-1)?.links.map((l) => l.href)).toEqual([
+      "/caca-palavras-para-imprimir/",
+      "/caca-palavras-nivel/",
+      "/caca-palavras-tematicos/",
+    ])
   })
 })

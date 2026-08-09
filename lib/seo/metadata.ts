@@ -12,6 +12,12 @@ import {
 
 const SITE_NAME = "Hibou&Mots"
 
+/** Map internal locale tags to Open Graph locale format. */
+function toOgLocale(locale?: string | null): string {
+  if (locale === "pt-BR") return "pt_BR"
+  return "fr_FR"
+}
+
 export type SeoOverride = {
   title?: string | null
   metaDescription?: string | null
@@ -51,6 +57,8 @@ export function openGraphMetadata(input: {
   siteUrl?: string
   type?: "website" | "article"
   image?: string | null
+  /** PT-BR pack: internal locale ("fr" | "pt-BR"); defaults to French OG. */
+  locale?: string | null
 }): Metadata["openGraph"] {
   const url = buildCanonicalUrl({ path: input.canonicalPath, siteUrl: input.siteUrl })
   const imageUrl = resolveOgImageUrl({ override: input.image, siteUrl: input.siteUrl })
@@ -60,7 +68,7 @@ export function openGraphMetadata(input: {
     description: input.description,
     url,
     siteName: SITE_NAME,
-    locale: "fr_FR",
+    locale: toOgLocale(input.locale),
     type: input.type ?? "website",
     images: [
       {
@@ -114,6 +122,7 @@ export async function buildCategoryMetadata(
       siteUrl,
       type: "website",
       image: override?.ogImage,
+      locale: category.locale,
     }),
   }
 }
@@ -152,6 +161,7 @@ export async function buildPuzzleMetadata(
       siteUrl,
       type: "article",
       image: override?.ogImage,
+      locale: puzzle.language,
     }),
   }
 }

@@ -72,6 +72,13 @@ export type CategoryPageData = {
   id: string
   type: CategoryType
   slug: string
+  /**
+   * PT-BR pack: computed in mapCategoryToPageData but previously dropped
+   * from the returned object — needed so OG locale / other locale-aware
+   * metadata can branch without re-deriving from the URL. Optional so
+   * hand-built CategoryPageData fixtures keep compiling.
+   */
+  locale?: string
   h1: string
   introText: string
   faqJson: FaqItem[]

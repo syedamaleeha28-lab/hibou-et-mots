@@ -257,6 +257,9 @@ export function mapCategoryToPageData(
     id: category.id,
     type: category.type as CategoryType,
     slug: category.slug,
+    // PT-BR pack: was computed above but never returned — OG locale and
+    // other consumers had no way to know the category's locale.
+    locale,
     h1: category.h1,
     introText: category.introText,
     faqJson,

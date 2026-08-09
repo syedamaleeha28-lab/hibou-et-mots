@@ -33,3 +33,8 @@ tests/pdf/.artifacts/
 tmp-*.pdf
 claude-review-package/
 claude-review-package.zip
+.vercel
+.env*
+
+.admin-seed-secret.local
+

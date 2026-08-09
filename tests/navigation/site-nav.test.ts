@@ -22,12 +22,12 @@ describe("site navigation", () => {
     expect(ROUTES.home).toBe("/")
   })
 
-  it("defines mega menus: Imprimer, École, Plus, Português", () => {
+  it("defines mega menus: Imprimer, École, Plus, 🇧🇷 Português", () => {
     expect(headerMegaMenus.map((m) => m.label)).toEqual([
       "Imprimer",
       "École",
       "Plus",
-      "Português",
+      "🇧🇷 Português",
     ])
   })
 
@@ -72,7 +72,7 @@ describe("site navigation", () => {
   it("maps footer to silo columns plus legal, including Português", () => {
     expect(footerSiloColumns).toHaveLength(7)
     expect(footerSiloColumns[0]?.title).toBe("Hub principal")
-    expect(footerSiloColumns.at(-1)?.title).toBe("Português")
+    expect(footerSiloColumns.at(-1)?.title).toBe("🇧🇷 Português")
     expect(footerSiloColumns.at(-1)?.links.map((l) => l.href)).toEqual([
       "/caca-palavras-para-imprimir/",
       "/caca-palavras-nivel/",

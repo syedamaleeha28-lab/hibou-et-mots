@@ -149,7 +149,7 @@ export const plusMegaMenu: MegaMenuPanel = {
  */
 export const portuguesMegaMenu: MegaMenuPanel = {
   id: "portugues",
-  label: "Português",
+  label: "🇧🇷 Português",
   featured: [
     {
       label: "Caça-Palavras para Imprimir",
@@ -253,7 +253,7 @@ export const footerSiloColumns: NavSection[] = [
   // the French mega-menus don't reach mobile without MobileNavDrawer
   // handling them separately.
   {
-    title: "Português",
+    title: "🇧🇷 Português",
     links: [
       { label: "Caça-palavras para imprimir", href: "/caca-palavras-para-imprimir/" },
       { label: "Por dificuldade", href: "/caca-palavras-nivel/" },

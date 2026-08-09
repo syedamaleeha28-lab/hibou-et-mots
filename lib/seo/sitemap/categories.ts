@@ -107,6 +107,14 @@ export async function getCategorySitemapEntries(siteUrl?: string): Promise<Sitem
       const hub = isCategoryHub(category)
       const path = resolveCategoryPath({
         type: category.type as CategoryType,
+        // PT-BR pack: this was the actual bug. Without locale, every
+        // Portuguese category (including hub rows, which share hub slug
+        // strings with their French counterparts) resolved through the
+        // French branch of resolveCategoryPath — hub categories collapsed
+        // onto French hub URLs, and theme/difficulty categories produced
+        // French-shaped paths that don't correspond to any real PT route
+        // (they'd 404 if crawled).
+        locale: (category.locale as "fr" | "pt-BR" | undefined) ?? "fr",
         slug: category.slug,
         grade: category.grade,
         theme: category.theme,

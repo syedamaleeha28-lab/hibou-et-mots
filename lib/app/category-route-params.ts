@@ -1,6 +1,8 @@
 import { difficultySeed } from "@/prisma/seed/difficulties"
 import { gradeSeed } from "@/prisma/seed/grades"
 import { themeSeed } from "@/prisma/seed/themes"
+import { difficultySeedPt } from "@/prisma/seed/difficulties.pt"
+import { themeSeedPt } from "@/prisma/seed/themes.pt"
 import {
   MVP_P1_COMBOS,
   MVP_PRESS_BRANDS,
@@ -29,4 +31,16 @@ export function comboStaticParams() {
 
 export function pressBrandStaticParams() {
   return MVP_PRESS_BRANDS.map((brand) => ({ brand: brand.slug }))
+}
+
+// ------------------------------------------------------------
+// PT-BR pack additions (v1 scope: themes + difficulties only)
+// ------------------------------------------------------------
+
+export function ptThemeStaticParams() {
+  return themeSeedPt.map((theme) => ({ theme: theme.slug }))
+}
+
+export function ptDifficultyStaticParams() {
+  return difficultySeedPt.map((level) => ({ level: level.slug }))
 }

@@ -28,9 +28,26 @@ enum AdminRole {
   EDITOR
 }
 
+// ============================================================
+// LOCALE CHANGE (PT-BR pack): added `locale String @default("fr")`
+// to Grade, Theme, Difficulty, Category, and swapped their
+// `@unique` slug for `@@unique([locale, slug])`. This is additive
+// and backward-compatible: every existing row backfills to "fr"
+// via the @default, so no French route or query breaks.
+//
+// IMPORTANT: run `npx prisma migrate dev --name add_locale_support`
+// BEFORE deploying the updated lib/db/queries/category.ts in this
+// pack. If the DB migration hasn't run yet, any query that filters
+// on `locale` will throw (column doesn't exist), which the resolver
+// layer catches and silently falls back to mock data for BOTH
+// locales — French pages would look fine (mocks) but would stop
+// reading real DB content until you migrate.
+// ============================================================
+
 model Grade {
   id              String     @id @default(cuid())
-  slug            String     @unique
+  locale          String     @default("fr")
+  slug            String
   name            String
   ageRange        String     @map("age_range")
   order           Int
@@ -43,12 +60,14 @@ model Grade {
   createdAt       DateTime   @default(now()) @map("created_at")
   updatedAt       DateTime   @updatedAt @map("updated_at")
 
+  @@unique([locale, slug])
   @@map("grades")
 }
 
 model Theme {
   id              String      @id @default(cuid())
-  slug            String      @unique
+  locale          String      @default("fr")
+  slug            String
   name            String
   group           String
   iconUrl         String?     @map("icon_url")
@@ -64,6 +83,7 @@ model Theme {
   createdAt       DateTime    @default(now()) @map("created_at")
   updatedAt       DateTime    @updatedAt @map("updated_at")
 
+  @@unique([locale, slug])
   @@map("themes")
 }
 
@@ -81,7 +101,8 @@ model ThemeWord {
 
 model Difficulty {
   id           String     @id @default(cuid())
-  slug         String     @unique
+  locale       String     @default("fr")
+  slug         String
   name         String
   gridSizeMin  Int        @map("grid_size_min")
   gridSizeMax  Int        @map("grid_size_max")
@@ -91,6 +112,7 @@ model Difficulty {
   puzzles      Puzzle[]
   categories   Category[]
 
+  @@unique([locale, slug])
   @@map("difficulties")
 }
 
@@ -109,8 +131,9 @@ model PressBrand {
 
 model Category {
   id                 String           @id @default(cuid())
+  locale             String           @default("fr")
   type               CategoryType
-  slug               String           @unique
+  slug               String
   parentCategoryId   String?          @map("parent_category_id")
   parentCategory     Category?        @relation("CategoryHierarchy", fields: [parentCategoryId], references: [id])
   childCategories    Category[]       @relation("CategoryHierarchy")
@@ -133,8 +156,10 @@ model Category {
   createdAt          DateTime         @default(now()) @map("created_at")
   updatedAt          DateTime         @updatedAt @map("updated_at")
 
+  @@unique([locale, slug])
   @@index([type])
   @@index([status])
+  @@index([locale])
   @@map("categories")
 }
 

@@ -42,3 +42,23 @@ export const STATIC_SUPPORT_CATEGORY_SLUGS = [
 export function isStaticSupportCategorySlug(slug: string): boolean {
   return (STATIC_SUPPORT_CATEGORY_SLUGS as readonly string[]).includes(slug)
 }
+
+// ============================================================
+// PT-BR additions (v1 scope). Hub slugs are intentionally the SAME
+// strings as the French ones (e.g. "hub-imprimer") — that's safe now
+// because Category uniqueness is (locale, slug), not slug alone.
+// Reusing hub slugs across locales keeps HUB_CATEGORY_SLUGS as the
+// single source of truth for both languages.
+// ============================================================
+
+export const MVP_P0_THEME_SLUGS_PT = ["animais", "esporte"] as const
+
+export const MVP_P0_DIFFICULTY_SLUGS_PT = ["facil", "medio", "dificil"] as const
+
+export function isKnownPtThemeSlug(slug: string): boolean {
+  return (MVP_P0_THEME_SLUGS_PT as readonly string[]).includes(slug)
+}
+
+export function isKnownPtDifficultySlug(slug: string): boolean {
+  return (MVP_P0_DIFFICULTY_SLUGS_PT as readonly string[]).includes(slug)
+}

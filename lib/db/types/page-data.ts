@@ -98,6 +98,11 @@ export type PuzzlePageData = {
   id: string
   slug: string
   title: string
+  /** PT-BR pack: lets locale-aware UI (e.g. PuzzleHeader's H1 prefix)
+   *  branch correctly instead of hardcoding French. Optional so any
+   *  other existing callers that construct PuzzlePageData by hand
+   *  without setting it don't break. */
+  language?: string
   grid: string[][]
   wordList: Array<{
     word: string

@@ -1,6 +1,13 @@
 /**
  * Prisma query layer for category pages.
  * Route files call these functions; templates receive mapped `CategoryPageData`.
+ *
+ * PT-BR pack: every lookup now takes an optional `locale` (default "fr"),
+ * matching the (locale, slug) uniqueness added to the schema. Existing
+ * French call sites that don't pass `locale` are unaffected.
+ *
+ * IMPORTANT: requires `npx prisma migrate dev --name add_locale_support`
+ * to have been run — see prisma/schema.prisma notes in this pack.
  */
 import { prisma } from "@/lib/db/client"
 import type { CategoryType } from "@/lib/db/types/page-data"
@@ -42,20 +49,25 @@ const categoryIncludeWithCounts = {
   },
 } as const
 
-export async function getCategoryBySlug(slug: string): Promise<CategoryRecord | null> {
-  return prisma.category.findUnique({
-    where: { slug },
+export async function getCategoryBySlug(
+  slug: string,
+  locale = "fr",
+): Promise<CategoryRecord | null> {
+  return prisma.category.findFirst({
+    where: { slug, locale },
     include: categoryInclude,
   })
 }
 
 export async function getCategoryByThemeSlug(
   themeSlug: string,
+  locale = "fr",
 ): Promise<CategoryRecord | null> {
   return prisma.category.findFirst({
     where: {
       type: "THEME",
-      theme: { slug: themeSlug },
+      locale,
+      theme: { slug: themeSlug, locale },
     },
     include: categoryInclude,
   })
@@ -63,11 +75,13 @@ export async function getCategoryByThemeSlug(
 
 export async function getCategoryByGradeSlug(
   gradeSlug: string,
+  locale = "fr",
 ): Promise<CategoryRecord | null> {
   return prisma.category.findFirst({
     where: {
       type: "GRADE",
-      grade: { slug: gradeSlug },
+      locale,
+      grade: { slug: gradeSlug, locale },
     },
     include: categoryInclude,
   })
@@ -75,11 +89,13 @@ export async function getCategoryByGradeSlug(
 
 export async function getCategoryBySeasonalThemeSlug(
   themeSlug: string,
+  locale = "fr",
 ): Promise<CategoryRecord | null> {
   return prisma.category.findFirst({
     where: {
       type: "SEASONAL",
-      theme: { slug: themeSlug },
+      locale,
+      theme: { slug: themeSlug, locale },
     },
     include: categoryInclude,
   })
@@ -87,11 +103,13 @@ export async function getCategoryBySeasonalThemeSlug(
 
 export async function getCategoryByDifficultySlug(
   levelSlug: string,
+  locale = "fr",
 ): Promise<CategoryRecord | null> {
   return prisma.category.findFirst({
     where: {
       type: "DIFFICULTY",
-      difficulty: { slug: levelSlug },
+      locale,
+      difficulty: { slug: levelSlug, locale },
     },
     include: categoryInclude,
   })
@@ -100,6 +118,8 @@ export async function getCategoryByDifficultySlug(
 export async function getCategoryByPressBrandSlug(
   brandSlug: string,
 ): Promise<CategoryRecord | null> {
+  // PressBrand has no locale field (unchanged from original) — press hub
+  // is French-only for now.
   return prisma.category.findFirst({
     where: {
       type: "PRESS_BRAND",
@@ -112,12 +132,14 @@ export async function getCategoryByPressBrandSlug(
 export async function getComboCategory(
   gradeSlug: string,
   themeSlug: string,
+  locale = "fr",
 ): Promise<CategoryRecord | null> {
   return prisma.category.findFirst({
     where: {
       type: "COMBO",
-      grade: { slug: gradeSlug },
-      theme: { slug: themeSlug },
+      locale,
+      grade: { slug: gradeSlug, locale },
+      theme: { slug: themeSlug, locale },
     },
     include: categoryInclude,
   })
@@ -126,8 +148,9 @@ export async function getComboCategory(
 export async function getCategoryPageData(
   slug: string,
   page = 1,
+  locale = "fr",
 ): Promise<CategoryPageData | null> {
-  const category = await getCategoryBySlug(slug)
+  const category = await getCategoryBySlug(slug, locale)
   if (!category) return null
 
   const puzzleRows = await prisma.puzzle.findMany({
@@ -171,6 +194,7 @@ export async function listSubCategories(
     label: child.h1,
     href: resolveCategoryPath({
       type: child.type as CategoryType,
+      locale: (child.locale as "fr" | "pt-BR" | undefined) ?? "fr",
       slug: child.slug,
       grade: child.grade,
       theme: child.theme,
@@ -191,6 +215,7 @@ function mapCategoryToRelatedLink(
     label: category.h1,
     href: resolveCategoryPath({
       type: category.type as CategoryType,
+      locale: (category.locale as "fr" | "pt-BR" | undefined) ?? "fr",
       slug: category.slug,
       grade: category.grade,
       theme: category.theme,
@@ -213,11 +238,13 @@ export async function listRelatedCategories(
   })
   if (!category) return []
 
+  const locale = category.locale ?? "fr"
   const hub = isCategoryHub(category)
 
   if (hub || HUB_SLUG_LIST.includes(category.slug as (typeof HUB_SLUG_LIST)[number])) {
     const siblings = await prisma.category.findMany({
       where: {
+        locale,
         slug: { in: HUB_SLUG_LIST.filter((slug) => slug !== category.slug) },
         status: "PUBLISHED",
       },
@@ -236,6 +263,7 @@ export async function listRelatedCategories(
       const related = await prisma.category.findMany({
         where: {
           type: "GRADE",
+          locale,
           gradeId: { not: null },
           grade: { order: { in: adjacentOrders } },
           status: "PUBLISHED",
@@ -244,7 +272,7 @@ export async function listRelatedCategories(
         take: 2,
       })
       const themes = await prisma.category.findMany({
-        where: { type: "THEME", themeId: { not: null }, status: "PUBLISHED" },
+        where: { type: "THEME", locale, themeId: { not: null }, status: "PUBLISHED" },
         include: categoryIncludeWithCounts,
         orderBy: { slug: "asc" },
         take: 2,
@@ -257,6 +285,7 @@ export async function listRelatedCategories(
       const siblings = await prisma.category.findMany({
         where: {
           type: category.type,
+          locale,
           themeId: { not: null },
           theme: { group: category.theme.group },
           id: { not: category.id },
@@ -271,6 +300,7 @@ export async function listRelatedCategories(
       const siblings = await prisma.category.findMany({
         where: {
           type: "DIFFICULTY",
+          locale,
           difficultyId: { not: null },
           id: { not: category.id },
           status: "PUBLISHED",
@@ -285,6 +315,7 @@ export async function listRelatedCategories(
       if (!category.grade || !category.theme) return []
       const parents = await prisma.category.findMany({
         where: {
+          locale,
           OR: [
             { type: "GRADE", gradeId: category.gradeId ?? undefined },
             {
@@ -304,6 +335,7 @@ export async function listRelatedCategories(
         const siblings = await prisma.category.findMany({
           where: {
             type: "AUDIENCE",
+            locale,
             slug: { in: audienceSlugs.filter((slug) => slug !== category.slug) },
             status: "PUBLISHED",
           },
@@ -312,7 +344,11 @@ export async function listRelatedCategories(
         return siblings.map(mapCategoryToRelatedLink)
       }
       const hubs = await prisma.category.findMany({
-        where: { slug: { in: [HUB_CATEGORY_SLUGS.gratuits, HUB_CATEGORY_SLUGS.ecole] }, status: "PUBLISHED" },
+        where: {
+          locale,
+          slug: { in: [HUB_CATEGORY_SLUGS.gratuits, HUB_CATEGORY_SLUGS.ecole] },
+          status: "PUBLISHED",
+        },
         include: categoryIncludeWithCounts,
       })
       return hubs.map(mapCategoryToRelatedLink)

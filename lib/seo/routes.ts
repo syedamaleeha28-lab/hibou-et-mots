@@ -66,6 +66,31 @@ export function pressBrandPath(slug: string): string {
   return `/mots-meles-journaux-magazines/${slug}/`
 }
 
+// ============================================================
+// PT-BR routes (v1 scope). No locale-prefix folder (no /pt-br/) —
+// URLs use native Portuguese slugs directly at the top level, to
+// match real Brazilian search terms (e.g. "caça palavras para
+// imprimir", 20K/mo volume).
+// ============================================================
+
+export const PT_ROUTES = {
+  imprimir: "/caca-palavras-para-imprimir/",
+  difficulteHub: "/caca-palavras-nivel/",
+  thematiquesHub: "/caca-palavras-tematicos/",
+} as const
+
+export function ptThemePath(slug: string): string {
+  return `/caca-palavras-tematicos/${slug}/`
+}
+
+export function ptDifficultyPath(slug: string): string {
+  return `/caca-palavras-nivel/${slug}/`
+}
+
+export function ptPuzzlePath(slug: string): string {
+  return `/caca-palavras/${slug}/`
+}
+
 export const DEFAULT_SITE_URL = "https://hibou-et-mots.com"
 
 export const CONTACT_EMAIL = "hibou.et.mots@gmail.com"
@@ -109,6 +134,8 @@ export function absoluteUrl(
 
 export type CategoryPathInput = {
   type: CategoryType
+  /** Added for PT-BR pack. Defaults to French behavior when omitted. */
+  locale?: "fr" | "pt-BR"
   slug: string
   grade?: { slug: string } | null
   theme?: { slug: string } | null
@@ -124,6 +151,13 @@ const HUB_SLUG_PATHS: Record<string, string> = {
   "hub-thematiques": ROUTES.thematiquesHub,
   "hub-difficulte": ROUTES.difficulteHub,
   "hub-presse": ROUTES.presseHub,
+}
+
+/** PT-BR hub paths — same hub slug keys, Portuguese destination paths. */
+const HUB_SLUG_PATHS_PT: Record<string, string> = {
+  "hub-imprimer": PT_ROUTES.imprimir,
+  "hub-difficulte": PT_ROUTES.difficulteHub,
+  "hub-thematiques": PT_ROUTES.thematiquesHub,
 }
 
 const AUDIENCE_SLUG_PATHS: Record<string, string> = {
@@ -143,6 +177,20 @@ const STATIC_SUPPORT_SLUG_PATHS: Record<string, string> = {
 
 /** DB-driven category → canonical path (single source of truth). */
 export function resolveCategoryPath(input: CategoryPathInput): string {
+  if (input.locale === "pt-BR") {
+    const hubPathPt = HUB_SLUG_PATHS_PT[input.slug]
+    if (hubPathPt) return hubPathPt
+
+    switch (input.type) {
+      case "THEME":
+        return input.theme ? ptThemePath(input.theme.slug) : PT_ROUTES.thematiquesHub
+      case "DIFFICULTY":
+        return input.difficulty ? ptDifficultyPath(input.difficulty.slug) : PT_ROUTES.difficulteHub
+      default:
+        return PT_ROUTES.imprimir
+    }
+  }
+
   const hubPath = HUB_SLUG_PATHS[input.slug]
   if (hubPath) return hubPath
 

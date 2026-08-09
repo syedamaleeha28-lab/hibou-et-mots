@@ -12,6 +12,9 @@ export type PuzzlePdfRecord = {
   largePrint: boolean
   pdfUrl: string | null
   status: "DRAFT" | "PUBLISHED" | "ARCHIVED"
+  // PT-BR pack: added so PdfPuzzleInput (below) can carry it through to
+  // the renderer.
+  language: string
 }
 
 export function puzzleRecordToPdfInput(puzzle: PuzzlePdfRecord): PdfPuzzleInput {
@@ -22,5 +25,6 @@ export function puzzleRecordToPdfInput(puzzle: PuzzlePdfRecord): PdfPuzzleInput 
     solutionData: puzzle.solutionData as PuzzlePageData["solutionData"],
     size: puzzle.size,
     largePrint: puzzle.largePrint,
+    language: puzzle.language,
   }
 }

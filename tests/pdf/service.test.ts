@@ -50,6 +50,7 @@ function buildRecord(overrides: Record<string, unknown> = {}) {
     largePrint: page.largePrint,
     pdfUrl: null as string | null,
     status: "PUBLISHED" as const,
+    language: "fr",
     hash,
     ...overrides,
   }

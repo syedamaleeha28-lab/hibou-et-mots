@@ -12,6 +12,9 @@ const puzzlePdfSelect = {
   largePrint: true,
   pdfUrl: true,
   status: true,
+  // PT-BR pack: needed so the PDF renderer can pick Portuguese vs French
+  // labels ("Corrigé" vs "Gabarito", etc.) instead of always French.
+  language: true,
 } as const
 
 export async function getPuzzleForPdf(puzzleId: string): Promise<PuzzlePdfRecord | null> {
@@ -22,7 +25,6 @@ export async function getPuzzleForPdf(puzzleId: string): Promise<PuzzlePdfRecord
     },
     select: puzzlePdfSelect,
   })
-
   return puzzle
 }
 

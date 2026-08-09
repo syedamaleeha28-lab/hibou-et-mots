@@ -30,3 +30,6 @@ yarn-error.log*
 next-env.d.ts
 
 tests/pdf/.artifacts/
+tmp-*.pdf
+claude-review-package/
+claude-review-package.zip

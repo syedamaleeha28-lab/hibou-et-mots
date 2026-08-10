@@ -11,6 +11,11 @@ import {
   puzzlePath,
   seasonalPath,
   themePath,
+  // PT-BR additions:
+  PT_ROUTES,
+  ptDifficultyPath,
+  ptPuzzlePath,
+  ptThemePath,
 } from "@/lib/seo/routes"
 import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 import {
@@ -91,6 +96,29 @@ async function resolveCategoryLikePath(path: string): Promise<boolean> {
   if (path === ROUTES.gratuits) return !!(await resolveHubCategoryPageData(HUB_CATEGORY_SLUGS.gratuits))
   if (path === ROUTES.imprimer) return !!(await resolveHubCategoryPageData(HUB_CATEGORY_SLUGS.imprimer))
 
+  // PT-BR pack: this whole function had zero awareness of the Portuguese
+  // URL scheme — every branch below this point is a French-only regex.
+  // That meant every PT page with a dynamic segment (theme/difficulty)
+  // fell through to a raw filesystem existence check that can't resolve
+  // bracket-folder dynamic routes ([level]/[theme]), reporting "not_found"
+  // for pages that genuinely work in production.
+  if (path === PT_ROUTES.imprimir)
+    return !!(await resolveHubCategoryPageData(HUB_CATEGORY_SLUGS.imprimer, 1, "pt-BR"))
+  if (path === PT_ROUTES.difficulteHub)
+    return !!(await resolveHubCategoryPageData(HUB_CATEGORY_SLUGS.difficulte, 1, "pt-BR"))
+  if (path === PT_ROUTES.thematiquesHub)
+    return !!(await resolveHubCategoryPageData(HUB_CATEGORY_SLUGS.thematiques, 1, "pt-BR"))
+
+  const ptThemeMatch = path.match(/^\/caca-palavras-tematicos\/([^/]+)\/$/)
+  if (ptThemeMatch) {
+    return !!(await resolveThemeCategoryPageData(ptThemeMatch[1]!, 1, "pt-BR"))
+  }
+
+  const ptDifficultyMatch = path.match(/^\/caca-palavras-nivel\/([^/]+)\/$/)
+  if (ptDifficultyMatch) {
+    return !!(await resolveDifficultyCategoryPageData(ptDifficultyMatch[1]!, 1, "pt-BR"))
+  }
+
   const hubSlug = hubSlugForPath(path)
   if (hubSlug) return !!(await resolveHubCategoryPageData(hubSlug))
 
@@ -167,6 +195,16 @@ export async function resolveInternalPath(
   const puzzleMatch = path.match(/^\/mots-meles\/([^/]+)\/$/)
   if (puzzleMatch) {
     const slug = puzzleMatch[1]!
+    const page = await resolvePuzzlePageData(slug)
+    return page ? { path, status: "valid" } : { path, status: "not_found" }
+  }
+
+  // PT-BR pack: the puzzle-detail regex above only ever matched
+  // /mots-meles/[slug]/ — Portuguese puzzle pages live at
+  // /caca-palavras/[slug]/ and had no matching branch at all.
+  const ptPuzzleMatch = path.match(/^\/caca-palavras\/([^/]+)\/$/)
+  if (ptPuzzleMatch) {
+    const slug = ptPuzzleMatch[1]!
     const page = await resolvePuzzlePageData(slug)
     return page ? { path, status: "valid" } : { path, status: "not_found" }
   }
@@ -263,4 +301,4 @@ export function puzzleSlugFromPath(path: string): string | null {
   return match?.[1] ?? null
 }
 
-export { puzzlePath }
+export { puzzlePath, ptPuzzlePath }

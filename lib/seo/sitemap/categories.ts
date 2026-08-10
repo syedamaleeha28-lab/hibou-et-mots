@@ -13,6 +13,7 @@ import type { SitemapUrlEntry } from "./types"
 import { pilotCategorySitemapEntries } from "./pilot-entries"
 import { priorityForCategoryType } from "./priority"
 import {
+  getAllCacaPalavrasListingPaths,
   getAllMotsMelesListingPaths,
   shouldAlwaysIncludeCategoryInSitemap,
 } from "./mots-meles-coverage"
@@ -49,7 +50,7 @@ function mergeMotsMelesListingCoverage(
   }
   const now = new Date()
 
-  for (const path of getAllMotsMelesListingPaths()) {
+  for (const path of [...getAllMotsMelesListingPaths(), ...getAllCacaPalavrasListingPaths()]) {
     const loc = absoluteUrl(path, siteUrl)
     if (byLoc.has(loc)) continue
 
@@ -61,7 +62,11 @@ function mergeMotsMelesListingCoverage(
           ? "SEASONAL"
           : path.includes("/mots-meles-difficulte/")
             ? "DIFFICULTY"
-            : "AUDIENCE"
+            : path.includes("/caca-palavras-tematicos/")
+              ? "THEME"
+              : path.includes("/caca-palavras-nivel/")
+                ? "DIFFICULTY"
+                : "AUDIENCE"
 
     byLoc.set(loc, {
       loc,

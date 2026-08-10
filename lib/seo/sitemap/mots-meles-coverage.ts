@@ -7,7 +7,6 @@ import {
   gradeStaticParams,
   seasonalStaticParams,
   themeStaticParams,
-  // PT-BR pack additions:
   ptDifficultyStaticParams,
   ptThemeStaticParams,
 } from "@/lib/app/category-route-params"
@@ -17,7 +16,6 @@ import {
   gradePath,
   seasonalPath,
   themePath,
-  // PT-BR pack additions:
   ptDifficultyPath,
   ptThemePath,
   PT_ROUTES,
@@ -31,29 +29,20 @@ export const MOTS_MELES_AUDIENCE_PATHS = [
 ] as const
 
 /**
- * PT-BR pack: hub paths guaranteed in the sitemap the same way
- * MOTS_MELES_AUDIENCE_PATHS guarantees the French audience hubs — belt
- * and suspenders alongside the DB-category-driven path in categories.ts,
- * so PT hub coverage survives even if a hub category row is ever missing
- * (e.g. before a re-seed in some environment).
- */
-export const PT_HUB_PATHS = [
-  PT_ROUTES.imprimir,
-  PT_ROUTES.difficulteHub,
-  PT_ROUTES.thematiquesHub,
-] as const
-
-/**
  * Every publicly routed theme / grade / seasonal / difficulty / audience page.
  * Used so Google discovers trailing-slash canonicals instead of non-slash URLs.
  *
- * PT-BR pack: now also includes Portuguese theme/difficulty/hub paths,
- * matching how the French set has always worked. Grades and seasonal
- * have no PT-BR static params yet (out of this batch's scope), so
- * nothing to add there until that content exists.
+ * REVERTED to French-only (as it originally was). A prior pack added PT-BR
+ * paths directly into this function, which broke an important invariant:
+ * this function is shared by BOTH the real DB-backed sitemap (categories.ts,
+ * which legitimately needs PT coverage) AND the DB-unavailable fallback
+ * (seed-entries.ts, which is documented and tested as French-only by
+ * design). Mixing PT into the shared function silently leaked it into the
+ * fallback too, which is wrong. PT coverage now lives in the separate
+ * getAllCacaPalavrasListingPaths() below, merged in ONLY by categories.ts.
  */
 export function getAllMotsMelesListingPaths(): string[] {
-  const paths = new Set<string>([...MOTS_MELES_AUDIENCE_PATHS, ...PT_HUB_PATHS])
+  const paths = new Set<string>(MOTS_MELES_AUDIENCE_PATHS)
 
   for (const { theme } of themeStaticParams()) {
     paths.add(themePath(theme))
@@ -67,6 +56,24 @@ export function getAllMotsMelesListingPaths(): string[] {
   for (const { level } of difficultyStaticParams()) {
     paths.add(difficultyPath(level))
   }
+
+  return [...paths].sort()
+}
+
+/**
+ * PT-BR equivalent of getAllMotsMelesListingPaths() — kept SEPARATE on
+ * purpose (see note above). Only categories.ts's real (DB-backed) sitemap
+ * merge step should use this; the seed-entries.ts fallback deliberately
+ * does not.
+ */
+export const PT_HUB_PATHS = [
+  PT_ROUTES.imprimir,
+  PT_ROUTES.difficulteHub,
+  PT_ROUTES.thematiquesHub,
+] as const
+
+export function getAllCacaPalavrasListingPaths(): string[] {
+  const paths = new Set<string>(PT_HUB_PATHS)
 
   for (const { theme } of ptThemeStaticParams()) {
     paths.add(ptThemePath(theme))

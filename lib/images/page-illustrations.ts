@@ -55,58 +55,52 @@ function slugFromPath(canonicalPath: string): string {
 }
 
 /**
- * PT-BR pack: no Portuguese illustration images have been generated yet —
- * they're static pre-generated assets (see buildAiPrompt below), not
- * something built at request time, and generating a full new PT-BR image
- * set is a separate content task from this fix.
+ * PT-BR real image rollout — hero and preview readiness tracked
+ * INDEPENDENTLY, since images arrive one batch at a time as they're
+ * generated, not all at once. A page can have a real hero live while its
+ * preview still safely falls back to WORKING_STOPGAP_BASE_SLUG below —
+ * flipping a page over to its own real preview later is a one-line change
+ * here, nothing else in the codebase needs to know.
  *
- * Illustrations are generic, language-neutral scenes by design (the style
- * guide explicitly forbids rendering any text/letters in the image), so
- * as an interim measure each PT-BR category reuses the equivalent French
- * category's already-generated image file as a visual stand-in. The
- * alt/caption TEXT below is still correctly Portuguese — only the pixels
- * are borrowed. Swap these out for real PT-BR-specific images whenever
- * that generation pass happens; nothing else needs to change when it does.
- *
- * Keyed by category.slug (not path), since PT hub rows intentionally
- * reuse the same slug strings as their French counterparts (see
- * category-constants.ts) — locale is what disambiguates them, so slug
- * alone isn't enough to build the right path, but IS enough to look up
- * which French image to borrow.
+ * Update these two maps as more real images arrive. Once every PT slug
+ * below has both a hero AND a preview entry pointing at itself (not the
+ * stopgap), PT_IMAGE_ROLLOUT_COMPLETE can be set true as a marker, though
+ * nothing currently reads that flag — it's just a signal for humans.
  */
-// Confirmed present on disk (both -hero.webp and -preview.webp). Update
-// this as real French/PT assets get generated — anything not in this set
-// falls back to WORKING_STOPGAP_BASE_SLUG below rather than pointing at
-// a file we know 404s.
-const CONFIRMED_EXISTING_BASE_SLUGS = new Set<string>(["mots-meles-thematiques-animaux"])
-
-// Since illustrations never contain rendered text (see the style guide
-// above), there's no language-mismatch risk in reusing this one confirmed-
-// working image as a generic placeholder for any PT-BR page that doesn't
-// have its own asset yet — visually generic, not broken. Swap individual
-// PT_IMAGE_FALLBACK_BASE_SLUG entries to real PT-specific slugs as real
-// images get generated; this constant is just the last-resort default.
-const WORKING_STOPGAP_BASE_SLUG = "mots-meles-thematiques-animaux"
-
-const PT_IMAGE_FALLBACK_BASE_SLUG: Record<string, string> = {
-  "hub-imprimer": "mots-meles-a-imprimer",
-  "hub-difficulte": "mots-meles-difficulte",
-  "hub-thematiques": "mots-meles-thematiques",
-  animais: "mots-meles-thematiques-animaux",
-  esporte: "mots-meles-thematiques-sport",
-  facil: "mots-meles-difficulte-facile",
-  medio: "mots-meles-difficulte-moyen",
-  dificil: "mots-meles-difficulte-difficile",
+const PT_HERO_BASE_SLUG: Record<string, string> = {
+  "hub-imprimer": "caca-palavras-para-imprimir",
+  "hub-difficulte": "caca-palavras-nivel",
+  "hub-thematiques": "caca-palavras-tematicos",
+  esporte: "caca-palavras-tematicos-esporte",
+  facil: "caca-palavras-nivel-facil",
+  medio: "caca-palavras-nivel-medio",
+  dificil: "caca-palavras-nivel-dificil",
+  // animais intentionally omitted — it already uses the shared French
+  // "mots-meles-thematiques-animaux" asset directly (see fallback below),
+  // no PT-specific image needed for that one.
 }
 
-function resolveIllustrationBaseSlug(category: Pick<CategoryPageData, "canonicalPath" | "slug" | "locale">): string {
+const PT_PREVIEW_BASE_SLUG: Record<string, string> = {
+  "hub-imprimer": "caca-palavras-para-imprimir",
+  "hub-difficulte": "caca-palavras-nivel",
+  // hub-thematiques, esporte, facil, medio, dificil: no PT-specific
+  // preview yet — omitted here on purpose so they fall through to the
+  // stopgap below until their preview images are generated and added.
+}
+
+/** The one confirmed-working image used as a stopgap for anything above
+ *  without its own real image yet (see PT_HERO_BASE_SLUG /
+ *  PT_PREVIEW_BASE_SLUG comments). Never contains rendered text, so
+ *  reusing it as a generic placeholder carries no language-mismatch risk. */
+const WORKING_STOPGAP_BASE_SLUG = "mots-meles-thematiques-animaux"
+
+function resolveIllustrationBaseSlug(
+  category: Pick<CategoryPageData, "canonicalPath" | "slug" | "locale">,
+  kind: "hero" | "preview",
+): string {
   if (category.locale === "pt-BR") {
-    const fallback = PT_IMAGE_FALLBACK_BASE_SLUG[category.slug]
-    if (fallback && CONFIRMED_EXISTING_BASE_SLUGS.has(fallback)) return fallback
-    // Mapped French equivalent doesn't actually exist on disk (or no
-    // mapping at all yet) — use the one confirmed-working image as a
-    // generic stopgap rather than pointing at a file known to 404.
-    return WORKING_STOPGAP_BASE_SLUG
+    const map = kind === "hero" ? PT_HERO_BASE_SLUG : PT_PREVIEW_BASE_SLUG
+    return map[category.slug] ?? WORKING_STOPGAP_BASE_SLUG
   }
   return slugFromPath(category.canonicalPath)
 }
@@ -120,14 +114,15 @@ function resolveIllustrationBaseSlug(category: Pick<CategoryPageData, "canonical
 export function getCategoryIllustrations(
   category: Pick<CategoryPageData, "canonicalPath" | "slug" | "h1" | "locale">,
 ): { hero: IllustrationSpec; preview: IllustrationSpec } {
-  const baseSlug = resolveIllustrationBaseSlug(category)
+  const heroBaseSlug = resolveIllustrationBaseSlug(category, "hero")
+  const previewBaseSlug = resolveIllustrationBaseSlug(category, "preview")
   const title = category.h1
   const overrides = ILLUSTRATION_COPY_OVERRIDES[category.canonicalPath]
   const isPt = category.locale === "pt-BR"
 
   return {
     hero: {
-      src: `/images/heroes/${baseSlug}-hero.webp`,
+      src: `/images/heroes/${heroBaseSlug}-hero.webp`,
       alt:
         overrides?.heroAlt ??
         (isPt
@@ -140,7 +135,7 @@ export function getCategoryIllustrations(
       ...HERO_DIMENSIONS,
     },
     preview: {
-      src: `/images/previews/${baseSlug}-preview.webp`,
+      src: `/images/previews/${previewBaseSlug}-preview.webp`,
       alt:
         overrides?.previewAlt ??
         (isPt

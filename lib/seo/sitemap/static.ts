@@ -41,6 +41,8 @@ const STATIC_PATHS: string[] = [
   ROUTES.auteur,
   ROUTES.jouer,
   ROUTES.generateur,
+  ROUTES.motsCoupes,
+  ROUTES.motsCoupesImprimer,
 ]
 
 const NOINDEX_STATIC_PATHS = new Set<string>([ROUTES.recherche])

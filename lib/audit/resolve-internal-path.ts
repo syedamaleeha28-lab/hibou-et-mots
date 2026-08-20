@@ -70,6 +70,11 @@ const STATIC_APP_PATHS = new Set<string>([
   ROUTES.contact,
   ROUTES.aPropos,
   ROUTES.auteur,
+  // mots coupés: plain static pages, no DB category behind them — same
+  // treatment as ROUTES.jouer / ROUTES.generateur (see categoryLike
+  // exclusion below).
+  ROUTES.motsCoupes,
+  ROUTES.motsCoupesImprimer,
 ])
 
 function hubSlugForPath(path: string): string | null {
@@ -226,7 +231,9 @@ export async function resolveInternalPath(
       path !== ROUTES.confidentialite &&
       path !== ROUTES.contact &&
       path !== ROUTES.aPropos &&
-      path !== ROUTES.auteur
+      path !== ROUTES.auteur &&
+      path !== ROUTES.motsCoupes &&
+      path !== ROUTES.motsCoupesImprimer
 
     if (categoryLike) {
       const ok = await resolveCategoryLikePath(path)

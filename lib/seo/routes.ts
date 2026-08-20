@@ -29,6 +29,10 @@ export const ROUTES = {
   contact: "/contact/",
   aPropos: "/a-propos/",
   auteur: "/auteur/",
+  // New: mots coupés (word-matching puzzle) — standalone static pages,
+  // same pattern as jouer/generateur (no DB category behind them).
+  motsCoupes: "/mots-coupes/",
+  motsCoupesImprimer: "/mots-coupes-a-imprimer/",
 } as const
 
 export function gradePath(slug: string): string {

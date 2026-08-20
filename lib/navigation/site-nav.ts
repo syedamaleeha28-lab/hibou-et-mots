@@ -36,6 +36,9 @@ export const imprimerMegaMenu: MegaMenuPanel = {
   featured: [
     { label: "Mots mêlés gratuits", href: ROUTES.gratuits, description: "Toutes les grilles gratuites" },
     { label: "Mots mêlés à imprimer", href: ROUTES.imprimer, description: "PDF prêts à imprimer" },
+    // New: mots coupés — featured alongside the other two printable
+    // formats, same visual treatment.
+    { label: "Mots coupés à imprimer", href: ROUTES.motsCoupesImprimer, description: "Reconstitue les mots" },
   ],
   sections: [
     {
@@ -128,6 +131,11 @@ export const plusMegaMenu: MegaMenuPanel = {
         { label: "Personnages", href: ROUTES.personnages },
         { label: "Solutions & règles", href: ROUTES.solutions },
         { label: "Application", href: ROUTES.application },
+        // New: online mots coupés game (the printable version is
+        // featured in imprimerMegaMenu above; this is the play-online
+        // entry point, same split as "Mots mêlés à imprimer" vs "Jouer
+        // en ligne").
+        { label: "Mots coupés (jeu en ligne)", href: ROUTES.motsCoupes },
       ],
     },
   ],
@@ -205,6 +213,10 @@ export const footerSiloColumns: NavSection[] = [
       { label: "Jouer en ligne", href: ROUTES.jouer },
       { label: "Générateur", href: ROUTES.generateur },
       { label: "Solutions & règles", href: ROUTES.solutions },
+      // New: footer is what actually reaches mobile visitors (the
+      // header mega-menu is desktop-only) — same reasoning already
+      // applied to the Português section below.
+      { label: "Mots coupés à imprimer", href: ROUTES.motsCoupesImprimer },
     ],
   },
   {

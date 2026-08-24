@@ -87,6 +87,18 @@ export const imprimerMegaMenu: MegaMenuPanel = {
         { label: "Mots coupés (jeu en ligne)", href: ROUTES.motsCoupes },
       ],
     },
+    // NEW: sudoku is a NUMBER puzzle, not a word puzzle — deliberately a
+    // separate section rather than folded into "Autres jeux de mots"
+    // above, same reasoning as the standalone SudokuFormatLinks
+    // component on sudoku's own pages (that section's block literally
+    // says "jeux de mots").
+    {
+      title: "Jeux de chiffres",
+      links: [
+        { label: "Sudoku à imprimer", href: ROUTES.sudokuImprimer },
+        { label: "Sudoku (jeu en ligne)", href: ROUTES.sudoku },
+      ],
+    },
   ],
 }
 
@@ -278,6 +290,12 @@ export const footerSiloColumns: NavSection[] = [
       { label: "Mini mots croisés", href: ROUTES.miniMotsCroises },
       { label: "Mots coupés à imprimer", href: ROUTES.motsCoupesImprimer },
     ],
+  },
+  // NEW: sudoku, kept as its own column rather than mixed into "Autres
+  // jeux de mots" — same word/number distinction as everywhere else.
+  {
+    title: "Jeux de chiffres",
+    links: [{ label: "Sudoku à imprimer", href: ROUTES.sudokuImprimer }],
   },
   // PT-BR pack: footer still carries a compact Português column too, for
   // mobile visitors — the dropdown above only renders in the desktop nav

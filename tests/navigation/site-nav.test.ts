@@ -31,19 +31,25 @@ describe("site navigation", () => {
     ])
   })
 
-  it("includes imprimer sections for theme, grade, difficulty, and other word games", () => {
+  it("includes imprimer sections for theme, grade, difficulty, word games, and number games", () => {
     const imprimer = headerMegaMenus[0]!
     const titles = imprimer.sections.map((s) => s.title)
     expect(titles).toContain("Par thème")
     expect(titles).toContain("Par niveau")
     expect(titles).toContain("Par difficulté")
     expect(titles).toContain("Autres jeux de mots")
+    expect(titles).toContain("Jeux de chiffres")
     const autres = imprimer.sections.find((s) => s.title === "Autres jeux de mots")!
     expect(autres.links.map((l) => l.href)).toEqual([
       "/mots-croises-a-imprimer/",
       "/mini-mots-croises/",
       "/mots-coupes-a-imprimer/",
       "/mots-coupes/",
+    ])
+    const chiffres = imprimer.sections.find((s) => s.title === "Jeux de chiffres")!
+    expect(chiffres.links.map((l) => l.href)).toEqual([
+      "/sudoku-a-imprimer/",
+      "/sudoku/",
     ])
   })
 
@@ -78,9 +84,12 @@ describe("site navigation", () => {
   })
 
   it("maps footer to silo columns plus legal, including Português", () => {
-    expect(footerSiloColumns).toHaveLength(8)
+    expect(footerSiloColumns).toHaveLength(9)
     expect(footerSiloColumns[0]?.title).toBe("Hub principal")
     expect(footerSiloColumns.map((c) => c.title)).toContain("Autres jeux de mots")
+    expect(footerSiloColumns.map((c) => c.title)).toContain("Jeux de chiffres")
+    const chiffres = footerSiloColumns.find((c) => c.title === "Jeux de chiffres")!
+    expect(chiffres.links.map((l) => l.href)).toEqual(["/sudoku-a-imprimer/"])
     expect(footerSiloColumns.at(-1)?.title).toBe("🇧🇷 Português")
     expect(footerSiloColumns.at(-1)?.links.map((l) => l.href)).toEqual([
       "/caca-palavras-para-imprimir/",

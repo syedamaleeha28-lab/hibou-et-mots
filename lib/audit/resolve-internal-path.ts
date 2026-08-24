@@ -82,6 +82,9 @@ const STATIC_APP_PATHS = new Set<string>([
   // relying on that fallback now that they're linked from nav.
   ROUTES.motsCroisesImprimer,
   ROUTES.miniMotsCroises,
+  // NEW: sudoku — same plain-static-page treatment as jouer/generateur.
+  ROUTES.sudoku,
+  ROUTES.sudokuImprimer,
 ])
 
 function hubSlugForPath(path: string): string | null {
@@ -242,7 +245,9 @@ export async function resolveInternalPath(
       path !== ROUTES.motsCoupes &&
       path !== ROUTES.motsCoupesImprimer &&
       path !== ROUTES.motsCroisesImprimer &&
-      path !== ROUTES.miniMotsCroises
+      path !== ROUTES.miniMotsCroises &&
+      path !== ROUTES.sudoku &&
+      path !== ROUTES.sudokuImprimer
 
     if (categoryLike) {
       const ok = await resolveCategoryLikePath(path)

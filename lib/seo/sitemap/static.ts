@@ -48,6 +48,9 @@ const STATIC_PATHS: string[] = [
   // links — never added to ROUTES in the first place).
   ROUTES.motsCroisesImprimer,
   ROUTES.miniMotsCroises,
+  // NEW: sudoku.
+  ROUTES.sudoku,
+  ROUTES.sudokuImprimer,
 ]
 
 const NOINDEX_STATIC_PATHS = new Set<string>([ROUTES.recherche])

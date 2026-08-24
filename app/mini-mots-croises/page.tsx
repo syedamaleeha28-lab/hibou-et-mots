@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { MiniCrosswordGame } from "@/components/games/mini-crossword/mini-crossword-game"
+// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
+import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 
 export const metadata: Metadata = {
   title: "Mini Mots Croisés Gratuits en Ligne | Hibou&Mots",
@@ -25,6 +27,10 @@ export default function MiniMotsCroisesPage() {
         />
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <MiniCrosswordGame />
+        </div>
+
+        <div className="mt-8">
+          <PuzzleFormatLinks current="mots-croises" />
         </div>
       </div>
     </div>

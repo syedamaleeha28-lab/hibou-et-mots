@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { MotsCoupesGame } from "@/components/games/mots-coupes/mots-coupes-game"
+// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
+import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 
 export const metadata: Metadata = {
   title: "Mots Coupés Gratuit en Ligne | Hibou&Mots",
@@ -25,6 +27,10 @@ export default function MotsCoupesPage() {
         />
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <MotsCoupesGame />
+        </div>
+
+        <div className="mt-8">
+          <PuzzleFormatLinks current="mots-coupes" />
         </div>
       </div>
     </div>

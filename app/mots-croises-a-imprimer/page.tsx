@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { PrintableCrosswordList } from "@/components/games/mini-crossword/printable-crossword-list"
+// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
+import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 
 export const metadata: Metadata = {
   title: "Mots Croisés à Imprimer Gratuitement (PDF) | Hibou&Mots",
@@ -29,6 +31,10 @@ export default function MotsCroisesAImprimerPage() {
         </p>
         <div className="mt-6">
           <PrintableCrosswordList />
+        </div>
+
+        <div className="no-print mt-8">
+          <PuzzleFormatLinks current="mots-croises" />
         </div>
       </div>
     </div>

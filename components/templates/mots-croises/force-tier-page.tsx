@@ -2,6 +2,8 @@ import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { CrosswordBoard } from "@/components/games/mini-crossword/crossword-board"
 import { gridsForTier } from "@/lib/mini-crossword/grids"
+// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
+import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 
 type Tier = 1 | 2 | 3 | 4 | 5
 
@@ -85,6 +87,10 @@ export function ForceTierPage({ tier }: { tier: Tier }) {
             </Link>
             .
           </p>
+        </div>
+
+        <div className="mt-8">
+          <PuzzleFormatLinks current="mots-croises" />
         </div>
       </div>
     </div>

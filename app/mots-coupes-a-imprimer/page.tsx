@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { PrintableMotsCoupesList } from "@/components/games/mots-coupes/printable-mots-coupes-list"
+// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
+import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 
 export const metadata: Metadata = {
   title: "Mots Coupés à Imprimer Gratuitement (PDF) | Hibou&Mots",
@@ -29,6 +31,10 @@ export default function MotsCoupesAImprimerPage() {
         </p>
         <div className="mt-6">
           <PrintableMotsCoupesList />
+        </div>
+
+        <div className="no-print mt-8">
+          <PuzzleFormatLinks current="mots-coupes" />
         </div>
       </div>
     </div>

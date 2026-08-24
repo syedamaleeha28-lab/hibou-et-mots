@@ -9,6 +9,8 @@ import { PuzzlePlaySection } from "./puzzle-play-section"
 import { PuzzleActionBar } from "./puzzle-action-bar"
 import { RelatedPuzzlesGrid } from "./related-puzzles-grid"
 import { PuzzleCta } from "./puzzle-cta"
+// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
+import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 
 export type PuzzleTemplateProps = {
   puzzle: PuzzlePageData
@@ -38,6 +40,11 @@ export function PuzzleTemplate({ puzzle }: PuzzleTemplateProps) {
           <RelatedPuzzlesGrid puzzles={puzzle.relatedPuzzles} />
 
           <FaqAccordion items={puzzle.faqJson} />
+
+          {/* Cross-format links are French-only content (crosswords/mots
+              coupés have no PT-BR equivalent yet) — this template is
+              shared with PT-BR puzzle pages, so guard by locale. */}
+          {puzzle.language !== "pt-BR" && <PuzzleFormatLinks current="mots-meles" />}
 
           <PuzzleCta themeSlug={puzzle.theme?.slug} />
         </div>

@@ -12,7 +12,10 @@ export {
   imprimerMegaMenu,
   mobileBottomTabs,
   plusMegaMenu,
+  // New — see site-nav.ts for context.
+  PUZZLE_FORMAT_LINKS,
   type MegaMenuPanel,
   type NavLink,
   type NavSection,
+  type PuzzleFormatLink,
 } from "./site-nav"

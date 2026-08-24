@@ -25,6 +25,10 @@ import { SeniorsEditorial } from "@/components/templates/seniors/seniors-editori
 import { PageIllustration } from "@/components/ui/page-illustration"
 import { getCategoryIllustrations } from "@/lib/images/page-illustrations"
 import { cn } from "@/lib/utils"
+// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
+// Deliberately rendered unconditionally, unlike CategoryExploreLinks —
+// see the component's own doc comment for why.
+import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 
 export type CategoryTemplateProps = {
   category: CategoryPageData
@@ -78,6 +82,11 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           {category.slug === "seniors" && <SeniorsEditorial />}
 
           <CategoryExploreLinks category={category} />
+
+          {/* Cross-format links are French-only content (crosswords/mots
+              coupés have no PT-BR equivalent yet) — this template is
+              shared with PT-BR category pages, so guard by locale. */}
+          {category.locale !== "pt-BR" && <PuzzleFormatLinks current="mots-meles" />}
 
           {shouldShowComboParentLinks(category.type) && category.comboParentLinks && (
             <ComboParentLinks links={category.comboParentLinks} />

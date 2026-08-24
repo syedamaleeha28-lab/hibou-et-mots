@@ -40,6 +40,8 @@ describe("static sitemap entries", () => {
     expect(locs.some((loc) => loc.includes("mots-meles-ecole"))).toBe(true)
     expect(locs.some((loc) => loc.includes("generateur-mots-meles"))).toBe(true)
     expect(locs.some((loc) => loc.includes("jouer-mots-meles-en-ligne"))).toBe(true)
+    expect(locs.some((loc) => loc.includes("mots-croises-a-imprimer"))).toBe(true)
+    expect(locs.some((loc) => loc.includes("mini-mots-croises"))).toBe(true)
     expect(locs.some((loc) => loc.includes("recherche"))).toBe(false)
   })
 })

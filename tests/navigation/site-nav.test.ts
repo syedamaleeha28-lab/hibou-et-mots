@@ -31,12 +31,20 @@ describe("site navigation", () => {
     ])
   })
 
-  it("includes imprimer sections for theme, grade, and difficulty", () => {
+  it("includes imprimer sections for theme, grade, difficulty, and other word games", () => {
     const imprimer = headerMegaMenus[0]!
     const titles = imprimer.sections.map((s) => s.title)
     expect(titles).toContain("Par thème")
     expect(titles).toContain("Par niveau")
     expect(titles).toContain("Par difficulté")
+    expect(titles).toContain("Autres jeux de mots")
+    const autres = imprimer.sections.find((s) => s.title === "Autres jeux de mots")!
+    expect(autres.links.map((l) => l.href)).toEqual([
+      "/mots-croises-a-imprimer/",
+      "/mini-mots-croises/",
+      "/mots-coupes-a-imprimer/",
+      "/mots-coupes/",
+    ])
   })
 
   it("covers all 8 PT-BR category pages in the Português mega menu", () => {
@@ -70,8 +78,9 @@ describe("site navigation", () => {
   })
 
   it("maps footer to silo columns plus legal, including Português", () => {
-    expect(footerSiloColumns).toHaveLength(7)
+    expect(footerSiloColumns).toHaveLength(8)
     expect(footerSiloColumns[0]?.title).toBe("Hub principal")
+    expect(footerSiloColumns.map((c) => c.title)).toContain("Autres jeux de mots")
     expect(footerSiloColumns.at(-1)?.title).toBe("🇧🇷 Português")
     expect(footerSiloColumns.at(-1)?.links.map((l) => l.href)).toEqual([
       "/caca-palavras-para-imprimir/",

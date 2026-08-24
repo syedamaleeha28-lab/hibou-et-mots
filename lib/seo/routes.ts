@@ -29,10 +29,17 @@ export const ROUTES = {
   contact: "/contact/",
   aPropos: "/a-propos/",
   auteur: "/auteur/",
-  // New: mots coupés (word-matching puzzle) — standalone static pages,
-  // same pattern as jouer/generateur (no DB category behind them).
+  // mots coupés (word-matching puzzle) — standalone static pages, same
+  // pattern as jouer/generateur (no DB category behind them).
   motsCoupes: "/mots-coupes/",
   motsCoupesImprimer: "/mots-coupes-a-imprimer/",
+  // NEW: mots croisés (crossword) — these routes existed as hardcoded
+  // app/ folders already, but were never added to ROUTES, which is why
+  // they had zero nav links pointing to them. Adding them here so they
+  // can finally be referenced from site-nav.ts and the internal-link
+  // audit tool, same as every other route on the site.
+  motsCroisesImprimer: "/mots-croises-a-imprimer/",
+  miniMotsCroises: "/mini-mots-croises/",
 } as const
 
 export function gradePath(slug: string): string {
@@ -68,6 +75,13 @@ export function puzzlePath(slug: string): string {
 
 export function pressBrandPath(slug: string): string {
   return `/mots-meles-journaux-magazines/${slug}/`
+}
+
+/** NEW: Force 1–5 crossword tier pages — hardcoded folders
+ *  (app/mots-croises-force-N/), this just gives them a canonical
+ *  path-builder like every other route type has. */
+export function motsCroisesForcePath(tier: 1 | 2 | 3 | 4 | 5): string {
+  return `/mots-croises-force-${tier}/`
 }
 
 // ============================================================

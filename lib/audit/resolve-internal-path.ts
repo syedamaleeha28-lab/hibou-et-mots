@@ -75,6 +75,13 @@ const STATIC_APP_PATHS = new Set<string>([
   // exclusion below).
   ROUTES.motsCoupes,
   ROUTES.motsCoupesImprimer,
+  // NEW: mots croisés — same treatment. These pages existed already but
+  // were never added to ROUTES, so they were never in this set either;
+  // they happened to still resolve via the raw filesystem fallback at
+  // the bottom of resolveInternalPath, but explicit is better than
+  // relying on that fallback now that they're linked from nav.
+  ROUTES.motsCroisesImprimer,
+  ROUTES.miniMotsCroises,
 ])
 
 function hubSlugForPath(path: string): string | null {
@@ -233,7 +240,9 @@ export async function resolveInternalPath(
       path !== ROUTES.aPropos &&
       path !== ROUTES.auteur &&
       path !== ROUTES.motsCoupes &&
-      path !== ROUTES.motsCoupesImprimer
+      path !== ROUTES.motsCoupesImprimer &&
+      path !== ROUTES.motsCroisesImprimer &&
+      path !== ROUTES.miniMotsCroises
 
     if (categoryLike) {
       const ok = await resolveCategoryLikePath(path)

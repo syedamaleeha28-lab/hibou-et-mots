@@ -43,6 +43,11 @@ const STATIC_PATHS: string[] = [
   ROUTES.generateur,
   ROUTES.motsCoupes,
   ROUTES.motsCoupesImprimer,
+  // NEW: mots croisés — existed as real pages this whole time but was
+  // never in the sitemap either (same root cause as the missing nav
+  // links — never added to ROUTES in the first place).
+  ROUTES.motsCroisesImprimer,
+  ROUTES.miniMotsCroises,
 ]
 
 const NOINDEX_STATIC_PATHS = new Set<string>([ROUTES.recherche])

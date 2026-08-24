@@ -2,6 +2,7 @@ import {
   ROUTES,
   difficultyPath,
   gradePath,
+  motsCroisesForcePath,
   seasonalPath,
   themePath,
 } from "@/lib/seo/routes"
@@ -36,9 +37,6 @@ export const imprimerMegaMenu: MegaMenuPanel = {
   featured: [
     { label: "Mots mêlés gratuits", href: ROUTES.gratuits, description: "Toutes les grilles gratuites" },
     { label: "Mots mêlés à imprimer", href: ROUTES.imprimer, description: "PDF prêts à imprimer" },
-    // New: mots coupés — featured alongside the other two printable
-    // formats, same visual treatment.
-    { label: "Mots coupés à imprimer", href: ROUTES.motsCoupesImprimer, description: "Reconstitue les mots" },
   ],
   sections: [
     {
@@ -73,6 +71,20 @@ export const imprimerMegaMenu: MegaMenuPanel = {
         { label: "Moyen", href: difficultyPath("moyen") },
         { label: "Difficile", href: difficultyPath("difficile") },
         { label: "Géant", href: difficultyPath("geant") },
+      ],
+    },
+    // NEW: consolidates mots croisés (previously had ZERO nav links
+    // anywhere on the site) and mots coupés into one place, instead of
+    // scattering them across featured/Découvrir as the mots-coupés pack
+    // originally did. This is the actual point of this pass — cross-type
+    // discoverability, not just "add a link somewhere".
+    {
+      title: "Autres jeux de mots",
+      links: [
+        { label: "Mots croisés à imprimer", href: ROUTES.motsCroisesImprimer },
+        { label: "Mini mots croisés (jeu quotidien)", href: ROUTES.miniMotsCroises },
+        { label: "Mots coupés à imprimer", href: ROUTES.motsCoupesImprimer },
+        { label: "Mots coupés (jeu en ligne)", href: ROUTES.motsCoupes },
       ],
     },
   ],
@@ -131,11 +143,10 @@ export const plusMegaMenu: MegaMenuPanel = {
         { label: "Personnages", href: ROUTES.personnages },
         { label: "Solutions & règles", href: ROUTES.solutions },
         { label: "Application", href: ROUTES.application },
-        // New: online mots coupés game (the printable version is
-        // featured in imprimerMegaMenu above; this is the play-online
-        // entry point, same split as "Mots mêlés à imprimer" vs "Jouer
-        // en ligne").
-        { label: "Mots coupés (jeu en ligne)", href: ROUTES.motsCoupes },
+        // Mots coupés online-game link moved to imprimerMegaMenu's new
+        // "Autres jeux de mots" section (consolidated with mots croisés
+        // there) — removed from here to avoid the same link appearing
+        // in two different menus with no clear reason for the split.
       ],
     },
   ],
@@ -213,10 +224,6 @@ export const footerSiloColumns: NavSection[] = [
       { label: "Jouer en ligne", href: ROUTES.jouer },
       { label: "Générateur", href: ROUTES.generateur },
       { label: "Solutions & règles", href: ROUTES.solutions },
-      // New: footer is what actually reaches mobile visitors (the
-      // header mega-menu is desktop-only) — same reasoning already
-      // applied to the Português section below.
-      { label: "Mots coupés à imprimer", href: ROUTES.motsCoupesImprimer },
     ],
   },
   {
@@ -259,6 +266,19 @@ export const footerSiloColumns: NavSection[] = [
       { label: "Ressources enseignants", href: ROUTES.ressources },
     ],
   },
+  // NEW: same consolidated set as the header's "Autres jeux de mots"
+  // section — footer is what actually reaches mobile visitors, since
+  // the header mega-menu is desktop-only (see site-header.tsx's
+  // "hidden ... lg:flex" wrapper), same reasoning already applied to
+  // the Português column below.
+  {
+    title: "Autres jeux de mots",
+    links: [
+      { label: "Mots croisés à imprimer", href: ROUTES.motsCroisesImprimer },
+      { label: "Mini mots croisés", href: ROUTES.miniMotsCroises },
+      { label: "Mots coupés à imprimer", href: ROUTES.motsCoupesImprimer },
+    ],
+  },
   // PT-BR pack: footer still carries a compact Português column too, for
   // mobile visitors — the dropdown above only renders in the desktop nav
   // (see site-header.tsx's "hidden ... lg:flex" wrapper), same reason
@@ -281,3 +301,40 @@ export const footerLegalLinks: NavLink[] = [
   { label: "À propos", href: ROUTES.aPropos },
   { label: "Auteur", href: ROUTES.auteur },
 ]
+
+/**
+ * NEW: shared cross-links between the three puzzle FORMATS (mots mêlés,
+ * mots croisés, mots coupés) — meant to be rendered on EACH format's own
+ * pages (category pages, crossword pages, mots-coupés pages) so a
+ * visitor discovers the other formats from within the content itself,
+ * not just from the header/footer. This is the actual topical-authority
+ * signal: related content linking to related content, not just isolated
+ * pages each linked from the same nav.
+ *
+ * Deliberately excludes whichever format the visitor is currently on —
+ * consuming code should filter by `id !== currentFormatId`.
+ */
+export type PuzzleFormatLink = NavLink & { id: "mots-meles" | "mots-croises" | "mots-coupes" }
+
+export const PUZZLE_FORMAT_LINKS: PuzzleFormatLink[] = [
+  {
+    id: "mots-meles",
+    label: "Mots mêlés",
+    href: ROUTES.imprimer,
+    description: "Trouve les mots cachés dans une grille de lettres",
+  },
+  {
+    id: "mots-croises",
+    label: "Mots croisés",
+    href: ROUTES.motsCroisesImprimer,
+    description: "Complète la grille à l'aide des définitions",
+  },
+  {
+    id: "mots-coupes",
+    label: "Mots coupés",
+    href: ROUTES.motsCoupesImprimer,
+    description: "Associe le début et la fin de chaque mot",
+  },
+]
+
+export { motsCroisesForcePath }

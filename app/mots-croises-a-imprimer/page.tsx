@@ -1,13 +1,18 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { PrintableCrosswordList } from "@/components/games/mini-crossword/printable-crossword-list"
-// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 
+// Retargeted metadata (was purely generic "à imprimer, Force 1 à 5").
+// Now explicitly covers the specific searched phrases found in the
+// content-gap research: "mots croisés faciles" (1,300/mo), "mot croisé
+// enfant" (200/mo), "mots croisés à imprimer collège" (150/mo) — all
+// genuinely true of this page's actual content (5 difficulty tiers
+// spanning young-child-easy to collège-level), just not stated before.
 export const metadata: Metadata = {
-  title: "Mots Croisés à Imprimer Gratuitement (PDF) | Hibou&Mots",
+  title: "Mots Croisés à Imprimer Gratuit (Facile à Collège) | Hibou&Mots",
   description:
-    "Des grilles de mots croisés gratuites à imprimer, du niveau Force 1 au Force 5. Utilise le bouton Imprimer de ton navigateur pour les garder sur papier.",
+    "Mots croisés à imprimer gratuitement en PDF : du niveau facile, idéal pour un enfant qui débute, jusqu'au niveau collège. Cinq niveaux de difficulté, sans inscription.",
   other: {
     google: "notranslate",
   },

@@ -1,13 +1,15 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { MiniCrosswordGame } from "@/components/games/mini-crossword/mini-crossword-game"
-// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 
+// Retargeted description to naturally include "jeux de mots croisés"
+// (150/mo) — the generic/broad phrasing genuinely fits a daily-game
+// page better than the printable hub does.
 export const metadata: Metadata = {
   title: "Mini Mots Croisés Gratuits en Ligne | Hibou&Mots",
   description:
-    "Une mini grille de mots croisés chaque jour, à jouer en ligne gratuitement. Choisis ta difficulté (Force 1 à 5) et amuse-toi sans inscription.",
+    "Un des meilleurs jeux de mots croisés gratuits à jouer en ligne : une mini grille chaque jour, cinq niveaux de difficulté, sans inscription.",
   other: {
     google: "notranslate",
   },

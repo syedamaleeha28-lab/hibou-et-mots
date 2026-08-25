@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { SchemaJsonLd } from "@/components/seo"
+import { PageIllustration } from "@/components/ui/page-illustration"
+import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { SudokuGame } from "@/components/games/sudoku/sudoku-game"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
@@ -19,6 +21,24 @@ export const metadata: Metadata = {
   other: {
     google: "notranslate",
   },
+}
+
+const HERO: IllustrationSpec = {
+  src: "/images/heroes/sudoku-hero.webp",
+  alt: "Deux enfants pointent joyeusement une grande grille de sudoku colorée sur une table",
+  title: PAGE_NAME,
+  caption: "Remplis la grille sans répéter aucun chiffre.",
+  width: 1200,
+  height: 675,
+}
+
+const PREVIEW: IllustrationSpec = {
+  src: "/images/previews/sudoku-preview.webp",
+  alt: "Aperçu d'une fiche de jeu à associer, illustrant le format imprimable des grilles",
+  title: `Exemple de grille — ${PAGE_NAME}`,
+  caption: "Chaque grille est prête à imprimer ou à jouer en ligne.",
+  width: 800,
+  height: 600,
 }
 
 export default function SudokuPage() {
@@ -55,8 +75,16 @@ export default function SudokuPage() {
           ))}
         </div>
 
+        <div className="mt-6">
+          <PageIllustration variant="hero" illustration={HERO} />
+        </div>
+
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <SudokuGame />
+        </div>
+
+        <div className="mt-6">
+          <PageIllustration variant="preview" illustration={PREVIEW} />
         </div>
 
         <div className="mt-8 flex flex-col gap-8">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { SchemaJsonLd } from "@/components/seo"
+import { PageIllustration } from "@/components/ui/page-illustration"
+import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { PrintableMotsCoupesList } from "@/components/games/mots-coupes/printable-mots-coupes-list"
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
@@ -24,6 +26,15 @@ export const metadata: Metadata = {
   other: {
     google: "notranslate",
   },
+}
+
+const HERO: IllustrationSpec = {
+  src: "/images/heroes/mots-coupes-hero.webp",
+  alt: "Deux enfants assemblent les deux moitiés d'une grande carte représentant un soleil, symbolisant le jeu des mots coupés",
+  title: PAGE_NAME,
+  caption: "Imprime tes grilles de mots coupés en PDF.",
+  width: 1200,
+  height: 675,
 }
 
 export default function MotsCoupesAImprimerPage() {
@@ -62,6 +73,10 @@ export default function MotsCoupesAImprimerPage() {
             Clique sur « Imprimer cette page », puis choisis « Enregistrer en PDF » dans la fenêtre
             d&apos;impression de ton navigateur si tu préfères une version numérique.
           </p>
+        </div>
+
+        <div className="no-print mt-6">
+          <PageIllustration variant="hero" illustration={HERO} />
         </div>
 
         <div className="mt-6">

@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { SchemaJsonLd } from "@/components/seo"
+import { PageIllustration } from "@/components/ui/page-illustration"
+import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { ColoriageGame } from "@/components/games/coloriage-magique/coloriage-game"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
@@ -24,6 +26,24 @@ export const metadata: Metadata = {
   other: {
     google: "notranslate",
   },
+}
+
+const HERO: IllustrationSpec = {
+  src: "/images/heroes/coloriage-magique-hero.webp",
+  alt: "Un enfant colorie avec des crayons de couleur le dessin d'un soleil souriant",
+  title: PAGE_NAME,
+  caption: "Colore chaque zone pour révéler le dessin caché.",
+  width: 1200,
+  height: 675,
+}
+
+const PREVIEW: IllustrationSpec = {
+  src: "/images/previews/coloriage-magique-preview.webp",
+  alt: "Aperçu d'une fiche à imprimer illustrant le format des activités du site",
+  title: `Exemple de grille — ${PAGE_NAME}`,
+  caption: "Chaque coloriage est prêt à imprimer ou à faire en ligne.",
+  width: 800,
+  height: 600,
 }
 
 export default function ColoriageMagiquePage() {
@@ -60,8 +80,16 @@ export default function ColoriageMagiquePage() {
           ))}
         </div>
 
+        <div className="mt-6">
+          <PageIllustration variant="hero" illustration={HERO} />
+        </div>
+
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <ColoriageGame />
+        </div>
+
+        <div className="mt-6">
+          <PageIllustration variant="preview" illustration={PREVIEW} />
         </div>
 
         <div className="mt-8 flex flex-col gap-8">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { SchemaJsonLd } from "@/components/seo"
+import { PageIllustration } from "@/components/ui/page-illustration"
+import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { MotsCoupesGame } from "@/components/games/mots-coupes/mots-coupes-game"
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
@@ -24,6 +26,24 @@ export const metadata: Metadata = {
   other: {
     google: "notranslate",
   },
+}
+
+const HERO: IllustrationSpec = {
+  src: "/images/heroes/mots-coupes-hero.webp",
+  alt: "Deux enfants assemblent les deux moitiés d'une grande carte représentant un soleil, symbolisant le jeu des mots coupés",
+  title: PAGE_NAME,
+  caption: "Retrouve le début et la fin de chaque mot.",
+  width: 1200,
+  height: 675,
+}
+
+const PREVIEW: IllustrationSpec = {
+  src: "/images/previews/mots-coupes-preview.webp",
+  alt: "Aperçu d'une fiche de mots coupés avec des cartes à associer reliées par des pointillés",
+  title: `Exemple de grille — ${PAGE_NAME}`,
+  caption: "Chaque grille est prête à imprimer ou à jouer en ligne.",
+  width: 800,
+  height: 600,
 }
 
 export default function MotsCoupesPage() {
@@ -60,8 +80,16 @@ export default function MotsCoupesPage() {
           ))}
         </div>
 
+        <div className="mt-6">
+          <PageIllustration variant="hero" illustration={HERO} />
+        </div>
+
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <MotsCoupesGame />
+        </div>
+
+        <div className="mt-6">
+          <PageIllustration variant="preview" illustration={PREVIEW} />
         </div>
 
         <div className="mt-8 flex flex-col gap-8">

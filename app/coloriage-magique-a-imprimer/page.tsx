@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { SchemaJsonLd } from "@/components/seo"
+import { PageIllustration } from "@/components/ui/page-illustration"
+import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { PrintableColoriageList } from "@/components/games/coloriage-magique/printable-coloriage-list"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
@@ -24,6 +26,15 @@ export const metadata: Metadata = {
   other: {
     google: "notranslate",
   },
+}
+
+const HERO: IllustrationSpec = {
+  src: "/images/heroes/coloriage-magique-hero.webp",
+  alt: "Un enfant colorie avec des crayons de couleur le dessin d'un soleil souriant",
+  title: PAGE_NAME,
+  caption: "Imprime tes coloriages magiques en PDF.",
+  width: 1200,
+  height: 675,
 }
 
 export default function ColoriageMagiqueAImprimerPage() {
@@ -62,6 +73,10 @@ export default function ColoriageMagiqueAImprimerPage() {
             Clique sur « Imprimer cette page », puis choisis « Enregistrer en PDF » dans la fenêtre
             d&apos;impression de ton navigateur si tu préfères une version numérique.
           </p>
+        </div>
+
+        <div className="no-print mt-6">
+          <PageIllustration variant="hero" illustration={HERO} />
         </div>
 
         <div className="mt-6">

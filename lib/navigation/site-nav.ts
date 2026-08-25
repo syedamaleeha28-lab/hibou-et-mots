@@ -99,6 +99,16 @@ export const imprimerMegaMenu: MegaMenuPanel = {
         { label: "Sudoku (jeu en ligne)", href: ROUTES.sudoku },
       ],
     },
+    // NEW: coloriage magique is a coloring activity — not a word puzzle,
+    // not a number/logic puzzle. Same reasoning as the "Jeux de
+    // chiffres" split above, one more time.
+    {
+      title: "Autres activités",
+      links: [
+        { label: "Coloriage magique à imprimer", href: ROUTES.coloriageMagiqueImprimer },
+        { label: "Coloriage magique (jeu en ligne)", href: ROUTES.coloriageMagique },
+      ],
+    },
   ],
 }
 
@@ -296,6 +306,11 @@ export const footerSiloColumns: NavSection[] = [
   {
     title: "Jeux de chiffres",
     links: [{ label: "Sudoku à imprimer", href: ROUTES.sudokuImprimer }],
+  },
+  // NEW: coloriage magique, same reasoning as the sudoku column above.
+  {
+    title: "Autres activités",
+    links: [{ label: "Coloriage magique à imprimer", href: ROUTES.coloriageMagiqueImprimer }],
   },
   // PT-BR pack: footer still carries a compact Português column too, for
   // mobile visitors — the dropdown above only renders in the desktop nav

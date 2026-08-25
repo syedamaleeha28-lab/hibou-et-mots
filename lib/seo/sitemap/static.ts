@@ -51,6 +51,9 @@ const STATIC_PATHS: string[] = [
   // NEW: sudoku.
   ROUTES.sudoku,
   ROUTES.sudokuImprimer,
+  // NEW: coloriage magique.
+  ROUTES.coloriageMagique,
+  ROUTES.coloriageMagiqueImprimer,
 ]
 
 const NOINDEX_STATIC_PATHS = new Set<string>([ROUTES.recherche])

@@ -44,6 +44,8 @@ describe("static sitemap entries", () => {
     expect(locs.some((loc) => loc.includes("mini-mots-croises"))).toBe(true)
     expect(locs.some((loc) => loc.includes("/sudoku/"))).toBe(true)
     expect(locs.some((loc) => loc.includes("sudoku-a-imprimer"))).toBe(true)
+    expect(locs.some((loc) => loc.includes("/coloriage-magique/"))).toBe(true)
+    expect(locs.some((loc) => loc.includes("coloriage-magique-a-imprimer"))).toBe(true)
     expect(locs.some((loc) => loc.includes("recherche"))).toBe(false)
   })
 })

@@ -31,7 +31,7 @@ describe("site navigation", () => {
     ])
   })
 
-  it("includes imprimer sections for theme, grade, difficulty, word games, and number games", () => {
+  it("includes imprimer sections for theme, grade, difficulty, word games, number games, and other activities", () => {
     const imprimer = headerMegaMenus[0]!
     const titles = imprimer.sections.map((s) => s.title)
     expect(titles).toContain("Par thème")
@@ -39,6 +39,7 @@ describe("site navigation", () => {
     expect(titles).toContain("Par difficulté")
     expect(titles).toContain("Autres jeux de mots")
     expect(titles).toContain("Jeux de chiffres")
+    expect(titles).toContain("Autres activités")
     const autres = imprimer.sections.find((s) => s.title === "Autres jeux de mots")!
     expect(autres.links.map((l) => l.href)).toEqual([
       "/mots-croises-a-imprimer/",
@@ -50,6 +51,11 @@ describe("site navigation", () => {
     expect(chiffres.links.map((l) => l.href)).toEqual([
       "/sudoku-a-imprimer/",
       "/sudoku/",
+    ])
+    const activites = imprimer.sections.find((s) => s.title === "Autres activités")!
+    expect(activites.links.map((l) => l.href)).toEqual([
+      "/coloriage-magique-a-imprimer/",
+      "/coloriage-magique/",
     ])
   })
 
@@ -84,12 +90,15 @@ describe("site navigation", () => {
   })
 
   it("maps footer to silo columns plus legal, including Português", () => {
-    expect(footerSiloColumns).toHaveLength(9)
+    expect(footerSiloColumns).toHaveLength(10)
     expect(footerSiloColumns[0]?.title).toBe("Hub principal")
     expect(footerSiloColumns.map((c) => c.title)).toContain("Autres jeux de mots")
     expect(footerSiloColumns.map((c) => c.title)).toContain("Jeux de chiffres")
+    expect(footerSiloColumns.map((c) => c.title)).toContain("Autres activités")
     const chiffres = footerSiloColumns.find((c) => c.title === "Jeux de chiffres")!
     expect(chiffres.links.map((l) => l.href)).toEqual(["/sudoku-a-imprimer/"])
+    const activites = footerSiloColumns.find((c) => c.title === "Autres activités")!
+    expect(activites.links.map((l) => l.href)).toEqual(["/coloriage-magique-a-imprimer/"])
     expect(footerSiloColumns.at(-1)?.title).toBe("🇧🇷 Português")
     expect(footerSiloColumns.at(-1)?.links.map((l) => l.href)).toEqual([
       "/caca-palavras-para-imprimir/",

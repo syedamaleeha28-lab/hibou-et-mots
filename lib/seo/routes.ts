@@ -46,6 +46,11 @@ export const ROUTES = {
   // section, instead of folding it into "Autres jeux de mots").
   sudoku: "/sudoku/",
   sudokuImprimer: "/sudoku-a-imprimer/",
+  // NEW: coloriage magique — a coloring activity, not a word or number
+  // puzzle. Kept semantically separate everywhere (nav section, its own
+  // in-page links block) — same discipline as sudoku's word/number split.
+  coloriageMagique: "/coloriage-magique/",
+  coloriageMagiqueImprimer: "/coloriage-magique-a-imprimer/",
 } as const
 
 export function gradePath(slug: string): string {

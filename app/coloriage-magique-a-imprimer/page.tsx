@@ -3,11 +3,14 @@ import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { PrintableColoriageList } from "@/components/games/coloriage-magique/printable-coloriage-list"
 import { ROUTES } from "@/lib/seo/routes"
+import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
+import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import {
+  COLORIAGE_MAGIQUE_FAQ,
+  COLORIAGE_MAGIQUE_HOW_TO_PLAY,
+  COLORIAGE_MAGIQUE_INTRO_PARAGRAPHS,
+} from "@/lib/content/coloriage-magique-seo"
 
-// Matches "coloriage magique à imprimer cp" (350/mo), "coloriage
-// magique cm1/cm2 à imprimer" (200-450/mo), "coloriage magique ce1 à
-// imprimer pdf" (350/mo) — all near-zero competition, all genuinely
-// matched by this page's actual content.
 export const metadata: Metadata = {
   title: "Coloriage Magique à Imprimer Gratuit (PDF) | Hibou&Mots",
   description:
@@ -29,15 +32,28 @@ export default function ColoriageMagiqueAImprimerPage() {
           description="Toutes nos grilles, prêtes à imprimer avec le bouton ci-dessous — aucune inscription requise."
           className="gap-2 [&_h1]:text-2xl sm:[&_h1]:text-3xl lg:[&_h1]:text-4xl"
         />
-        <p className="mt-4 text-sm font-semibold text-muted-foreground">
-          Clique sur « Imprimer cette page », puis choisis « Enregistrer en PDF » dans la fenêtre
-          d&apos;impression de ton navigateur si tu préfères une version numérique.
-        </p>
+
+        <div className="mt-4 flex flex-col gap-4">
+          {COLORIAGE_MAGIQUE_INTRO_PARAGRAPHS.map((paragraph, i) => (
+            <p key={i} className="no-print text-sm leading-relaxed text-foreground/90">
+              {paragraph}
+            </p>
+          ))}
+          <p className="text-sm font-semibold text-muted-foreground">
+            Clique sur « Imprimer cette page », puis choisis « Enregistrer en PDF » dans la fenêtre
+            d&apos;impression de ton navigateur si tu préfères une version numérique.
+          </p>
+        </div>
+
         <div className="mt-6">
           <PrintableColoriageList />
         </div>
 
-        <div className="no-print mt-8">
+        <div className="no-print mt-8 flex flex-col gap-8">
+          <HowToPlayBlock {...COLORIAGE_MAGIQUE_HOW_TO_PLAY} />
+
+          <FaqAccordion items={COLORIAGE_MAGIQUE_FAQ} />
+
           <OtherActivitiesLinks />
         </div>
       </div>

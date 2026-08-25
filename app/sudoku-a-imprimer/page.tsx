@@ -3,6 +3,9 @@ import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { PrintableSudokuList } from "@/components/games/sudoku/printable-sudoku-list"
 import { ROUTES } from "@/lib/seo/routes"
+import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
+import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import { SUDOKU_FAQ, SUDOKU_HOW_TO_PLAY, SUDOKU_INTRO_PARAGRAPHS } from "@/lib/content/sudoku-seo"
 
 export const metadata: Metadata = {
   title: "Sudoku à Imprimer Gratuitement (PDF) | Hibou&Mots",
@@ -25,15 +28,28 @@ export default function SudokuAImprimerPage() {
           description="Toutes nos grilles, prêtes à imprimer avec le bouton ci-dessous — aucune inscription requise."
           className="gap-2 [&_h1]:text-2xl sm:[&_h1]:text-3xl lg:[&_h1]:text-4xl"
         />
-        <p className="mt-4 text-sm font-semibold text-muted-foreground">
-          Clique sur « Imprimer cette page », puis choisis « Enregistrer en PDF » dans la fenêtre
-          d&apos;impression de ton navigateur si tu préfères une version numérique.
-        </p>
+
+        <div className="mt-4 flex flex-col gap-4">
+          {SUDOKU_INTRO_PARAGRAPHS.map((paragraph, i) => (
+            <p key={i} className="no-print text-sm leading-relaxed text-foreground/90">
+              {paragraph}
+            </p>
+          ))}
+          <p className="text-sm font-semibold text-muted-foreground">
+            Clique sur « Imprimer cette page », puis choisis « Enregistrer en PDF » dans la fenêtre
+            d&apos;impression de ton navigateur si tu préfères une version numérique.
+          </p>
+        </div>
+
         <div className="mt-6">
           <PrintableSudokuList />
         </div>
 
-        <div className="no-print mt-8">
+        <div className="no-print mt-8 flex flex-col gap-8">
+          <HowToPlayBlock {...SUDOKU_HOW_TO_PLAY} />
+
+          <FaqAccordion items={SUDOKU_FAQ} />
+
           <SudokuFormatLinks />
         </div>
       </div>
@@ -41,8 +57,6 @@ export default function SudokuAImprimerPage() {
   )
 }
 
-// See app/sudoku/page.tsx for why this is a standalone block instead of
-// reusing PuzzleFormatLinks — sudoku is a number puzzle, not a word one.
 function SudokuFormatLinks() {
   const links = [
     { label: "Mots mêlés", href: ROUTES.imprimer, description: "Trouve les mots cachés dans une grille" },

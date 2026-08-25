@@ -3,12 +3,14 @@ import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { ColoriageGame } from "@/components/games/coloriage-magique/coloriage-game"
 import { ROUTES } from "@/lib/seo/routes"
+import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
+import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import {
+  COLORIAGE_MAGIQUE_FAQ,
+  COLORIAGE_MAGIQUE_HOW_TO_PLAY,
+  COLORIAGE_MAGIQUE_INTRO_PARAGRAPHS,
+} from "@/lib/content/coloriage-magique-seo"
 
-// Matches content-gap research: "coloriage magique maternelle" (1,200/mo,
-// KD 1), "coloriage magique cp" (350/mo, KD 1) — near-uncontested
-// keywords, but a genuine scope departure from word/number puzzles (see
-// the standalone links block below rather than folding this into
-// PuzzleFormatLinks or the number-games section).
 export const metadata: Metadata = {
   title: "Coloriage Magique Gratuit en Ligne | Hibou&Mots",
   description:
@@ -30,11 +32,24 @@ export default function ColoriageMagiquePage() {
           description="Clique sur un numéro, puis colore la zone qui lui correspond — le dessin se révèle petit à petit !"
           className="gap-2 [&_h1]:text-2xl sm:[&_h1]:text-3xl lg:[&_h1]:text-4xl"
         />
+
+        <div className="mt-6 flex flex-col gap-4">
+          {COLORIAGE_MAGIQUE_INTRO_PARAGRAPHS.map((paragraph, i) => (
+            <p key={i} className="text-sm leading-relaxed text-foreground/90">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <ColoriageGame />
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 flex flex-col gap-8">
+          <HowToPlayBlock {...COLORIAGE_MAGIQUE_HOW_TO_PLAY} />
+
+          <FaqAccordion items={COLORIAGE_MAGIQUE_FAQ} />
+
           <OtherActivitiesLinks />
         </div>
       </div>

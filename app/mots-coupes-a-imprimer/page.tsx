@@ -1,8 +1,14 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { PrintableMotsCoupesList } from "@/components/games/mots-coupes/printable-mots-coupes-list"
-// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
+import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
+import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import {
+  MOTS_COUPES_FAQ,
+  MOTS_COUPES_HOW_TO_PLAY,
+  MOTS_COUPES_INTRO_PARAGRAPHS,
+} from "@/lib/content/mots-coupes-seo"
 
 export const metadata: Metadata = {
   title: "Mots Coupés à Imprimer Gratuitement (PDF) | Hibou&Mots",
@@ -25,15 +31,28 @@ export default function MotsCoupesAImprimerPage() {
           description="Toutes nos grilles, prêtes à imprimer avec le bouton ci-dessous — aucune inscription requise."
           className="gap-2 [&_h1]:text-2xl sm:[&_h1]:text-3xl lg:[&_h1]:text-4xl"
         />
-        <p className="mt-4 text-sm font-semibold text-muted-foreground">
-          Clique sur « Imprimer cette page », puis choisis « Enregistrer en PDF » dans la fenêtre
-          d&apos;impression de ton navigateur si tu préfères une version numérique.
-        </p>
+
+        <div className="mt-4 flex flex-col gap-4">
+          {MOTS_COUPES_INTRO_PARAGRAPHS.map((paragraph, i) => (
+            <p key={i} className="no-print text-sm leading-relaxed text-foreground/90">
+              {paragraph}
+            </p>
+          ))}
+          <p className="text-sm font-semibold text-muted-foreground">
+            Clique sur « Imprimer cette page », puis choisis « Enregistrer en PDF » dans la fenêtre
+            d&apos;impression de ton navigateur si tu préfères une version numérique.
+          </p>
+        </div>
+
         <div className="mt-6">
           <PrintableMotsCoupesList />
         </div>
 
-        <div className="no-print mt-8">
+        <div className="no-print mt-8 flex flex-col gap-8">
+          <HowToPlayBlock {...MOTS_COUPES_HOW_TO_PLAY} />
+
+          <FaqAccordion items={MOTS_COUPES_FAQ} />
+
           <PuzzleFormatLinks current="mots-coupes" />
         </div>
       </div>

@@ -1,8 +1,14 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { MotsCoupesGame } from "@/components/games/mots-coupes/mots-coupes-game"
-// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
+import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
+import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import {
+  MOTS_COUPES_FAQ,
+  MOTS_COUPES_HOW_TO_PLAY,
+  MOTS_COUPES_INTRO_PARAGRAPHS,
+} from "@/lib/content/mots-coupes-seo"
 
 export const metadata: Metadata = {
   title: "Mots Coupés Gratuit en Ligne | Hibou&Mots",
@@ -25,11 +31,24 @@ export default function MotsCoupesPage() {
           description="Chaque mot a été coupé en deux morceaux. Retrouve le bon début et la bonne fin pour reconstituer tous les mots."
           className="gap-2 [&_h1]:text-2xl sm:[&_h1]:text-3xl lg:[&_h1]:text-4xl"
         />
+
+        <div className="mt-6 flex flex-col gap-4">
+          {MOTS_COUPES_INTRO_PARAGRAPHS.map((paragraph, i) => (
+            <p key={i} className="text-sm leading-relaxed text-foreground/90">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <MotsCoupesGame />
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 flex flex-col gap-8">
+          <HowToPlayBlock {...MOTS_COUPES_HOW_TO_PLAY} />
+
+          <FaqAccordion items={MOTS_COUPES_FAQ} />
+
           <PuzzleFormatLinks current="mots-coupes" />
         </div>
       </div>

@@ -3,6 +3,9 @@ import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { SudokuGame } from "@/components/games/sudoku/sudoku-game"
 import { ROUTES } from "@/lib/seo/routes"
+import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
+import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import { SUDOKU_FAQ, SUDOKU_HOW_TO_PLAY, SUDOKU_INTRO_PARAGRAPHS } from "@/lib/content/sudoku-seo"
 
 // Matches content-gap research: "sudoku enfants" (350/mo), "sudoku cp"
 // (200/mo), "sudoku ce2/cm1/cm2" (100–150/mo each) — near-zero
@@ -29,11 +32,24 @@ export default function SudokuPage() {
           description="Remplis la grille pour que chaque ligne, colonne et carré de 3×3 contienne les chiffres de 1 à 9, sans répétition."
           className="gap-2 [&_h1]:text-2xl sm:[&_h1]:text-3xl lg:[&_h1]:text-4xl"
         />
+
+        <div className="mt-6 flex flex-col gap-4">
+          {SUDOKU_INTRO_PARAGRAPHS.map((paragraph, i) => (
+            <p key={i} className="text-sm leading-relaxed text-foreground/90">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <SudokuGame />
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 flex flex-col gap-8">
+          <HowToPlayBlock {...SUDOKU_HOW_TO_PLAY} />
+
+          <FaqAccordion items={SUDOKU_FAQ} />
+
           <SudokuFormatLinks />
         </div>
       </div>

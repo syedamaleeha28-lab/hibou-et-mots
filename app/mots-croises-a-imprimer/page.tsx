@@ -1,7 +1,10 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
+import { SchemaJsonLd } from "@/components/seo"
 import { PrintableCrosswordList } from "@/components/games/mini-crossword/printable-crossword-list"
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
+import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+import { ROUTES } from "@/lib/seo/routes"
 
 // Retargeted metadata (was purely generic "à imprimer, Force 1 à 5").
 // Now explicitly covers the specific searched phrases found in the
@@ -18,10 +21,29 @@ export const metadata: Metadata = {
   },
 }
 
+const PAGE_NAME = "Mots Croisés à Imprimer"
+const PAGE_DESCRIPTION =
+  "Mots croisés à imprimer gratuitement en PDF, du niveau facile au niveau collège, cinq niveaux de difficulté."
+
 export default function MotsCroisesAImprimerPage() {
+  // No FAQ content on this page yet — schema reflects that honestly
+  // (BreadcrumbList + WebPage, no fabricated FAQPage node).
+  const schemaGraph = buildGamePageSchemaGraph({
+    path: ROUTES.motsCroisesImprimer,
+    name: PAGE_NAME,
+    description: PAGE_DESCRIPTION,
+    breadcrumbs: [
+      { label: "Accueil", href: "/" },
+      { label: PAGE_NAME, href: ROUTES.motsCroisesImprimer },
+    ],
+    faqItems: [],
+  })
+
   return (
     <div className="bg-background">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+        <SchemaJsonLd data={schemaGraph} />
+
         <SectionHeading
           align="left"
           as="h1"

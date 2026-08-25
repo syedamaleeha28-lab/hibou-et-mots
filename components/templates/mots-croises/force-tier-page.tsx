@@ -1,9 +1,11 @@
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
+import { SchemaJsonLd } from "@/components/seo"
 import { CrosswordBoard } from "@/components/games/mini-crossword/crossword-board"
 import { gridsForTier } from "@/lib/mini-crossword/grids"
-// New: cross-format link block (mots mêlés ↔ mots croisés ↔ mots coupés).
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
+import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+import { motsCroisesForcePath } from "@/lib/seo/routes"
 
 type Tier = 1 | 2 | 3 | 4 | 5
 
@@ -44,10 +46,30 @@ export function ForceTierPage({ tier }: { tier: Tier }) {
   const copy = TIER_COPY[tier]
   const grids = gridsForTier(tier)
   const otherTiers = ([1, 2, 3, 4, 5] as Tier[]).filter((t) => t !== tier)
+  const path = motsCroisesForcePath(tier)
+
+  // No FAQ content exists on these pages yet (that content pass covered
+  // mots coupés/sudoku/coloriage magique only) — buildGamePageSchemaGraph
+  // handles an empty array correctly, simply omitting the FAQPage node
+  // rather than fabricating one. BreadcrumbList + WebPage only, honestly
+  // reflecting what's actually on the page.
+  const schemaGraph = buildGamePageSchemaGraph({
+    path,
+    name: copy.title,
+    description: copy.description,
+    breadcrumbs: [
+      { label: "Accueil", href: "/" },
+      { label: "Mots Croisés à Imprimer", href: "/mots-croises-a-imprimer/" },
+      { label: copy.title, href: path },
+    ],
+    faqItems: [],
+  })
 
   return (
     <div className="bg-background">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+        <SchemaJsonLd data={schemaGraph} />
+
         <SectionHeading
           align="left"
           as="h1"

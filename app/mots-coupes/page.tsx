@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
+import { SchemaJsonLd } from "@/components/seo"
 import { MotsCoupesGame } from "@/components/games/mots-coupes/mots-coupes-game"
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
@@ -9,6 +10,12 @@ import {
   MOTS_COUPES_HOW_TO_PLAY,
   MOTS_COUPES_INTRO_PARAGRAPHS,
 } from "@/lib/content/mots-coupes-seo"
+import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+import { ROUTES } from "@/lib/seo/routes"
+
+const PAGE_NAME = "Mots Coupés"
+const PAGE_DESCRIPTION =
+  "Joue aux mots coupés gratuitement en ligne : reconstitue chaque mot en associant le bon début à la bonne fin."
 
 export const metadata: Metadata = {
   title: "Mots Coupés Gratuit en Ligne | Hibou&Mots",
@@ -20,9 +27,22 @@ export const metadata: Metadata = {
 }
 
 export default function MotsCoupesPage() {
+  const schemaGraph = buildGamePageSchemaGraph({
+    path: ROUTES.motsCoupes,
+    name: PAGE_NAME,
+    description: PAGE_DESCRIPTION,
+    breadcrumbs: [
+      { label: "Accueil", href: "/" },
+      { label: PAGE_NAME, href: ROUTES.motsCoupes },
+    ],
+    faqItems: MOTS_COUPES_FAQ,
+  })
+
   return (
     <div className="bg-background">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+        <SchemaJsonLd data={schemaGraph} />
+
         <SectionHeading
           align="left"
           as="h1"

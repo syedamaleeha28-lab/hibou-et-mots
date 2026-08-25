@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
+import { SchemaJsonLd } from "@/components/seo"
 import { ColoriageGame } from "@/components/games/coloriage-magique/coloriage-game"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
@@ -10,6 +11,11 @@ import {
   COLORIAGE_MAGIQUE_HOW_TO_PLAY,
   COLORIAGE_MAGIQUE_INTRO_PARAGRAPHS,
 } from "@/lib/content/coloriage-magique-seo"
+import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+
+const PAGE_NAME = "Coloriage Magique"
+const PAGE_DESCRIPTION =
+  "Coloriage magique gratuit en ligne pour la maternelle et le CP : clique sur les numéros pour révéler le dessin."
 
 export const metadata: Metadata = {
   title: "Coloriage Magique Gratuit en Ligne | Hibou&Mots",
@@ -21,9 +27,22 @@ export const metadata: Metadata = {
 }
 
 export default function ColoriageMagiquePage() {
+  const schemaGraph = buildGamePageSchemaGraph({
+    path: ROUTES.coloriageMagique,
+    name: PAGE_NAME,
+    description: PAGE_DESCRIPTION,
+    breadcrumbs: [
+      { label: "Accueil", href: "/" },
+      { label: PAGE_NAME, href: ROUTES.coloriageMagique },
+    ],
+    faqItems: COLORIAGE_MAGIQUE_FAQ,
+  })
+
   return (
     <div className="bg-background">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+        <SchemaJsonLd data={schemaGraph} />
+
         <SectionHeading
           align="left"
           as="h1"
@@ -57,10 +76,6 @@ export default function ColoriageMagiquePage() {
   )
 }
 
-// A coloring page is a genuinely different activity type from every
-// other puzzle format on the site — not a word puzzle, not a number
-// puzzle. Its own small, honestly-labeled links block, same pattern as
-// sudoku's SudokuFormatLinks.
 function OtherActivitiesLinks() {
   const links = [
     { label: "Mots mêlés", href: ROUTES.imprimer, description: "Trouve les mots cachés dans une grille" },

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
+import { SchemaJsonLd } from "@/components/seo"
 import { PrintableMotsCoupesList } from "@/components/games/mots-coupes/printable-mots-coupes-list"
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
@@ -9,6 +10,12 @@ import {
   MOTS_COUPES_HOW_TO_PLAY,
   MOTS_COUPES_INTRO_PARAGRAPHS,
 } from "@/lib/content/mots-coupes-seo"
+import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+import { ROUTES } from "@/lib/seo/routes"
+
+const PAGE_NAME = "Mots Coupés à Imprimer"
+const PAGE_DESCRIPTION =
+  "Des grilles de mots coupés gratuites à imprimer : associe le début et la fin de chaque mot."
 
 export const metadata: Metadata = {
   title: "Mots Coupés à Imprimer Gratuitement (PDF) | Hibou&Mots",
@@ -20,9 +27,22 @@ export const metadata: Metadata = {
 }
 
 export default function MotsCoupesAImprimerPage() {
+  const schemaGraph = buildGamePageSchemaGraph({
+    path: ROUTES.motsCoupesImprimer,
+    name: PAGE_NAME,
+    description: PAGE_DESCRIPTION,
+    breadcrumbs: [
+      { label: "Accueil", href: "/" },
+      { label: PAGE_NAME, href: ROUTES.motsCoupesImprimer },
+    ],
+    faqItems: MOTS_COUPES_FAQ,
+  })
+
   return (
     <div className="bg-background">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+        <SchemaJsonLd data={schemaGraph} />
+
         <SectionHeading
           align="left"
           as="h1"

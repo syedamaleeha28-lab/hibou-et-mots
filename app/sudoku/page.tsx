@@ -1,16 +1,17 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
+import { SchemaJsonLd } from "@/components/seo"
 import { SudokuGame } from "@/components/games/sudoku/sudoku-game"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
 import { SUDOKU_FAQ, SUDOKU_HOW_TO_PLAY, SUDOKU_INTRO_PARAGRAPHS } from "@/lib/content/sudoku-seo"
+import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
 
-// Matches content-gap research: "sudoku enfants" (350/mo), "sudoku cp"
-// (200/mo), "sudoku ce2/cm1/cm2" (100–150/mo each) — near-zero
-// competition (KD 0 across the board) but small volume, hence the
-// deliberately small v1 scope (2 difficulty tiers, 4 puzzles).
+const PAGE_NAME = "Sudoku"
+const PAGE_DESCRIPTION = "Joue au sudoku gratuitement en ligne : grilles simples, idéales pour un enfant du CP au CM2."
+
 export const metadata: Metadata = {
   title: "Sudoku Gratuit en Ligne pour Enfants | Hibou&Mots",
   description:
@@ -21,9 +22,22 @@ export const metadata: Metadata = {
 }
 
 export default function SudokuPage() {
+  const schemaGraph = buildGamePageSchemaGraph({
+    path: ROUTES.sudoku,
+    name: PAGE_NAME,
+    description: PAGE_DESCRIPTION,
+    breadcrumbs: [
+      { label: "Accueil", href: "/" },
+      { label: PAGE_NAME, href: ROUTES.sudoku },
+    ],
+    faqItems: SUDOKU_FAQ,
+  })
+
   return (
     <div className="bg-background">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+        <SchemaJsonLd data={schemaGraph} />
+
         <SectionHeading
           align="left"
           as="h1"
@@ -57,10 +71,6 @@ export default function SudokuPage() {
   )
 }
 
-// Sudoku is a NUMBER puzzle, not a word puzzle — deliberately not reusing
-// PuzzleFormatLinks (which is scoped to mots mêlés/croisés/coupés and
-// literally says "essayez un autre jeu de mots"). A small, honestly-
-// labeled links block instead, same spirit, correct category.
 function SudokuFormatLinks() {
   const links = [
     { label: "Mots mêlés", href: ROUTES.imprimer, description: "Trouve les mots cachés dans une grille" },

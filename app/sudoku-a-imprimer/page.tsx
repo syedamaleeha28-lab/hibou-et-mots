@@ -1,11 +1,16 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
+import { SchemaJsonLd } from "@/components/seo"
 import { PrintableSudokuList } from "@/components/games/sudoku/printable-sudoku-list"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
 import { SUDOKU_FAQ, SUDOKU_HOW_TO_PLAY, SUDOKU_INTRO_PARAGRAPHS } from "@/lib/content/sudoku-seo"
+import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+
+const PAGE_NAME = "Sudoku à Imprimer"
+const PAGE_DESCRIPTION = "Des grilles de sudoku gratuites à imprimer, niveau facile et difficile."
 
 export const metadata: Metadata = {
   title: "Sudoku à Imprimer Gratuitement (PDF) | Hibou&Mots",
@@ -17,9 +22,22 @@ export const metadata: Metadata = {
 }
 
 export default function SudokuAImprimerPage() {
+  const schemaGraph = buildGamePageSchemaGraph({
+    path: ROUTES.sudokuImprimer,
+    name: PAGE_NAME,
+    description: PAGE_DESCRIPTION,
+    breadcrumbs: [
+      { label: "Accueil", href: "/" },
+      { label: PAGE_NAME, href: ROUTES.sudokuImprimer },
+    ],
+    faqItems: SUDOKU_FAQ,
+  })
+
   return (
     <div className="bg-background">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+        <SchemaJsonLd data={schemaGraph} />
+
         <SectionHeading
           align="left"
           as="h1"

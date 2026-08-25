@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
+import { SchemaJsonLd } from "@/components/seo"
 import { PrintableColoriageList } from "@/components/games/coloriage-magique/printable-coloriage-list"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
@@ -10,6 +11,11 @@ import {
   COLORIAGE_MAGIQUE_HOW_TO_PLAY,
   COLORIAGE_MAGIQUE_INTRO_PARAGRAPHS,
 } from "@/lib/content/coloriage-magique-seo"
+import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+
+const PAGE_NAME = "Coloriage Magique à Imprimer"
+const PAGE_DESCRIPTION =
+  "Coloriages magiques à imprimer gratuitement en PDF pour la maternelle, le CP, le CE1 et plus."
 
 export const metadata: Metadata = {
   title: "Coloriage Magique à Imprimer Gratuit (PDF) | Hibou&Mots",
@@ -21,9 +27,22 @@ export const metadata: Metadata = {
 }
 
 export default function ColoriageMagiqueAImprimerPage() {
+  const schemaGraph = buildGamePageSchemaGraph({
+    path: ROUTES.coloriageMagiqueImprimer,
+    name: PAGE_NAME,
+    description: PAGE_DESCRIPTION,
+    breadcrumbs: [
+      { label: "Accueil", href: "/" },
+      { label: PAGE_NAME, href: ROUTES.coloriageMagiqueImprimer },
+    ],
+    faqItems: COLORIAGE_MAGIQUE_FAQ,
+  })
+
   return (
     <div className="bg-background">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+        <SchemaJsonLd data={schemaGraph} />
+
         <SectionHeading
           align="left"
           as="h1"

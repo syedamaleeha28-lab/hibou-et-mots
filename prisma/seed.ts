@@ -6,6 +6,7 @@ import {
   seedPuzzlesFrBatch,
   seedPuzzlesFrBonusLinks,
   seedPuzzlesPtAll,
+  seedPuzzlesPtGradesAll,
   seedReferenceDataAll,
 } from "./seed/run-all"
 import { buildOfflineCoverageSummary, buildSeedCoverageReport } from "./seed/report"
@@ -36,6 +37,7 @@ async function main() {
   await seedPuzzlesFrBatch(prisma, categoryIdBySlug, 0, LOCAL_BATCH_SIZE, console.log)
   await seedPuzzlesFrBonusLinks(prisma, categoryIdBySlug, console.log)
   await seedPuzzlesPtAll(prisma, categoryIdBySlug, console.log)
+  await seedPuzzlesPtGradesAll(prisma, categoryIdBySlug, console.log)
 
   console.log(`  ✓ fr puzzles (${getFrPuzzlePlanLength()} planned)`)
 

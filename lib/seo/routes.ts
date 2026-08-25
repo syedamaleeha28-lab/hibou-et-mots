@@ -106,6 +106,8 @@ export const PT_ROUTES = {
   imprimir: "/caca-palavras-para-imprimir/",
   difficulteHub: "/caca-palavras-nivel/",
   thematiquesHub: "/caca-palavras-tematicos/",
+  // NEW: school-grade hub (Ensino Fundamental, 1º–9º ano).
+  ecoleHub: "/caca-palavras-escola/",
 } as const
 
 export function ptThemePath(slug: string): string {
@@ -114,6 +116,11 @@ export function ptThemePath(slug: string): string {
 
 export function ptDifficultyPath(slug: string): string {
   return `/caca-palavras-nivel/${slug}/`
+}
+
+// NEW: PT grade pages, e.g. /caca-palavras-escola/5-ano/
+export function ptGradePath(slug: string): string {
+  return `/caca-palavras-escola/${slug}/`
 }
 
 export function ptPuzzlePath(slug: string): string {
@@ -187,6 +194,8 @@ const HUB_SLUG_PATHS_PT: Record<string, string> = {
   "hub-imprimer": PT_ROUTES.imprimir,
   "hub-difficulte": PT_ROUTES.difficulteHub,
   "hub-thematiques": PT_ROUTES.thematiquesHub,
+  // NEW: school-grade hub.
+  "hub-ecole": PT_ROUTES.ecoleHub,
 }
 
 const AUDIENCE_SLUG_PATHS: Record<string, string> = {
@@ -215,6 +224,9 @@ export function resolveCategoryPath(input: CategoryPathInput): string {
         return input.theme ? ptThemePath(input.theme.slug) : PT_ROUTES.thematiquesHub
       case "DIFFICULTY":
         return input.difficulty ? ptDifficultyPath(input.difficulty.slug) : PT_ROUTES.difficulteHub
+      // NEW: school-grade category type.
+      case "GRADE":
+        return input.grade ? ptGradePath(input.grade.slug) : PT_ROUTES.ecoleHub
       default:
         return PT_ROUTES.imprimir
     }

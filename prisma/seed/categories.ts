@@ -359,6 +359,17 @@ export async function seedPressBrands(prisma: PrismaClient) {
  * - Returns a Map keyed by "locale:slug" (not just slug), since the same
  *   slug string (e.g. "hub-imprimer") now legitimately exists once per
  *   locale.
+ *
+ * BUG FIX (found while testing the PT grade cluster): `getPhase1Intro`
+ * is a pure slug-keyed lookup with NO locale awareness — it was being
+ * called for EVERY definition regardless of locale, so any PT-BR
+ * definition sharing a slug string with a French one that has real
+ * phase-1 content registered (e.g. "hub-ecole") would silently get
+ * French intro text instead of its own def.introText. Slugs unique to
+ * PT (e.g. "animais", "facil") never collided, which is why this went
+ * unnoticed until a shared hub slug ("hub-ecole") actually had a match.
+ * Now gated to French definitions only, matching how every other
+ * French-only content lookup in this function already works.
  */
 export async function seedCategories(
   prisma: PrismaClient,
@@ -387,10 +398,11 @@ export async function seedCategories(
       throw new Error(`Missing category FAQ for locale "${def.locale}", slug: ${def.slug}`)
     }
 
-    // Safe for non-French locales too: getPhase1Intro only recognizes
-    // French slugs, so it returns undefined for e.g. "animais"/"facil"
-    // and falls through to def.introText.
-    const introText = getPhase1Intro(def.slug) ?? def.introText
+    // FIXED: was `getPhase1Intro(def.slug) ?? def.introText` unconditionally
+    // — see the bug-fix note on this function above. Only check French
+    // phase-1 content for French definitions now.
+    const introText =
+      def.locale === "fr" ? (getPhase1Intro(def.slug) ?? def.introText) : def.introText
 
     const gradeId = def.gradeSlug ? gradeIdByLocaleSlug.get(`${def.locale}:${def.gradeSlug}`) : null
     const themeId = def.themeSlug ? themeIdByLocaleSlug.get(`${def.locale}:${def.themeSlug}`) : null

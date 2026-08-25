@@ -7,6 +7,8 @@ import {
   MVP_P1_COMBOS,
   MVP_PRESS_BRANDS,
   MVP_SEASONAL_THEME_SLUGS,
+  // NEW:
+  MVP_GRADE_SLUGS_PT,
 } from "@/lib/db/adapters/category-constants"
 
 export function gradeStaticParams() {
@@ -43,4 +45,12 @@ export function ptThemeStaticParams() {
 
 export function ptDifficultyStaticParams() {
   return difficultySeedPt.map((level) => ({ level: level.slug }))
+}
+
+// NEW: PT-BR grade cluster static params. Doesn't read from a Prisma
+// seed file the way the others do — grades.pt.ts was staged earlier in
+// this project but never wired in, so this reads directly from the
+// plain slug list in category-constants.ts instead.
+export function ptGradeStaticParams() {
+  return MVP_GRADE_SLUGS_PT.map((grade) => ({ ano: grade }))
 }

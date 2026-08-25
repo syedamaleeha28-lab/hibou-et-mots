@@ -62,3 +62,29 @@ export function isKnownPtThemeSlug(slug: string): boolean {
 export function isKnownPtDifficultySlug(slug: string): boolean {
   return (MVP_P0_DIFFICULTY_SLUGS_PT as readonly string[]).includes(slug)
 }
+
+// ============================================================
+// PT-BR grade cluster (Brazilian Ensino Fundamental, 1º–9º ano).
+// Deliberately kept as plain string slugs, NOT added to the puzzle
+// engine's GradeSlug type/GRADE_ORDER/GRADE_DEFAULT_GRID_SIZE — those
+// stay French-only. PT grade puzzles are generated via the existing
+// difficulty presets directly (same "map to nearest engine bucket,
+// keep PT slug for DB/display" pattern already used for PT
+// difficulty levels), avoiding any change to that shared file.
+// ============================================================
+
+export const MVP_GRADE_SLUGS_PT = [
+  "1-ano",
+  "2-ano",
+  "3-ano",
+  "4-ano",
+  "5-ano",
+  "6-ano",
+  "7-ano",
+  "8-ano",
+  "9-ano",
+] as const
+
+export function isKnownPtGradeSlug(slug: string): boolean {
+  return (MVP_GRADE_SLUGS_PT as readonly string[]).includes(slug)
+}

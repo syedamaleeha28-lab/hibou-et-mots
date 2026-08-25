@@ -3,6 +3,7 @@ import type { DifficultySlug, PuzzleResult } from "@/lib/puzzle-engine"
 import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 import { themeSeedPt } from "./themes.pt"
 import { difficultySeedPt } from "./difficulties.pt"
+import { gradeSeedPt } from "./grades.pt"
 import type { PuzzleSeedSpec } from "./puzzles"
 
 /**
@@ -223,6 +224,225 @@ export async function seedPtPuzzles(
         size: payload.size,
         difficultyId: payload.difficultyId,
         themeId: payload.themeId ?? null,
+        language: "pt-BR",
+        status: "PUBLISHED",
+        viewCount: spec.viewCount,
+        metaTitle,
+        metaDescription,
+      },
+    })
+
+    for (const categorySlug of new Set(spec.categorySlugs)) {
+      const categoryId = categoryIdBySlug.get(`pt-BR:${categorySlug}`)
+      if (!categoryId) continue
+      await prisma.categoryPuzzle.upsert({
+        where: { categoryId_puzzleId: { categoryId, puzzleId: puzzle.id } },
+        create: { categoryId, puzzleId: puzzle.id },
+        update: {},
+      })
+      linkCount += 1
+    }
+  }
+
+  return { puzzleCount: specs.length, linkCount }
+}
+
+// ============================================================
+// NEW: PT-BR grade-tagged puzzles. Deliberately does NOT generate new
+// standalone vocabulary — reuses the same existing animais/esporte word
+// banks as the theme puzzles above (the PT-BR word pool is small by
+// design, v1 scope), just tags each generated puzzle with an ADDITIONAL
+// grade category link so it shows up on both its theme page and its
+// grade page. This mirrors how French "combo" puzzles (grade × theme)
+// work conceptually, without needing a true COMBO category type for PT.
+//
+// One puzzle per theme per grade (2 themes × 9 grades = 18 puzzles).
+// Difficulty preset is chosen by grade band (early grades → facil,
+// middle → medio, late → dificil) rather than per-puzzle, matching the
+// natural reading-level progression the grade pages describe.
+// ============================================================
+
+function engineDifficultyForGradeOrder(order: number): DifficultySlug {
+  if (order <= 2) return "facile"
+  if (order <= 5) return "moyen"
+  return "difficile"
+}
+
+function ptDifficultySlugForGradeOrder(order: number): string {
+  if (order <= 2) return "facil"
+  if (order <= 5) return "medio"
+  return "dificil"
+}
+
+type PtGradePuzzleSpec = {
+  id: string
+  slug: string
+  title: string
+  themeSlug: string
+  gradeSlug: string
+  gradeOrder: number
+  seed: number
+  categorySlugs: string[]
+  viewCount: number
+}
+
+export function buildPtGradePuzzlePlan(): PtGradePuzzleSpec[] {
+  const specs: PtGradePuzzleSpec[] = []
+  let seedBase = 95_000
+
+  for (const grade of gradeSeedPt) {
+    for (const theme of themeSeedPt) {
+      const slug = `${theme.slug}-${grade.slug}-pt`
+      specs.push({
+        id: `pt-grade-${grade.slug}-${theme.slug}`,
+        slug,
+        title: `Caça-Palavras ${theme.name} — ${grade.name}`,
+        themeSlug: theme.slug,
+        gradeSlug: grade.slug,
+        gradeOrder: grade.order,
+        seed: seedBase++,
+        categorySlugs: [
+          HUB_CATEGORY_SLUGS.imprimer,
+          theme.slug,
+          grade.slug,
+          HUB_CATEGORY_SLUGS.ecole,
+          HUB_CATEGORY_SLUGS.thematiques,
+        ],
+        viewCount: 50,
+      })
+    }
+  }
+
+  return specs
+}
+
+export async function seedPtGradePuzzles(
+  prisma: PrismaClient,
+  categoryIdBySlug: Map<string, string>,
+): Promise<{ puzzleCount: number; linkCount: number }> {
+  const {
+    generatePuzzleBatch,
+    resolveGenerateOptions,
+    selectWordsFromBank,
+    toPrismaPuzzlePayload,
+  } = await import("@/lib/puzzle-engine")
+
+  const specs = buildPtGradePuzzlePlan()
+
+  const wordRows = await prisma.themeWord.findMany({
+    where: { theme: { locale: "pt-BR" } },
+    include: { theme: { select: { slug: true } } },
+  })
+  const wordBanks = new Map<string, { word: string; length: number; minGradeOrder: number }[]>()
+  for (const row of wordRows) {
+    const list = wordBanks.get(row.theme.slug) ?? []
+    list.push({ word: row.word, length: row.length, minGradeOrder: row.minGradeOrder })
+    wordBanks.set(row.theme.slug, list)
+  }
+
+  const difficultyIdBySlug = new Map(
+    (await prisma.difficulty.findMany({ where: { locale: "pt-BR" } })).map((d) => [d.slug, d.id]),
+  )
+  const themeIdBySlug = new Map(
+    (await prisma.theme.findMany({ where: { locale: "pt-BR" } })).map((t) => [t.slug, t.id]),
+  )
+  const gradeIdBySlug = new Map(
+    (await prisma.grade.findMany({ where: { locale: "pt-BR" } })).map((g) => [g.slug, g.id]),
+  )
+  const themeNameBySlug = new Map<string, string>(themeSeedPt.map((t) => [t.slug, t.name]))
+  const gradeNameBySlug = new Map<string, string>(gradeSeedPt.map((g) => [g.slug, g.name]))
+
+  // Same fallback ladder as seedPtPuzzles — the word bank is small
+  // (15 words/theme), so higher grade orders (which demand longer
+  // words) can run short of eligible words without this.
+  function selectWordsWithFallback(
+    bank: { word: string; length: number; minGradeOrder: number }[],
+    difficulty: DifficultySlug,
+    targetOrder: number,
+    seed: number,
+  ): string[] {
+    const attempts: DifficultySlug[] =
+      difficulty === "difficile"
+        ? ["difficile", "moyen", "facile"]
+        : difficulty === "moyen"
+          ? ["moyen", "facile"]
+          : ["facile"]
+    const orders = [...new Set([targetOrder, 4, 5, 6, 0])]
+    let lastError: unknown
+    for (const order of orders) {
+      for (const level of attempts) {
+        try {
+          return selectWordsFromBank(bank, order, level, seed)
+        } catch (error) {
+          lastError = error
+        }
+      }
+    }
+    throw lastError
+  }
+
+  const batchRequests = specs.map((spec) => {
+    const enginePreset = engineDifficultyForGradeOrder(spec.gradeOrder)
+    const bank = wordBanks.get(spec.themeSlug) ?? []
+    const words = selectWordsWithFallback(bank, enginePreset, spec.gradeOrder, spec.seed)
+    const options = resolveGenerateOptions({
+      difficulty: enginePreset,
+      words,
+      seed: spec.seed,
+      simplifyAccents: true,
+    })
+    return { id: spec.id, options }
+  })
+
+  const batch = generatePuzzleBatch(batchRequests, { seedBase: 96_000, globalTimeBudgetMs: 120_000 })
+  if (batch.failures.length > 0) {
+    const summary = batch.failures
+      .slice(0, 5)
+      .map((f: { id: string; message: string }) => `${f.id}: ${f.message}`)
+      .join("; ")
+    throw new Error(`[pt-BR grades] Puzzle generation failed for ${batch.failures.length} specs. ${summary}`)
+  }
+
+  const resultById = new Map(batch.successes.map((entry: { id: string; result: unknown }) => [entry.id, entry.result]))
+  let linkCount = 0
+
+  for (const spec of specs) {
+    const result = resultById.get(spec.id) as PuzzleResult | undefined
+    if (!result) continue
+
+    const ptDifficultySlug = ptDifficultySlugForGradeOrder(spec.gradeOrder)
+    const themeName = themeNameBySlug.get(spec.themeSlug) ?? spec.themeSlug
+    const gradeName = gradeNameBySlug.get(spec.gradeSlug) ?? spec.gradeSlug
+    const payload = toPrismaPuzzlePayload(result, {
+      slug: spec.slug,
+      title: spec.title,
+      difficultyId: difficultyIdBySlug.get(ptDifficultySlug)!,
+      themeId: themeIdBySlug.get(spec.themeSlug),
+      gradeId: gradeIdBySlug.get(spec.gradeSlug),
+    })
+
+    const metaTitle = `${gradeName} — ${spec.title}`
+    const metaDescription = `Caça-palavras grátis sobre ${themeName} para o ${gradeName.toLowerCase()}. Grade ${result.size}×${result.size}.`
+
+    const puzzle = await prisma.puzzle.upsert({
+      where: { slug: spec.slug },
+      create: {
+        ...payload,
+        language: "pt-BR",
+        status: "PUBLISHED",
+        viewCount: spec.viewCount,
+        metaTitle,
+        metaDescription,
+      },
+      update: {
+        title: payload.title,
+        gridData: payload.gridData,
+        wordList: payload.wordList,
+        solutionData: payload.solutionData,
+        size: payload.size,
+        difficultyId: payload.difficultyId,
+        themeId: payload.themeId ?? null,
+        gradeId: payload.gradeId ?? null,
         language: "pt-BR",
         status: "PUBLISHED",
         viewCount: spec.viewCount,

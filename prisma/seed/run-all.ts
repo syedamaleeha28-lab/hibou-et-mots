@@ -6,6 +6,8 @@ import { themeSeed } from "./themes"
 import { difficultySeedPt } from "./difficulties.pt"
 import { themeSeedPt } from "./themes.pt"
 import { themeWordSeedPt } from "./theme-words.pt"
+// NEW: PT-BR grade seed data.
+import { gradeSeedPt } from "./grades.pt"
 import {
   CATEGORY_SEED_DEFINITIONS,
   seedCategories,
@@ -13,7 +15,7 @@ import {
 } from "./categories"
 import { PT_CATEGORY_SEED_DEFINITIONS } from "./categories.pt"
 import { buildPuzzlePlan, seedLocalizedPuzzles } from "./puzzles"
-import { buildPtPuzzlePlan, seedPtPuzzles } from "./puzzles.pt"
+import { buildPtPuzzlePlan, seedPtPuzzles, seedPtGradePuzzles } from "./puzzles.pt"
 import { MVP_PRESS_BRANDS } from "@/lib/db/adapters/category-constants"
 
 export type SeedLogger = (message: string) => void
@@ -44,11 +46,6 @@ export async function seedReferenceDataAll(prisma: PrismaClient, log: SeedLogger
     // `h1` field (used elsewhere for category seoTitle fallback) that
     // does NOT exist on the Prisma Grade model. Spreading `...grade`
     // directly into create/update data throws "Unknown argument `h1`".
-    // This was already fixed once locally (Cursor caught it during the
-    // first local seed run) — reintroduced here by mistake when this
-    // file was written from an earlier version of the logic. Fixed for
-    // real this time via explicit fields, so it can't recur even if
-    // gradeSeed gains more extra fields later.
     const data = {
       locale: "fr",
       slug: grade.slug,
@@ -133,6 +130,31 @@ export async function seedReferenceDataAll(prisma: PrismaClient, log: SeedLogger
   log(`  ✓ ${wordCount} theme words`)
 
   log("Seeding reference data (pt-BR)…")
+
+  // NEW: PT-BR grades. Must run before category seeding — Category.gradeId
+  // is a foreign key, and without these rows existing first, PT grade
+  // categories would silently get gradeId: null (see the note at the top
+  // of grades.pt.ts for why that breaks individual grade page URLs).
+  for (const grade of gradeSeedPt) {
+    const existing = await prisma.grade.findFirst({ where: { locale: "pt-BR", slug: grade.slug } })
+    const data = {
+      locale: "pt-BR",
+      slug: grade.slug,
+      name: grade.name,
+      ageRange: grade.ageRange,
+      order: grade.order,
+      defaultGridSize: grade.defaultGridSize,
+      seoTitle: grade.seoTitle,
+      metaDescription: grade.metaDescription,
+      introText: grade.introText,
+    }
+    if (existing) {
+      await prisma.grade.update({ where: { id: existing.id }, data })
+    } else {
+      await prisma.grade.create({ data })
+    }
+  }
+  log(`  ✓ ${gradeSeedPt.length} grades (pt-BR)`)
 
   for (const difficulty of difficultySeedPt) {
     const existing = await prisma.difficulty.findFirst({
@@ -317,6 +339,21 @@ export async function seedPuzzlesPtAll(
   const result = await seedPtPuzzles(prisma, categoryIdBySlug)
   log(`  ✓ ${result.puzzleCount} puzzles (pt-BR)`)
   log(`  ✓ ${result.linkCount} category–puzzle links (pt-BR)`)
+  return result
+}
+
+/** NEW: PT grade-tagged puzzles — 18 of them (9 grades × 2 themes),
+ *  also small enough for a single call. Run AFTER seedPuzzlesPtAll and
+ *  AFTER category seeding (needs both theme and grade categories to
+ *  already exist for the dual category-linking). */
+export async function seedPuzzlesPtGradesAll(
+  prisma: PrismaClient,
+  categoryIdBySlug: Map<string, string>,
+  log: SeedLogger,
+): Promise<{ puzzleCount: number; linkCount: number }> {
+  const result = await seedPtGradePuzzles(prisma, categoryIdBySlug)
+  log(`  ✓ ${result.puzzleCount} grade puzzles (pt-BR)`)
+  log(`  ✓ ${result.linkCount} grade category–puzzle links (pt-BR)`)
   return result
 }
 

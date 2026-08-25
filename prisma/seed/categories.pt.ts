@@ -2,6 +2,7 @@ import type { CategorySeedDefinition } from "./categories"
 import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 import { difficultySeedPt } from "./difficulties.pt"
 import { themeSeedPt } from "./themes.pt"
+import { gradeSeedPt } from "./grades.pt"
 
 /**
  * PT-BR category definitions — v1 scope (matches the pages already built:
@@ -70,6 +71,32 @@ const HUB_TEMATICOS_PT: CategorySeedDefinition = {
   isHub: true,
 }
 
+// NEW: school-grade hub (Ensino Fundamental, 1º–9º ano).
+const HUB_ECOLE_PT: CategorySeedDefinition = {
+  locale: "pt-BR",
+  slug: HUB_CATEGORY_SLUGS.ecole,
+  type: "GRADE",
+  h1: "Caça-Palavras Escola — Por Série",
+  seoTitle: "Caça-Palavras Escola — Grades por Série (1º ao 9º Ano) | Hibou & Mots",
+  metaDescription:
+    "Caça-palavras grátis organizados por série do ensino fundamental, do 1º ao 9º ano, prontos para imprimir em PDF.",
+  introText:
+    "Escolha a série do seu filho ou aluno e encontre grades de caça-palavras com vocabulário adequado para cada idade.",
+  faqJson: [
+    {
+      question: "Como escolher a série certa?",
+      answer:
+        "Escolha a série escolar da criança — cada página reúne grades com vocabulário e tamanho de grade adequados para aquela idade.",
+    },
+    {
+      question: "As grades por série são diferentes das grades por tema?",
+      answer:
+        "Não necessariamente — muitas grades aparecem tanto na página do tema quanto na página da série correspondente, para facilitar a busca dos dois jeitos.",
+    },
+  ],
+  isHub: true,
+}
+
 const THEME_DEFINITIONS_PT: CategorySeedDefinition[] = themeSeedPt.map((theme) => ({
   locale: "pt-BR",
   slug: theme.slug,
@@ -106,10 +133,33 @@ const DIFFICULTY_DEFINITIONS_PT: CategorySeedDefinition[] = difficultySeedPt.map
   ],
 }))
 
+// NEW: 9 Brazilian Ensino Fundamental grades, derived from the real
+// Grade seed data in grades.pt.ts (required — see the note at the top
+// of that file on why this can't just be inline category metadata).
+const GRADE_DEFINITIONS_PT: CategorySeedDefinition[] = gradeSeedPt.map((grade) => ({
+  locale: "pt-BR",
+  slug: grade.slug,
+  type: "GRADE",
+  parentSlug: HUB_CATEGORY_SLUGS.ecole,
+  gradeSlug: grade.slug,
+  h1: `Caça-Palavras ${grade.name}`,
+  seoTitle: grade.seoTitle,
+  metaDescription: grade.metaDescription,
+  introText: grade.introText,
+  faqJson: [
+    {
+      question: `As grades do ${grade.name.toLowerCase()} são adequadas para essa idade?`,
+      answer: `Sim, as grades desta página foram organizadas para o ${grade.name.toLowerCase()} (${grade.ageRange}), com vocabulário e tamanho de grade apropriados.`,
+    },
+  ],
+}))
+
 export const PT_CATEGORY_SEED_DEFINITIONS: CategorySeedDefinition[] = [
   HUB_IMPRIMER_PT,
   HUB_DIFICULTE_PT,
   HUB_TEMATICOS_PT,
+  HUB_ECOLE_PT,
   ...THEME_DEFINITIONS_PT,
   ...DIFFICULTY_DEFINITIONS_PT,
+  ...GRADE_DEFINITIONS_PT,
 ]

@@ -12,7 +12,7 @@
  * When adding a new fixed hub page, add its path to ROUTES and STATIC_PATHS below.
  * Dynamic /mots-meles-* subpages seeded as categories need no manual sitemap edit.
  */
-import { absoluteUrl, DEFAULT_SITE_URL, ROUTES } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL, ROUTES, motsCroisesForcePath } from "@/lib/seo/routes"
 import type { SitemapUrlEntry } from "./types"
 import { priorityForStaticPage } from "./priority"
 
@@ -48,6 +48,12 @@ const STATIC_PATHS: string[] = [
   // links — never added to ROUTES in the first place).
   ROUTES.motsCroisesImprimer,
   ROUTES.miniMotsCroises,
+  ROUTES.motDuJour,
+  motsCroisesForcePath(1),
+  motsCroisesForcePath(2),
+  motsCroisesForcePath(3),
+  motsCroisesForcePath(4),
+  motsCroisesForcePath(5),
   // NEW: sudoku.
   ROUTES.sudoku,
   ROUTES.sudokuImprimer,

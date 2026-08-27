@@ -40,6 +40,7 @@ export const ROUTES = {
   // audit tool, same as every other route on the site.
   motsCroisesImprimer: "/mots-croises-a-imprimer/",
   miniMotsCroises: "/mini-mots-croises/",
+  motDuJour: "/mot-du-jour/",
   // NEW: sudoku — a NUMBER puzzle, not a word puzzle, kept semantically
   // separate from the mots-* family (see the standalone SudokuFormatLinks
   // component on its own pages, and the new "Jeux de chiffres" nav

@@ -46,7 +46,12 @@ async function getCategoryIllustrationEntries(base: string): Promise<SitemapImag
       difficulty: category.difficulty ?? undefined,
     })
     const pageUrl = absoluteUrl(canonicalPath, base)
-    const { hero, preview } = getCategoryIllustrations({ canonicalPath, h1: category.h1 })
+    const { hero, preview } = getCategoryIllustrations({
+      canonicalPath,
+      h1: category.h1,
+      slug: category.slug,
+      locale: category.locale,
+    })
 
     entries.push({
       loc: pageUrl,

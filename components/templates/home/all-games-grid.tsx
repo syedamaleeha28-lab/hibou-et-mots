@@ -86,6 +86,27 @@ function GraduationCapIcon() {
   )
 }
 
+function MiniCrosswordIcon() {
+  return (
+    <svg viewBox="0 0 40 40" fill="none" className="h-9 w-9" aria-hidden="true">
+      <rect x="7" y="7" width="26" height="26" rx="3" stroke="currentColor" strokeWidth="2.5" />
+      <path d="M7 16h26M7 25h26M16 7v26M25 7v26" stroke="currentColor" strokeWidth="2" />
+      <rect x="16" y="16" width="9" height="9" fill="currentColor" />
+    </svg>
+  )
+}
+
+function CrosswordPrintIcon() {
+  return (
+    <svg viewBox="0 0 40 40" fill="none" className="h-9 w-9" aria-hidden="true">
+      <rect x="8" y="6" width="18" height="18" rx="2.5" stroke="currentColor" strokeWidth="2.5" />
+      <path d="M8 13h18M15 6v18" stroke="currentColor" strokeWidth="2" />
+      <rect x="16" y="20" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="2.5" />
+      <path d="M20 24h8M20 28h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 const GAME_TILES: GameTile[] = [
   {
     label: "Jouer en ligne",
@@ -98,6 +119,18 @@ const GAME_TILES: GameTile[] = [
     href: "/mot-du-jour/",
     bg: "bg-sunny text-sunny-foreground",
     icon: <CalendarStarIcon />,
+  },
+  {
+    label: "Mini mots croisés",
+    href: ROUTES.miniMotsCroises,
+    bg: "bg-secondary text-secondary-foreground",
+    icon: <MiniCrosswordIcon />,
+  },
+  {
+    label: "Mots croisés à imprimer",
+    href: ROUTES.motsCroisesImprimer,
+    bg: "bg-accent text-accent-foreground",
+    icon: <CrosswordPrintIcon />,
   },
   {
     label: "Créer ma grille",
@@ -135,7 +168,7 @@ export function AllGamesGrid() {
         Choisis un mode de jeu et commence tout de suite — gratuit, sans inscription.
       </p>
 
-      <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+      <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 lg:grid-cols-4">
         {GAME_TILES.map((tile) => (
           <li key={tile.href}>
             <Link

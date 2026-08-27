@@ -138,9 +138,10 @@ export function isCategoryHub(
 }
 
 export function mapCategoryToSummary(category: CategoryRecord): CategorySummary {
+  const locale = (category.locale as "fr" | "pt-BR" | undefined) ?? "fr"
   const href = resolveCategoryPath({
     type: category.type as CategoryType,
-    locale: (category.locale as "fr" | "pt-BR" | undefined) ?? "fr",
+    locale,
     slug: category.slug,
     grade: category.grade,
     theme: category.theme,
@@ -154,13 +155,18 @@ export function mapCategoryToSummary(category: CategoryRecord): CategorySummary 
     slug: category.slug,
     label: category.h1,
     href,
+    // NEW: bug fix — buildPuzzleBreadcrumbs needs this to resolve the
+    // correct-locale breadcrumb silo crumb for a puzzle's parent
+    // category. Was previously absent, so every PT-BR puzzle page's
+    // breadcrumb silently defaulted to the French silo label/href.
+    locale,
   }
 }
 
-// PT-BR pack: root breadcrumb label swap. buildBreadcrumbs() (unseen file,
-// unchanged) always emits the French root label ("Accueil"). Rather than
-// editing that shared function blind, we patch just the root item here
-// when locale is pt-BR — same href ("/"), Portuguese label only.
+// PT-BR pack: root breadcrumb label swap. buildBreadcrumbs() always
+// emits the French root label ("Accueil"). Rather than editing that
+// shared function's default, we patch just the root item here when
+// locale is pt-BR — same href ("/"), Portuguese label only.
 function localizeBreadcrumbRoot(
   breadcrumbs: CategoryPageData["breadcrumbs"],
   locale: string,
@@ -193,9 +199,9 @@ export function mapCategoryToPageData(
     pressBrand: category.pressBrand,
   })
 
-  // PT-BR pack: skip resolveCategoryFaq (unseen file — likely has French
-  // slug-specific fallback text baked in) and use the FAQ items supplied
-  // directly on the mock category record instead.
+  // PT-BR pack: skip resolveCategoryFaq (French slug-specific fallback
+  // baked in) and use the FAQ items supplied directly on the category
+  // record instead.
   const faqJson: FaqItem[] =
     locale === "pt-BR"
       ? ((category.faqJson as FaqItem[] | null) ?? [])
@@ -257,8 +263,8 @@ export function mapCategoryToPageData(
     id: category.id,
     type: category.type as CategoryType,
     slug: category.slug,
-    // PT-BR pack: was computed above but never returned — OG locale and
-    // other consumers had no way to know the category's locale.
+    // PT-BR pack: computed above, returned so OG locale and other
+    // consumers can know the category's locale.
     locale,
     h1: category.h1,
     introText: category.introText,
@@ -309,11 +315,12 @@ export function mapPuzzleToPageData(
     mapCategoryToSummary(cp.category as CategoryRecord),
   )
 
-  const breadcrumbs = buildBreadcrumbs({
+  const breadcrumbsRaw = buildBreadcrumbs({
     pageType: "puzzle",
     puzzle: { title: puzzle.title, canonicalPath },
     parentCategories,
   })
+  const breadcrumbs = localizeBreadcrumbRoot(breadcrumbsRaw, puzzle.language)
 
   const faqJson = resolvePuzzleFaq(null)
 

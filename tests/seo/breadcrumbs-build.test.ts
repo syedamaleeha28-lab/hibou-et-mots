@@ -5,7 +5,7 @@ import {
   buildPuzzleBreadcrumbs,
 } from "@/lib/seo/breadcrumbs"
 import { buildCategoryPageSchemaGraph } from "@/lib/seo/schema/page-schemas"
-import { gradePath, ROUTES } from "@/lib/seo/routes"
+import { gradePath, PT_ROUTES, ROUTES } from "@/lib/seo/routes"
 import { mockHubCategoryPageData } from "@/lib/db/adapters/mock-categories"
 import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 
@@ -90,6 +90,51 @@ describe("buildPuzzleBreadcrumbs", () => {
       "Noël",
       "Sapin et Cadeaux",
     ])
+    expect(trail[1]?.href).toBe(ROUTES.ecoleHub)
+  })
+
+  it("uses Portuguese school silo on PT-BR combo puzzles", () => {
+    const trail = buildPuzzleBreadcrumbs(
+      {
+        title: "Animais 5º ano",
+        canonicalPath: "/caca-palavras/animais-5-ano-01-pt/",
+      },
+      [
+        {
+          id: "1",
+          type: "COMBO",
+          slug: "5-ano-animais",
+          label: "5º ano Animais",
+          href: "/caca-palavras-escola/5-ano/animais/",
+          locale: "pt-BR",
+        },
+        {
+          id: "2",
+          type: "GRADE",
+          slug: "5-ano",
+          label: "5º ano",
+          href: "/caca-palavras-escola/5-ano/",
+          locale: "pt-BR",
+        },
+        {
+          id: "3",
+          type: "THEME",
+          slug: "animais",
+          label: "Animais",
+          href: "/caca-palavras-tematicos/animais/",
+          locale: "pt-BR",
+        },
+      ],
+    )
+
+    expect(trail.map((item) => item.label)).toEqual([
+      "Accueil",
+      "Escola",
+      "5º ano",
+      "Animais",
+      "Animais 5º ano",
+    ])
+    expect(trail[1]?.href).toBe(PT_ROUTES.ecoleHub)
   })
 
   it("falls back to home when no parents", () => {

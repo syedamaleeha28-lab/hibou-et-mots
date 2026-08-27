@@ -66,6 +66,11 @@ export type CategorySummary = {
   slug: string
   label: string
   href: string
+  /** PT-BR bug fix: lets buildPuzzleBreadcrumbs know which locale a
+   *  parent category belongs to, so the breadcrumb silo crumb (e.g.
+   *  "École" vs "Escola") resolves correctly instead of always
+   *  defaulting to French. See lib/seo/breadcrumbs.ts. */
+  locale?: string
 }
 
 export type CategoryPageData = {

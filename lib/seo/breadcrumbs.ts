@@ -1,4 +1,4 @@
-import { absoluteUrl, ROUTES, gradePath } from "./routes"
+import { absoluteUrl, ROUTES, gradePath, PT_ROUTES } from "./routes"
 import type { CategoryType, CategorySummary } from "@/lib/db/types/page-data"
 
 export type BreadcrumbItem = {
@@ -49,11 +49,33 @@ export const SILO_LABELS = {
   hub: "Mots Mêlés",
 } as const
 
+/**
+ * NEW: Portuguese silo labels. Only covers the 3 category types PT-BR
+ * actually has (GRADE/COMBO, THEME, DIFFICULTY) — SEASONAL and
+ * PRESS_BRAND aren't in PT scope, so those fall through to null (no
+ * silo crumb) rather than a fabricated one.
+ */
+const SILO_LABELS_PT = {
+  ecole: "Escola",
+  thematiques: "Temáticos",
+  difficulte: "Dificuldade",
+} as const
+
 type CategoryBreadcrumbInput = {
   type: CategoryType
   h1: string
   canonicalPath: string
   isHub?: boolean
+  /**
+   * NEW. Was missing entirely — siloForCategoryType() below was
+   * hardcoded to French labels/hrefs regardless of locale, so every
+   * PT-BR grade/theme/difficulty page showed a French middle breadcrumb
+   * crumb (e.g. "École" linking to /mots-meles-ecole/) pointing at the
+   * wrong-language page. Found while testing the PT grade cluster, but
+   * affects theme/difficulty pages too, since they share this same
+   * function.
+   */
+  locale?: "fr" | "pt-BR"
   grade?: { slug: string; name: string }
   theme?: { slug: string; name: string; isSeasonal?: boolean }
   difficulty?: { slug: string; name: string }
@@ -69,7 +91,23 @@ export type BreadcrumbContext =
       parentCategories?: CategorySummary[]
     }
 
-function siloForCategoryType(type: CategoryType): { label: string; href: string } | null {
+function siloForCategoryType(
+  type: CategoryType,
+  locale: "fr" | "pt-BR" = "fr",
+): { label: string; href: string } | null {
+  if (locale === "pt-BR") {
+    switch (type) {
+      case "GRADE":
+      case "COMBO":
+        return { label: SILO_LABELS_PT.ecole, href: PT_ROUTES.ecoleHub }
+      case "THEME":
+        return { label: SILO_LABELS_PT.thematiques, href: PT_ROUTES.thematiquesHub }
+      case "DIFFICULTY":
+        return { label: SILO_LABELS_PT.difficulte, href: PT_ROUTES.difficulteHub }
+      default:
+        return null
+    }
+  }
   switch (type) {
     case "GRADE":
     case "COMBO":
@@ -97,7 +135,7 @@ export function buildCategoryBreadcrumbs(category: CategoryBreadcrumbInput): Bre
     return items
   }
 
-  const silo = siloForCategoryType(category.type)
+  const silo = siloForCategoryType(category.type, category.locale)
 
   if (silo) items.push(silo)
 
@@ -150,9 +188,14 @@ export function buildPuzzleBreadcrumbs(
   const press = parentCategories.find((c) => c.type === "PRESS_BRAND")
 
   if (combo && grade && theme) {
+    const locale =
+      combo.locale === "pt-BR" || combo.locale === "fr"
+        ? combo.locale
+        : undefined
+    const silo = siloForCategoryType("COMBO", locale)
     return [
       { label: "Accueil", href: "/" },
-      { label: SILO_LABELS.ecole, href: ROUTES.ecoleHub },
+      ...(silo ? [silo] : []),
       { label: grade.label, href: grade.href },
       { label: theme.label, href: theme.href },
       { label: puzzle.title, href: puzzle.canonicalPath },
@@ -170,6 +213,15 @@ export function buildPuzzleBreadcrumbs(
     type: primary.type,
     h1: primary.label,
     canonicalPath: primary.href,
+    // NEW: was missing — meant every PT-BR puzzle's breadcrumb silo
+    // crumb (not just the new grade puzzles, ALL of them, including
+    // the 12 already-live theme puzzles) defaulted to French. Requires
+    // CategorySummary to carry `locale` — see the page-data.ts patch
+    // note that ships alongside this file.
+    locale:
+      primary.locale === "pt-BR" || primary.locale === "fr"
+        ? primary.locale
+        : undefined,
     grade: grade ? { slug: "", name: grade.label } : undefined,
     theme: theme ? { slug: "", name: theme.label } : undefined,
     difficulty: difficulty ? { slug: "", name: difficulty.label } : undefined,

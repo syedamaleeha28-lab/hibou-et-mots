@@ -23,11 +23,11 @@ export const SITE_AUTHOR = {
   ] as const,
 } as const
 
-/** Site-wide first publication (ISO 8601 date). */
-export const SITE_PUBLISHED_DATE = "2024-06-01"
+/** Site-wide first publication (ISO 8601 datetime, UTC). */
+export const SITE_PUBLISHED_DATE = "2024-06-01T00:00:00+00:00"
 
-/** Last substantive editorial update (ISO 8601 date). */
-export const SITE_CONTENT_UPDATED_DATE = "2026-07-22"
+/** Last substantive editorial update (ISO 8601 datetime, UTC). */
+export const SITE_CONTENT_UPDATED_DATE = "2026-07-22T00:00:00+00:00"
 
 const EDUCATIONAL_AUTHOR_SLUGS = new Set([
   "pedagogie",
@@ -48,13 +48,12 @@ export function shouldShowAuthorAttribution(slug: string, type?: CategoryType): 
 }
 
 export function formatFrenchDate(isoDate: string): string {
-  const [year, month, day] = isoDate.split("-").map(Number)
   return new Intl.DateTimeFormat("fr-FR", {
     day: "numeric",
     month: "long",
     year: "numeric",
     timeZone: "UTC",
-  }).format(new Date(Date.UTC(year, month - 1, day)))
+  }).format(new Date(isoDate))
 }
 
 export const AUTHOR_PAGE_PATH = ROUTES.auteur

@@ -34,11 +34,11 @@ export function GeneratorEditorial() {
             <p>
               C&apos;est gratuit et illimité : aucune inscription, aucun palier payant. Vous pouvez
               enchaîner les essais, mélanger la disposition avec un nouveau tirage, puis{" "}
-              <Link href={ROUTES.jouer} className="font-semibold text-primary hover:underline">
+              <Link href={ROUTES.jouer} className="font-semibold text-primary underline underline-offset-4">
                 jouer en ligne
               </Link>{" "}
               ou imprimer via la page{" "}
-              <Link href={ROUTES.imprimer} className="font-semibold text-primary hover:underline">
+              <Link href={ROUTES.imprimer} className="font-semibold text-primary underline underline-offset-4">
                 mots mêlés à imprimer
               </Link>
               . Le mode grand format améliore la lisibilité pour les plus jeunes ou pour une
@@ -118,15 +118,15 @@ export function GeneratorEditorial() {
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Besoin d&apos;inspiration ? Parcourez les{" "}
-            <Link href={ROUTES.gratuits} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.gratuits} className="font-semibold text-primary underline underline-offset-4">
               mots mêlés gratuits
             </Link>
             , les grilles par niveau sur{" "}
-            <Link href={ROUTES.ecoleHub} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.ecoleHub} className="font-semibold text-primary underline underline-offset-4">
               Mots mêlés École
             </Link>{" "}
             ou les activités{" "}
-            <Link href={ROUTES.enfants} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.enfants} className="font-semibold text-primary underline underline-offset-4">
               pour les enfants
             </Link>
             .

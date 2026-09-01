@@ -54,7 +54,7 @@ export function PedagogieEditorial() {
                   <td className="py-3 pr-4">{row.grid}</td>
                   <td className="py-3 pr-4">{row.focus}</td>
                   <td className="py-3">
-                    <Link href={gradePath(row.slug)} className="text-primary hover:underline">
+                    <Link href={gradePath(row.slug)} className="text-primary underline underline-offset-4">
                       Voir les grilles {row.label}
                     </Link>
                   </td>
@@ -66,7 +66,7 @@ export function PedagogieEditorial() {
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
           Pour une vue d&apos;ensemble — maternelle, 6e et croisements thème × niveau — consultez
           le{" "}
-          <Link href={ROUTES.ecoleHub} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.ecoleHub} className="font-semibold text-primary underline underline-offset-4">
             hub Mots mêlés École
           </Link>
           .
@@ -84,7 +84,7 @@ export function PedagogieEditorial() {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {PEDAGOGIE_EDUCATIONAL_LINKS.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="text-sm font-semibold text-primary hover:underline">
+              <Link href={link.href} className="text-sm font-semibold text-primary underline underline-offset-4">
                 {link.label}
               </Link>
             </li>

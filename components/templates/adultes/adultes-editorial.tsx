@@ -47,7 +47,7 @@ export function AdultesEditorial() {
                 <td className="py-3 pr-4">10×10, diagonales</td>
                 <td className="py-3 pr-4">Reprise du jeu, détente structurée</td>
                 <td className="py-3">
-                  <Link href={difficultyPath("moyen")} className="text-primary hover:underline">
+                  <Link href={difficultyPath("moyen")} className="text-primary underline underline-offset-4">
                     Grilles moyennes
                   </Link>
                 </td>
@@ -57,7 +57,7 @@ export function AdultesEditorial() {
                 <td className="py-3 pr-4">12×12 à 15×15, mots inversés</td>
                 <td className="py-3 pr-4">Adultes confirmés, défi vocabulaire</td>
                 <td className="py-3">
-                  <Link href={difficultyPath("difficile")} className="text-primary hover:underline">
+                  <Link href={difficultyPath("difficile")} className="text-primary underline underline-offset-4">
                     Grilles difficiles
                   </Link>
                 </td>
@@ -67,7 +67,7 @@ export function AdultesEditorial() {
                 <td className="py-3 pr-4">18×18 à 20×20, longues listes</td>
                 <td className="py-3 pr-4">Experts, soirées longues, passionnés</td>
                 <td className="py-3">
-                  <Link href={difficultyPath("geant")} className="text-primary hover:underline">
+                  <Link href={difficultyPath("geant")} className="text-primary underline underline-offset-4">
                     Grilles géantes
                   </Link>
                 </td>
@@ -77,7 +77,7 @@ export function AdultesEditorial() {
         </div>
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
           Comparez tous les niveaux depuis le{" "}
-          <Link href={ROUTES.difficulteHub} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.difficulteHub} className="font-semibold text-primary underline underline-offset-4">
             hub Difficulté
           </Link>
           .
@@ -95,7 +95,7 @@ export function AdultesEditorial() {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {ADULTES_HUB_LINKS.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="text-sm font-semibold text-primary hover:underline">
+              <Link href={link.href} className="text-sm font-semibold text-primary underline underline-offset-4">
                 {link.label}
               </Link>
             </li>

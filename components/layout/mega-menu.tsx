@@ -65,7 +65,11 @@ export function MegaMenu({
             role="menu"
           >
             {panel.featured && panel.featured.length > 0 && (
-              <div className="mb-4 flex flex-wrap gap-2 border-b border-border pb-4">
+              <div
+                className="mb-4 flex flex-wrap gap-2 border-b border-border pb-4"
+                role="group"
+                aria-label="À la une"
+              >
                 {panel.featured.map((link) => (
                   <Link
                     key={link.href}
@@ -87,26 +91,26 @@ export function MegaMenu({
               </div>
             )}
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" role="group">
               {panel.sections.map((section) => (
-                <div key={section.title}>
-                  <p className="mb-2 font-heading text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+                <div key={section.title} className="flex flex-col gap-1" role="group" aria-label={section.title}>
+                  <p
+                    className="mb-2 font-heading text-xs font-extrabold uppercase tracking-wide text-muted-foreground"
+                    role="presentation"
+                  >
                     {section.title}
                   </p>
-                  <ul className="flex flex-col gap-1">
-                    {section.links.map((link) => (
-                      <li key={link.href}>
-                        <Link
-                          href={link.href}
-                          className="block rounded-lg px-2 py-1.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
-                          role="menuitem"
-                          onClick={onClose}
-                        >
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  {section.links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="block rounded-lg px-2 py-1.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+                      role="menuitem"
+                      onClick={onClose}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
                 </div>
               ))}
             </div>

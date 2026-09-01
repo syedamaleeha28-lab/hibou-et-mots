@@ -26,7 +26,7 @@ function InternalLinks({ links }: { links: { href: string; label: string }[] }) 
     <ul className="mt-3 flex flex-col gap-2 text-sm font-semibold">
       {links.map((link) => (
         <li key={link.href}>
-          <Link href={link.href} className="text-primary underline-offset-4 hover:underline">
+          <Link href={link.href} className="text-primary underline underline-offset-4">
             {link.label}
           </Link>
         </li>
@@ -56,7 +56,7 @@ function GratuitsSections() {
                 <td className="py-3 pr-4 font-bold">Jouer en ligne</td>
                 <td className="py-3 pr-4">Partie immédiate sans papier</td>
                 <td className="py-3">
-                  <Link href={ROUTES.jouer} className="text-primary hover:underline">
+                  <Link href={ROUTES.jouer} className="text-primary underline underline-offset-4">
                     Jouer en ligne
                   </Link>
                 </td>
@@ -65,7 +65,7 @@ function GratuitsSections() {
                 <td className="py-3 pr-4 font-bold">Imprimer en PDF</td>
                 <td className="py-3 pr-4">Classe, maison, cahier d&apos;activités</td>
                 <td className="py-3">
-                  <Link href={ROUTES.imprimer} className="text-primary hover:underline">
+                  <Link href={ROUTES.imprimer} className="text-primary underline underline-offset-4">
                     Mots mêlés à imprimer
                   </Link>
                 </td>
@@ -74,7 +74,7 @@ function GratuitsSections() {
                 <td className="py-3 pr-4 font-bold">Créer sa grille</td>
                 <td className="py-3 pr-4">Vocabulaire personnalisé, anniversaire</td>
                 <td className="py-3">
-                  <Link href={ROUTES.generateur} className="text-primary hover:underline">
+                  <Link href={ROUTES.generateur} className="text-primary underline underline-offset-4">
                     Générateur gratuit
                   </Link>
                 </td>
@@ -162,7 +162,7 @@ function EcoleSections() {
                 <td className="py-2 pr-4">{grade.ageRange}</td>
                 <td className="py-2 pr-4">{grade.defaultGridSize}×{grade.defaultGridSize}</td>
                 <td className="py-2">
-                  <Link href={gradePath(grade.slug)} className="text-primary hover:underline">
+                  <Link href={gradePath(grade.slug)} className="text-primary underline underline-offset-4">
                     Voir les grilles
                   </Link>
                 </td>
@@ -207,7 +207,7 @@ function EnfantsSections() {
             <tr className="border-b border-border/60">
               <td className="py-2 pr-4">3–5 ans</td>
               <td className="py-2 pr-4">
-                <Link href={gradePath("maternelle")} className="text-primary hover:underline">
+                <Link href={gradePath("maternelle")} className="text-primary underline underline-offset-4">
                   Maternelle
                 </Link>
               </td>
@@ -216,11 +216,11 @@ function EnfantsSections() {
             <tr className="border-b border-border/60">
               <td className="py-2 pr-4">6–8 ans</td>
               <td className="py-2 pr-4">
-                <Link href={gradePath("cp")} className="text-primary hover:underline">
+                <Link href={gradePath("cp")} className="text-primary underline underline-offset-4">
                   CP
                 </Link>
                 {" · "}
-                <Link href={gradePath("ce1")} className="text-primary hover:underline">
+                <Link href={gradePath("ce1")} className="text-primary underline underline-offset-4">
                   CE1
                 </Link>
               </td>
@@ -229,7 +229,7 @@ function EnfantsSections() {
             <tr className="border-b border-border/60">
               <td className="py-2 pr-4">8–9 ans</td>
               <td className="py-2 pr-4">
-                <Link href={gradePath("ce2")} className="text-primary hover:underline">
+                <Link href={gradePath("ce2")} className="text-primary underline underline-offset-4">
                   CE2
                 </Link>
               </td>
@@ -238,7 +238,7 @@ function EnfantsSections() {
             <tr className="border-b border-border/60">
               <td className="py-2 pr-4">9–10 ans</td>
               <td className="py-2 pr-4">
-                <Link href={gradePath("cm1")} className="text-primary hover:underline">
+                <Link href={gradePath("cm1")} className="text-primary underline underline-offset-4">
                   CM1
                 </Link>
               </td>
@@ -247,7 +247,7 @@ function EnfantsSections() {
             <tr>
               <td className="py-2 pr-4">10–12 ans</td>
               <td className="py-2 pr-4">
-                <Link href={gradePath("cm2")} className="text-primary hover:underline">
+                <Link href={gradePath("cm2")} className="text-primary underline underline-offset-4">
                   CM2
                 </Link>
               </td>

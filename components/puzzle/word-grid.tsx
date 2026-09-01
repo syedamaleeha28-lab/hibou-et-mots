@@ -397,8 +397,9 @@ export function WordGrid({
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerCancel}
       >
-        {grid.letters.map((row, r) =>
-          row.map((letter, c) => {
+        {grid.letters.map((row, r) => (
+          <div key={r} role="row" className="contents">
+            {row.map((letter, c) => {
             const cell = { r, c }
             const k = key(cell)
             const isFound = foundCells.has(k)
@@ -412,6 +413,7 @@ export function WordGrid({
               <button
                 key={k}
                 type="button"
+                role="gridcell"
                 disabled={readOnly}
                 data-state={state}
                 aria-pressed={isSelected || isPending || isFound}
@@ -458,8 +460,9 @@ export function WordGrid({
                 {letter}
               </button>
             )
-          }),
-        )}
+            })}
+          </div>
+        ))}
       </div>
 
       {requireSubmit && !readOnly && (

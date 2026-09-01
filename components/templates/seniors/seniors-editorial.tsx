@@ -45,7 +45,7 @@ export function SeniorsEditorial() {
                 <td className="py-3 pr-4 font-bold">PDF grand format</td>
                 <td className="py-3 pr-4">Confort visuel, EHPAD, club papier</td>
                 <td className="py-3">
-                  <Link href={ROUTES.imprimer} className="text-primary hover:underline">
+                  <Link href={ROUTES.imprimer} className="text-primary underline underline-offset-4">
                     Imprimer une grille
                   </Link>
                 </td>
@@ -54,7 +54,7 @@ export function SeniorsEditorial() {
                 <td className="py-3 pr-4 font-bold">Jeu en ligne</td>
                 <td className="py-3 pr-4">Tablette, zoom navigateur, sans impression</td>
                 <td className="py-3">
-                  <Link href={ROUTES.jouer} className="text-primary hover:underline">
+                  <Link href={ROUTES.jouer} className="text-primary underline underline-offset-4">
                     Jouer en ligne
                   </Link>
                 </td>
@@ -63,7 +63,7 @@ export function SeniorsEditorial() {
                 <td className="py-3 pr-4 font-bold">Grille personnalisée</td>
                 <td className="py-3 pr-4">Liste de prénoms, thème du club, animation sur mesure</td>
                 <td className="py-3">
-                  <Link href={ROUTES.generateur} className="text-primary hover:underline">
+                  <Link href={ROUTES.generateur} className="text-primary underline underline-offset-4">
                     Générateur gratuit
                   </Link>
                 </td>
@@ -84,7 +84,7 @@ export function SeniorsEditorial() {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {SENIORS_HUB_LINKS.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="text-sm font-semibold text-primary hover:underline">
+              <Link href={link.href} className="text-sm font-semibold text-primary underline underline-offset-4">
                 {link.label}
               </Link>
             </li>

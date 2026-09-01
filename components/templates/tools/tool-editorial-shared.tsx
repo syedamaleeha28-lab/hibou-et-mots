@@ -24,27 +24,27 @@ export function ToolHubLinks() {
       />
       <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
         Vous préférez une grille déjà publiée ? Parcourez les mots mêlés adaptés aux{" "}
-        <Link href={ROUTES.enfants} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.enfants} className="font-semibold text-primary underline underline-offset-4">
           enfants
         </Link>
         , aux{" "}
-        <Link href={ROUTES.adultes} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.adultes} className="font-semibold text-primary underline underline-offset-4">
           adultes
         </Link>
         , par{" "}
-        <Link href={ROUTES.ecoleHub} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.ecoleHub} className="font-semibold text-primary underline underline-offset-4">
           niveau scolaire
         </Link>
         , par{" "}
-        <Link href={ROUTES.thematiquesHub} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.thematiquesHub} className="font-semibold text-primary underline underline-offset-4">
           thème
         </Link>
         , ou téléchargez des PDF depuis la page{" "}
-        <Link href={ROUTES.imprimer} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.imprimer} className="font-semibold text-primary underline underline-offset-4">
           à imprimer
         </Link>
         . L&apos;ensemble reste accessible sur la page{" "}
-        <Link href={ROUTES.gratuits} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.gratuits} className="font-semibold text-primary underline underline-offset-4">
           mots mêlés gratuits
         </Link>
         .
@@ -52,7 +52,7 @@ export function ToolHubLinks() {
       <ul className="mt-4 grid gap-2 sm:grid-cols-2">
         {HUB_LINKS.map((link) => (
           <li key={link.href}>
-            <Link href={link.href} className="text-sm font-semibold text-primary hover:underline">
+            <Link href={link.href} className="text-sm font-semibold text-primary underline underline-offset-4">
               {link.label}
             </Link>
           </li>
@@ -119,11 +119,11 @@ export function PrintableVsOnlineComparison({ focus }: PrintableVsOnlineProps) {
               </td>
               <td className="py-3">
                 Grilles du{" "}
-                <Link href={ROUTES.imprimer} className="text-primary hover:underline">
+                <Link href={ROUTES.imprimer} className="text-primary underline underline-offset-4">
                   catalogue PDF
                 </Link>{" "}
                 ou grille du{" "}
-                <Link href={ROUTES.generateur} className="text-primary hover:underline">
+                <Link href={ROUTES.generateur} className="text-primary underline underline-offset-4">
                   générateur
                 </Link>
               </td>
@@ -198,11 +198,11 @@ export function TeacherUseCases({ context }: { context: "generator" | "online" }
       </ul>
       <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
         Retrouvez des grilles calibrées par niveau sur la page{" "}
-        <Link href={ROUTES.ecoleHub} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.ecoleHub} className="font-semibold text-primary underline underline-offset-4">
           Mots mêlés École
         </Link>{" "}
         et des PDF prêts à distribuer sur{" "}
-        <Link href={ROUTES.imprimer} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.imprimer} className="font-semibold text-primary underline underline-offset-4">
           mots mêlés à imprimer
         </Link>
         .
@@ -269,11 +269,11 @@ export function ParentUseCases({ context }: { context: "generator" | "online" })
       </ul>
       <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
         Découvrez des grilles triées par âge sur{" "}
-        <Link href={ROUTES.enfants} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.enfants} className="font-semibold text-primary underline underline-offset-4">
           mots mêlés enfants
         </Link>{" "}
         ou parcourez l&apos;intégralité du catalogue{" "}
-        <Link href={ROUTES.gratuits} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.gratuits} className="font-semibold text-primary underline underline-offset-4">
           gratuit
         </Link>
         .

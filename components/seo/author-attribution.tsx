@@ -26,7 +26,7 @@ export function AuthorAttribution({ variant = "compact", className }: AuthorAttr
       </p>
       <p className="mt-2">
         Contenu rédigé par{" "}
-        <Link href={ROUTES.auteur} className="font-semibold text-primary hover:underline">
+        <Link href={ROUTES.auteur} className="font-semibold text-primary underline underline-offset-4">
           {SITE_AUTHOR.name}
         </Link>
         , {SITE_AUTHOR.jobTitle.toLowerCase()} — spécialisée dans les mots mêlés éducatifs en
@@ -40,7 +40,7 @@ export function AuthorAttribution({ variant = "compact", className }: AuthorAttr
         {" · "}
         Mis à jour le {formatFrenchDate(SITE_CONTENT_UPDATED_DATE)}
         {" · "}
-        <a href={`mailto:${SITE_AUTHOR.email}`} className="text-primary hover:underline">
+        <a href={`mailto:${SITE_AUTHOR.email}`} className="text-primary underline underline-offset-4">
           {SITE_AUTHOR.email}
         </a>
       </p>

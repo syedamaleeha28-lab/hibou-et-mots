@@ -161,14 +161,16 @@ export function DailyWordGame() {
         role="grid"
         aria-label="Grille du mot du jour"
       >
-        {rows.map((row, rowIndex) =>
-          Array.from({ length: WORD_LENGTH }, (_, colIndex) => {
+        {rows.map((row, rowIndex) => (
+          <div key={rowIndex} role="row" className="contents">
+            {Array.from({ length: WORD_LENGTH }, (_, colIndex) => {
             const letter = row.letters[colIndex] ?? ""
             const evaluation = row.submitted ? evaluateGuess(state.guesses[rowIndex]!, secret) : null
             const letterState = evaluation?.[colIndex] ?? null
             return (
               <div
                 key={colIndex}
+                role="gridcell"
                 className={cn(
                   "flex aspect-square items-center justify-center rounded-lg border-2 font-heading text-xl font-extrabold uppercase sm:text-2xl",
                   letterState === "correct" && "border-leaf bg-leaf text-leaf-foreground",
@@ -181,8 +183,9 @@ export function DailyWordGame() {
                 {letter}
               </div>
             )
-          }),
-        )}
+            })}
+          </div>
+        ))}
       </div>
 
       <DailyWordKeyboard letterStates={keyboardStates} onKey={handleKey} disabled={isFinished} />

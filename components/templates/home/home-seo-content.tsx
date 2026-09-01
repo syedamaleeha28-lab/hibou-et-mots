@@ -27,35 +27,35 @@ export function HomeSeoIntro() {
         </p>
         <p>
           Parcourez notre catalogue de{" "}
-          <Link href={ROUTES.gratuits} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.gratuits} className="font-semibold text-primary underline underline-offset-4">
             mots mêlés gratuits
           </Link>
           , choisissez des grilles pour{" "}
-          <Link href={ROUTES.enfants} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.enfants} className="font-semibold text-primary underline underline-offset-4">
             enfants
           </Link>
           , lancez une partie sur la page{" "}
-          <Link href={ROUTES.jouer} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.jouer} className="font-semibold text-primary underline underline-offset-4">
             jouer en ligne
           </Link>{" "}
           ou composez la vôtre avec le{" "}
-          <Link href={ROUTES.generateur} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.generateur} className="font-semibold text-primary underline underline-offset-4">
             générateur de mots mêlés
           </Link>
           . Tout reste gratuit, sans inscription et sans publicité intrusive sur les pages de jeu.
         </p>
         <p>
           Les passionnés de mots mêlés{" "}
-          <Link href={ROUTES.adultes} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.adultes} className="font-semibold text-primary underline underline-offset-4">
             adultes
           </Link>{" "}
           et{" "}
-          <Link href={ROUTES.seniors} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.seniors} className="font-semibold text-primary underline underline-offset-4">
             seniors
           </Link>{" "}
           trouvent également des grilles plus denses, avec un mode grand format pour une lecture
           confortable. Imprimez un PDF depuis la page{" "}
-          <Link href={ROUTES.imprimer} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.imprimer} className="font-semibold text-primary underline underline-offset-4">
             à imprimer
           </Link>{" "}
           quand vous préférez le papier.
@@ -80,7 +80,7 @@ export function HomeSynonymDifferenceSection() {
           ))}
           <p>
             Consultez la page{" "}
-            <Link href={ROUTES.solutions} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.solutions} className="font-semibold text-primary underline underline-offset-4">
               solutions et règles des mots mêlés
             </Link>{" "}
             pour les astuces de résolution et le détail des directions autorisées sur chaque grille.
@@ -125,11 +125,11 @@ export function HomePedagogicalApproachSection() {
         ))}
         <p>
           Approfondissez sur la page{" "}
-          <Link href={ROUTES.pedagogie} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.pedagogie} className="font-semibold text-primary underline underline-offset-4">
             pédagogie des mots mêlés
           </Link>{" "}
           (cycles, vocabulaire, usages en classe) ou découvrez les{" "}
-          <Link href={ROUTES.seniors} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.seniors} className="font-semibold text-primary underline underline-offset-4">
             mots mêlés seniors
           </Link>{" "}
           en grand format pour une lecture confortable.
@@ -152,7 +152,7 @@ export function HomeChooseGridSection() {
           <h3 className="font-heading font-extrabold text-foreground">Par âge</h3>
           <p className="mt-2 text-sm text-muted-foreground">
             Maternelle, CP, CE1… choisissez un{" "}
-            <Link href={ROUTES.ecoleHub} className="text-primary hover:underline">
+            <Link href={ROUTES.ecoleHub} className="text-primary underline underline-offset-4">
               niveau scolaire
             </Link>{" "}
             adapté au cycle de votre enfant.
@@ -162,7 +162,7 @@ export function HomeChooseGridSection() {
           <h3 className="font-heading font-extrabold text-foreground">Par thème</h3>
           <p className="mt-2 text-sm text-muted-foreground">
             Animaux, sport, vocabulaire… parcourez les{" "}
-            <Link href={ROUTES.thematiquesHub} className="text-primary hover:underline">
+            <Link href={ROUTES.thematiquesHub} className="text-primary underline underline-offset-4">
               mots mêlés thématiques
             </Link>
             .
@@ -172,7 +172,7 @@ export function HomeChooseGridSection() {
           <h3 className="font-heading font-extrabold text-foreground">Par occasion</h3>
           <p className="mt-2 text-sm text-muted-foreground">
             Noël, Halloween, rentrée… explorez les{" "}
-            <Link href={ROUTES.fetesHub} className="text-primary hover:underline">
+            <Link href={ROUTES.fetesHub} className="text-primary underline underline-offset-4">
               fêtes et saisons
             </Link>
             .

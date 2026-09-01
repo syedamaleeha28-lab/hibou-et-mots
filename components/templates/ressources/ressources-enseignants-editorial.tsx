@@ -47,7 +47,7 @@ export function RessourcesEnseignantsEditorial() {
         </ul>
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
           Vue d&apos;ensemble de tous les niveaux sur le{" "}
-          <Link href={ROUTES.ecoleHub} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.ecoleHub} className="font-semibold text-primary underline underline-offset-4">
             hub Mots mêlés École
           </Link>
           .
@@ -168,7 +168,7 @@ export function RessourcesEnseignantsEditorial() {
         </div>
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
           Composez une fiche personnalisée avec le{" "}
-          <Link href={ROUTES.generateur} className="font-semibold text-primary hover:underline">
+          <Link href={ROUTES.generateur} className="font-semibold text-primary underline underline-offset-4">
             générateur de grilles
           </Link>{" "}
           — dix mots suffisent pour une activité ciblée sur le vocabulaire de la semaine.
@@ -206,7 +206,7 @@ export function RessourcesEnseignantsEditorial() {
         </p>
         <Link
           href={RESSOURCES_PEDAGOGIE_CROSS_LINK.href}
-          className="mt-4 inline-flex text-sm font-semibold text-primary hover:underline"
+          className="mt-4 inline-flex text-sm font-semibold text-primary underline underline-offset-4"
         >
           {RESSOURCES_PEDAGOGIE_CROSS_LINK.cta}
         </Link>
@@ -223,7 +223,7 @@ export function RessourcesEnseignantsEditorial() {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {RESSOURCES_TEACHER_LINKS.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="text-sm font-semibold text-primary hover:underline">
+              <Link href={link.href} className="text-sm font-semibold text-primary underline underline-offset-4">
                 {link.label}
               </Link>
             </li>

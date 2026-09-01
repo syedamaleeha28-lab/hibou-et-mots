@@ -33,11 +33,11 @@ export function OnlinePlayEditorial() {
               Le chronomètre intégré permet de se challenger sans pression, ou de jouer en mode
               détente sans le regarder. Le mode grand format agrandit les cellules pour les jeunes
               lecteurs et les seniors. Et si vous préférez le papier, basculez vers les{" "}
-              <Link href={ROUTES.imprimer} className="font-semibold text-primary hover:underline">
+              <Link href={ROUTES.imprimer} className="font-semibold text-primary underline underline-offset-4">
                 grilles PDF
               </Link>{" "}
               ou composez une liste sur mesure avec le{" "}
-              <Link href={ROUTES.generateur} className="font-semibold text-primary hover:underline">
+              <Link href={ROUTES.generateur} className="font-semibold text-primary underline underline-offset-4">
                 générateur
               </Link>
               .
@@ -85,11 +85,11 @@ export function OnlinePlayEditorial() {
           </ol>
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
             Pour des grilles calibrées par classe, ouvrez{" "}
-            <Link href={ROUTES.ecoleHub} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.ecoleHub} className="font-semibold text-primary underline underline-offset-4">
               Mots mêlés École
             </Link>{" "}
             ; pour les plus jeunes, essayez la section{" "}
-            <Link href={ROUTES.enfants} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.enfants} className="font-semibold text-primary underline underline-offset-4">
               mots mêlés enfants
             </Link>
             .
@@ -105,19 +105,19 @@ export function OnlinePlayEditorial() {
           />
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
             Parcourez le catalogue{" "}
-            <Link href={ROUTES.gratuits} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.gratuits} className="font-semibold text-primary underline underline-offset-4">
               mots mêlés gratuits
             </Link>
             , les grilles{" "}
-            <Link href={ROUTES.enfants} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.enfants} className="font-semibold text-primary underline underline-offset-4">
               pour enfants
             </Link>{" "}
             ou les hubs par{" "}
-            <Link href={ROUTES.thematiquesHub} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.thematiquesHub} className="font-semibold text-primary underline underline-offset-4">
               thème
             </Link>{" "}
             et{" "}
-            <Link href={ROUTES.difficulteHub} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.difficulteHub} className="font-semibold text-primary underline underline-offset-4">
               difficulté
             </Link>
             .

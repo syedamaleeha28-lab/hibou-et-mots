@@ -28,7 +28,7 @@ function InternalLinks({ links }: { links: { href: string; label: string }[] }) 
     <ul className="mt-4 grid gap-2 sm:grid-cols-2">
       {links.map((link) => (
         <li key={link.href}>
-          <Link href={link.href} className="text-sm font-semibold text-primary hover:underline">
+          <Link href={link.href} className="text-sm font-semibold text-primary underline underline-offset-4">
             {link.label}
           </Link>
         </li>
@@ -99,7 +99,7 @@ function EnfantsPhase2() {
               <tr className="border-b border-border/60">
                 <td className="py-2 pr-4">3–5 ans</td>
                 <td className="py-2 pr-4">
-                  <Link href={gradePath("maternelle")} className="text-primary hover:underline">
+                  <Link href={gradePath("maternelle")} className="text-primary underline underline-offset-4">
                     Maternelle
                   </Link>
                 </td>
@@ -109,7 +109,7 @@ function EnfantsPhase2() {
               <tr className="border-b border-border/60">
                 <td className="py-2 pr-4">6–7 ans</td>
                 <td className="py-2 pr-4">
-                  <Link href={gradePath("cp")} className="text-primary hover:underline">
+                  <Link href={gradePath("cp")} className="text-primary underline underline-offset-4">
                     CP
                   </Link>
                 </td>
@@ -119,7 +119,7 @@ function EnfantsPhase2() {
               <tr className="border-b border-border/60">
                 <td className="py-2 pr-4">7–8 ans</td>
                 <td className="py-2 pr-4">
-                  <Link href={gradePath("ce1")} className="text-primary hover:underline">
+                  <Link href={gradePath("ce1")} className="text-primary underline underline-offset-4">
                     CE1
                   </Link>
                 </td>
@@ -129,7 +129,7 @@ function EnfantsPhase2() {
               <tr className="border-b border-border/60">
                 <td className="py-2 pr-4">8–9 ans</td>
                 <td className="py-2 pr-4">
-                  <Link href={gradePath("ce2")} className="text-primary hover:underline">
+                  <Link href={gradePath("ce2")} className="text-primary underline underline-offset-4">
                     CE2
                   </Link>
                 </td>
@@ -139,7 +139,7 @@ function EnfantsPhase2() {
               <tr className="border-b border-border/60">
                 <td className="py-2 pr-4">9–10 ans</td>
                 <td className="py-2 pr-4">
-                  <Link href={gradePath("cm1")} className="text-primary hover:underline">
+                  <Link href={gradePath("cm1")} className="text-primary underline underline-offset-4">
                     CM1
                   </Link>
                 </td>
@@ -149,7 +149,7 @@ function EnfantsPhase2() {
               <tr>
                 <td className="py-2 pr-4">10–12 ans</td>
                 <td className="py-2 pr-4">
-                  <Link href={gradePath("cm2")} className="text-primary hover:underline">
+                  <Link href={gradePath("cm2")} className="text-primary underline underline-offset-4">
                     CM2
                   </Link>
                 </td>
@@ -194,37 +194,37 @@ function ImprimerPhase2() {
         </p>
         <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
           <li>
-            <Link href={themePath("animaux")} className="font-semibold text-primary hover:underline">
+            <Link href={themePath("animaux")} className="font-semibold text-primary underline underline-offset-4">
               Animaux
             </Link>
             — ferme, savane, animaux domestiques ; idéal maternelle et CP.
           </li>
           <li>
-            <Link href={themePath("sport")} className="font-semibold text-primary hover:underline">
+            <Link href={themePath("sport")} className="font-semibold text-primary underline underline-offset-4">
               Sport
             </Link>
             — disciplines olympiques et jeux de cour ; convient au CE1–CM2.
           </li>
           <li>
-            <Link href={seasonalPath("noel")} className="font-semibold text-primary hover:underline">
+            <Link href={seasonalPath("noel")} className="font-semibold text-primary underline underline-offset-4">
               Noël
             </Link>
             — vocabulaire des fêtes, à distribuer avant les vacances.
           </li>
           <li>
-            <Link href={seasonalPath("halloween")} className="font-semibold text-primary hover:underline">
+            <Link href={seasonalPath("halloween")} className="font-semibold text-primary underline underline-offset-4">
               Halloween
             </Link>
             — thème saisonnier pour une activité d&apos;automne en classe.
           </li>
           <li>
-            <Link href={themePath("vocabulaire")} className="font-semibold text-primary hover:underline">
+            <Link href={themePath("vocabulaire")} className="font-semibold text-primary underline underline-offset-4">
               Vocabulaire
             </Link>
             — listes lexicales pour enrichir l&apos;expression écrite.
           </li>
           <li>
-            <Link href={ROUTES.ecoleHub} className="font-semibold text-primary hover:underline">
+            <Link href={ROUTES.ecoleHub} className="font-semibold text-primary underline underline-offset-4">
               École
             </Link>
             — grilles calibrées par niveau, de la maternelle à la 6e.
@@ -255,7 +255,7 @@ function ImprimerPhase2() {
           </li>
           <li>
             Pour une classe entière, téléchargez plusieurs grilles différentes depuis le hub{" "}
-            <Link href={ROUTES.gratuits} className="text-primary hover:underline">
+            <Link href={ROUTES.gratuits} className="text-primary underline underline-offset-4">
               mots mêlés gratuits
             </Link>{" "}
             afin que chaque élève ait une version unique.
@@ -305,7 +305,7 @@ function GratuitsPhase2() {
           La gratuité permet aussi aux enseignants de constituer un fonds d&apos;activités
           imprimables pour l&apos;année scolaire, et aux parents de proposer des écrans utiles à la
           maison, complémentaires du cahier de lecture. Les grilles{" "}
-          <Link href={ROUTES.seniors} className="text-primary hover:underline">
+          <Link href={ROUTES.seniors} className="text-primary underline underline-offset-4">
             pour les seniors
           </Link>{" "}
           et les publics adultes restent accessibles dans les mêmes conditions — sans abonnement
@@ -353,7 +353,7 @@ function GratuitsPhase2() {
               <tr className="border-b border-border/60">
                 <td className="py-3 pr-4 font-bold">Générateur personnalisé</td>
                 <td className="py-3 pr-4">
-                  <Link href={ROUTES.generateur} className="text-primary hover:underline">
+                  <Link href={ROUTES.generateur} className="text-primary underline underline-offset-4">
                     Gratuit et illimité
                   </Link>
                 </td>
@@ -464,7 +464,7 @@ function EcolePhase2() {
           </li>
           <li>
             Utilisez le{" "}
-            <Link href={ROUTES.generateur} className="text-primary hover:underline">
+            <Link href={ROUTES.generateur} className="text-primary underline underline-offset-4">
               générateur
             </Link>{" "}
             avec les mots de la leçon de la semaine pour une fiche sur mesure.
@@ -503,7 +503,7 @@ function EcolePhase2() {
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           Pour croiser niveau et thème — par exemple CE1 × Noël — parcourez les pages combinées
           depuis chaque fiche de niveau ou explorez les{" "}
-          <Link href={ROUTES.fetesHub} className="text-primary hover:underline">
+          <Link href={ROUTES.fetesHub} className="text-primary underline underline-offset-4">
             grilles de fêtes
           </Link>{" "}
           avant de choisir la difficulté adaptée à votre classe.

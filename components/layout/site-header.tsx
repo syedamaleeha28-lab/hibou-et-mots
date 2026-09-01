@@ -48,7 +48,7 @@ export function SiteHeader() {
           <Link href={ROUTES.home} className="flex shrink-0 items-center gap-2">
             <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl bg-accent ring-2 ring-card">
               <Image
-                src="/mascot-wave.png"
+                src="/mascot-wave.webp"
                 alt="Hibou, la mascotte de Hibou&Mots"
                 width={40}
                 height={40}

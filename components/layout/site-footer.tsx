@@ -33,7 +33,7 @@ export function SiteFooter() {
             <Link href={ROUTES.home} className="flex items-center gap-2">
               <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl bg-accent">
                 <Image
-                  src="/mascot-wave.png"
+                  src="/mascot-wave.webp"
                   alt="Hibou, la mascotte"
                   width={40}
                   height={40}

@@ -33,7 +33,7 @@ const SAMPLE_CONTENT_PAGE: ContentPageData = {
   ],
   showAuthorAttribution: true,
   illustration: {
-    src: "/mascot-wave.png",
+    src: "/mascot-wave.webp",
     alt: "Hibou, la mascotte",
   },
   schema: {

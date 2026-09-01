@@ -58,7 +58,7 @@ export function HomeGeneratorTeaser() {
         <div className="relative flex flex-col items-center justify-center rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-10">
           <div className="absolute -top-8 left-1/2 z-10 -translate-x-1/2">
             <Image
-              src="/mascot-leo.png"
+              src="/mascot-leo.webp"
               alt="Hibou, mascotte de Hibou&Mots, prêt à créer une grille"
               width={128}
               height={128}

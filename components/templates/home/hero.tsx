@@ -80,7 +80,7 @@ export function Hero() {
         <div className="order-1 relative lg:order-none">
           <div className="absolute -top-6 left-1/2 z-10 hidden -translate-x-1/2 sm:block">
             <Image
-              src="/mascot-leo.png"
+              src="/mascot-leo.webp"
               alt="Hibou, la mascotte de Hibou&Mots, tenant un crayon"
               width={150}
               height={150}

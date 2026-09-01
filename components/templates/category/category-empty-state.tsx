@@ -49,7 +49,7 @@ export function CategoryEmptyState({ category }: CategoryEmptyStateProps) {
       <div className="rounded-3xl border border-dashed border-border bg-muted/20 px-6 py-8 text-center sm:px-10 sm:py-10">
         <div className="mx-auto flex h-20 w-20 items-center justify-center">
           <Image
-            src="/mascot-wave.png"
+            src="/mascot-wave.webp"
             alt="Hibou, la mascotte de Hibou&Mots"
             width={80}
             height={80}

@@ -222,6 +222,13 @@ export function mapCategoryToPageData(
       h1: category.h1,
       canonicalPath,
       isHub: hub,
+      // NEW: bug fix — was missing, so siloForCategoryType() inside
+      // buildCategoryBreadcrumbs always defaulted to French silo
+      // labels/hrefs (e.g. "École" → /mots-meles-ecole/) even on PT-BR
+      // category pages. Found while testing the PT grade cluster;
+      // affects theme/difficulty category pages too, since they share
+      // this same code path.
+      locale,
       grade: category.grade ?? undefined,
       theme: category.theme ?? undefined,
       difficulty: category.difficulty ?? undefined,

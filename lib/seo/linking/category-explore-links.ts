@@ -380,6 +380,19 @@ function linksForType(type: CategoryType, category: CategoryPageData): CategoryE
 
 /** Contextual cross-links for category pages without a dedicated editorial block. */
 export function getCategoryExploreLinks(category: CategoryPageData): CategoryExploreLink[] {
+  // BUG FIX (found while testing the PT grade cluster, but affects
+  // every PT-BR category page that reaches this function): every link
+  // this function builds — generator, online player, audience pages —
+  // is hardcoded French text pointing at French-only routes. Most of
+  // these don't have PT-BR equivalents at all yet (no generator, no
+  // online player, no audience pages in Portuguese). Rather than show
+  // French-language links on a Portuguese page, or attempt a partial
+  // mistranslation pointing at wrong-language destinations, the section
+  // is simply omitted for PT-BR — same principle as an empty FAQ array
+  // or a missing image falling back cleanly elsewhere in this project.
+  // Revisit once real PT-BR equivalents for these features exist.
+  if (category.locale === "pt-BR") return []
+
   if (hasDedicatedEditorialLinks(category.slug)) return []
 
   const seen = new Set<string>()

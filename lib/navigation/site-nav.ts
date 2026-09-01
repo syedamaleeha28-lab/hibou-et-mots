@@ -299,6 +299,7 @@ export const footerSiloColumns: NavSection[] = [
       { label: "Mots croisés à imprimer", href: ROUTES.motsCroisesImprimer },
       { label: "Mini mots croisés", href: ROUTES.miniMotsCroises },
       { label: "Mots coupés à imprimer", href: ROUTES.motsCoupesImprimer },
+      { label: "Mots coupés (jeu en ligne)", href: ROUTES.motsCoupes },
     ],
   },
   // NEW: sudoku, kept as its own column rather than mixed into "Autres

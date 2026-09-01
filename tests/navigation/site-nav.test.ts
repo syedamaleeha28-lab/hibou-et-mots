@@ -93,6 +93,13 @@ describe("site navigation", () => {
     expect(footerSiloColumns).toHaveLength(10)
     expect(footerSiloColumns[0]?.title).toBe("Hub principal")
     expect(footerSiloColumns.map((c) => c.title)).toContain("Autres jeux de mots")
+    const autresFooter = footerSiloColumns.find((c) => c.title === "Autres jeux de mots")!
+    expect(autresFooter.links.map((l) => l.href)).toEqual([
+      "/mots-croises-a-imprimer/",
+      "/mini-mots-croises/",
+      "/mots-coupes-a-imprimer/",
+      "/mots-coupes/",
+    ])
     expect(footerSiloColumns.map((c) => c.title)).toContain("Jeux de chiffres")
     expect(footerSiloColumns.map((c) => c.title)).toContain("Autres activités")
     const chiffres = footerSiloColumns.find((c) => c.title === "Jeux de chiffres")!

@@ -107,6 +107,22 @@ function CrosswordPrintIcon() {
   )
 }
 
+function MotsCoupesIcon() {
+  return (
+    <svg viewBox="0 0 40 40" fill="none" className="h-9 w-9" aria-hidden="true">
+      <rect x="5" y="10" width="13" height="20" rx="2.5" stroke="currentColor" strokeWidth="2.5" />
+      <rect x="22" y="10" width="13" height="20" rx="2.5" stroke="currentColor" strokeWidth="2.5" />
+      <path
+        d="M18 20h4"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeDasharray="2 3"
+      />
+    </svg>
+  )
+}
+
 const GAME_TILES: GameTile[] = [
   {
     label: "Jouer en ligne",
@@ -155,6 +171,12 @@ const GAME_TILES: GameTile[] = [
     href: ROUTES.ecoleHub,
     bg: "bg-destructive text-white",
     icon: <GraduationCapIcon />,
+  },
+  {
+    label: "Mots coupés",
+    href: ROUTES.motsCoupes,
+    bg: "bg-sunny text-sunny-foreground",
+    icon: <MotsCoupesIcon />,
   },
 ]
 

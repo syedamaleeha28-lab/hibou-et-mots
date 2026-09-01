@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { SchemaJsonLd } from "@/components/seo"
 import { PageIllustration } from "@/components/ui/page-illustration"
@@ -72,6 +73,13 @@ export default function MotsCoupesAImprimerPage() {
           <p className="text-sm font-semibold text-muted-foreground">
             Clique sur « Imprimer cette page », puis choisis « Enregistrer en PDF » dans la fenêtre
             d&apos;impression de ton navigateur si tu préfères une version numérique.
+          </p>
+          <p className="no-print text-sm font-semibold text-muted-foreground">
+            Tu préfères jouer en ligne ?{" "}
+            <Link href={ROUTES.motsCoupes} className="text-primary underline">
+              Essaie la version interactive
+            </Link>
+            .
           </p>
         </div>
 

@@ -4,9 +4,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  images: {
-    unoptimized: true,
-  },
   async redirects() {
     // Fêtes/saisons pages wrongly crawled under /mots-meles-thematiques/ → canonical silo
     const seasonalThemeRedirects = [

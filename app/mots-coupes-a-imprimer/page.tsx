@@ -9,9 +9,9 @@ import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
 import {
-  MOTS_COUPES_FAQ,
-  MOTS_COUPES_HOW_TO_PLAY,
-  MOTS_COUPES_INTRO_PARAGRAPHS,
+  MOTS_COUPES_FAQ_PRINT,
+  MOTS_COUPES_HOW_TO_PLAY_PRINT,
+  MOTS_COUPES_INTRO_PARAGRAPHS_PRINT,
 } from "@/lib/content/mots-coupes-seo"
 import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
 import { ROUTES } from "@/lib/seo/routes"
@@ -47,7 +47,7 @@ export default function MotsCoupesAImprimerPage() {
       { label: "Accueil", href: "/" },
       { label: PAGE_NAME, href: ROUTES.motsCoupesImprimer },
     ],
-    faqItems: MOTS_COUPES_FAQ,
+    faqItems: MOTS_COUPES_FAQ_PRINT,
   })
 
   return (
@@ -65,7 +65,7 @@ export default function MotsCoupesAImprimerPage() {
         />
 
         <div className="mt-4 flex flex-col gap-4">
-          {MOTS_COUPES_INTRO_PARAGRAPHS.map((paragraph, i) => (
+          {MOTS_COUPES_INTRO_PARAGRAPHS_PRINT.map((paragraph, i) => (
             <p key={i} className="no-print text-sm leading-relaxed text-foreground/90">
               {paragraph}
             </p>
@@ -92,9 +92,9 @@ export default function MotsCoupesAImprimerPage() {
         </div>
 
         <div className="no-print mt-8 flex flex-col gap-8">
-          <HowToPlayBlock {...MOTS_COUPES_HOW_TO_PLAY} />
+          <HowToPlayBlock {...MOTS_COUPES_HOW_TO_PLAY_PRINT} />
 
-          <FaqAccordion items={MOTS_COUPES_FAQ} />
+          <FaqAccordion items={MOTS_COUPES_FAQ_PRINT} />
 
           <PuzzleFormatLinks current="mots-coupes" />
         </div>

@@ -17,9 +17,9 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
         "Non, aucune inscription n'est requise pour jouer en ligne, imprimer un PDF ou créer une grille personnalisée de mots mêlés gratuits sur Hibou&Mots.",
     },
     {
-      question: "Puis-je imprimer les grilles gratuites ?",
+      question: "Puis-je créer ma propre grille de mots mêlés gratuitement ?",
       answer:
-        "Oui, chaque grille gratuite peut être exportée en PDF format A4 avec corrigé sur une page séparée — idéal pour imprimer des mots mêlés en classe ou à la maison.",
+        "Oui, le générateur de grilles personnalisées est inclus gratuitement : choisis tes propres mots et thème pour créer une grille sur mesure, sans limite ni compte à créer.",
     },
     {
       question: "À quelle fréquence ajoutez-vous de nouvelles grilles ?",

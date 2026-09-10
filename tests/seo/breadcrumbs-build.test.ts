@@ -37,13 +37,13 @@ describe("buildCategoryBreadcrumbs", () => {
     const gratuits = buildCategoryBreadcrumbs({
       type: "AUDIENCE",
       isHub: true,
-      h1: "Mots Mêlés Gratuits : Jouez en Ligne ou Imprimez",
+      h1: "Mots Mêlés Gratuits : Jouer en Ligne et Créer ses Grilles",
       canonicalPath: ROUTES.gratuits,
     })
 
     expect(gratuits.map((item) => item.label)).toEqual([
       "Accueil",
-      "Mots Mêlés Gratuits : Jouez en Ligne ou Imprimez",
+      "Mots Mêlés Gratuits : Jouer en Ligne et Créer ses Grilles",
     ])
     expect(gratuits.some((item) => item.label === "École")).toBe(false)
 
@@ -154,7 +154,7 @@ describe("hub category breadcrumbs and schema", () => {
 
     expect(page.breadcrumbs.map((item) => item.label)).toEqual([
       "Accueil",
-      "Mots Mêlés Gratuits : Jouez en Ligne ou Imprimez",
+      "Mots Mêlés Gratuits : Jouer en Ligne et Créer ses Grilles",
     ])
     expect(page.breadcrumbs.some((item) => item.label === "École")).toBe(false)
   })
@@ -169,13 +169,13 @@ describe("hub category breadcrumbs and schema", () => {
     expect(breadcrumbNode).toBeDefined()
     expect(
       (breadcrumbNode?.itemListElement as Array<{ name: string }>).map((item) => item.name),
-    ).toEqual(["Accueil", "Mots Mêlés Gratuits : Jouez en Ligne ou Imprimez"])
+    ).toEqual(["Accueil", "Mots Mêlés Gratuits : Jouer en Ligne et Créer ses Grilles"])
 
     const listSchema = buildBreadcrumbListSchema(page.breadcrumbs)
     expect(listSchema.itemListElement).toHaveLength(2)
     expect(listSchema.itemListElement[0]?.name).toBe("Accueil")
     expect(listSchema.itemListElement[1]?.name).toBe(
-      "Mots Mêlés Gratuits : Jouez en Ligne ou Imprimez",
+      "Mots Mêlés Gratuits : Jouer en Ligne et Créer ses Grilles",
     )
   })
 })

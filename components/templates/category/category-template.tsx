@@ -29,6 +29,7 @@ import { cn } from "@/lib/utils"
 // Deliberately rendered unconditionally, unlike CategoryExploreLinks —
 // see the component's own doc comment for why.
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
+import { getCategoryChrome } from "@/lib/content/category-chrome"
 
 export type CategoryTemplateProps = {
   category: CategoryPageData
@@ -39,6 +40,7 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
   const emptyCatalogMode = shouldUseEmptyCatalogMode(category)
   const schemaGraph = buildCategoryPageSchemaGraph(category)
   const illustrations = getCategoryIllustrations(category)
+  const chrome = getCategoryChrome(category.slug)
 
   return (
     <div className="bg-background">
@@ -61,9 +63,11 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
           <CategorySynonymNote />
 
-          {!emptyCatalogMode && <PuzzleCardGrid category={category} />}
+          {!emptyCatalogMode && (
+            <PuzzleCardGrid category={category} heading={chrome.gridHeading} />
+          )}
 
-          {!emptyCatalogMode && <HowToPlayBlock />}
+          {!emptyCatalogMode && <HowToPlayBlock {...chrome.howToPlay} />}
 
           {!emptyCatalogMode && (
             <PageIllustration variant="preview" illustration={illustrations.preview} />

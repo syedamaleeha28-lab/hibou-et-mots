@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 
 type PuzzleCardGridProps = {
   category: Pick<CategoryPageData, "h1" | "puzzles" | "canonicalPath">
+  heading?: string
 }
 
 function pageHref(canonicalPath: string, page: number): string {
@@ -14,7 +15,7 @@ function pageHref(canonicalPath: string, page: number): string {
   return `${canonicalPath}?page=${page}`
 }
 
-export function PuzzleCardGrid({ category }: PuzzleCardGridProps) {
+export function PuzzleCardGrid({ category, heading }: PuzzleCardGridProps) {
   const { puzzles, canonicalPath } = category
 
   return (
@@ -22,7 +23,7 @@ export function PuzzleCardGrid({ category }: PuzzleCardGridProps) {
       <SectionHeading
         align="left"
         eyebrow="Grilles"
-        title="Mots mêlés à jouer et imprimer"
+        title={heading ?? "Mots mêlés à jouer et imprimer"}
         description={`${puzzles.totalCount} grilles disponibles dans cette catégorie.`}
       />
 

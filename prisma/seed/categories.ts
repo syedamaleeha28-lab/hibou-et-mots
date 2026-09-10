@@ -68,10 +68,10 @@ const HUB_DEFINITIONS: Omit<CategorySeedDefinition, "locale">[] = [
   {
     slug: HUB_CATEGORY_SLUGS.gratuits,
     type: "AUDIENCE",
-    h1: "Mots Mêlés Gratuits : Jouez en Ligne ou Imprimez",
-    seoTitle: "Mots Mêlés Gratuits en Ligne et à Imprimer | Hibou & Mots",
+    h1: "Mots Mêlés Gratuits : Jouer en Ligne et Créer ses Grilles",
+    seoTitle: "Mots Mêlés Gratuits en Ligne | Hibou & Mots",
     metaDescription:
-      "Des centaines de grilles de mots mêlés 100% gratuites, sans inscription. Jouez en ligne ou imprimez en PDF - pour enfants, adultes et la classe.",
+      "Des centaines de grilles de mots mêlés 100% gratuites et sans inscription : joue en ligne ou crée ta propre grille personnalisée. Export PDF disponible si tu préfères imprimer.",
     introText:
       "Parcourez notre bibliothèque de mots mêlés 100 % gratuits : par thème, par niveau scolaire ou par difficulté.",
     isHub: true,

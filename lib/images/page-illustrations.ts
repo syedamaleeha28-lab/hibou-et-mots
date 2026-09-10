@@ -36,8 +36,20 @@ export const ILLUSTRATION_STYLE_GUIDE =
  */
 const ILLUSTRATION_COPY_OVERRIDES: Record<
   string,
-  { heroAlt?: string; heroCaption?: string; previewAlt?: string; previewCaption?: string }
+  {
+    heroAlt?: string
+    heroCaption?: string
+    heroTitle?: string
+    previewAlt?: string
+    previewCaption?: string
+  }
 > = {
+  "/mots-meles-gratuits/": {
+    heroTitle: "Mots Mêlés Gratuits",
+    heroAlt:
+      "Une famille souriante — parent et deux enfants — résout ensemble une grille de mots mêlés à table",
+    heroCaption: "Des grilles gratuites, pour toute la famille.",
+  },
   "/mots-meles-thematiques/fruits/": {
     heroAlt:
       "Un enfant souriant résout une grille de mots mêlés entouré de personnages fruits amusants (pomme, banane, fraise, orange)",
@@ -128,7 +140,7 @@ export function getCategoryIllustrations(
         (isPt
           ? `Crianças e professora se divertindo com uma grade de caça-palavras — ${title}`
           : `Enfants et enseignante s'amusant avec une grille de mots mêlés — ${title}`),
-      title,
+      title: overrides?.heroTitle ?? title,
       caption:
         overrides?.heroCaption ??
         (isPt ? `Descubra nossas grades: ${title.toLowerCase()}.` : `Découvre nos grilles : ${title.toLowerCase()}.`),

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { SITE_AUTHOR } from "@/lib/content/author"
+import { SITE_AUTHOR, shouldShowAuthorAttribution } from "@/lib/content/author"
 import { buildAuthorPageSchemaGraph } from "@/lib/seo/schema/author-page"
 import { buildPersonSchema } from "@/lib/seo/schema/person"
 import { buildOrganizationSchema } from "@/lib/seo/schema/home"
@@ -29,6 +29,13 @@ describe("author page schema", () => {
     expect((profile.mainEntity as Record<string, string>)["@id"]).toContain("#person")
     expect(profile.datePublished).toBeTruthy()
     expect(profile.dateModified).toBeTruthy()
+  })
+})
+
+describe("author attribution pages", () => {
+  it("shows the author block on hub-imprimer as well as hub-gratuits", () => {
+    expect(shouldShowAuthorAttribution("hub-gratuits", "AUDIENCE")).toBe(true)
+    expect(shouldShowAuthorAttribution("hub-imprimer", "AUDIENCE")).toBe(true)
   })
 })
 

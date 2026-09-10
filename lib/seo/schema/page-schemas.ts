@@ -10,6 +10,21 @@ import { buildItemListSchema } from "./item-list"
 import { buildSchemaGraph } from "./graph"
 import { getCategoryIllustrations } from "@/lib/images/page-illustrations"
 
+function itemListNumberOfItems(
+  category: Pick<CategoryPageData, "puzzles" | "schema">,
+): number {
+  const catalogTotal = category.puzzles.totalCount
+  const pageCount = category.puzzles.items.length
+  const existingCount = category.schema.itemList?.numberOfItems
+  // Keep custom ItemLists (e.g. hub-ecole grade links) when their count
+  // already differs from the current puzzle page. Puzzle catalogs use the
+  // full totalCount even when ItemList elements are the current page only.
+  if (existingCount !== undefined && existingCount !== pageCount) {
+    return existingCount
+  }
+  return catalogTotal
+}
+
 export function buildCategoryPageSchemaGraph(
   category: Pick<
     CategoryPageData,
@@ -18,9 +33,12 @@ export function buildCategoryPageSchemaGraph(
   siteUrl?: string,
 ): Record<string, unknown> {
   const breadcrumb = buildBreadcrumbListSchema(category.breadcrumbs, siteUrl)
+  const catalogTotal = itemListNumberOfItems(category)
   const itemList = {
     "@id": itemListId(category.canonicalPath, siteUrl),
-    ...(category.schema.itemList ?? buildItemListSchema(category.h1, category.puzzles.items, siteUrl)),
+    ...(category.schema.itemList ??
+      buildItemListSchema(category.h1, category.puzzles.items, siteUrl, catalogTotal)),
+    numberOfItems: catalogTotal,
   }
   const heroIllustration = getCategoryIllustrations(category).hero
   const collectionPage = buildCollectionPageSchema({
@@ -29,7 +47,7 @@ export function buildCategoryPageSchemaGraph(
     description: category.metaDescription,
     siteUrl,
     itemListId: itemList["@id"],
-    numberOfItems: category.puzzles.items.length,
+    numberOfItems: catalogTotal,
     image: {
       url: heroIllustration.src,
       width: heroIllustration.width,

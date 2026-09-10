@@ -560,7 +560,7 @@ export function mockStaticSupportCategoryPageData(
     canonicalPath: path,
     breadcrumbs,
     schema: {
-      itemList: buildItemListSchema(def.h1, paginated.items),
+      itemList: buildItemListSchema(def.h1, paginated.items, undefined, paginated.totalCount),
       faqPage: base.schema.faqPage,
     },
   }

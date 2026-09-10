@@ -70,6 +70,55 @@ describe("schema graph", () => {
     expect(nodes.some((node) => node["@type"] === "CollectionPage")).toBe(true)
   })
 
+  it("uses the full catalog totalCount for CollectionPage and ItemList, not the current page size", () => {
+    const pageItems = Array.from({ length: 24 }, (_, index) => ({
+      id: String(index + 1),
+      slug: `puzzle-${index + 1}`,
+      title: `Puzzle ${index + 1}`,
+      href: `/mots-meles/puzzle-${index + 1}/`,
+      difficulty: { slug: "facile", name: "Facile" },
+      size: 10,
+      wordCount: 8,
+    }))
+
+    const graph = buildCategoryPageSchemaGraph({
+      slug: "hub-imprimer",
+      type: "AUDIENCE",
+      h1: "Mots Mêlés à Imprimer en PDF",
+      metaDescription: "Téléchargez et imprimez gratuitement nos grilles.",
+      canonicalPath: "/mots-meles-a-imprimer/",
+      breadcrumbs: [
+        { label: "Accueil", href: "/" },
+        { label: "À imprimer", href: "/mots-meles-a-imprimer/" },
+      ],
+      puzzles: {
+        items: pageItems,
+        page: 1,
+        pageSize: 24,
+        totalCount: 138,
+        totalPages: 6,
+      },
+      schema: {
+        itemList: {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Mots Mêlés à Imprimer en PDF",
+          numberOfItems: 24,
+          itemListElement: [],
+        },
+      },
+    })
+
+    const nodes = graph["@graph"] as Array<Record<string, unknown>>
+    const collection = nodes.find((node) => node["@type"] === "CollectionPage") as Record<
+      string,
+      unknown
+    >
+    const itemList = nodes.find((node) => node["@type"] === "ItemList") as Record<string, unknown>
+    expect(collection.numberOfItems).toBe(138)
+    expect(itemList.numberOfItems).toBe(138)
+  })
+
   it("composes puzzle creative work graph", () => {
     const graph = buildPuzzlePageSchemaGraph({
       title: "Animaux de la ferme",

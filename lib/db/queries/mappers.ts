@@ -264,7 +264,7 @@ export function mapCategoryToPageData(
             href: gradePath(grade.slug),
           })),
         )
-      : buildItemListSchema(category.h1, paginated.items)
+      : buildItemListSchema(category.h1, paginated.items, undefined, paginated.totalCount)
 
   return {
     id: category.id,

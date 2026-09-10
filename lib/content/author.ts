@@ -35,6 +35,7 @@ const EDUCATIONAL_AUTHOR_SLUGS = new Set([
   "enfants",
   "hub-ecole",
   "hub-gratuits",
+  "hub-imprimer",
   "solutions",
   "personnages",
   "jeux-magazines",

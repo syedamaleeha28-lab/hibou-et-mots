@@ -41,13 +41,29 @@ describe("getCategoryIllustrations", () => {
 
   it("never hardcodes page-specific text — alt/caption are derived purely from h1", () => {
     const { hero, preview } = getCategoryIllustrations({
+      canonicalPath: "/mots-meles-enfants/",
+      h1: "Mots Mêlés Enfants",
+      slug: "mots-meles-enfants",
+      locale: "fr",
+    })
+    expect(hero.alt).toContain("Mots Mêlés Enfants")
+    expect(preview.alt).toContain("Mots Mêlés Enfants")
+  })
+
+  it("uses the Seniors preview alt and caption override", () => {
+    const { preview } = getCategoryIllustrations({
       canonicalPath: "/mots-meles-seniors/",
       h1: "Mots Mêlés Seniors",
       slug: "mots-meles-seniors",
       locale: "fr",
     })
-    expect(hero.alt).toContain("Mots Mêlés Seniors")
-    expect(preview.alt).toContain("Mots Mêlés Seniors")
+    expect(preview.title).toBe("Exemple de grille — Mots Mêlés Seniors")
+    expect(preview.alt).toBe(
+      "Aperçu d'une grille de mots mêlés grand format, avec lunettes de lecture et thé, prête à imprimer",
+    )
+    expect(preview.caption).toBe(
+      "Une grille grand format, pensée pour un confort de lecture optimal.",
+    )
   })
 
   it("uses richer hand-crafted copy for pages with a known override, generic default otherwise", () => {

@@ -60,6 +60,11 @@ const ILLUSTRATION_COPY_OVERRIDES: Record<
       "Aperçu d'une grille de mots mêlés imprimable sur le thème des animaux, avec lion, éléphant et girafe illustrés",
     previewCaption: "Une grille prête à imprimer, avec ses crayons de couleur.",
   },
+  "/mots-meles-seniors/": {
+    previewAlt:
+      "Aperçu d'une grille de mots mêlés grand format, avec lunettes de lecture et thé, prête à imprimer",
+    previewCaption: "Une grille grand format, pensée pour un confort de lecture optimal.",
+  },
 }
 
 function slugFromPath(canonicalPath: string): string {

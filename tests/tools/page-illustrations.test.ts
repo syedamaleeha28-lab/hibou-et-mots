@@ -41,13 +41,29 @@ describe("getCategoryIllustrations", () => {
 
   it("never hardcodes page-specific text — alt/caption are derived purely from h1", () => {
     const { hero, preview } = getCategoryIllustrations({
+      canonicalPath: "/mots-meles-a-imprimer/",
+      h1: "Mots Mêlés à Imprimer",
+      slug: "mots-meles-a-imprimer",
+      locale: "fr",
+    })
+    expect(hero.alt).toContain("Mots Mêlés à Imprimer")
+    expect(preview.alt).toContain("Mots Mêlés à Imprimer")
+  })
+
+  it("uses the Enfants preview alt and caption override", () => {
+    const { preview } = getCategoryIllustrations({
       canonicalPath: "/mots-meles-enfants/",
       h1: "Mots Mêlés Enfants",
       slug: "mots-meles-enfants",
       locale: "fr",
     })
-    expect(hero.alt).toContain("Mots Mêlés Enfants")
-    expect(preview.alt).toContain("Mots Mêlés Enfants")
+    expect(preview.title).toBe("Exemple de grille — Mots Mêlés Enfants")
+    expect(preview.alt).toBe(
+      "Aperçu d'une grille de mots mêlés imprimable, entourée de crayons de couleur et de jouets",
+    )
+    expect(preview.caption).toBe(
+      "Une grille prête à imprimer, parfaite pour une pause créative.",
+    )
   })
 
   it("uses the Seniors preview alt and caption override", () => {

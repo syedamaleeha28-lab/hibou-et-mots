@@ -96,6 +96,29 @@ describe("getCategoryIllustrations", () => {
     expect(preview.caption).toBe("Une grille prête à imprimer, pour une pause détente.")
   })
 
+  it("uses the Gratuits heroTitle override and falls back to h1 when heroTitle is unset", () => {
+    const gratuitsH1 = "Mots Mêlés Gratuits : Jouer en Ligne et Créer ses Grilles"
+    const { hero: gratuitsHero } = getCategoryIllustrations({
+      canonicalPath: "/mots-meles-gratuits/",
+      h1: gratuitsH1,
+      slug: "hub-gratuits",
+      locale: "fr",
+    })
+    expect(gratuitsHero.title).toBe("Mots Mêlés Gratuits")
+    expect(gratuitsHero.title).not.toBe(gratuitsH1)
+
+    // Fruits has heroAlt/heroCaption overrides but no heroTitle — sibling
+    // fields must not steal the image title away from the page h1.
+    const fruitsH1 = "Mots Mêlés Fruits"
+    const { hero: fruitsHero } = getCategoryIllustrations({
+      canonicalPath: "/mots-meles-thematiques/fruits/",
+      h1: fruitsH1,
+      slug: "fruits",
+      locale: "fr",
+    })
+    expect(fruitsHero.title).toBe(fruitsH1)
+  })
+
   it("uses richer hand-crafted copy for pages with a known override, generic default otherwise", () => {
     const withOverride = getCategoryIllustrations({
       canonicalPath: "/mots-meles-thematiques/fruits/",

@@ -82,6 +82,20 @@ describe("getCategoryIllustrations", () => {
     )
   })
 
+  it("uses the Adultes preview alt and caption override", () => {
+    const { preview } = getCategoryIllustrations({
+      canonicalPath: "/mots-meles-adultes/",
+      h1: "Mots Mêlés Adultes",
+      slug: "mots-meles-adultes",
+      locale: "fr",
+    })
+    expect(preview.title).toBe("Exemple de grille — Mots Mêlés Adultes")
+    expect(preview.alt).toBe(
+      "Aperçu d'une grille de mots mêlés imprimable, avec un café et un livre, prête à imprimer",
+    )
+    expect(preview.caption).toBe("Une grille prête à imprimer, pour une pause détente.")
+  })
+
   it("uses richer hand-crafted copy for pages with a known override, generic default otherwise", () => {
     const withOverride = getCategoryIllustrations({
       canonicalPath: "/mots-meles-thematiques/fruits/",

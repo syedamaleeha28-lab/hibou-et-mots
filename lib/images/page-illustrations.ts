@@ -65,6 +65,11 @@ const ILLUSTRATION_COPY_OVERRIDES: Record<
       "Aperçu d'une grille de mots mêlés grand format, avec lunettes de lecture et thé, prête à imprimer",
     previewCaption: "Une grille grand format, pensée pour un confort de lecture optimal.",
   },
+  "/mots-meles-adultes/": {
+    previewAlt:
+      "Aperçu d'une grille de mots mêlés imprimable, avec un café et un livre, prête à imprimer",
+    previewCaption: "Une grille prête à imprimer, pour une pause détente.",
+  },
   "/mots-meles-enfants/": {
     previewAlt:
       "Aperçu d'une grille de mots mêlés imprimable, entourée de crayons de couleur et de jouets",

@@ -16,6 +16,7 @@ import {
   ptDifficultyPath,
   ptPuzzlePath,
   ptThemePath,
+  sudokuGradePath,
 } from "@/lib/seo/routes"
 import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 import {
@@ -85,6 +86,10 @@ const STATIC_APP_PATHS = new Set<string>([
   // NEW: sudoku — same plain-static-page treatment as jouer/generateur.
   ROUTES.sudoku,
   ROUTES.sudokuImprimer,
+  sudokuGradePath("ce1"),
+  sudokuGradePath("ce2"),
+  sudokuGradePath("cm1"),
+  sudokuGradePath("cm2"),
   // NEW: coloriage magique — same plain-static-page treatment.
   ROUTES.coloriageMagique,
   ROUTES.coloriageMagiqueImprimer,
@@ -251,6 +256,10 @@ export async function resolveInternalPath(
       path !== ROUTES.miniMotsCroises &&
       path !== ROUTES.sudoku &&
       path !== ROUTES.sudokuImprimer &&
+      path !== sudokuGradePath("ce1") &&
+      path !== sudokuGradePath("ce2") &&
+      path !== sudokuGradePath("cm1") &&
+      path !== sudokuGradePath("cm2") &&
       path !== ROUTES.coloriageMagique &&
       path !== ROUTES.coloriageMagiqueImprimer
 

@@ -4,6 +4,7 @@ import {
   gradePath,
   motsCroisesForcePath,
   seasonalPath,
+  sudokuGradePath,
   themePath,
 } from "@/lib/seo/routes"
 
@@ -97,6 +98,10 @@ export const imprimerMegaMenu: MegaMenuPanel = {
       links: [
         { label: "Sudoku à imprimer", href: ROUTES.sudokuImprimer },
         { label: "Sudoku (jeu en ligne)", href: ROUTES.sudoku },
+        { label: "Sudoku CE1", href: sudokuGradePath("ce1") },
+        { label: "Sudoku CE2", href: sudokuGradePath("ce2") },
+        { label: "Sudoku CM1", href: sudokuGradePath("cm1") },
+        { label: "Sudoku CM2", href: sudokuGradePath("cm2") },
       ],
     },
     // NEW: coloriage magique is a coloring activity — not a word puzzle,
@@ -306,7 +311,13 @@ export const footerSiloColumns: NavSection[] = [
   // jeux de mots" — same word/number distinction as everywhere else.
   {
     title: "Jeux de chiffres",
-    links: [{ label: "Sudoku à imprimer", href: ROUTES.sudokuImprimer }],
+    links: [
+      { label: "Sudoku à imprimer", href: ROUTES.sudokuImprimer },
+      { label: "Sudoku CE1", href: sudokuGradePath("ce1") },
+      { label: "Sudoku CE2", href: sudokuGradePath("ce2") },
+      { label: "Sudoku CM1", href: sudokuGradePath("cm1") },
+      { label: "Sudoku CM2", href: sudokuGradePath("cm2") },
+    ],
   },
   // NEW: coloriage magique, same reasoning as the sudoku column above.
   {

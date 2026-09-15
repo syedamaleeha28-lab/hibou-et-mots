@@ -96,6 +96,10 @@ export function motsCroisesForcePath(tier: 1 | 2 | 3 | 4 | 5): string {
   return `/mots-croises-force-${tier}/`
 }
 
+export function sudokuGradePath(slug: string): string {
+  return `/sudoku-${slug}/`
+}
+
 // ============================================================
 // PT-BR routes (v1 scope). No locale-prefix folder (no /pt-br/) —
 // URLs use native Portuguese slugs directly at the top level, to

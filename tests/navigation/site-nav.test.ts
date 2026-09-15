@@ -51,6 +51,10 @@ describe("site navigation", () => {
     expect(chiffres.links.map((l) => l.href)).toEqual([
       "/sudoku-a-imprimer/",
       "/sudoku/",
+      "/sudoku-ce1/",
+      "/sudoku-ce2/",
+      "/sudoku-cm1/",
+      "/sudoku-cm2/",
     ])
     const activites = imprimer.sections.find((s) => s.title === "Autres activités")!
     expect(activites.links.map((l) => l.href)).toEqual([
@@ -103,7 +107,13 @@ describe("site navigation", () => {
     expect(footerSiloColumns.map((c) => c.title)).toContain("Jeux de chiffres")
     expect(footerSiloColumns.map((c) => c.title)).toContain("Autres activités")
     const chiffres = footerSiloColumns.find((c) => c.title === "Jeux de chiffres")!
-    expect(chiffres.links.map((l) => l.href)).toEqual(["/sudoku-a-imprimer/"])
+    expect(chiffres.links.map((l) => l.href)).toEqual([
+      "/sudoku-a-imprimer/",
+      "/sudoku-ce1/",
+      "/sudoku-ce2/",
+      "/sudoku-cm1/",
+      "/sudoku-cm2/",
+    ])
     const activites = footerSiloColumns.find((c) => c.title === "Autres activités")!
     expect(activites.links.map((l) => l.href)).toEqual(["/coloriage-magique-a-imprimer/"])
     expect(footerSiloColumns.at(-1)?.title).toBe("🇧🇷 Português")

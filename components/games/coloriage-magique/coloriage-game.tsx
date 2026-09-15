@@ -2,13 +2,12 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { getDayIndex, getDesignForDay } from "@/lib/coloriage-magique/engine"
-import { COLORIAGE_DESIGNS } from "@/lib/coloriage-magique/designs"
+import { designsForLevel, getDayIndex, getDesignForDay } from "@/lib/coloriage-magique/engine"
 import { ColoriageBoard } from "./coloriage-board"
 
 export function ColoriageGame() {
   const [dayIndex] = useState(() => getDayIndex())
-  const design = getDesignForDay(dayIndex, COLORIAGE_DESIGNS)
+  const design = getDesignForDay(dayIndex, designsForLevel("maternelle-cp"))
 
   return (
     <div className="flex flex-col gap-4">

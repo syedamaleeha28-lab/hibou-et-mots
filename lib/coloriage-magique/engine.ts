@@ -17,6 +17,18 @@ export function getDesignForDay(
   return designs[idx]!
 }
 
+/** Filters designs by level. Defaults to "maternelle-cp" designs
+ *  when a design has no explicit level (keeps the 2 original designs
+ *  working exactly as before on the main /coloriage-magique/ pages,
+ *  which should keep using ALL "maternelle-cp"-level designs, not
+ *  the new CE2 ones — those get their own separate page). */
+export function designsForLevel(
+  level: "maternelle-cp" | "ce2",
+  designs: ColoriageDesign[] = COLORIAGE_DESIGNS,
+): ColoriageDesign[] {
+  return designs.filter((d) => (d.level ?? "maternelle-cp") === level)
+}
+
 /** Region ids that have been correctly filled so far. */
 export type ColoriageFillState = ReadonlySet<string>
 

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { COLORIAGE_DESIGNS } from "@/lib/coloriage-magique/designs"
 import {
+  designsForLevel,
   getDayIndex,
   getDesignForDay,
   isDesignComplete,
@@ -67,5 +68,10 @@ describe("coloriage magique — engine", () => {
     const d2 = getDayIndex(new Date(2026, 7, 20, 23, 0, 0))
     expect(d1).toBe(d2)
     expect(Number.isInteger(d1)).toBe(true)
+  })
+
+  it("designsForLevel keeps original pages on soleil/fleur and isolates CE2 designs", () => {
+    expect(designsForLevel("maternelle-cp").map((d) => d.id)).toEqual(["soleil", "fleur"])
+    expect(designsForLevel("ce2").map((d) => d.id)).toEqual(["papillon", "maison"])
   })
 })

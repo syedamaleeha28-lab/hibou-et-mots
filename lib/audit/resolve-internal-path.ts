@@ -93,6 +93,8 @@ const STATIC_APP_PATHS = new Set<string>([
   // NEW: coloriage magique — same plain-static-page treatment.
   ROUTES.coloriageMagique,
   ROUTES.coloriageMagiqueImprimer,
+  ROUTES.coloriageMagiqueCe2,
+  ROUTES.coloriageMagiqueCe2Imprimer,
 ])
 
 function hubSlugForPath(path: string): string | null {
@@ -261,7 +263,9 @@ export async function resolveInternalPath(
       path !== sudokuGradePath("cm1") &&
       path !== sudokuGradePath("cm2") &&
       path !== ROUTES.coloriageMagique &&
-      path !== ROUTES.coloriageMagiqueImprimer
+      path !== ROUTES.coloriageMagiqueImprimer &&
+      path !== ROUTES.coloriageMagiqueCe2 &&
+      path !== ROUTES.coloriageMagiqueCe2Imprimer
 
     if (categoryLike) {
       const ok = await resolveCategoryLikePath(path)

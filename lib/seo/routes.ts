@@ -52,6 +52,8 @@ export const ROUTES = {
   // in-page links block) — same discipline as sudoku's word/number split.
   coloriageMagique: "/coloriage-magique/",
   coloriageMagiqueImprimer: "/coloriage-magique-a-imprimer/",
+  coloriageMagiqueCe2: "/coloriage-magique-ce2/",
+  coloriageMagiqueCe2Imprimer: "/coloriage-magique-ce2-a-imprimer/",
 } as const
 
 export function gradePath(slug: string): string {

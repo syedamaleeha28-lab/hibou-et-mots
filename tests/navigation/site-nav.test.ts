@@ -60,6 +60,8 @@ describe("site navigation", () => {
     expect(activites.links.map((l) => l.href)).toEqual([
       "/coloriage-magique-a-imprimer/",
       "/coloriage-magique/",
+      "/coloriage-magique-ce2/",
+      "/coloriage-magique-ce2-a-imprimer/",
     ])
   })
 
@@ -115,7 +117,11 @@ describe("site navigation", () => {
       "/sudoku-cm2/",
     ])
     const activites = footerSiloColumns.find((c) => c.title === "Autres activités")!
-    expect(activites.links.map((l) => l.href)).toEqual(["/coloriage-magique-a-imprimer/"])
+    expect(activites.links.map((l) => l.href)).toEqual([
+      "/coloriage-magique-a-imprimer/",
+      "/coloriage-magique-ce2/",
+      "/coloriage-magique-ce2-a-imprimer/",
+    ])
     expect(footerSiloColumns.at(-1)?.title).toBe("🇧🇷 Português")
     expect(footerSiloColumns.at(-1)?.links.map((l) => l.href)).toEqual([
       "/caca-palavras-para-imprimir/",

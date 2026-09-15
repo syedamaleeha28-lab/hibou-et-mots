@@ -64,6 +64,8 @@ const STATIC_PATHS: string[] = [
   // NEW: coloriage magique.
   ROUTES.coloriageMagique,
   ROUTES.coloriageMagiqueImprimer,
+  ROUTES.coloriageMagiqueCe2,
+  ROUTES.coloriageMagiqueCe2Imprimer,
 ]
 
 const NOINDEX_STATIC_PATHS = new Set<string>([ROUTES.recherche])

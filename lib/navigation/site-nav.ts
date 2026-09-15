@@ -112,6 +112,8 @@ export const imprimerMegaMenu: MegaMenuPanel = {
       links: [
         { label: "Coloriage magique à imprimer", href: ROUTES.coloriageMagiqueImprimer },
         { label: "Coloriage magique (jeu en ligne)", href: ROUTES.coloriageMagique },
+        { label: "Coloriage magique CE2", href: ROUTES.coloriageMagiqueCe2 },
+        { label: "Coloriage magique CE2 à imprimer", href: ROUTES.coloriageMagiqueCe2Imprimer },
       ],
     },
   ],
@@ -322,7 +324,11 @@ export const footerSiloColumns: NavSection[] = [
   // NEW: coloriage magique, same reasoning as the sudoku column above.
   {
     title: "Autres activités",
-    links: [{ label: "Coloriage magique à imprimer", href: ROUTES.coloriageMagiqueImprimer }],
+    links: [
+      { label: "Coloriage magique à imprimer", href: ROUTES.coloriageMagiqueImprimer },
+      { label: "Coloriage magique CE2", href: ROUTES.coloriageMagiqueCe2 },
+      { label: "Coloriage magique CE2 à imprimer", href: ROUTES.coloriageMagiqueCe2Imprimer },
+    ],
   },
   // PT-BR pack: footer still carries a compact Português column too, for
   // mobile visitors — the dropdown above only renders in the desktop nav

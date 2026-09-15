@@ -56,6 +56,8 @@ describe("static sitemap entries", () => {
     expect(locs.some((loc) => loc.includes("/sudoku-cm2/"))).toBe(true)
     expect(locs.some((loc) => loc.includes("/coloriage-magique/"))).toBe(true)
     expect(locs.some((loc) => loc.includes("coloriage-magique-a-imprimer"))).toBe(true)
+    expect(locs.some((loc) => loc.includes("/coloriage-magique-ce2/"))).toBe(true)
+    expect(locs.some((loc) => loc.includes("coloriage-magique-ce2-a-imprimer"))).toBe(true)
     expect(locs.some((loc) => loc.includes("recherche"))).toBe(false)
   })
 })

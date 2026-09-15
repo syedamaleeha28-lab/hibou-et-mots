@@ -1,25 +1,31 @@
 "use client"
 
 import { Printer } from "lucide-react"
-import { COLORIAGE_DESIGNS } from "@/lib/coloriage-magique/designs"
+import { designsForLevel } from "@/lib/coloriage-magique/engine"
 
 const OUTLINE_COLOR = "#22303D"
+
+export function PrintThisPageButton() {
+  return (
+    <button
+      type="button"
+      onClick={() => window.print()}
+      className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-extrabold text-primary-foreground hover:bg-primary/90"
+    >
+      <Printer className="size-4" />
+      Imprimer cette page
+    </button>
+  )
+}
 
 export function PrintableColoriageList() {
   return (
     <div className="flex flex-col gap-10">
       <div className="no-print flex justify-end">
-        <button
-          type="button"
-          onClick={() => window.print()}
-          className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-extrabold text-primary-foreground hover:bg-primary/90"
-        >
-          <Printer className="size-4" />
-          Imprimer cette page
-        </button>
+        <PrintThisPageButton />
       </div>
 
-      {COLORIAGE_DESIGNS.map((design) => (
+      {designsForLevel("maternelle-cp").map((design) => (
         <div
           key={design.id}
           className="break-inside-avoid flex flex-col items-center gap-4 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6"

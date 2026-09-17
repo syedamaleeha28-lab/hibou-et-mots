@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Baloo_2, Nunito } from 'next/font/google'
 import { headers } from 'next/headers'
+import Script from 'next/script'
 import { MainShell } from '@/components/layout'
 import { DEFAULT_SITE_URL, resolveSiteOrigin } from '@/lib/seo/routes'
 import './globals.css'
@@ -79,6 +80,24 @@ export default async function RootLayout({
       className={`${baloo.variable} ${nunito.variable} bg-background`}
     >
       <body className="font-sans antialiased">
+        {/* Google AdSense site-ownership verification script (added for
+            AdSense onboarding). Uses strategy="beforeInteractive" —
+            Next.js server-renders this into the actual document <head>
+            of the initial HTML response, rather than injecting it
+            client-side after hydration (that's what afterInteractive
+            does). This matters specifically for verification: Google's
+            ownership-check crawler may only read static HTML, so the
+            script needs to already be in the head on first response,
+            not added later by client-side JS. Applies sitewide (every
+            route renders through this layout), matching AdSense's
+            "on each page of your site" requirement without needing to
+            touch individual route files. */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4540685883116257"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
         <MainShell>{children}</MainShell>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

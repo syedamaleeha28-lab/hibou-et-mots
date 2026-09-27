@@ -78,25 +78,18 @@ export default async function RootLayout({
       lang={locale}
       className={`${baloo.variable} ${nunito.variable} bg-background`}
     >
-      <head>
-        {/* Google AdSense site-ownership verification script.
-            Deliberately a PLAIN native <script> tag, NOT next/script —
-            next/script's "beforeInteractive" strategy (tried first)
-            renders as a <link rel="preload"> plus a deferred
-            self.__next_s JS queue instead of a literal <script src>
-            tag, and Google's automated verification crawler didn't
-            recognize that pattern (confirmed via raw HTML inspection —
-            robots.txt and crawler access were both already clean, so
-            this was the actual cause). A plain JSX <script> tag gets
-            no such optimization: it renders as real, static,
-            byte-for-byte matching markup, exactly what Google gave. */}
+      <body className="font-sans antialiased">
+        {/* Google AdSense snippet: PLAIN native <script>, NOT next/script,
+            and NOT inside a hand-written <head>. Next.js docs warn that
+            custom <head> in the root layout breaks Metadata API merging;
+            that pushed title/description/canonical/robots into <body>.
+            Ownership verification already passed — this only relocates
+            the same literal script so Next can own <head> again. */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4540685883116257"
           crossOrigin="anonymous"
         />
-      </head>
-      <body className="font-sans antialiased">
         <MainShell>{children}</MainShell>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

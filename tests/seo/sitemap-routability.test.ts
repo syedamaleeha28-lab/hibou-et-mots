@@ -39,6 +39,6 @@ describe("sitemap routability", () => {
   })
 
   it("has homepage route file", () => {
-    expect(existsSync(resolve(process.cwd(), "app/page.tsx"))).toBe(true)
+    expect(existsSync(resolve(process.cwd(), "app/(fr)/page.tsx"))).toBe(true)
   })
 })

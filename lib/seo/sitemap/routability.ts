@@ -3,13 +3,22 @@ import { join } from "node:path"
 import { getStaticSitemapEntries } from "@/lib/seo/sitemap/static"
 import { normalizePath } from "@/lib/seo/canonical"
 
+/**
+ * Public URLs stay unprefixed. Pages live under a route group:
+ * `/caca-palavras*` → `app/(pt-br)/`, everything else → `app/(fr)/`.
+ */
+function routeGroupForPublicPath(normalized: string): "(fr)" | "(pt-br)" {
+  return normalized.startsWith("/caca-palavras") ? "(pt-br)" : "(fr)"
+}
+
 /** Map a public path to an expected app router page file. */
 export function staticPathToAppPageFile(path: string): string {
   const normalized = normalizePath(path)
-  if (normalized === "/") return join("app", "page.tsx")
+  const group = routeGroupForPublicPath(normalized)
+  if (normalized === "/") return join("app", group, "page.tsx")
 
   const segments = normalized.replace(/^\/|\/$/g, "").split("/")
-  return join("app", ...segments, "page.tsx")
+  return join("app", group, ...segments, "page.tsx")
 }
 
 export function listStaticSitemapRoutability(rootDir = process.cwd()): Array<{

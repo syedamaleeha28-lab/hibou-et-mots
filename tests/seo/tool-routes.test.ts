@@ -11,7 +11,7 @@ describe("tool routes", () => {
 
   it("has app router pages for both tools", () => {
     const root = process.cwd()
-    expect(existsSync(resolve(root, "app/generateur-mots-meles/page.tsx"))).toBe(true)
-    expect(existsSync(resolve(root, "app/jouer-mots-meles-en-ligne/page.tsx"))).toBe(true)
+    expect(existsSync(resolve(root, "app/(fr)/generateur-mots-meles/page.tsx"))).toBe(true)
+    expect(existsSync(resolve(root, "app/(fr)/jouer-mots-meles-en-ligne/page.tsx"))).toBe(true)
   })
 })

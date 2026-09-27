@@ -12,7 +12,7 @@ describe("search routes", () => {
 
   it("has app router page and API route", () => {
     const root = process.cwd()
-    expect(existsSync(resolve(root, "app/recherche/page.tsx"))).toBe(true)
+    expect(existsSync(resolve(root, "app/(fr)/recherche/page.tsx"))).toBe(true)
     expect(existsSync(resolve(root, "app/api/search/route.ts"))).toBe(true)
   })
 

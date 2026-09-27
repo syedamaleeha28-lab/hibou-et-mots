@@ -1,5 +1,6 @@
 export { BreadcrumbTrail, type BreadcrumbTrailProps } from "./breadcrumb-trail"
 export { MainShell } from "./main-shell"
+export { RootHtmlShell } from "./root-html-shell"
 export { MegaMenu } from "./mega-menu"
 export { MobileBottomNav } from "./mobile-bottom-nav"
 export { MobileNavDrawer } from "./mobile-nav-drawer"

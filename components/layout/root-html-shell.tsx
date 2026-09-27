@@ -1,0 +1,44 @@
+import { Analytics } from "@vercel/analytics/next"
+import { Baloo_2, Nunito } from "next/font/google"
+import { MainShell } from "@/components/layout/main-shell"
+
+const baloo = Baloo_2({
+  variable: "--font-heading",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+})
+const nunito = Nunito({
+  variable: "--font-body",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+})
+
+type RootHtmlShellProps = {
+  lang: "fr" | "pt-BR"
+  children: React.ReactNode
+}
+
+export function RootHtmlShell({ lang, children }: RootHtmlShellProps) {
+  return (
+    <html
+      lang={lang}
+      className={`${baloo.variable} ${nunito.variable} bg-background`}
+    >
+      <body className="font-sans antialiased">
+        {/* Google AdSense snippet: PLAIN native <script>, NOT next/script,
+            and NOT inside a hand-written <head>. Next.js docs warn that
+            custom <head> in the root layout breaks Metadata API merging;
+            that pushed title/description/canonical/robots into <body>.
+            Ownership verification already passed — this only relocates
+            the same literal script so Next can own <head> again. */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4540685883116257"
+          crossOrigin="anonymous"
+        />
+        <MainShell>{children}</MainShell>
+        {process.env.NODE_ENV === "production" && <Analytics />}
+      </body>
+    </html>
+  )
+}

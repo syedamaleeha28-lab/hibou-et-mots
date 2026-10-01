@@ -66,4 +66,19 @@ export const HOME_FAQ: FaqItem[] = [
       "Les grilles du catalogue sont générées par notre moteur de puzzle puis vérifiées avant publication ; le générateur public permet aussi de créer des jeux de mots cachés personnalisés à la volée.",
   },
   ...HOME_SEMANTIC_FAQ,
+  {
+    question: "Les mots mêlés sont-ils bons pour la mémoire et le cerveau ?",
+    answer:
+      "Oui : repérer un mot caché dans une grille de lettres sollicite la mémoire visuelle et la concentration. Pratiquée régulièrement, cette activité aide à conserver certains réflexes de lecture, aussi bien chez les enfants que chez les adultes et les seniors qui apprécient ce type de puzzle pour se détendre tout en gardant l'esprit actif.",
+  },
+  {
+    question: "Les grilles sont-elles conformes aux programmes scolaires ?",
+    answer:
+      "Oui : le vocabulaire de chaque grille suit les repères du cycle correspondant (maternelle à 6e), avec des mots utiles en classe pour le français, la dictée et les thèmes du quotidien. Les enseignants peuvent ainsi intégrer une fiche sans sortir du programme, en complément d'une leçon de vocabulaire plutôt qu'à sa place.",
+  },
+  {
+    question: "Quelles techniques pour résoudre une grille rapidement ?",
+    answer:
+      "Quelques repères simples accélèrent la recherche : commencer par les mots les plus courts, repérer les lettres rares comme le Q ou le X, puis balayer la grille ligne par ligne plutôt qu'au hasard. Sur les niveaux plus difficiles, les mots peuvent aussi être inversés ou en diagonale — un coup d'œil sur notre page solutions et règles détaille chaque direction autorisée.",
+  },
 ]

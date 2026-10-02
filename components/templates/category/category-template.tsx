@@ -41,6 +41,20 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
   const schemaGraph = buildCategoryPageSchemaGraph(category)
   const illustrations = getCategoryIllustrations(category)
   const chrome = getCategoryChrome(category.slug)
+  // NEW: bug fix — this template is shared by French and PT-BR category
+  // pages (same pattern as the PuzzleFormatLinks guard below, which was
+  // already correct). Five child components below had NO locale check
+  // at all and were rendering hardcoded/slug-keyed FRENCH content
+  // unconditionally on PT-BR pages: a synonym-coverage sentence, the
+  // how-to-play block's default copy (plus a French "hub-imprimer"
+  // chrome override that PT-BR's print hub inherits via shared slug),
+  // two large French editorial sections (also via the shared
+  // "hub-imprimer" slug), and a French author bio implying she wrote
+  // Portuguese content she didn't. None of these have a researched PT-BR
+  // equivalent yet, so — same principle as the earlier CategoryExploreLinks
+  // fix — they're suppressed entirely for PT-BR rather than shown wrong.
+  // Revisit with real PT-BR content once it's actually written.
+  const isPtBr = category.locale === "pt-BR"
 
   return (
     <div className="bg-background">
@@ -61,13 +75,13 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
           {emptyCatalogMode && <CategoryEmptyState category={category} />}
 
-          <CategorySynonymNote />
+          {!isPtBr && <CategorySynonymNote />}
 
           {!emptyCatalogMode && (
             <PuzzleCardGrid category={category} heading={chrome.gridHeading} />
           )}
 
-          {!emptyCatalogMode && <HowToPlayBlock {...chrome.howToPlay} />}
+          {!emptyCatalogMode && !isPtBr && <HowToPlayBlock {...chrome.howToPlay} />}
 
           {!emptyCatalogMode && (
             <PageIllustration variant="preview" illustration={illustrations.preview} />
@@ -77,9 +91,9 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
           <CategoryThemeSections slug={category.slug} />
 
-          <CategoryPhase1Sections slug={category.slug} />
+          {!isPtBr && <CategoryPhase1Sections slug={category.slug} />}
 
-          <CategoryPhase2Sections slug={category.slug} />
+          {!isPtBr && <CategoryPhase2Sections slug={category.slug} />}
 
           {category.slug === "adultes" && <AdultesEditorial />}
 
@@ -100,7 +114,7 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
 
           <FaqAccordion items={category.faqJson} />
 
-          {shouldShowAuthorAttribution(category.slug, category.type) && (
+          {!isPtBr && shouldShowAuthorAttribution(category.slug, category.type) && (
             <AuthorAttribution />
           )}
 

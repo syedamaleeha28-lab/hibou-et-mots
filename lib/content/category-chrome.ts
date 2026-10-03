@@ -6,6 +6,15 @@ import type { HowToPlayStep } from "@/components/templates/shared/how-to-play-bl
  * Same idea as ILLUSTRATION_COPY_OVERRIDES: this is DATA, not per-page
  * conditionals in the template. The lookup works with zero entries — hubs
  * that are absent keep the generic grid heading and HowToPlay copy.
+ *
+ * NEW: now also keyed by locale. The "hub-imprimer" slug is shared
+ * between the French print hub and the PT-BR print hub
+ * (/caca-palavras-para-imprimir/) — this override was French-only and
+ * leaking onto the PT-BR page (it's what produced "Mots mêlés à
+ * imprimer en PDF" as that page's grid heading). howToPlay isn't
+ * duplicated for pt-BR: HowToPlayBlock is suppressed entirely for
+ * PT-BR category pages (see category-template.tsx), so only
+ * gridHeading needs a PT-BR entry here.
  */
 export type CategoryHowToPlayOverride = {
   eyebrow?: string
@@ -47,6 +56,18 @@ const CATEGORY_CHROME_OVERRIDES: Record<string, CategoryChromeOverride> = {
   },
 }
 
-export function getCategoryChrome(slug: string): CategoryChromeOverride {
+const CATEGORY_CHROME_OVERRIDES_PT: Record<string, CategoryChromeOverride> = {
+  "hub-imprimer": {
+    gridHeading: "Caça-palavras para imprimir em PDF",
+    // No howToPlay entry — that block doesn't render on PT-BR category
+    // pages at all right now (suppressed, see category-template.tsx).
+  },
+}
+
+export function getCategoryChrome(
+  slug: string,
+  locale: "fr" | "pt-BR" = "fr",
+): CategoryChromeOverride {
+  if (locale === "pt-BR") return CATEGORY_CHROME_OVERRIDES_PT[slug] ?? {}
   return CATEGORY_CHROME_OVERRIDES[slug] ?? {}
 }

@@ -40,21 +40,40 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
   const emptyCatalogMode = shouldUseEmptyCatalogMode(category)
   const schemaGraph = buildCategoryPageSchemaGraph(category)
   const illustrations = getCategoryIllustrations(category)
-  const chrome = getCategoryChrome(category.slug)
-  // NEW: bug fix — this template is shared by French and PT-BR category
-  // pages (same pattern as the PuzzleFormatLinks guard below, which was
-  // already correct). Five child components below had NO locale check
-  // at all and were rendering hardcoded/slug-keyed FRENCH content
-  // unconditionally on PT-BR pages: a synonym-coverage sentence, the
-  // how-to-play block's default copy (plus a French "hub-imprimer"
-  // chrome override that PT-BR's print hub inherits via shared slug),
-  // two large French editorial sections (also via the shared
-  // "hub-imprimer" slug), and a French author bio implying she wrote
-  // Portuguese content she didn't. None of these have a researched PT-BR
-  // equivalent yet, so — same principle as the earlier CategoryExploreLinks
-  // fix — they're suppressed entirely for PT-BR rather than shown wrong.
-  // Revisit with real PT-BR content once it's actually written.
-  const isPtBr = category.locale === "pt-BR"
+  // CategoryPageData.locale is `string | undefined`. Narrow it before
+  // any call that expects the "fr" | "pt-BR" union, and declare it
+  // before getCategoryChrome so the value exists at every call site.
+  const resolvedLocale = category.locale === "pt-BR" ? "pt-BR" : "fr"
+  // NEW: locale now threaded into getCategoryChrome — the "hub-imprimer"
+  // override was French-only and leaking its grid heading onto the
+  // PT-BR print hub, since that page reuses the same slug.
+  const chrome = getCategoryChrome(category.slug, resolvedLocale)
+  // Bug fix (part 1, already shipped): this template is shared by French
+  // and PT-BR category pages. Five components had no locale check and
+  // rendered hardcoded/slug-keyed FRENCH content unconditionally on
+  // PT-BR pages. Suppressed entirely since none had researched PT-BR
+  // equivalent content: a synonym-coverage sentence (strategic keyword
+  // device, no PT research done), the how-to-play block, two large
+  // French editorial sections, and a French author bio implying she
+  // wrote Portuguese content she didn't.
+  //
+  // Bug fix (part 2, this change): four MORE components — FaqAccordion,
+  // RelatedCategoriesRow, PuzzleCardGrid, SubCategoryLinks — had the
+  // same problem but for short UI labels, not strategic content. Those
+  // got real Portuguese translations instead of suppression, since
+  // accurate UI-label translation doesn't need keyword research the way
+  // the synonym note did, and PuzzleCardGrid in particular is the
+  // page's actual primary content (the puzzle listing) — suppressing it
+  // was never an option.
+  //
+  // CategoryCta turned out to belong with part 1, not part 2: its
+  // buttons link to the French-only generator and online-player tools,
+  // which have no PT-BR equivalent at all. Translating the button
+  // LABELS while the links stayed French-only would have been worse
+  // than the original bug — a Portuguese label promising a Portuguese
+  // experience that doesn't exist. Suppressed for PT-BR along with the
+  // rest of part 1's list.
+  const isPtBr = resolvedLocale === "pt-BR"
 
   return (
     <div className="bg-background">
@@ -78,7 +97,7 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           {!isPtBr && <CategorySynonymNote />}
 
           {!emptyCatalogMode && (
-            <PuzzleCardGrid category={category} heading={chrome.gridHeading} />
+            <PuzzleCardGrid category={category} heading={chrome.gridHeading} locale={resolvedLocale} />
           )}
 
           {!emptyCatalogMode && !isPtBr && <HowToPlayBlock {...chrome.howToPlay} />}
@@ -110,17 +129,17 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
             <ComboParentLinks links={category.comboParentLinks} />
           )}
 
-          <SubCategoryLinks category={category} />
+          <SubCategoryLinks category={category} locale={resolvedLocale} />
 
-          <FaqAccordion items={category.faqJson} />
+          <FaqAccordion items={category.faqJson} locale={resolvedLocale} />
 
           {!isPtBr && shouldShowAuthorAttribution(category.slug, category.type) && (
             <AuthorAttribution />
           )}
 
-          <RelatedCategoriesRow categories={category.relatedCategories} />
+          <RelatedCategoriesRow categories={category.relatedCategories} locale={resolvedLocale} />
 
-          {!emptyCatalogMode && <CategoryCta themeSlug={category.theme?.slug} />}
+          {!emptyCatalogMode && !isPtBr && <CategoryCta themeSlug={category.theme?.slug} />}
         </div>
       </div>
     </div>

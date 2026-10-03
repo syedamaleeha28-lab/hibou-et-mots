@@ -6,6 +6,13 @@ import { gridsForTier } from "@/lib/mini-crossword/grids"
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
 import { motsCroisesForcePath } from "@/lib/seo/routes"
+import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
+import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import {
+  MOTS_CROISES_FAQ,
+  MOTS_CROISES_HOW_TO_PLAY,
+  MOTS_CROISES_INTRO_PARAGRAPHS,
+} from "@/lib/content/mots-croises-seo"
 
 type Tier = 1 | 2 | 3 | 4 | 5
 
@@ -48,11 +55,8 @@ export function ForceTierPage({ tier }: { tier: Tier }) {
   const otherTiers = ([1, 2, 3, 4, 5] as Tier[]).filter((t) => t !== tier)
   const path = motsCroisesForcePath(tier)
 
-  // No FAQ content exists on these pages yet (that content pass covered
-  // mots coupés/sudoku/coloriage magique only) — buildGamePageSchemaGraph
-  // handles an empty array correctly, simply omitting the FAQPage node
-  // rather than fabricating one. BreadcrumbList + WebPage only, honestly
-  // reflecting what's actually on the page.
+  // NEW: FAQ content now exists (MOTS_CROISES_FAQ), so the schema graph
+  // gets a real FAQPage node instead of honestly omitting one.
   const schemaGraph = buildGamePageSchemaGraph({
     path,
     name: copy.title,
@@ -62,7 +66,7 @@ export function ForceTierPage({ tier }: { tier: Tier }) {
       { label: "Mots Croisés à Imprimer", href: "/mots-croises-a-imprimer/" },
       { label: copy.title, href: path },
     ],
-    faqItems: [],
+    faqItems: MOTS_CROISES_FAQ,
   })
 
   return (
@@ -78,7 +82,15 @@ export function ForceTierPage({ tier }: { tier: Tier }) {
           description={copy.description}
           className="gap-2 [&_h1]:text-2xl sm:[&_h1]:text-3xl lg:[&_h1]:text-4xl"
         />
-        <p className="mt-4 text-base leading-relaxed text-foreground/90">{copy.detail}</p>
+
+        <div className="mt-4 flex flex-col gap-4">
+          <p className="text-base leading-relaxed text-foreground/90">{copy.detail}</p>
+          {MOTS_CROISES_INTRO_PARAGRAPHS.map((paragraph, i) => (
+            <p key={i} className="text-sm leading-relaxed text-foreground/90">
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
         <div className="mt-6 flex flex-col gap-8">
           {grids.map((grid) => (
@@ -111,7 +123,11 @@ export function ForceTierPage({ tier }: { tier: Tier }) {
           </p>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 flex flex-col gap-8">
+          <HowToPlayBlock {...MOTS_CROISES_HOW_TO_PLAY} />
+
+          <FaqAccordion items={MOTS_CROISES_FAQ} />
+
           <PuzzleFormatLinks current="mots-croises" />
         </div>
       </div>

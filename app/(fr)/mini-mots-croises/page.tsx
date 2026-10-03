@@ -5,6 +5,13 @@ import { MiniCrosswordGame } from "@/components/games/mini-crossword/mini-crossw
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
 import { ROUTES } from "@/lib/seo/routes"
+import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
+import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
+import {
+  MOTS_CROISES_FAQ,
+  MOTS_CROISES_HOW_TO_PLAY,
+  MOTS_CROISES_INTRO_PARAGRAPHS,
+} from "@/lib/content/mots-croises-seo"
 
 // Retargeted description to naturally include "jeux de mots croisés"
 // (150/mo) — the generic/broad phrasing genuinely fits a daily-game
@@ -23,7 +30,7 @@ const PAGE_DESCRIPTION =
   "Une mini grille de mots croisés chaque jour, à jouer en ligne gratuitement, cinq niveaux de difficulté."
 
 export default function MiniMotsCroisesPage() {
-  // No FAQ content on this page yet — schema reflects that honestly.
+  // NEW: real FAQ content now exists, schema gets a genuine FAQPage node.
   const schemaGraph = buildGamePageSchemaGraph({
     path: ROUTES.miniMotsCroises,
     name: PAGE_NAME,
@@ -32,7 +39,7 @@ export default function MiniMotsCroisesPage() {
       { label: "Accueil", href: "/" },
       { label: PAGE_NAME, href: ROUTES.miniMotsCroises },
     ],
-    faqItems: [],
+    faqItems: MOTS_CROISES_FAQ,
   })
 
   return (
@@ -48,11 +55,24 @@ export default function MiniMotsCroisesPage() {
           description="Une petite grille chaque jour — trouve les mots grâce aux définitions, horizontales et verticales."
           className="gap-2 [&_h1]:text-2xl sm:[&_h1]:text-3xl lg:[&_h1]:text-4xl"
         />
+
+        <div className="mt-4 flex flex-col gap-4">
+          {MOTS_CROISES_INTRO_PARAGRAPHS.map((paragraph, i) => (
+            <p key={i} className="text-sm leading-relaxed text-foreground/90">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
         <div className="mt-6 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <MiniCrosswordGame />
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 flex flex-col gap-8">
+          <HowToPlayBlock {...MOTS_CROISES_HOW_TO_PLAY} />
+
+          <FaqAccordion items={MOTS_CROISES_FAQ} />
+
           <PuzzleFormatLinks current="mots-croises" />
         </div>
       </div>

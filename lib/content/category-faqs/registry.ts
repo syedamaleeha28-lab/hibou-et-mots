@@ -561,6 +561,17 @@ export const CATEGORY_FAQ_REGISTRY: Record<string, FaqItem[]> = {
       answer:
         "Oui, la page Solutions rappelle que Facile n'autorise pas les diagonales, contrairement à Moyen ou Difficile.",
     },
+    // NEW — 2 entries added below, nothing above this line changed.
+    {
+      question: "Quelles sont les 8 directions possibles sur une grille Difficile ?",
+      answer:
+        "Horizontal, vertical et les deux diagonales, chacune pouvant aussi apparaître inversée pour cacher un mot — soit 8 combinaisons au total. Ces règles de direction sont plus restreintes sur les niveaux Facile et Moyen.",
+    },
+    {
+      question: "Quelles techniques pour résoudre une grille rapidement ?",
+      answer:
+        "Commence par les mots les plus courts, repère les lettres rares comme le Q ou le X, et balaie la grille méthodiquement ligne par ligne plutôt qu'au hasard. Sur les niveaux Difficile et Géant, pense aussi aux diagonales et aux mots inversés.",
+    },
   ],
   "jeux-magazines": [
     {

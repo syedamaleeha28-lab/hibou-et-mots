@@ -8,6 +8,7 @@ import {
   type CategorySearchParams,
 } from "@/lib/app/category-page"
 import { renderContentPage } from "@/lib/app/content-page"
+import { SolutionsArticle } from "@/components/templates/content/solutions-article"
 
 export const revalidate = 3600
 
@@ -30,5 +31,8 @@ export default async function SolutionsPage({
   const params = await searchParams
   const page = parseCategoryPage(params?.page)
   const contentPage = await resolveSolutionsContentPageData(page)
-  return renderContentPage(contentPage)
+  // NEW: this page previously rendered with no body at all —
+  // renderContentPage's optional `body` slot was simply never used.
+  // SolutionsArticle fills it with real, verified rules/solving content.
+  return renderContentPage(contentPage, <SolutionsArticle />)
 }

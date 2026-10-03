@@ -252,7 +252,7 @@ const STATIC_SUPPORT_PAGES = {
     metaDescription:
       "Apprenez les règles des mots mêlés et consultez nos conseils pour trouver toutes les solutions.",
     introText:
-      "Tout savoir sur les règles des mots mêlés et les astuces pour résoudre une grille plus rapidement.",
+      "Tout savoir sur les règles des mots mêlés : les directions autorisées selon le niveau de difficulté, des techniques pour repérer les mots plus vite, et comment vérifier ta solution — en ligne ou sur une grille imprimée.",
   },
   [ROUTES.jeuxMagazines]: {
     slug: "jeux-magazines",

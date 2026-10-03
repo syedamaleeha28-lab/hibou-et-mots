@@ -59,8 +59,8 @@ describe("solutions page migration", () => {
     expect(faqQuestions).toContain("Les règles diffèrent-elles selon la difficulté ?")
   })
 
-  it("keeps intro copy unchanged", () => {
+  it("has the expected intro copy", () => {
     expect(contentPage.introText).toContain("règles des mots mêlés")
-    expect(contentPage.introText).toContain("résoudre une grille plus rapidement")
+    expect(contentPage.introText).toContain("vérifier ta solution")
   })
 })

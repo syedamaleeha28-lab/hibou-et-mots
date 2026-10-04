@@ -4,6 +4,7 @@ import { SchemaJsonLd } from "@/components/seo"
 import { PrintableCrosswordList } from "@/components/games/mini-crossword/printable-crossword-list"
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   title: "Mots Croisés à Imprimer Gratuit (Facile à Collège) | Hibou&Mots",
   description:
     "Mots croisés à imprimer gratuitement en PDF : du niveau facile, idéal pour un enfant qui débute, jusqu'au niveau collège. Cinq niveaux de difficulté, sans inscription.",
+  ...selfCanonical(ROUTES.motsCroisesImprimer),
   other: {
     google: "notranslate",
   },

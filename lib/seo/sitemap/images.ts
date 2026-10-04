@@ -40,10 +40,14 @@ async function getCategoryIllustrationEntries(base: string): Promise<SitemapImag
   for (const category of categories) {
     const canonicalPath = resolveCategoryPath({
       type: category.type as CategoryType,
+      // Same bug categories.ts already fixed: without locale, Portuguese
+      // categories resolve to French-prefixed paths that 404.
+      locale: category.locale === "pt-BR" ? "pt-BR" : "fr",
       slug: category.slug,
       grade: category.grade ?? undefined,
       theme: category.theme ?? undefined,
       difficulty: category.difficulty ?? undefined,
+      pressBrand: category.pressBrand ?? undefined,
     })
     const pageUrl = absoluteUrl(canonicalPath, base)
     const { hero, preview } = getCategoryIllustrations({

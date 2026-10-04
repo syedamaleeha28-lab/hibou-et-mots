@@ -5,6 +5,7 @@ import { SchemaJsonLd } from "@/components/seo"
 import { PageIllustration } from "@/components/ui/page-illustration"
 import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { PrintableColoriageList } from "@/components/games/coloriage-magique/printable-coloriage-list"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   title: "Coloriage Magique à Imprimer Gratuit (PDF) | Hibou&Mots",
   description:
     "Coloriages magiques à imprimer gratuitement en PDF pour la maternelle, le CP, le CE1 et plus. Numéros à colorer, sans inscription.",
+  ...selfCanonical(ROUTES.coloriageMagiqueImprimer),
   other: {
     google: "notranslate",
   },

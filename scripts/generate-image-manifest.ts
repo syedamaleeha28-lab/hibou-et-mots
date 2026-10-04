@@ -55,12 +55,19 @@ async function buildCategoryRows(): Promise<ManifestRow[]> {
   for (const category of categories) {
     const canonicalPath = resolveCategoryPath({
       type: category.type as CategoryType,
+      locale: category.locale === "pt-BR" ? "pt-BR" : "fr",
       slug: category.slug,
       grade: category.grade ?? undefined,
       theme: category.theme ?? undefined,
       difficulty: category.difficulty ?? undefined,
+      pressBrand: category.pressBrand ?? undefined,
     })
-    const { hero, preview } = getCategoryIllustrations({ canonicalPath, h1: category.h1 })
+    const { hero, preview } = getCategoryIllustrations({
+      canonicalPath,
+      h1: category.h1,
+      slug: category.slug,
+      locale: category.locale,
+    })
     const subject = deriveDefaultSubject({
       h1: category.h1,
       audienceLabel: category.type === "AUDIENCE" ? category.h1 : undefined,

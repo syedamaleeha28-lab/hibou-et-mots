@@ -1,11 +1,14 @@
 import type { Metadata } from "next"
 import { SectionHeading } from "@/components/layout/section-heading"
 import { DailyWordGame } from "@/components/games/daily-word/daily-word-game"
+import { selfCanonical } from "@/lib/seo/self-canonical"
+import { ROUTES } from "@/lib/seo/routes"
 
 export const metadata: Metadata = {
   title: "Mot du Jour — Devine le mot en 6 essais | Hibou&Mots",
   description:
     "Un nouveau mot mystère de 5 lettres chaque jour. Devine-le en 6 essais et partage ton résultat — gratuit, sans inscription.",
+  ...selfCanonical(ROUTES.motDuJour),
   other: {
     google: "notranslate",
   },

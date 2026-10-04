@@ -5,6 +5,7 @@ import { SchemaJsonLd } from "@/components/seo"
 import { PageIllustration } from "@/components/ui/page-illustration"
 import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { ColoriageGame } from "@/components/games/coloriage-magique/coloriage-game"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   title: "Coloriage Magique Gratuit en Ligne | Hibou&Mots",
   description:
     "Coloriage magique gratuit en ligne pour la maternelle et le CP : clique sur les numéros pour révéler le dessin. Un nouveau coloriage chaque jour, sans inscription.",
+  ...selfCanonical(ROUTES.coloriageMagique),
   other: {
     google: "notranslate",
   },

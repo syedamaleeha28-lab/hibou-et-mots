@@ -13,6 +13,7 @@ import {
   MOTS_COUPES_INTRO_PARAGRAPHS_ONLINE,
 } from "@/lib/content/mots-coupes-seo"
 import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 
 const PAGE_NAME = "Mots Coupés"
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   title: "Mots Coupés Gratuit en Ligne | Hibou&Mots",
   description:
     "Joue aux mots coupés gratuitement en ligne : reconstitue chaque mot en associant le bon début à la bonne fin. Une nouvelle grille chaque jour, sans inscription.",
+  ...selfCanonical(ROUTES.motsCoupes),
   other: {
     google: "notranslate",
   },

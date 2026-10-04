@@ -4,6 +4,7 @@ import { SchemaJsonLd } from "@/components/seo"
 import { MiniCrosswordGame } from "@/components/games/mini-crossword/mini-crossword-game"
 import { PuzzleFormatLinks } from "@/components/shared/puzzle-format-links"
 import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   title: "Mini Mots Croisés Gratuits en Ligne | Hibou&Mots",
   description:
     "Un des meilleurs jeux de mots croisés gratuits à jouer en ligne : une mini grille chaque jour, cinq niveaux de difficulté, sans inscription.",
+  ...selfCanonical(ROUTES.miniMotsCroises),
   other: {
     google: "notranslate",
   },

@@ -6,6 +6,7 @@ import { PageIllustration } from "@/components/ui/page-illustration"
 import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { ColoriageBoard } from "@/components/games/coloriage-magique/coloriage-board"
 import { designsForLevel, getDayIndex, getDesignForDay } from "@/lib/coloriage-magique/engine"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
   title: "Coloriage Magique CE2 Gratuit en Ligne | Hibou&Mots",
   description:
     "Coloriage magique gratuit pour le CE2 : dessins plus riches, 3 à 5 couleurs, à jouer en ligne ou à imprimer. Sans inscription.",
+  ...selfCanonical(ROUTES.coloriageMagiqueCe2),
   other: { google: "notranslate" },
 }
 

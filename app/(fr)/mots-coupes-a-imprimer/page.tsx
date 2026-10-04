@@ -14,6 +14,7 @@ import {
   MOTS_COUPES_INTRO_PARAGRAPHS_PRINT,
 } from "@/lib/content/mots-coupes-seo"
 import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 
 const PAGE_NAME = "Mots Coupés à Imprimer"
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
   title: "Mots Coupés à Imprimer Gratuitement (PDF) | Hibou&Mots",
   description:
     "Des grilles de mots coupés gratuites à imprimer : associe le début et la fin de chaque mot. Utilise le bouton Imprimer de ton navigateur pour les garder sur papier.",
+  ...selfCanonical(ROUTES.motsCoupesImprimer),
   other: {
     google: "notranslate",
   },

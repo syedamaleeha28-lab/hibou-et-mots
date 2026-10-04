@@ -5,6 +5,7 @@ import { SchemaJsonLd } from "@/components/seo"
 import { PageIllustration } from "@/components/ui/page-illustration"
 import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { PrintableSudokuList } from "@/components/games/sudoku/printable-sudoku-list"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   title: "Sudoku à Imprimer Gratuitement (PDF) | Hibou&Mots",
   description:
     "Des grilles de sudoku gratuites à imprimer, niveau facile et difficile. Utilise le bouton Imprimer de ton navigateur pour les garder sur papier.",
+  ...selfCanonical(ROUTES.sudokuImprimer),
   other: {
     google: "notranslate",
   },

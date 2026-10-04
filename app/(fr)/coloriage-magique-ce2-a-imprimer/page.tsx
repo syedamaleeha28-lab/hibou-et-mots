@@ -6,6 +6,7 @@ import { PageIllustration } from "@/components/ui/page-illustration"
 import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { PrintThisPageButton } from "@/components/games/coloriage-magique/printable-coloriage-list"
 import { designsForLevel } from "@/lib/coloriage-magique/engine"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
   title: "Coloriage Magique CE2 à Imprimer Gratuit (PDF) | Hibou&Mots",
   description:
     "Coloriages magiques CE2 à imprimer gratuitement en PDF, avec numéros et légende de couleurs. Sans inscription.",
+  ...selfCanonical(ROUTES.coloriageMagiqueCe2Imprimer),
   other: { google: "notranslate" },
 }
 

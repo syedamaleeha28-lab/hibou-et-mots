@@ -8,9 +8,6 @@ export const metadata: Metadata = {
   title: 'Hibou & Mots — Caça-Palavras Grátis para Imprimir e Jogar Online',
   description:
     'Caça-palavras grátis em português para todas as idades. Grades para imprimir em PDF ou jogar online.',
-  alternates: {
-    canonical: '/',
-  },
   robots: {
     index: true,
     follow: true,

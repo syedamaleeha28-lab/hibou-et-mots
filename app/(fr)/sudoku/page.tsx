@@ -5,6 +5,7 @@ import { SchemaJsonLd } from "@/components/seo"
 import { PageIllustration } from "@/components/ui/page-illustration"
 import type { IllustrationSpec } from "@/lib/images/page-illustrations"
 import { SudokuGame } from "@/components/games/sudoku/sudoku-game"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES } from "@/lib/seo/routes"
 import { HowToPlayBlock } from "@/components/templates/shared/how-to-play-block"
 import { FaqAccordion } from "@/components/templates/shared/faq-accordion"
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   title: "Sudoku Gratuit en Ligne pour Enfants | Hibou&Mots",
   description:
     "Joue au sudoku gratuitement en ligne : grilles simples, idéales pour un enfant du CP au CM2. Une nouvelle grille chaque jour, sans inscription.",
+  ...selfCanonical(ROUTES.sudoku),
   other: {
     google: "notranslate",
   },

@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import { ForceTierPage } from "@/components/templates/mots-croises/force-tier-page"
+import { selfCanonical } from "@/lib/seo/self-canonical"
+import { motsCroisesForcePath } from "@/lib/seo/routes"
 
 // Retargeted: this page IS the site's easiest crossword tier, but its
 // title/description never said "facile" — meaning it wasn't targeting
@@ -11,6 +13,7 @@ export const metadata: Metadata = {
   title: "Mots Croisés Faciles (Force 1) Gratuits en Ligne | Hibou&Mots",
   description:
     "Joue à des mots croisés faciles gratuitement en ligne : petite grille, mots courts, définitions simples — idéal pour un enfant qui débute. Sans inscription.",
+  ...selfCanonical(motsCroisesForcePath(1)),
   other: {
     google: "notranslate",
   },

@@ -11,6 +11,7 @@ import { SUDOKU_HOW_TO_PLAY } from "@/lib/content/sudoku-seo"
 import { buildGamePageSchemaGraph } from "@/lib/seo/schema/game-page"
 import { puzzlesForTier } from "@/lib/sudoku/puzzles"
 import type { SudokuGradeInfo } from "@/lib/sudoku/grades"
+import { selfCanonical } from "@/lib/seo/self-canonical"
 import { ROUTES, sudokuGradePath } from "@/lib/seo/routes"
 
 const TIER_LABEL: Record<1 | 2, string> = { 1: "Facile", 2: "Difficile" }
@@ -19,6 +20,7 @@ export function buildSudokuGradeMetadata(grade: SudokuGradeInfo): Metadata {
   return {
     title: `Sudoku ${grade.name} Gratuit à Imprimer et en Ligne | Hibou&Mots`,
     description: `Sudoku pour le ${grade.name} (${grade.ageRange}) : grilles adaptées, gratuites, à jouer en ligne ou à imprimer. Sans inscription.`,
+    ...selfCanonical(sudokuGradePath(grade.slug)),
     other: { google: "notranslate" },
   }
 }

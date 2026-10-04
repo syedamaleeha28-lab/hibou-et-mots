@@ -32,6 +32,9 @@ vi.mock("@/components/templates/puzzle", () => ({
 }))
 
 import PuzzlePage, { generateMetadata } from "@/app/(fr)/mots-meles/[slug]/page"
+import CacaPalavrasPage, {
+  generateMetadata as portugueseMetadata,
+} from "@/app/(pt-br)/caca-palavras/[slug]/page"
 
 function puzzleRecord(slug: string, language: "fr" | "pt-BR") {
   return {
@@ -125,5 +128,66 @@ describe("French puzzle route redirect", () => {
       generateMetadata({ params: Promise.resolve({ slug: "animaux-facile-01" }) }),
     ).resolves.toMatchObject({ title: "fr" })
     expect(permanentRedirect).not.toHaveBeenCalled()
+  })
+})
+
+async function redirectTarget(run: () => Promise<unknown>): Promise<string | null> {
+  try {
+    await run()
+    return null
+  } catch (error) {
+    const message = error instanceof Error ? error.message : ""
+    const match = message.match(/^REDIRECT (.+)$/)
+    if (!match) throw error
+    return match[1]
+  }
+}
+
+describe("Portuguese puzzle route redirect", () => {
+  beforeEach(() => {
+    resolvePuzzlePageData.mockReset()
+    permanentRedirect.mockClear()
+  })
+
+  it("redirects a French puzzle to /mots-meles/{slug}/", async () => {
+    const slug = "animaux-facile-01"
+    resolvePuzzlePageData.mockResolvedValue({ language: "fr", slug })
+
+    await expect(CacaPalavrasPage({ params: Promise.resolve({ slug }) })).rejects.toThrow(
+      `REDIRECT /mots-meles/${slug}/`,
+    )
+    await expect(portugueseMetadata({ params: Promise.resolve({ slug }) })).rejects.toThrow(
+      `REDIRECT /mots-meles/${slug}/`,
+    )
+  })
+
+  it("does not redirect a pt-BR puzzle", async () => {
+    const slug = "animais-facil-01-pt"
+    resolvePuzzlePageData.mockResolvedValue({ language: "pt-BR", slug })
+
+    await expect(CacaPalavrasPage({ params: Promise.resolve({ slug }) })).resolves.toBeTruthy()
+    await expect(portugueseMetadata({ params: Promise.resolve({ slug }) })).resolves.toMatchObject({
+      title: "fr",
+    })
+    expect(permanentRedirect).not.toHaveBeenCalled()
+  })
+
+  it("redirects from exactly one route for each language", async () => {
+    const slug = "grille-01"
+    const languages = ["pt-BR", "fr", null, undefined] as const
+
+    for (const language of languages) {
+      resolvePuzzlePageData.mockResolvedValue({ language, slug })
+      const fromFrench = await redirectTarget(() =>
+        PuzzlePage({ params: Promise.resolve({ slug }) }),
+      )
+      const fromPortuguese = await redirectTarget(() =>
+        CacaPalavrasPage({ params: Promise.resolve({ slug }) }),
+      )
+      const targets = [fromFrench, fromPortuguese].filter((target) => target !== null)
+
+      expect(targets, `language ${String(language)}`).toHaveLength(1)
+      expect(fromFrench === fromPortuguese).toBe(false)
+    }
   })
 })

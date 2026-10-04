@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db/client"
-import { absoluteUrl, DEFAULT_SITE_URL, resolveCategoryPath, resolvePuzzlePath } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL, puzzlePathForLanguage, resolveCategoryPath } from "@/lib/seo/routes"
 import { getCategoryIllustrations } from "@/lib/images/page-illustrations"
 import type { CategoryType } from "@/lib/db/types/page-data"
 import type { SitemapImageEntry } from "./types"
@@ -13,6 +13,7 @@ async function getPuzzleThumbnailEntries(base: string): Promise<SitemapImageEntr
     select: {
       slug: true,
       title: true,
+      language: true,
       thumbnailUrl: true,
     },
   })
@@ -20,7 +21,7 @@ async function getPuzzleThumbnailEntries(base: string): Promise<SitemapImageEntr
   return puzzles
     .filter((puzzle): puzzle is typeof puzzle & { thumbnailUrl: string } => !!puzzle.thumbnailUrl)
     .map((puzzle) => ({
-      loc: absoluteUrl(resolvePuzzlePath(puzzle.slug), base),
+      loc: absoluteUrl(puzzlePathForLanguage(puzzle.slug, puzzle.language), base),
       imageLoc: puzzle.thumbnailUrl.startsWith("http")
         ? puzzle.thumbnailUrl
         : absoluteUrl(puzzle.thumbnailUrl, base),

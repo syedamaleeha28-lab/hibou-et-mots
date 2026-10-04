@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db/client"
-import { absoluteUrl, DEFAULT_SITE_URL, ptPuzzlePath, resolvePuzzlePath } from "@/lib/seo/routes"
+import { absoluteUrl, DEFAULT_SITE_URL, puzzlePathForLanguage } from "@/lib/seo/routes"
 import type { SitemapUrlEntry } from "./types"
 import { seedPublishedPuzzleCount } from "./pilot-entries"
 import { seedPuzzleSitemapEntries } from "./seed-entries"
@@ -19,16 +19,6 @@ export async function getPublishedPuzzleCount(): Promise<number> {
 export async function getPuzzleSitemapBatchCount(): Promise<number> {
   const total = await getPublishedPuzzleCount()
   return Math.max(1, Math.ceil(total / SITEMAP_PUZZLE_BATCH_SIZE))
-}
-
-// PT-BR pack: was always resolvePuzzlePath (→ /mots-meles/{slug}/)
-// regardless of the puzzle's actual language. Portuguese puzzle URLs are
-// /caca-palavras/{slug}/ — without this, all 12 PT puzzle sitemap entries
-// pointed at French-prefixed URLs that don't match the real route
-// (app/caca-palavras/[slug]/page.tsx), while the actual PT puzzle pages
-// went undiscovered.
-function puzzlePathForLanguage(slug: string, language: string): string {
-  return language === "pt-BR" ? ptPuzzlePath(slug) : resolvePuzzlePath(slug)
 }
 
 export async function getPuzzleSitemapEntries(

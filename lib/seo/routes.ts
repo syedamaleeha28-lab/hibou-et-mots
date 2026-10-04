@@ -134,6 +134,11 @@ export function ptPuzzlePath(slug: string): string {
   return `/caca-palavras/${slug}/`
 }
 
+/** Public puzzle URL. Portuguese puzzles live under /caca-palavras/. */
+export function puzzlePathForLanguage(slug: string, language?: string | null): string {
+  return language === "pt-BR" ? ptPuzzlePath(slug) : puzzlePath(slug)
+}
+
 export const DEFAULT_SITE_URL = "https://hibou-et-mots.com"
 
 export const CONTACT_EMAIL = "hibou.et.mots@gmail.com"

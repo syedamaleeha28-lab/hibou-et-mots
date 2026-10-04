@@ -27,10 +27,8 @@ import {
   CATEGORY_PAGE_SIZE,
 } from "@/lib/seo/templates"
 import {
-  ptPuzzlePath,
-  puzzlePath,
+  puzzlePathForLanguage,
   resolveCategoryPath,
-  resolvePuzzlePath,
 } from "@/lib/seo/routes"
 import { HUB_CATEGORY_SLUGS } from "@/lib/db/adapters/category-constants"
 import { buildBreadcrumbs } from "@/lib/seo/breadcrumbs"
@@ -88,7 +86,7 @@ export function mapPuzzleToCardData(
   // to "fr"). Without this branch, Portuguese puzzle cards would link to
   // /mots-meles/[slug]/ — a French-prefixed URL with no matching content
   // language. Route file for the PT path is app/caca-palavras/[slug]/page.tsx.
-  const href = puzzle.language === "pt-BR" ? ptPuzzlePath(puzzle.slug) : puzzlePath(puzzle.slug)
+  const href = puzzlePathForLanguage(puzzle.slug, puzzle.language)
   return {
     id: puzzle.id,
     slug: puzzle.slug,
@@ -316,7 +314,7 @@ export function mapPuzzleToPageData(
   const grid = puzzle.gridData as string[][]
   const wordList = puzzle.wordList as PuzzlePageData["wordList"]
   const solutionData = puzzle.solutionData as PuzzlePageData["solutionData"]
-  const canonicalPath = resolvePuzzlePath(puzzle.slug)
+  const canonicalPath = puzzlePathForLanguage(puzzle.slug, puzzle.language)
 
   const parentCategories = puzzle.categories.map((cp) =>
     mapCategoryToSummary(cp.category as CategoryRecord),

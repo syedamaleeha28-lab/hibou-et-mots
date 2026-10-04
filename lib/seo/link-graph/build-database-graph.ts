@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/db/client"
 import type { CategoryType } from "@/lib/db/types/page-data"
 import { buildComboParentLinks } from "@/lib/seo/linking"
-import { ROUTES, resolveCategoryPath, resolvePuzzlePath } from "@/lib/seo/routes"
+import { puzzlePathForLanguage, ROUTES, resolveCategoryPath } from "@/lib/seo/routes"
 import type { GraphAdjacency } from "./build-seed-graph"
 import { collectHomeNavigationLinks } from "./build-seed-graph"
 import { normalizeGraphPath } from "./paths"
@@ -35,7 +35,7 @@ export async function buildDatabaseLinkGraph(): Promise<GraphAdjacency | null> {
         pressBrand: true,
         puzzles: {
           where: { puzzle: { status: "PUBLISHED" } },
-          include: { puzzle: { select: { slug: true } } },
+          include: { puzzle: { select: { slug: true, language: true } } },
         },
       },
     })
@@ -67,7 +67,7 @@ export async function buildDatabaseLinkGraph(): Promise<GraphAdjacency | null> {
       }
 
       for (const link of category.puzzles) {
-        addEdge(adjacency, path, resolvePuzzlePath(link.puzzle.slug))
+        addEdge(adjacency, path, puzzlePathForLanguage(link.puzzle.slug, link.puzzle.language))
       }
     }
 
@@ -82,11 +82,11 @@ export async function buildDatabaseLinkGraph(): Promise<GraphAdjacency | null> {
 
     const puzzles = await prisma.puzzle.findMany({
       where: { status: "PUBLISHED" },
-      select: { slug: true },
+      select: { slug: true, language: true },
     })
 
     for (const puzzle of puzzles) {
-      addEdge(adjacency, resolvePuzzlePath(puzzle.slug), ROUTES.generateur)
+      addEdge(adjacency, puzzlePathForLanguage(puzzle.slug, puzzle.language), ROUTES.generateur)
     }
 
     return adjacency
@@ -128,11 +128,11 @@ export async function listDatabaseRequiredPages(): Promise<string[] | null> {
 
     const puzzles = await prisma.puzzle.findMany({
       where: { status: "PUBLISHED" },
-      select: { slug: true },
+      select: { slug: true, language: true },
     })
 
     for (const puzzle of puzzles) {
-      pages.add(resolvePuzzlePath(puzzle.slug))
+      pages.add(puzzlePathForLanguage(puzzle.slug, puzzle.language))
     }
 
     return [...pages]

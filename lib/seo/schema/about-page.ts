@@ -1,8 +1,8 @@
-import { SITE_AUTHOR, SITE_CONTENT_UPDATED_DATE, SITE_PUBLISHED_DATE } from "@/lib/content/author"
+import { SITE_CONTENT_UPDATED_DATE, SITE_PUBLISHED_DATE } from "@/lib/content/author"
 import { ROUTES, absoluteUrl, DEFAULT_SITE_URL } from "@/lib/seo/routes"
 import { buildBreadcrumbListSchema } from "@/lib/seo/breadcrumbs"
 import { buildOrganizationSchema } from "./home"
-import { buildPersonSchema } from "./person"
+import { organizationSchemaId } from "./person"
 import { buildSchemaGraph } from "./graph"
 
 const ABOUT_TITLE = "À propos de Hibou&Mots"
@@ -32,7 +32,7 @@ export function buildAboutPageSchemaGraph(siteUrl?: string): Record<string, unkn
     isPartOf: { "@id": `${homeUrl}#website` },
     about: { "@id": `${homeUrl}#organization` },
     publisher: { "@id": `${homeUrl}#organization` },
-    author: { "@id": `${absoluteUrl(ROUTES.auteur, base)}#person` },
+    author: { "@id": organizationSchemaId(siteUrl) },
     datePublished: SITE_PUBLISHED_DATE,
     dateModified: SITE_CONTENT_UPDATED_DATE,
   }
@@ -41,6 +41,5 @@ export function buildAboutPageSchemaGraph(siteUrl?: string): Record<string, unkn
     breadcrumb,
     webPage,
     buildOrganizationSchema(siteUrl),
-    buildPersonSchema(siteUrl),
   ])
 }

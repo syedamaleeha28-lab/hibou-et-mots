@@ -19,13 +19,13 @@ const LABELS: Record<string, { solution: string; footerGrid: string; footerSolut
     solution: "Corrigé",
     footerGrid: "Hibou & Mots — Page 1 — Grille",
     footerSolution: "Hibou & Mots — Page 2 — Corrigé",
-    author: "Sophie Martin",
+    author: "Hibou & Mots",
   },
   "pt-BR": {
     solution: "Gabarito",
     footerGrid: "Hibou & Mots — Página 1 — Grade",
     footerSolution: "Hibou & Mots — Página 2 — Gabarito",
-    author: "Sophie Martin",
+    author: "Hibou & Mots",
   },
 }
 

@@ -59,7 +59,7 @@ describe("pedagogie page migration", () => {
 
     expect(oldTypes).toContain("ItemList")
     expect(newTypes).not.toContain("ItemList")
-    expect(newTypes.sort()).toEqual(["BreadcrumbList", "FAQPage", "WebPage"])
+    expect(newTypes.sort()).toEqual(["BreadcrumbList", "FAQPage", "Person", "WebPage"])
   })
 
   it("resolves pedagogie content page data", async () => {

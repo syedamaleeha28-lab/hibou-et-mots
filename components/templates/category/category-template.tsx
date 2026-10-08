@@ -134,7 +134,7 @@ export function CategoryTemplate({ category }: CategoryTemplateProps) {
           <FaqAccordion items={category.faqJson} locale={resolvedLocale} />
 
           {!isPtBr && shouldShowAuthorAttribution(category.slug, category.type) && (
-            <AuthorAttribution />
+            <AuthorAttribution pagePath={category.canonicalPath} />
           )}
 
           <RelatedCategoriesRow categories={category.relatedCategories} locale={resolvedLocale} />

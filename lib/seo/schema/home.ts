@@ -6,7 +6,6 @@ import {
   DEFAULT_SITE_URL,
 } from "@/lib/seo/routes"
 import { SITE_AUTHOR } from "@/lib/content/author"
-import { buildPersonSchema } from "./person"
 import { HOME_FAQ } from "@/lib/content/phase1"
 import { getPopularPuzzleListItems } from "@/lib/home/popular-puzzle-links"
 import { buildFaqPageSchema } from "./faq-page"
@@ -57,7 +56,6 @@ export function buildOrganizationSchema(siteUrl?: string) {
     email: CONTACT_EMAIL,
     description: SITE_AUTHOR.mission,
     foundingDate: "2024",
-    founder: { "@id": `${absoluteUrl(ROUTES.auteur, base)}#person` },
     knowsAbout: [...SITE_AUTHOR.knowsAbout],
     sameAs: [...SOCIAL_PROFILE_URLS],
   }
@@ -73,7 +71,6 @@ export function buildHomePageSchemaGraph(siteUrl?: string): Record<string, unkno
   return buildSchemaGraph([
     buildWebSiteSchema(siteUrl),
     buildOrganizationSchema(siteUrl),
-    buildPersonSchema(siteUrl),
     popularPuzzlesList,
     ...(faqPage ? [faqPage] : []),
   ])

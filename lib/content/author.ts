@@ -1,16 +1,12 @@
 import type { CategoryType } from "@/lib/db/types/page-data"
 import { CONTACT_EMAIL, ROUTES } from "@/lib/seo/routes"
 
-/** Editorial identity for E-E-A-T (Experience, Expertise, Authoritativeness, Trust). */
+/** Publisher identity. Not a person, and not a founder biography. */
 export const SITE_AUTHOR = {
-  name: "Sophie Martin",
-  jobTitle: "Créatrice de contenu éducatif & enseignante",
-  slug: "sophie-martin",
+  name: "Hibou & Mots",
   email: CONTACT_EMAIL,
   mission:
     "Rendre les mots mêlés gratuits accessibles aux enfants, aux enseignants et aux familles en français — pour enrichir le vocabulaire en s'amusant, à la maison comme en classe.",
-  experience:
-    "Sophie Martin a enseigné en école primaire pendant 8 ans avant de créer Hibou&Mots en 2024 pour partager des ressources pédagogiques gratuites avec les enseignants et les familles francophones.",
   purpose:
     "Hibou&Mots est un site éducatif gratuit qui propose des mots mêlés à jouer en ligne ou à imprimer en PDF, un générateur personnalisé et des ressources pour les enseignants et les parents.",
   knowsAbout: [

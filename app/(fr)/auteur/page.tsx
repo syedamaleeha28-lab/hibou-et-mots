@@ -3,26 +3,25 @@ import Link from "next/link"
 import { AuthorAttribution } from "@/components/seo/author-attribution"
 import { BreadcrumbTrail } from "@/components/layout/breadcrumb-trail"
 import { SchemaJsonLd } from "@/components/seo"
+import { formatFrenchDate, SITE_CONTENT_UPDATED_DATE, SITE_PUBLISHED_DATE } from "@/lib/content/author"
 import {
-  formatFrenchDate,
-  SITE_AUTHOR,
-  SITE_CONTENT_UPDATED_DATE,
-  SITE_PUBLISHED_DATE,
-} from "@/lib/content/author"
+  REVIEWER_PAGE_DESCRIPTION,
+  REVIEWER_PAGE_H1,
+  REVIEWER_PAGE_HEADING,
+  REVIEWER_PAGE_TITLE,
+  SITE_REVIEWER,
+} from "@/lib/content/reviewer"
 import { buildStaticPageMetadata } from "@/lib/seo/metadata"
 import { buildAuthorPageSchemaGraph } from "@/lib/seo/schema/author-page"
 import { CONTACT_EMAIL, ROUTES } from "@/lib/seo/routes"
 
 const PAGE_PATH = ROUTES.auteur
-const META_TITLE = "Auteur — Sophie Martin"
-const META_DESCRIPTION =
-  "Sophie Martin, créatrice de contenu éducatif et enseignante : découvrez l'auteure de Hibou&Mots, mots mêlés éducatifs gratuits en français pour les enfants, les enseignants et les familles."
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildStaticPageMetadata({
     path: PAGE_PATH,
-    title: META_TITLE,
-    description: META_DESCRIPTION,
+    title: REVIEWER_PAGE_TITLE,
+    description: REVIEWER_PAGE_DESCRIPTION,
   })
 }
 
@@ -37,16 +36,15 @@ export default function AuthorPage() {
           <BreadcrumbTrail
             items={[
               { label: "Accueil", href: ROUTES.home },
-              { label: "Auteur", href: PAGE_PATH },
+              { label: "Enseignant", href: PAGE_PATH },
             ]}
             className="mb-6"
           />
 
           <header className="flex flex-col gap-3">
             <h1 className="font-heading text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-              {SITE_AUTHOR.name}
+              {REVIEWER_PAGE_H1}
             </h1>
-            <p className="text-lg font-semibold text-primary">{SITE_AUTHOR.jobTitle}</p>
             <p className="max-w-xl text-sm text-muted-foreground">
               Publié le {formatFrenchDate(SITE_PUBLISHED_DATE)} · Mis à jour le{" "}
               {formatFrenchDate(SITE_CONTENT_UPDATED_DATE)}
@@ -54,48 +52,21 @@ export default function AuthorPage() {
           </header>
 
           <div className="prose prose-neutral mt-8 max-w-none text-foreground/90">
-            <h2>À propos de l&apos;auteure</h2>
+            <h2>{REVIEWER_PAGE_HEADING}</h2>
+            <p>{SITE_REVIEWER.description}</p>
             <p>
-              <strong>{SITE_AUTHOR.name}</strong> conçoit et publie l&apos;ensemble du contenu
-              éditorial de Hibou&Mots : grilles de mots mêlés, jeux de mots cachés, guides
-              pédagogiques et ressources pour la classe. Le site est édité en français, sans
-              inscription obligatoire, pour un usage familial et scolaire.
-            </p>
-
-            <h2>Mission éducative</h2>
-            <p>{SITE_AUTHOR.mission}</p>
-            <p>
-              Consultez aussi la page{" "}
-              <Link href={ROUTES.aPropos}>À propos de Hibou&Mots</Link> pour la présentation
-              complète du projet.
-            </p>
-
-            <h2>Expérience en contenu éducatif</h2>
-            <p>{SITE_AUTHOR.experience}</p>
-            <ul>
-              {SITE_AUTHOR.knowsAbout.map((topic) => (
-                <li key={topic}>{topic}</li>
-              ))}
-            </ul>
-
-            <h2>Objectif du site</h2>
-            <p>{SITE_AUTHOR.purpose}</p>
-            <p>
-              Parcourez le <Link href={ROUTES.gratuits}>catalogue gratuit</Link>, le{" "}
-              <Link href={ROUTES.generateur}>générateur de grilles</Link> ou les ressources{" "}
-              <Link href={ROUTES.pedagogie}>pédagogie des mots mêlés</Link>.
+              Consultez aussi la page <Link href={ROUTES.aPropos}>À propos de Hibou&Mots</Link>.
             </p>
 
             <h2>Contact</h2>
             <p>
-              Pour toute question éditoriale ou pédagogique :{" "}
-              <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> ou le{" "}
+              Pour toute question : <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> ou le{" "}
               <Link href={ROUTES.contact}>formulaire de contact</Link>.
             </p>
           </div>
 
           <div className="mt-8">
-            <AuthorAttribution variant="detailed" />
+            <AuthorAttribution pagePath={PAGE_PATH} />
           </div>
         </div>
       </div>

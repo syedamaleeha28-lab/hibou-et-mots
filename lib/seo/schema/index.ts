@@ -14,7 +14,9 @@ export { buildAuthorPageSchemaGraph } from "./author-page"
 export {
   buildContentWebPageSchema,
   buildPersonSchema,
+  buildReviewerPersonSchema,
   personSchemaId,
+  reviewerSchemaId,
 } from "./person"
 export {
   buildHomePageSchemaGraph,

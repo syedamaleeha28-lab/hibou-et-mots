@@ -121,8 +121,8 @@ export default function AboutPage() {
             </p>
 
             <p>
-              En savoir plus sur l&apos;auteure :{" "}
-              <Link href={ROUTES.auteur}>Sophie Martin — page auteur</Link>.
+              En savoir plus sur l&apos;enseignant :{" "}
+              <Link href={ROUTES.auteur}>Faqir Syed Iftikhar, enseignant</Link>.
             </p>
           </div>
 

@@ -4,7 +4,7 @@ import {
 } from "@/lib/content/author"
 import { absoluteUrl } from "@/lib/seo/routes"
 import type { PuzzlePageData } from "@/lib/db/types/page-data"
-import { personSchemaId } from "./person"
+import { organizationSchemaId } from "./person"
 import { CREATIVE_WORK_SCHEMA_TYPES, type CreativeWorkSchema } from "./types"
 
 const CHILD_GRADE_SLUGS = new Set([
@@ -52,8 +52,8 @@ export function buildCreativeWorkSchema(
     learningResourceType: "puzzle",
     educationalUse: "Vocabulaire et orthographe",
     isAccessibleForFree: true,
-    author: { "@id": personSchemaId(siteUrl) },
-    creator: { "@id": personSchemaId(siteUrl) },
+    author: { "@id": organizationSchemaId(siteUrl) },
+    creator: { "@id": organizationSchemaId(siteUrl) },
     datePublished: SITE_PUBLISHED_DATE,
     dateModified: SITE_CONTENT_UPDATED_DATE,
     genre: puzzle.theme?.name,

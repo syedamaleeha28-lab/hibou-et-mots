@@ -1,8 +1,13 @@
 import type { CategoryPageData, PuzzlePageData } from "@/lib/db/types/page-data"
 import type { ContentPageData } from "@/lib/db/types/content-page-data"
 import { shouldShowAuthorAttribution } from "@/lib/content/author"
+import { isReviewedPage } from "@/lib/content/reviewer"
 import { buildBreadcrumbListSchema, type BreadcrumbItem } from "@/lib/seo/breadcrumbs"
-import { buildContentWebPageSchema, buildPersonSchema, personSchemaId } from "./person"
+import {
+  buildContentWebPageSchema,
+  buildReviewerPersonSchema,
+  organizationSchemaId,
+} from "./person"
 import { buildCollectionPageSchema, itemListId } from "./collection-page"
 import { buildCreativeWorkSchema } from "./creative-work"
 import { buildFaqPageSchema } from "./faq-page"
@@ -71,6 +76,10 @@ export function buildCategoryPageSchemaGraph(
     )
   }
 
+  if (isReviewedPage(category.canonicalPath)) {
+    nodes.push(buildReviewerPersonSchema(siteUrl))
+  }
+
   return buildSchemaGraph(nodes)
 }
 
@@ -93,15 +102,15 @@ export function buildPuzzlePageSchemaGraph(
   const baseCreativeWork =
     puzzle.schema.creativeWork ??
     buildCreativeWorkSchema(puzzle, siteUrl, puzzle.thumbnailUrl)
-  const authorRef = { "@id": personSchemaId(siteUrl) }
+  const authorRef = { "@id": organizationSchemaId(siteUrl) }
   const creativeWork = {
     ...baseCreativeWork,
-    author: baseCreativeWork.author ?? authorRef,
-    creator: baseCreativeWork.creator ?? authorRef,
+    author: authorRef,
+    creator: authorRef,
   }
   const faqPage = puzzle.schema.faqPage
 
-  return buildSchemaGraph([breadcrumb, creativeWork, buildPersonSchema(siteUrl), faqPage])
+  return buildSchemaGraph([breadcrumb, creativeWork, faqPage])
 }
 
 export function buildBreadcrumbSchemaGraph(
@@ -132,6 +141,10 @@ export function buildContentPageSchemaGraph(
     }),
   ]
   if (faqPage) nodes.push(faqPage)
+
+  if (isReviewedPage(page.canonicalPath)) {
+    nodes.push(buildReviewerPersonSchema(siteUrl))
+  }
 
   return buildSchemaGraph(nodes)
 }

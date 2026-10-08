@@ -42,7 +42,7 @@ export function ContentPageTemplate({ page, children }: ContentPageTemplateProps
 
           <FaqAccordion items={page.faqJson} />
 
-          {showAuthor ? <AuthorAttribution /> : null}
+          {showAuthor ? <AuthorAttribution pagePath={page.canonicalPath} /> : null}
 
           <ContentRelatedLinks links={page.relatedLinks} />
 

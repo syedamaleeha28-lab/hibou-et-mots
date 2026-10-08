@@ -4,6 +4,7 @@ import {
   PEDAGOGIE_EDUCATIONAL_LINKS,
   PEDAGOGIE_GRADE_ROWS,
   PEDAGOGIE_SECTIONS,
+  PEDAGOGIE_TEACHER_ADVICE,
 } from "@/lib/content/pedagogie"
 import { ROUTES, gradePath } from "@/lib/seo/routes"
 
@@ -90,6 +91,33 @@ export function PedagogieEditorial() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="rounded-3xl border border-border bg-card/70 p-6 sm:p-8">
+        <h2 className="font-heading text-xl font-extrabold text-foreground">
+          {PEDAGOGIE_TEACHER_ADVICE.title}
+        </h2>
+        <div className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground">
+          <p>{PEDAGOGIE_TEACHER_ADVICE.intro}</p>
+          {PEDAGOGIE_TEACHER_ADVICE.blocks.map((block) =>
+            "items" in block ? (
+              <div key={block.label}>
+                <p>
+                  <strong className="text-foreground">{block.label}</strong>
+                </p>
+                <ul className="mt-2 list-disc space-y-1 pl-5">
+                  {block.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <p key={block.label}>
+                <strong className="text-foreground">{block.label}</strong> {block.text}
+              </p>
+            ),
+          )}
+        </div>
       </section>
     </div>
   )

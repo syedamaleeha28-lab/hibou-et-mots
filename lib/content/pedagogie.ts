@@ -174,12 +174,58 @@ export const PEDAGOGIE_GRADE_ROWS = [
   },
 ] as const
 
+/** Teacher advice appended after the existing pédagogie sections. */
+export const PEDAGOGIE_TEACHER_ADVICE = {
+  title: "Conseils d'un enseignant : les mots mêlés en classe et à la maison",
+  intro:
+    "Faqir Syed Iftikhar enseigne l'anglais et les mathématiques du Grade 4 au Grade 12 (programme CBSE) à Royal Academy School. Il utilise surtout les mots mêlés pour le vocabulaire et l'orthographe. Ses conseils valent pour toutes les langues.",
+  blocks: [
+    {
+      label: "Quand les utiliser.",
+      text: "En début de cours, pour réviser le vocabulaire de la leçon précédente. En fin de cours, comme renforcement ludique. Pour les élèves qui finissent plus tôt, ils continuent d'apprendre seuls pendant que l'enseignant aide les autres.",
+    },
+    {
+      label: "Quelle grille pour quel âge.",
+      items: [
+        "Jeunes élèves : grille de 8×8 ou 10×10, 5 à 8 mots.",
+        "Niveau intermédiaire : 10×10 ou 12×12, 8 à 12 mots.",
+        "Élèves plus âgés ou plus forts : 15×15, 12 à 20 mots, avec diagonales et mots à l'envers.",
+      ],
+    },
+    {
+      label: "Avec ou sans liste de mots.",
+      text: "Avec une liste, les élèves trouvent les mots plus vite, surtout pour du vocabulaire nouveau. Sans liste, c'est un défi de mémoire et de vocabulaire. Les erreurs les plus fréquentes : oublier les mots écrits à l'envers ou en diagonale, confondre des lettres proches, ou ne trouver qu'une partie du mot.",
+    },
+    {
+      label: "Adapter la difficulté.",
+      text: "Pour les lecteurs en difficulté : une petite grille avec peu de mots, un vocabulaire familier, une liste de mots claire et, si besoin, la première lettre surlignée ou un indice. Pour les élèves plus rapides : une grille plus grande, des mots plus longs, des diagonales ou des mots à l'envers, ou une phrase à écrire avec chaque mot trouvé.",
+    },
+    {
+      label: "Ce que ça apporte.",
+      text: "La reconnaissance du vocabulaire, l'orthographe, l'attention visuelle et la concentration. Faqir remarque aussi que des élèves peu attirés par l'écrit deviennent très concentrés quand l'activité ressemble à un jeu, et qu'ils s'entraident et discutent des mots.",
+    },
+    {
+      label: "À la maison.",
+      text: "Gardez la séance courte, simple et agréable, sans en faire un devoir. Choisissez des mots liés à ce que l'enfant apprend à l'école. Après chaque mot trouvé, demandez-lui de l'épeler, d'expliquer son sens ou de l'utiliser dans une phrase.",
+    },
+  ],
+} as const
+
 /** Flat copy for word-count audits (intro + sections + link labels). */
 export function pedagogieEditorialPlainText(): string {
   const sections = PEDAGOGIE_SECTIONS.flatMap((section) => [
     section.title,
     ...section.paragraphs,
   ]).join(" ")
+  const advice = [
+    PEDAGOGIE_TEACHER_ADVICE.title,
+    PEDAGOGIE_TEACHER_ADVICE.intro,
+    ...PEDAGOGIE_TEACHER_ADVICE.blocks.flatMap((block) => [
+      block.label,
+      "text" in block ? block.text : "",
+      ...("items" in block ? block.items : []),
+    ]),
+  ].join(" ")
   const links = PEDAGOGIE_EDUCATIONAL_LINKS.map((link) => link.label).join(" ")
   const grades = PEDAGOGIE_GRADE_ROWS.flatMap((row) => [
     row.label,
@@ -188,5 +234,5 @@ export function pedagogieEditorialPlainText(): string {
     row.focus,
   ]).join(" ")
   const faq = PEDAGOGIE_FAQ.flatMap((item) => [item.question, item.answer]).join(" ")
-  return [PEDAGOGIE_INTRO, sections, links, grades, faq].join(" ")
+  return [PEDAGOGIE_INTRO, sections, advice, links, grades, faq].join(" ")
 }

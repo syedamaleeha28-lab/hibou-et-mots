@@ -144,13 +144,13 @@ describe("schema graph", () => {
     const nodes = graph["@graph"] as Array<Record<string, unknown>>
     expect(nodes.some((node) => schemaNodeHasType(node, "CreativeWork"))).toBe(true)
     expect(nodes.some((node) => node["@type"] === "BreadcrumbList")).toBe(true)
-    expect(nodes.some((node) => node["@type"] === "Person")).toBe(true)
+    expect(nodes.some((node) => node["@type"] === "Person")).toBe(false)
     const creativeWork = nodes.find((node) => schemaNodeHasType(node, "CreativeWork")) as Record<
       string,
       unknown
     >
     expect(creativeWork.author).toEqual(
-      expect.objectContaining({ "@id": expect.stringContaining("#person") }),
+      expect.objectContaining({ "@id": expect.stringContaining("#organization") }),
     )
   })
 

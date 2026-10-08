@@ -1,10 +1,6 @@
-import { SITE_AUTHOR, SITE_CONTENT_UPDATED_DATE, SITE_PUBLISHED_DATE } from "@/lib/content/author"
-import {
-  CONTACT_EMAIL,
-  ROUTES,
-  absoluteUrl,
-  DEFAULT_SITE_URL,
-} from "@/lib/seo/routes"
+import { SITE_CONTENT_UPDATED_DATE, SITE_PUBLISHED_DATE } from "@/lib/content/author"
+import { isReviewedPage, SITE_REVIEWER } from "@/lib/content/reviewer"
+import { ROUTES, absoluteUrl, DEFAULT_SITE_URL } from "@/lib/seo/routes"
 
 const SITE_NAME = "Hibou&Mots"
 
@@ -18,21 +14,26 @@ export function organizationSchemaId(siteUrl?: string): string {
   return `${absoluteUrl(ROUTES.home, base)}#organization`
 }
 
-export function buildPersonSchema(siteUrl?: string): Record<string, unknown> {
+/** Stable graph id only. The reviewer Person has no url property. */
+export function reviewerSchemaId(siteUrl?: string): string {
   const base = (siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL).replace(/\/$/, "")
-  const authorUrl = absoluteUrl(ROUTES.auteur, base)
+  return `${absoluteUrl(ROUTES.home, base)}#person-faqir-syed-iftikhar`
+}
 
+export function buildReviewerPersonSchema(siteUrl?: string): Record<string, unknown> {
   return {
     "@type": "Person",
-    "@id": personSchemaId(siteUrl),
-    name: SITE_AUTHOR.name,
-    url: authorUrl,
-    email: CONTACT_EMAIL,
-    jobTitle: SITE_AUTHOR.jobTitle,
-    description: `${SITE_AUTHOR.experience} ${SITE_AUTHOR.mission}`,
-    worksFor: { "@id": organizationSchemaId(siteUrl) },
-    knowsAbout: [...SITE_AUTHOR.knowsAbout],
+    "@id": reviewerSchemaId(siteUrl),
+    name: SITE_REVIEWER.name,
+    jobTitle: SITE_REVIEWER.jobTitle,
+    description: SITE_REVIEWER.description,
+    worksFor: { ...SITE_REVIEWER.worksFor },
   }
+}
+
+/** The only Person node. A reviewer, not the writer or founder of the site. */
+export function buildPersonSchema(siteUrl?: string): Record<string, unknown> {
+  return buildReviewerPersonSchema(siteUrl)
 }
 
 export type ContentWebPageSchemaInput = {
@@ -64,7 +65,10 @@ export function buildContentWebPageSchema(
     inLanguage: "fr-FR",
     isPartOf: { "@id": `${homeUrl}#website` },
     publisher: { "@id": organizationSchemaId(input.siteUrl) },
-    author: { "@id": personSchemaId(input.siteUrl) },
+    author: { "@id": organizationSchemaId(input.siteUrl) },
+    ...(isReviewedPage(input.path)
+      ? { reviewedBy: { "@id": reviewerSchemaId(input.siteUrl) } }
+      : {}),
     datePublished: input.datePublished ?? SITE_PUBLISHED_DATE,
     dateModified: input.dateModified ?? SITE_CONTENT_UPDATED_DATE,
   }
